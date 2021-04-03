@@ -1,3 +1,6 @@
+[Help guide](https://beget.com/ru/kb/how-to/web-apps/node-js#)
+
+
 Enter to your Beget account  
 `ssh akuznetsov@akuznetsov.beget.tech`  
 Enter to Docker  
