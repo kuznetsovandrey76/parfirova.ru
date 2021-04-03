@@ -9,4 +9,4 @@ Enter to Docker
 Go to your project    
 `cd ~/parfirova.ru`  
 You should clone git project  
-`git clone https://github.com/kuznetsovandrey76/parvirova.ru.git ./`  
+`git clone https://github.com/kuznetsovandrey76/parfirova.ru.git ./`  
