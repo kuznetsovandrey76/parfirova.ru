@@ -1,4 +1,4 @@
 PassengerNodejs /home/a/akuznetsov/.local/bin/node
-PassengerAppRoot /home/a/akuznetsov/parfirova.ru/App
+PassengerAppRoot /home/a/akuznetsov/parfirova.ru/server
 PassengerAppType node
 PassengerStartupFile app.js
