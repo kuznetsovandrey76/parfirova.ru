@@ -3,10 +3,16 @@ const log = console.log
 const chalk = require('chalk');
 const mysql = require('mysql2');
 const express = require("express");
+require('dotenv/config');
+
 
 const app = express();
 
-app.use(express.static(__dirname + 'public'));
+if (process.env.NODE_ENV === "local") {
+    app.use(express.static(__dirname + './../public_html'));
+} else {
+    app.use(express.static(__dirname + 'public'));
+}
 
 app.use(express.json({ limit: '1mb'}));
 app.set("view engine", "pug");
@@ -17,10 +23,3 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => log(`Server running... \n` + chalk.black.bgGreen(`http://localhost:${PORT}/`)));
-
-// const http = require('http');
-// const server = http.createServer(function(req, res) {
-//   res.writeHead(200, { 'Content-Type': 'text/plain' });
-//   res.end('Hello, World!');
-// });
-// server.listen(3000);
