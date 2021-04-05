@@ -13,8 +13,20 @@ Initial step. You should clone git project or skip this step
 
 Update files    
 `git pull`  
-Update npm packages    
-`cd App`  
+Update npm packages for front   
+`cd public_html`  
+`npm i`  
+`npm run build`  
+Update npm packages for server   
+`cd server`  
 `npm i`  
 Restart Passenger    
 `touch tmp/restart.txt`  
+
+
+### Structure  
+```
+server/
+public_html/
+  build/
+public -> public_html
