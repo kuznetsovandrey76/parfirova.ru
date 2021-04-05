@@ -30,10 +30,11 @@ server/
 public_html/
   build/
 public -> public_html
+```
 
-Add bash script temp.sh 
+Add bash script `run.sh `
 ```
 #!/bin/bash
 echo "Hello world"
 ```
-Update this file `chmod ugo+x temp.sh`  
+Update this file `chmod ugo+x run.sh`  
