@@ -30,3 +30,10 @@ server/
 public_html/
   build/
 public -> public_html
+
+Add bash script temp.sh 
+```
+#!/bin/bash
+echo "Hello world"
+```
+Update this file `chmod ugo+x temp.sh`  
