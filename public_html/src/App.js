@@ -5,7 +5,6 @@ import axios from 'axios'
 import './App.css';
  
 class App extends React.Component {
- 
   render()  {
     return  (
       <BrowserRouter>
@@ -41,7 +40,6 @@ class App extends React.Component {
 }
  
 class Home extends React.Component {
- 
   render()  {
     return (
       <div>
@@ -57,7 +55,6 @@ class Homes extends React.Component {
     axios.get("/api/home").then((result) => {
       console.log(result);
     });
-    // this.setState({ [e.target.name]: e.target.value });
   }
 
   render()  {
