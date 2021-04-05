@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
- 
+import axios from 'axios'
+
 import './App.css';
  
 class App extends React.Component {
@@ -19,6 +20,9 @@ class App extends React.Component {
             <li>
               <Link to="/topics">Topics</Link>
             </li>
+            <li>
+              <Link to="/home">Test</Link>
+            </li>
           </ul>
  
           <hr />
@@ -26,7 +30,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/topics" component={Topics} />
-            <Route path="/home" component={Home} />
+            <Route path="/home" component={Homes} />
 
           </div>
         </div>
@@ -42,6 +46,24 @@ class Home extends React.Component {
     return (
       <div>
         <h2>Home</h2>
+      </div>
+    );
+  }
+}
+
+class Homes extends React.Component {
+  handleEvent = (e) => {
+    console.log(123)
+    axios.get("/api/home").then((result) => {
+      console.log(result);
+    });
+    // this.setState({ [e.target.name]: e.target.value });
+  }
+
+  render()  {
+    return (
+      <div>
+        <h2 onClick={e => this.handleEvent(e)}>Home</h2>
       </div>
     );
   }
