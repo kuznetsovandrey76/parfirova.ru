@@ -11,18 +11,8 @@ Go to your project
 Initial step. You should clone git project or skip this step    
 `git clone https://github.com/kuznetsovandrey76/parfirova.ru.git ./`  
 
-Update files    
-`git pull`  
-Update npm packages for front   
-`cd public_html`  
-`npm i`  
-`npm run build`  
-Update npm packages for server   
-`cd server`  
-`npm i`  
-Restart Passenger    
-`touch tmp/restart.txt`  
-
+Update project  
+`./run.sh`  
 
 ### Structure  
 ```
