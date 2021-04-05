@@ -2,6 +2,7 @@ const log = console.log
 
 const path = require('path')
 
+const cors = require('cors');
 const chalk = require('chalk');
 const mysql = require('mysql2');
 const bodyParser = require("body-parser");
@@ -10,6 +11,15 @@ const express = require("express");
 require('dotenv/config');
 
 const app = express();
+
+app.use(
+    cors({
+        origin: [
+            /^http:\/\/localhost:\d+$/,
+            'https://parfirova.ru'
+        ],
+    })
+);
 
 app.use(
     bodyParser.urlencoded({
