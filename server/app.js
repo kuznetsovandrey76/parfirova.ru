@@ -1,11 +1,11 @@
-const log = console.log
-
 const path = require('path')
 
 const cors = require('cors');
-const chalk = require('chalk');
-const mysql = require('mysql2');
+// const chalk = require('chalk');
+// const mysql = require('mysql2');
 const bodyParser = require("body-parser");
+
+const logger = require('./logger');
 
 const express = require("express");
 require('dotenv/config');
@@ -21,12 +21,7 @@ app.use(
     })
 );
 
-app.use(
-    bodyParser.urlencoded({
-      extended: true
-    })
-  );
-  
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const homeRouter = require('./routers/home-router');
@@ -42,4 +37,4 @@ app.get('*', (req, res) => {
 })
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => log(`Server running... \n` + chalk.black.bgGreen(`http://localhost:${PORT}/`)));
+app.listen(PORT, () => logger.info((`Server running... http://localhost:${PORT}/`)));
