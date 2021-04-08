@@ -28,3 +28,10 @@ Add bash script `run.sh `
 echo "Hello world"
 ```
 Update this file `chmod ugo+x run.sh`  
+
+
+### Development
+in server folder  
+`npm run local`  
+in public_html folder  
+`npm run start`  
