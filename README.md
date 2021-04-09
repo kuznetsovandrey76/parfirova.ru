@@ -38,3 +38,4 @@ in public_html folder
 
 ### UI
 https://react-bootstrap.github.io/getting-started/introduction/
+https://mdbootstrap.com/docs/react/navigation/footer/#docsTabsOverview
