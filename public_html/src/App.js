@@ -10,8 +10,8 @@ import './App.css';
 function App() {
   return (
     <Container fluid>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/about' component={AboutPage} />

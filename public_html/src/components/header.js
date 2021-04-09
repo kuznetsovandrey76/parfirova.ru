@@ -1,14 +1,20 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import BootstrapLink from './bootstrap-link';
+import { routes } from '../constants/routes';
 
 function Header() {
   return (
     <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
-      <Navbar.Brand href='/'>parfirova.ru</Navbar.Brand>
+      <Navbar.Brand>
+        <BootstrapLink href={routes.HOME} text='parfirova.ru' />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
-          <Nav.Link href='#features'>О себе</Nav.Link>
+          <Nav.Link>
+            <BootstrapLink href='/' text='О себе' />
+          </Nav.Link>
           <NavDropdown title='Достижения' id='collasible-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>Курсы / Вебинары</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>Конкурсы</NavDropdown.Item>
@@ -28,8 +34,12 @@ function Header() {
             <NavDropdown.Item href='#action/3.1'>Русский язык</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>Литература</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href='#deets'>Фотогалерея</Nav.Link>
-          <Nav.Link href='/about'>Контакты</Nav.Link>
+          <Nav.Link>
+            <BootstrapLink href={routes.GALLERY} text='Фотогалерея' />
+          </Nav.Link>
+          <Nav.Link>
+            <BootstrapLink href={routes.ABOUT} text='Контакты' />
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
