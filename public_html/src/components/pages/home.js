@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+
 import axios from 'axios';
 
 function HomePage() {
@@ -8,16 +10,14 @@ function HomePage() {
       const {
         data: { name },
       } = result;
-      console.log(name);
       setData(name);
     });
   };
 
   return (
     <>
-      <div>Home, World!!</div>
       <p>{data}</p>
-      <h2 onClick={handleEvent}>Home</h2>
+      <Button onClick={handleEvent}>Добро Пожаловать</Button>
     </>
   );
 }
