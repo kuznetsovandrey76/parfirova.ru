@@ -1,19 +1,25 @@
-import React from "react";
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
 
 function HomePage() {
-    const handleEvent = () => {
-        axios.get("/api/home").then((result) => {
-            console.log(result);
-        });
-    }
+  const [data, setData] = React.useState(null);
+  const handleEvent = () => {
+    axios.get('/api/home').then((result) => {
+      const {
+        data: { name },
+      } = result;
+      console.log(name);
+      setData(name);
+    });
+  };
 
-    return (
-        <>
-            <div>Home, World!!</div>
-            <h2 onClick={handleEvent}>Home</h2>
-        </>
-    )
+  return (
+    <>
+      <div>Home, World!!</div>
+      <p>{data}</p>
+      <h2 onClick={handleEvent}>Home</h2>
+    </>
+  );
 }
 
 export default HomePage;

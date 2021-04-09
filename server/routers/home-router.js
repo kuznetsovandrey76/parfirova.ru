@@ -4,7 +4,7 @@ const homeRouter = express.Router();
 
 homeRouter.get('/', async function (req, res) {
     try {
-        res.json({"mame": "Andrey"});
+        res.json({"name": "Andrey"});
     } catch (err) {
         console.log(err);
     }
