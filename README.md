@@ -6,7 +6,7 @@ Enter to Docker
 `ssh localhost -p 222`  
 
 Go to your project    
-`cd ~/parfirova.ru`  
+`cd parfirova.ru`  
 
 Initial step. You should clone git project or skip this step    
 `git clone https://github.com/kuznetsovandrey76/parfirova.ru.git ./`  
@@ -34,4 +34,4 @@ Update this file `chmod ugo+x run.sh`
 in server folder  
 `npm run local`  
 in public_html folder  
-`npm run start`  
+`yarn start`  
