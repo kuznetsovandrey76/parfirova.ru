@@ -15,7 +15,7 @@ Update project
 `./run.sh`  
 
 ### Structure  
-```
+``` sh
 server/
 public_html/
   build/
@@ -23,7 +23,7 @@ public -> public_html
 ```
 
 Add bash script `run.sh `
-```
+``` sh
 #!/bin/bash
 echo "Hello world"
 ```
@@ -39,3 +39,19 @@ in public_html folder
 ### UI
 https://react-bootstrap.github.io/getting-started/introduction/
 https://mdbootstrap.com/docs/react/navigation/footer/#docsTabsOverview
+
+
+### DB
+``` js
+HOST=akuznetsov.beget.tech
+DB=
+PASS=
+```
+``` sql
+create table msgs(
+    id int auto_increment,
+    msg text not null,
+    date DATETIME not null,
+    primary key (id)
+);
+```

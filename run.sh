@@ -1,5 +1,6 @@
 #!/bin/bash
 git pull
+yarn
 cd server/
 npm i
 cd ../public_html
