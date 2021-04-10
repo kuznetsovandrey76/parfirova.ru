@@ -4,16 +4,20 @@ import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function HomePage() {
-  const [data, setData] = React.useState(null);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const validateFields = (email, password) => {
+    if (!email.match(/\w+@\w+\.\w{2,}/i)) return false;
+    if (!password) return false;
+
+    return true;
+  };
 
   const handleChange = (e) => {
     const {
       target: { type, value },
     } = e;
-
-    console.log(type, value);
 
     switch (type) {
       case 'email':
@@ -25,14 +29,7 @@ function HomePage() {
     }
   };
 
-  const handleEvent = () => {
-    // axios.post('/api/home').then((result) => {
-    //   const {
-    //     data: { name },
-    //   } = result;
-    //   setData(name);
-    // });
-
+  const handleSubmit = () => {
     axios
       .post('/api/home', {
         email,
@@ -41,7 +38,8 @@ function HomePage() {
       .then((response) => {
         console.log(response);
 
-        setData(response.status);
+        setEmail('');
+        setPassword('');
       })
       .catch((error) => {
         console.log(error);
@@ -50,19 +48,17 @@ function HomePage() {
 
   return (
     <Container fluid>
-      <p>{data}</p>
-      <p>{`email: ${email}, password: ${password}`}</p>
       <Form>
         <Form.Group controlId='email'>
           <Form.Label>Email address</Form.Label>
-          <Form.Control type='email' placeholder='Enter email' onChange={handleChange} />
+          <Form.Control type='email' placeholder='Enter email' onChange={handleChange} value={email} />
           <Form.Text className='text-muted'>We&apos;ll never share your email with anyone else.</Form.Text>
         </Form.Group>
         <Form.Group controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control type='password' placeholder='Password' onChange={handleChange} />
+          <Form.Control type='password' placeholder='Password' onChange={handleChange} value={password} />
         </Form.Group>
-        <Button variant='primary' onClick={handleEvent}>
+        <Button variant='primary' onClick={handleSubmit} disabled={!validateFields(email, password)}>
           Отправить
         </Button>
       </Form>

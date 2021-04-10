@@ -5,3 +5,7 @@ body, html {
 .pointer {
   cursor: pointer;
 }
+
+.undecoration {
+  text-decoration: none;
+}

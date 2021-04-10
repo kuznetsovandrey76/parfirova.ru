@@ -12,7 +12,11 @@ function Footer() {
         </Row>
       </div>
       <div className='footer-second'>
-        &copy; {new Date().getFullYear()} Copyright: <a href='https://www.parfirova.ru'> parfirova.ru </a>
+        &copy; {new Date().getFullYear()} Copyright:{' '}
+        <a href='https://www.parfirova.ru' className='text-white undecoration'>
+          {' '}
+          parfirova.ru{' '}
+        </a>
       </div>
     </Container>
   );
