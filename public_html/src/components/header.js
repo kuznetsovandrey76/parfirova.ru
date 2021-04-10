@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import BootstrapLink from './bootstrap-link';
+import BootstrapLink from './shared/bootstrap-link';
 import { routes } from '../constants/routes';
 
 function Header() {
   return (
-    <Navbar collapseOnSelect expand='lg' bg='light' variant='light' className='mb-3 mx-n3'>
+    <Navbar collapseOnSelect expand='lg' bg='light' variant='light' className='mb-3'>
       <Navbar.Brand>
         <BootstrapLink href={routes.HOME} text='parfirova.ru' />
       </Navbar.Brand>
@@ -13,7 +13,7 @@ function Header() {
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
           <Nav.Link>
-            <BootstrapLink href='/' text='О себе' />
+            <BootstrapLink href={routes.HOME} text='О себе' />
           </Nav.Link>
           <NavDropdown title='Достижения' id='collasible-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>Курсы / Вебинары</NavDropdown.Item>

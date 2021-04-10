@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -15,10 +15,10 @@ function HomePage() {
   };
 
   return (
-    <>
+    <Container fluid>
       <p>{data}</p>
       <Button onClick={handleEvent}>Добро Пожаловать</Button>
-    </>
+    </Container>
   );
 }
 

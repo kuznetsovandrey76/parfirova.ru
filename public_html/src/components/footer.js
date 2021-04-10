@@ -1,40 +1,20 @@
 import React from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
+import { Container, Row, Col } from 'react-bootstrap';
+import './footer.css';
 
 function Footer() {
   return (
-    <MDBFooter color='blue' className='font-small pt-3 mt-3 mx-n3'>
-      <MDBContainer fluid className='text-center text-md-left'>
-        <MDBRow>
-          <MDBCol md='6'>
-            <h5 className='title'>Footer Content</h5>
-            <p>Here you can use rows and columns here to organize your footer content.</p>
-          </MDBCol>
-          <MDBCol md='6'>
-            <h5 className='title'>Links</h5>
-            <ul>
-              <li className='list-unstyled'>
-                <a href='#!'>Link 1</a>
-              </li>
-              <li className='list-unstyled'>
-                <a href='#!'>Link 2</a>
-              </li>
-              <li className='list-unstyled'>
-                <a href='#!'>Link 3</a>
-              </li>
-              <li className='list-unstyled'>
-                <a href='#!'>Link 4</a>
-              </li>
-            </ul>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className='footer-copyright text-center py-3'>
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href='https://www.parfirova.ru'> parfirova.ru </a>
-        </MDBContainer>
+    <Container fluid className='footer mt-3 p-0'>
+      <div className='footer-main'>
+        <Row className='m-0'>
+          <Col>Достижения</Col>
+          <Col>Ученикам</Col>
+        </Row>
       </div>
-    </MDBFooter>
+      <div className='footer-second'>
+        &copy; {new Date().getFullYear()} Copyright: <a href='https://www.parfirova.ru'> parfirova.ru </a>
+      </div>
+    </Container>
   );
 }
 

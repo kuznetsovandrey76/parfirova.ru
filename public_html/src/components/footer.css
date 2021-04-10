@@ -1,0 +1,16 @@
+.footer {
+    text-align: center;
+    color: lightgray;
+    padding: 0;
+  }
+  
+  .footer-main {
+    background-color:#2296f3;
+    padding: .5rem 0;
+  }
+  
+  .footer-second {
+    background-color: #1a78c3;
+    text-align: center;
+    padding: .5rem 0;
+  }
