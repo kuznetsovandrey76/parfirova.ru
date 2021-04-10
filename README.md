@@ -39,6 +39,7 @@ in public_html folder
 ### UI
 https://react-bootstrap.github.io/getting-started/introduction/
 https://mdbootstrap.com/docs/react/navigation/footer/#docsTabsOverview
+https://www.npmjs.com/package/react-loading-overlay
 
 
 ### DB
