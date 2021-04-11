@@ -20,10 +20,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const homeRouter = require('./routers/home-router');
+const russianRouter = require('./routers/russian-router');
 
 // process.env.NODE_ENV === "local"
 
 app.use('/api/home', homeRouter);
+app.use('/api/russian', russianRouter);
 
 app.use(express.static(path.resolve(__dirname, '..', 'public_html/build')));
 

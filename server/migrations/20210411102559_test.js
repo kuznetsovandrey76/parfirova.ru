@@ -7,7 +7,7 @@ const lesson = {
 };
 
 exports.up = async function (knex) {
-    await knex.schema.createTable('methodical_russian', (table) => {
+    await knex.schema.createTable('russian', (table) => {
         table.increments('id').primary().unique();
         table.text('header').notNullable();
         table.text('title').notNullable();
@@ -17,9 +17,9 @@ exports.up = async function (knex) {
         table.timestamps(true, true);
     });
 
-    await knex('methodical_russian').insert(lesson);
+    await knex('russian').insert(lesson);
 };
 
 exports.down = async function (knex) {
-    await knex.schema.dropTable('methodical_russian');
+    await knex.schema.dropTable('russian');
 };

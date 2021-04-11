@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 function RussianPage() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get('/api/russian')
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(data);
+
   return (
     <Container fluid>
       <h3 className='mb-3'>Русский язык</h3>
@@ -45,8 +60,8 @@ function RussianPage() {
             <Card.Body>
               <Card.Title>Широкая масленица</Card.Title>
               <Card.Text>Возрождение русских национальных традиций, воспитание у учащихся патриотизма</Card.Text>
-              <Button variant='info' block href='https://disk.yandex.ru/i/hpGyRO5tKlETtw' target='_blank'>
-                Посмотреть
+              <Button variant='info' block>
+                Console.log
               </Button>
             </Card.Body>
           </Card>
