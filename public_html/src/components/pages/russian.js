@@ -1,72 +1,48 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 function RussianPage() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     axios
       .get('/api/russian')
       .then((response) => {
         setData(response.data);
+        setLoading(true);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  console.log(data);
+  const notes = (data) =>
+    data.map((note) => {
+      const { id, header, title, text, summary_link } = note;
 
-  return (
-    <Container fluid>
-      <h3 className='mb-3'>Русский язык</h3>
-      <Row>
-        <Col xs={12} md={6} lg={4} className='mb-3'>
-          <Card>
+      return (
+        <Col xs={12} md={6} lg={4} className='mb-3' key={id}>
+          <Card bg='light' text='dark'>
+            <Card.Header>{header}</Card.Header>
             <Card.Body>
-              <Card.Title>1 lesson</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-              </Card.Text>
-              <Button variant='primary'>Go somewhere</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={6} lg={4} className='mb-3'>
-          <Card>
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-              </Card.Text>
-              <Button variant='primary'>Go somewhere</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={6} lg={4} className='mb-3'>
-          <Card>
-            <Card.Body>
-              <Card.Title>Широкая масленица</Card.Title>
-              <Card.Text>Возрождение русских национальных традиций, воспитание у учащихся патриотизма</Card.Text>
-              <Button variant='info' block href='https://disk.yandex.ru/i/hpGyRO5tKlETtw' target='_blank'>
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>{text}</Card.Text>
+              <Button variant='info' block href={summary_link} target='_blank'>
                 Посмотреть
               </Button>
             </Card.Body>
           </Card>
         </Col>
-        <Col xs={12} md={6} lg={4} className='mb-3'>
-          <Card bg='light' text='dark'>
-            <Card.Header>Открытый урок</Card.Header>
-            <Card.Body>
-              <Card.Title>Широкая масленица</Card.Title>
-              <Card.Text>Возрождение русских национальных традиций, воспитание у учащихся патриотизма</Card.Text>
-              <Button variant='info' block>
-                Console.log
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      );
+    });
+
+  return (
+    <Container fluid>
+      <h3 className='mb-3'>Русский язык</h3>
+      {loading && <Row>{notes(data)}</Row>}
     </Container>
   );
 }
