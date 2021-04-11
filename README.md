@@ -38,7 +38,6 @@ in public_html folder
 
 ### UI
 https://react-bootstrap.github.io/getting-started/introduction/
-https://mdbootstrap.com/docs/react/navigation/footer/#docsTabsOverview
 https://www.npmjs.com/package/react-loading-overlay
 
 
@@ -55,4 +54,11 @@ create table msgs(
     date DATETIME not null,
     primary key (id)
 );
+```
+
+### Knex
+``` bash
+npx knex migrate:make migration-name
+npx knex migrate:up 20210101100000_migration-name.js
+npx knex migrate:down 20210101100000_migration-name.js
 ```
