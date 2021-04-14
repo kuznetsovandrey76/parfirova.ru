@@ -1,4 +1,8 @@
 [Help guide](https://beget.com/ru/kb/how-to/web-apps/node-js#)
+``` sh
+wget https://nodejs.org/dist/v12.9.1/node-v12.9.1-linux-x64.tar.xz
+tar xJf node-v12.9.1-linux-x64.tar.xz --strip 1
+```
 
 Enter to your Beget account  
 `ssh akuznetsov@akuznetsov.beget.tech`  
@@ -62,3 +66,11 @@ npx knex migrate:make migration-name
 npx knex migrate:up 20210101100000_migration-name.js
 npx knex migrate:down 20210101100000_migration-name.js
 ```
+
+
+### Sass 
+https://www.youtube.com/watch?v=2MDpClJ7Z2o
+On the beget server we have nodeJS version 12, so we need to use `yarn add node-sass@4.12.0`  
+
+Yarn commands:  
+https://rightblog.ru/3504

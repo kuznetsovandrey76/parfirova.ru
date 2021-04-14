@@ -8,13 +8,13 @@ import { Header, Footer } from './components';
 import { store } from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Container fluid className='p-0'>
+        <Container fluid className='p-0 main'>
           <Header />
           <Switch>
             <Route exact path='/' component={HomePage} />

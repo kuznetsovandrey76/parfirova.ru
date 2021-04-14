@@ -1,0 +1,21 @@
+$min-footer-height: 96px;
+
+body, html {
+  overflow-x: hidden;
+}
+
+body, html, #root {
+  min-height: 100vh;
+}
+
+.main {
+  min-height: calc(100vh - #{$min-footer-height});
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.undecoration {
+  text-decoration: none;
+}
