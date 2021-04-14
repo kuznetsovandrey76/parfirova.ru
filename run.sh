@@ -1,21 +1,21 @@
 #!/bin/bash
-echo -e 'Pull changes from GitHub\n'
+echo -e '\n1. Pull changes from GitHub\n'
 git pull
 
-echo -e 'Install dependencies in root directory\n'
+echo -e '\n2. Install dependencies in root directory\n'
 yarn
 
-echo -e 'Install dependencies in server directory\n'
+echo -e '\n3. Install dependencies in server directory\n'
 cd server/
 npm i
 
-echo -e 'Install dependencies in frontend directory\n'
+echo -e '\n4. Install dependencies in frontend directory\n'
 cd ../public_html
 yarn
 
-echo -e 'Build frontend\n'
+echo -e '\n5. Build frontend\n'
 yarn build
 
-echo -e 'Restart server\n'
+echo -e '\n6. Restart server\n'
 cd ../server
 touch tmp/restart.txt
