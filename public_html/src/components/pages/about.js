@@ -1,48 +1,66 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 // import { Carousel, Container } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
-import { TweenMax, Power3, TimelineLite } from 'gsap';
+import { TweenMax } from 'gsap';
 import images from '../../assets/images';
 
 function AboutPage() {
   let logoContainer = useRef(null);
-  let logoTween = useRef(null);
+  // let logoTween = useRef(null);
+
+  const [animation, setAnimation] = useState(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    logoTween = new TimelineLite({ paused: true })
-      .to(logoContainer, 2, { x: 500 })
-      .to(logoContainer, 1, { rotation: 360, transformOrigin: 'center' });
+    // logoTween = new TimelineLite({ paused: true })
+    //   .to(logoContainer, 2, { x: 500 })
+    //   .to(logoContainer, 1, { rotation: 360, transformOrigin: 'center' });
 
-    // TweenMax.to(logoItem, 5, { opacity: 1, y: 0, easy: Power3.easeOut });
+    // TweenMax.to(logoContainer, 5, { opacity: 1, y: 0, easy: Power3.easeOut });
+    setAnimation(
+      TweenMax.to(logoContainer, 10, {
+        rotation: 360,
+        repeat: -1,
+      }).pause()
+    );
   }, []);
 
   return (
     <Container fluid>
       <img
         src={images.slide}
-        style={{ height: '200px', opacity: 1 }}
+        style={{ height: '150px', opacity: 1 }}
         className='App-logo'
         ref={(el) => {
           logoContainer = el;
         }}
       />
+
       <div>
-        <button className='btn gsap-btn' onClick={() => logoTween.play()}>
+        <button type='button' onClick={() => animation.play()}>
           Play
         </button>
-        <button className='btn gsap-btn' onClick={() => logoTween.pause()}>
+        <button type='button' onClick={() => animation.pause()}>
           Pause
         </button>
-        <button className='btn gsap-btn' onClick={() => logoTween.reverse()}>
+        <button type='button' onClick={() => animation.reverse()}>
           Reverse
         </button>
-        <button className='btn gsap-btn' onClick={() => logoTween.restart()}>
+      </div>
+      {/* <div>
+        <button type='button' className='btn gsap-btn' onClick={() => logoTween.play()}>
+          Play
+        </button>
+        <button type='button' className='btn gsap-btn' onClick={() => logoTween.pause()}>
+          Pause
+        </button>
+        <button type='button' className='btn gsap-btn' onClick={() => logoTween.reverse()}>
+          Reverse
+        </button>
+        <button type='button' className='btn gsap-btn' onClick={() => logoTween.restart()}>
           Restart
         </button>
-      </div>
+      </div> */}
+
       {/* <Carousel>
         <Carousel.Item>
           <img className='d-block w-100' src={images.slide} alt='First slide' />
