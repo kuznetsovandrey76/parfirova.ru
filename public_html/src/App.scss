@@ -19,3 +19,29 @@ body, html, #root {
 .undecoration {
   text-decoration: none;
 }
+
+
+// Breadcrumbs
+
+.breadcrumb {
+  margin-top: -1rem;
+  margin-left: -1rem;
+}
+
+ol.breadcrumb {
+  background-color: white;
+}
+
+
+// Navbar
+
+.navbar-nav {
+  & .dropdown-item {
+    padding: 0;
+
+    & .link {
+      padding: .25rem 1.5rem;
+      display: block;
+      }
+  }
+}

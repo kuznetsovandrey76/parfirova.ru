@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { Provider } from 'react-redux';
-import { AboutPage, GalleryPage, HomePage, RussianPage, LiteraturePage, ContactsPage } from './components/pages';
+import { pages } from './components/pages';
+import { routes } from './constants/routes';
 import { Header, Footer } from './components';
 
 import { store } from './store';
@@ -17,12 +18,21 @@ function App() {
         <Container fluid className='p-0 main'>
           <Header />
           <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route exact path='/about' component={AboutPage} />
-            <Route exact path='/gallery' component={GalleryPage} />
-            <Route exact path='/russian' component={RussianPage} />
-            <Route exact path='/literature' component={LiteraturePage} />
-            <Route exact path='/contacts' component={ContactsPage} />
+            <Route exact path={routes.HOME} component={pages.HomePage} />
+            <Route exact path={routes.ABOUT} component={pages.AboutPage} />
+            <Route exact path={routes.ACHIEVEMENTS} component={pages.AchievementsPage} />
+            <Route exact path={routes.CONTACTS} component={pages.ContactsPage} />
+            <Route exact path={routes.CONTESTS} component={pages.ContestsPage} />
+            <Route exact path={routes.COURSES} component={pages.CoursesPage} />
+            <Route exact path={routes.GALLERY} component={pages.GalleryPage} />
+            <Route exact path={routes.LITERATURE} component={pages.LiteraturePage} />
+            <Route exact path={routes.RUSSIAN} component={pages.RussianPage} />
+
+            <Route exact path={routes.FIFTH_GRADE} component={pages.fifthGradePage} />
+            <Route exact path={routes.SIXTH_GRADE} component={pages.sixthGradePage} />
+            <Route exact path={routes.SEVENTH_GRADE} component={pages.seventhGradePage} />
+            <Route exact path={routes.EIGHTH_GRADE} component={pages.eighthGradePage} />
+            <Route exact path={routes.NINTH_GRADE} component={pages.ninthGradePage} />
           </Switch>
         </Container>
         <Footer />

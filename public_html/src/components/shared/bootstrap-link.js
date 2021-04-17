@@ -9,7 +9,7 @@ BootstrapLink.propTypes = {
 
 function BootstrapLink(props) {
   return (
-    <LinkContainer to={props.href}>
+    <LinkContainer to={props.href} className='link'>
       <span className='pointer'>{props.text}</span>
     </LinkContainer>
   );

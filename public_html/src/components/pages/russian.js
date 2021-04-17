@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
+import BootstrapLink from '../shared/bootstrap-link';
+import { routes } from '../../constants/routes';
 
 function RussianPage() {
   const [data, setData] = useState([]);
@@ -41,7 +43,12 @@ function RussianPage() {
 
   return (
     <Container fluid>
-      <h3 className='mb-3'>Русский язык</h3>
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <BootstrapLink href={routes.HOME} text='Главная' />
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Русский язык</Breadcrumb.Item>
+      </Breadcrumb>
       {loading && <Row>{notes(data)}</Row>}
     </Container>
   );

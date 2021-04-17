@@ -1,27 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { Carousel, Container } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
-import { TweenMax } from 'gsap';
+// eslint-disable-next-line no-unused-vars
+import { TweenMax, TimelineLite, TweenLite } from 'gsap';
+import { Controls, PlayState, Tween } from 'react-gsap';
 import images from '../../assets/images';
 
+// https://greensock.com/react/
+
 function AboutPage() {
-  let logoContainer = useRef(null);
-  // let logoTween = useRef(null);
+  let element = useRef(null);
 
   const [animation, setAnimation] = useState(null);
 
   useEffect(() => {
-    // logoTween = new TimelineLite({ paused: true })
-    //   .to(logoContainer, 2, { x: 500 })
-    //   .to(logoContainer, 1, { rotation: 360, transformOrigin: 'center' });
-
-    // TweenMax.to(logoContainer, 5, { opacity: 1, y: 0, easy: Power3.easeOut });
-    setAnimation(
-      TweenMax.to(logoContainer, 10, {
-        rotation: 360,
-        repeat: -1,
-      }).pause()
-    );
+    // #1 Rotate
+    // setAnimation(
+    //   TweenMax.to(element, 10, {
+    //     rotation: 360,
+    //     repeat: -1,
+    //   }).pause()
+    // );
+    // #2 Move
+    setAnimation(TweenLite.to(element, 1, { x: 100, y: -100 }).pause());
   }, []);
 
   return (
@@ -31,7 +32,7 @@ function AboutPage() {
         style={{ height: '150px', opacity: 1 }}
         className='App-logo'
         ref={(el) => {
-          logoContainer = el;
+          element = el;
         }}
       />
 
@@ -46,21 +47,12 @@ function AboutPage() {
           Reverse
         </button>
       </div>
-      {/* <div>
-        <button type='button' className='btn gsap-btn' onClick={() => logoTween.play()}>
-          Play
-        </button>
-        <button type='button' className='btn gsap-btn' onClick={() => logoTween.pause()}>
-          Pause
-        </button>
-        <button type='button' className='btn gsap-btn' onClick={() => logoTween.reverse()}>
-          Reverse
-        </button>
-        <button type='button' className='btn gsap-btn' onClick={() => logoTween.restart()}>
-          Restart
-        </button>
-      </div> */}
 
+      <Controls playState={PlayState.stop}>
+        <Tween to={{ x: '200px', rotation: 180 }} duration={2} ease='back.out(1.7)'>
+          <div style={{ width: '100px', height: '100px', background: '#ccc' }} />
+        </Tween>
+      </Controls>
       {/* <Carousel>
         <Carousel.Item>
           <img className='d-block w-100' src={images.slide} alt='First slide' />
