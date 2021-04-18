@@ -1,109 +1,49 @@
 import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
-import Gallery from 'react-photo-gallery';
-import LoadingOverlay from 'react-loading-overlay';
-
-const photos = [
-  {
-    src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799',
-    width: 1,
-    height: 1,
-  },
-  {
-    src: 'https://source.unsplash.com/qDkso9nvCg0/600x799',
-    width: 3,
-    height: 4,
-  },
-  {
-    src: 'https://source.unsplash.com/iecJiKe_RNg/600x799',
-    width: 3,
-    height: 4,
-  },
-  {
-    src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
-    width: 3,
-    height: 4,
-  },
-  {
-    src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/zh7GEuORbUw/600x799',
-    width: 3,
-    height: 4,
-  },
-  {
-    src: 'https://source.unsplash.com/PpOHJezOalU/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/I1ASdgphUH4/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/XiDA78wAZVw/600x799',
-    width: 3,
-    height: 4,
-  },
-  {
-    src: 'https://source.unsplash.com/x8xJpClTvR0/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/u9cG4cuJ6bU/4927x1000',
-    width: 4927,
-    height: 1000,
-  },
-  {
-    src: 'https://source.unsplash.com/qGQNmBE7mYw/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/NuO6iTBkHxE/800x599',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/pF1ug8ysTtY/600x400',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/A-fubu9QJxE/800x533',
-    width: 4,
-    height: 3,
-  },
-  {
-    src: 'https://source.unsplash.com/5P91SF0zNsI/740x494',
-    width: 4,
-    height: 3,
-  },
-];
+import { Container, Row, Col } from 'react-bootstrap';
+import ImgsViewer from 'react-images-viewer';
+import { photos } from '../../assets/photos';
 
 function ContactsPage() {
-  const [isActive, setIsActive] = useState(true);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
-  setTimeout(() => {
-    setIsActive(false);
-  }, 2000);
+  const goToNext = () => setCurrentImage(currentImage + 1);
+  const goToPrevious = () => setCurrentImage(currentImage - 1);
+  const goToImage = (index) => setCurrentImage(index);
+  const onClose = () => {
+    setCurrentImage(0);
+    setIsOpen(false);
+  };
 
+  const openImageViewer = (index, event) => {
+    event.preventDefault();
+    setCurrentImage(index);
+    setIsOpen(true);
+  };
   return (
     <Container fluid>
-      <LoadingOverlay active={isActive} spinner text='Загружаем...'>
-        <h1>Контакты</h1>
-        <Gallery photos={photos} />
-      </LoadingOverlay>
+      <Row className='m-0'>
+        {photos &&
+          photos.map((image, index) => (
+            <Col xs={12} md={6} lg={4} className='mb-3' key={index}>
+              <a href={image.src} key={index} onClick={(event) => openImageViewer(index, event)}>
+                <img className='w-100 d-block' src={image.src} />
+              </a>
+            </Col>
+          ))}
+      </Row>
+      <ImgsViewer
+        imgs={photos}
+        currImg={currentImage}
+        isOpen={isOpen}
+        onClickNext={goToNext}
+        onClickPrev={goToPrevious}
+        onClickThumbnail={goToImage}
+        onClose={onClose}
+        leftArrowTitle='Previous'
+        rightArrowTitle='Next'
+        closeBtnTitle='Close'
+      />
     </Container>
   );
 }
