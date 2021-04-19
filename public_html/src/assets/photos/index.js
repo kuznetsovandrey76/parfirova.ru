@@ -1,68 +1,8 @@
-export const photos = [
-  {
-    src:
-      //   'https://s237vla.storage.yandex.net/rdisk/0ba9c0f48bb2f36a91c5dfdd2d81dc7701cd642e4f7884e68017dcce286d0004/607cbc11/gnSuXeIgci3a31TRIZ4g2bu0lH7kBbmUapk7xZ_2Y2uijntC4_JxBofgUg6q6ZbRnH7OW7q4AOyHLwjXe-PvfQ==?uid=223375229&filename=1.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=202244&hid=0134f954981b7ab5b88b9f517f5b6a8b&media_type=image&tknv=v2&etag=d544170410834df253c21bc459d68062&rtoken=Fw0oIInu9IlH&force_default=yes&ycrid=na-0fcdc6c34bc9f681cc3fab1af381b163-downloader9f&ts=5c0474caa6640&s=70dd57cf9295d2707c28c40d69880b05fbd4611b84d55745d147959c18229f62&pb=U2FsdGVkX18b1znFs7WeL65VidqoaSOwJsErSA7iAwjShtbXdyhrukypB1vwyvejrFoixoQCuhX7sgo3_8L3UgnFs6ihlgkZ2N9OWpLNaFo',
-      'https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/ca7956e9e7e2ff26f44a09ae2abeff3faa675a3d/public_html/src/assets/images/slide.jpg?token=AEAO75YJCUACGFM3PMJAZ2DAPUCDO',
-  },
-  {
-    src:
-      'https://s481man.storage.yandex.net/rdisk/c61821d02b70536de6a093380879d04c5951f49f30114667368b74b3edea5f36/607cbe8f/gnSuXeIgci3a31TRIZ4g2ZILtwOBjDLp1MRB-Rfwp0XhMPmiMqm6qhttMka8uxwIgELQ9S6YgvpUzLij8indBQ==?uid=223375229&filename=15.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=118113&hid=6e3cded8dac2001c9ab767a37e1a3de8&media_type=image&tknv=v2&etag=50ff2ec396955c2e50f116110c8a0dc3&rtoken=TJ06xfLnCzCj&force_default=yes&ycrid=na-89494b9c5324819e2044658ef6b43552-downloader12e&ts=5c04772b181c0&s=70569ba377b0be2d0917d34d905119ab76987fdc1e386ed757455c58ee6e16ca&pb=U2FsdGVkX1_WfJeSHWbbJcNcMlQAqupn-JK7IRIkUDJst4SVZYTzOXQcfu2wxSm8lQXqXBtqDdFJx44ioRkjCKc0Kuf9dWudVr35i5--u0M',
-  },
+function linkToPhoto(file, token) {
+  return `https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/public_html/src/assets/files/${file}?token=${token}`;
+}
 
-  {
-    src:
-      'https://s142vla.storage.yandex.net/rdisk/a183914a6ca7bb0f5b352284578f5649b242787480ac32aba85d3391756727a3/607cbd58/gnSuXeIgci3a31TRIZ4g2Yzi8P37D0moDkkCIE7ydKq95iFee1LQv4RCITppYTNhHn2Bo_zOhA2zvRd8Ec4_PQ==?uid=223375229&filename=12.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=152772&hid=fd8eeea842fef52e086697c7c228af2a&media_type=image&tknv=v2&etag=1b7bf8e99f89cfae0327124e757af526&rtoken=C2aTd97c0hrp&force_default=yes&ycrid=na-1c3757f72e4ce1b9e748a918a52d4628-downloader22e&ts=5c04760280600&s=8cf38689cd304261110796974dbe431e3f7b19f776c26c1a2ae9a130323145ac&pb=U2FsdGVkX18VUX0wdq2BeDo8a_jC0FE2eO-Xu-OZcdP694wm_wX6uaMUzKESG47ODQqI5qnEUixZtAOAQpS4Nxa-XDlSiW6NcP2Hc3btVpg',
-  },
-  {
-    src:
-      'https://s333myt.storage.yandex.net/rdisk/46fe6f452e288a2851f320ca06635704fab9ae35ed80ce020cd918909f5f4cd4/607cbd82/gnSuXeIgci3a31TRIZ4g2WWfmGzkb4h7Dlb5nvE14PPr5BB_gTIfXaC7pUVFr1_9w4Hp-jYKr1JAkzbswOk3sA==?uid=223375229&filename=13.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=421503&hid=db2dd60f062039ee1480af9c989d2715&media_type=image&tknv=v2&etag=6e8f42f05f2eef3aaf8be6f432ccaedd&rtoken=bUXAkJQSry7A&force_default=yes&ycrid=na-59cf319b74b0dd2cce56924a9498f7ad-downloader24h&ts=5c04762a8e480&s=c8d3919f3654db0935589ef959575c69d1e33a979f6e6287e2cafee2464b75d7&pb=U2FsdGVkX1-fK5P_8vxS03U0syA-A05w8ugie72fe_3SdybpgNK_DnHAOArDV3hX99wpV5O4NrWgs1DECEQ33q1QciJxNMz81SDabZNftS8',
-  },
-  {
-    src:
-      'https://s195sas.storage.yandex.net/rdisk/0e38faff99fddcea896a084ed16d62930cb17af24626a86ffb504be9f08cc8fa/607cbd8d/gnSuXeIgci3a31TRIZ4g2RWZxbGC3O-HLZvjLQ2AbXRQSr37XO6yxC-8UieA3IiYmoXmzDC0d8BgjGzTttTRRQ==?uid=223375229&filename=14.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=84294&hid=3655229ce8c439540080caecd48b7de7&media_type=image&tknv=v2&etag=f8c8fec5176a477c593176fba6ef3b28&rtoken=UfcAgpMBmjXO&force_default=yes&ycrid=na-5b91a2c42d9ad13bd7b63fdae32514df-downloader10h&ts=5c0476350bd40&s=7ab62dbde57cb4cfb20582540d8d4dd7d702ee2a555eea4d77cf776c35a27644&pb=U2FsdGVkX1_QjlAVGtZErO9UQtYo0B18EaBs3etPhl4xtEVH285uctu2DH1OURFJpgFlVIdAuxh6bMat43onCql8DUqutA-eRkzIH2-e9XU',
-  },
-  {
-    src:
-      'https://s622sas.storage.yandex.net/rdisk/aac3b4cf7a3fc8b08acdd24767aa63a6ac0bcc1d96b55cbbaac1f4af75f0be83/607cbd9d/gnSuXeIgci3a31TRIZ4g2c-kU4pT_wISpw7YMyR4klz-CEOSjYBykYd9Xz1W0lk59_o2krQNc19ZCYbVv2Z2UQ==?uid=223375229&filename=16.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=107675&hid=499dd02a6f306ed1256c9adb7740c118&media_type=image&tknv=v2&etag=9d41088b92a61337ce7eed2908f58fce&rtoken=OT4ywbV954Zy&force_default=yes&ycrid=na-479dc6ccbe7fbdcdc65ae80681b9e6f3-downloader11f&ts=5c0476444e140&s=0a79ee2b828132f5f5ce4a26152db273d97c9e093a85310f5db3c102b61e57f0&pb=U2FsdGVkX18IzuOpS-kIr7VtS-ClWExI5BXgrBAonKJDYNu0MWV8N2hbNdD-uEmdWUfwjOQBnjQ_npG1EhNnv04ZnwgJEts09ATs3-b8T_4',
-  },
-  {
-    src:
-      'https://s156vla.storage.yandex.net/rdisk/429d522c53f3e5ebe14f70e9eb6ed89b531a80f713933de641505204b57fb8ee/607cbdac/gnSuXeIgci3a31TRIZ4g2eJcoUmVGoS8LK3tCEnhpgVOFiuM03M3xT4OuAdMefJmPCZKfAPtlWJO0DbThUDlVg==?uid=223375229&filename=17.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=86575&hid=57dc2289a6dc401dfb8fa538305f615d&media_type=image&tknv=v2&etag=b622a69713f335e364b5e4271b507f47&rtoken=iMoAoLlc5VAv&force_default=yes&ycrid=na-02b8690fa0a79c35fe00f00ade88baee-downloader18f&ts=5c0476529c300&s=c2c5e394f0d1552314c8b74a93bca298317c5bd0c5aea93ed2d25a19d262cba0&pb=U2FsdGVkX18vlH-TdAF9sOeW4825EWDmJlvuSf4EWHLA1qQWWR6Ddb8d25DEskY2TxMi4B5GQajMk4D_9G1CPFB8wP8lWvJOrNG0UFc9GVI',
-  },
-  {
-    src:
-      'https://s743sas.storage.yandex.net/rdisk/c679acbd472c375dc0d0968432886f67ccf4a4978e4c3e43d9b179f5e4f79799/607cbdbd/gnSuXeIgci3a31TRIZ4g2X3Jnuqw_pCXdnMJGV_E26URUnX-6wdwX0DtaycqvjmspqngpyASZmRxlt64WrX8ig==?uid=223375229&filename=2.jpeg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=1313578&hid=70ff3035fb294da2cb36e669e007e69c&media_type=image&tknv=v2&etag=e906ef91722ee65958eadc4a788bbaf9&rtoken=MQz2cRUiUoAd&force_default=yes&ycrid=na-effa8aa79c3468742cd6c926eb036585-downloader16h&ts=5c047662d2940&s=dbc26d124f94a91112e983c8b816d999fcacfde56285a83d84671a462cceff35&pb=U2FsdGVkX18BBPrIzAFWUTfwDfoIUJRLuT4e5i-k16CTkbxTvQhKRAseja-wwSNXANIH1RFwzVhlGRxToaHrNpLqg6k2MykqWuNWSbzwLfs',
-  },
-  {
-    src:
-      'https://s556man.storage.yandex.net/rdisk/f61d611936bf508b9abdac090db99ad2c49b94012f0f0f56b3a499498a4f830d/607cbdca/gnSuXeIgci3a31TRIZ4g2bhZdwPhBgn_C-_jar60CovJepqEQfPYMN4S99D97kwZT_r2hArUYYUm_gM3hprMNg==?uid=223375229&filename=3.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=223375229&fsize=221066&hid=1ad72f7a1256f60da34eda1f5e799cdd&media_type=image&tknv=v2&etag=39c489964c4cea1e448dc8082761a2e2&rtoken=GC9pMsHTSQWj&force_default=yes&ycrid=na-7309b035bb4e37611cd04718f4e5f037-downloader8f&ts=5c04766f38680&s=b557411a5dd106f75a4bfe23304ccd4c5727db035f3a4a32c1bbcb6d9a12a0ab&pb=U2FsdGVkX1-62DdCsozRuqo7QfgdvskUsM_Vpg_zN3NTvuPccvvHGlvpircyMDsmNsIzsiUI1r2a_Raro1GHrUAV8xrE01l0uK_wy51WX8M',
-  },
-  {
-    src:
-      'https://s622sas.storage.yandex.net/rdisk/3e04548546ae788f12f702d64f7ca6d9694f64d8b9850d1217514bdef260b271/607cbdda/gnSuXeIgci3a31TRIZ4g2a8AlgvfE3O21t--0vYRkfEyta5e5BwmoHJdhvzKhMKDAGEDSDQ41KNM2dwxnl-uLw==?uid=223375229&filename=4.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=514037&hid=6224b6c2e3f563b2f274be1f76b1de94&media_type=image&tknv=v2&etag=d07720bc50ff76d224caa087a2819fb7&rtoken=sH1JZpJn9unO&force_default=yes&ycrid=na-755d09ff199aebe70641b8e4ffd1284a-downloader9e&ts=5c04767e7aa80&s=6336ced7fbaa833df7c5779671f9d766380e75d1715df2256fbad4bd83b1080b&pb=U2FsdGVkX1_pTUlCDb2wz8G1Xe16mixSqWNj74EUSvG491OEXtygWFnhExS_M_5LVI5yVx76ZjNgO5liurZlhK6E1lU9JRvu-DlhT5_OLG8',
-  },
-  {
-    src:
-      'https://s710sas.storage.yandex.net/rdisk/f856729d10ae316fb295ab4d7c527dd1252d8ddb8018ba1a6f332a53b2eab67b/607cbded/gnSuXeIgci3a31TRIZ4g2SaLe7mARFfFwn_-iW5rJCPh1HSu1eL5bi6gt3BisD-_iM9WFgUdfBDidZMJwXL3UA==?uid=223375229&filename=5.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=37379&hid=efe07f53943071fd0d3fd45e4d9a9b8c&media_type=image&tknv=v2&etag=cd7ac7faf22dfc36ea7c264b1480469f&rtoken=LDcbNDAm28VT&force_default=yes&ycrid=na-a511a9da12aa776fa011d7207f23bf90-downloader11e&ts=5c04769099540&s=251c0d7ad5d92e41b8ef8f7ccf76a2804bc8d42bcc260a559010cf22ef851d28&pb=U2FsdGVkX1-qpS8hLsUKK8_2dGCxVB0uqtpWbzcNrmtSoS90KshVzDKvxQCw7AqNwinYH4tp51hqjgQ34hN5pAo1LmU7qyIkoZP9fpq1EvM',
-  },
-  {
-    src:
-      'https://s193vla.storage.yandex.net/rdisk/3207e40db72f7775b03d7711d54f8ec81a24a946513bf42a108c629815702d1f/607cbdf7/gnSuXeIgci3a31TRIZ4g2RHKQoEjIuDyG7CGyiAxK2Q3igBiKblJdWglEkJthtCfOu_nDb6t1c-olJNGHBSWKA==?uid=223375229&filename=6.JPG&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=795115&hid=891159af04f4b288ede3d83d4b277fbb&media_type=image&tknv=v2&etag=1429b31662adaa14ade50301919f4be2&rtoken=M64CAeMd7Apq&force_default=yes&ycrid=na-64987babee1008d8d7e0483cda6f8629-downloader1e&ts=5c04769a22bc0&s=d8055fbe8df51b6881cf7ae3f893410c0acc1db5d6de252fbde5d883fa13bc49&pb=U2FsdGVkX19JotCFPVnwtL6oo4ELdKlspo6cQJgnwRw3j3XGDK07ex2qBASs4TWpl_0WFTnkU_jKjdRfhTb7e6Xv_1gh-fiueyMS2rOyy48',
-  },
-  {
-    src:
-      'https://s72vla.storage.yandex.net/rdisk/59682a5f1f7bd30ea44996b6fbe2cc65b4da9dc75c9ceccea2598db3ddec596c/607cbe04/gnSuXeIgci3a31TRIZ4g2bPrN9JgSzhl39Xh6SGh425_qBHDtYNGi3Ih32c2iu2sbvuDjPfn97Zh1sMESeVjAg==?uid=223375229&filename=7.jpeg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=1878434&hid=311b049705aada6da3ea7954b9f5a081&media_type=image&tknv=v2&etag=c2edc1eb075d60b589121f2f8e749a3b&rtoken=pQtvs0ayofsP&force_default=yes&ycrid=na-5493595f7e732190c4407788cfbf8812-downloader21e&ts=5c0476a688900&s=b20924c7954a242adde5e15ae47cd03cc31c74119272d0ad6a4224362b9cc3b1&pb=U2FsdGVkX1_V74UHBeY2VVJACZV3rwiLL6Tb-42swCiUXYkoNK90xLeMqh4J-B77_LSJotGoW3drwIWOy207Bmbm19s5A9iWTL5zmLsvDcs',
-  },
-  {
-    src:
-      'https://s156vla.storage.yandex.net/rdisk/b61e3c9d47b7b306cbd457aee0cbe1fcd57cd916fc19d7ee9070b770c526fc1c/607cbe14/gnSuXeIgci3a31TRIZ4g2S2eVOCP3ENTZF98xH-qUO96Q_mYKPi3IlYdDPV9sAvzBhuMf6l-k1FTaU-RQwxfCg==?uid=223375229&filename=8.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=178789&hid=eb440411418005c5f5a80fc97bb3d247&media_type=image&tknv=v2&etag=9d50494cde35e0958f6d8b61ac39d3c5&rtoken=rQitOSIE3Ry3&force_default=yes&ycrid=na-47a807c048d041af9d02adce8fe5ba59-downloader11h&ts=5c0476b5cad00&s=7f1928faea3e351c1d3edb75bfba217a154a28baa94bdaee97c99e59545e1dcd&pb=U2FsdGVkX19-XbkZwENpe6hTG5P3949FDWEGh1i_PTbQdyqtoWXtznz5Mah5gYWnmaaUEhRxUL59rOpXrZak_daGPlxACKwBrTgWiKwZlmI',
-  },
-  {
-    src:
-      'https://s127vla.storage.yandex.net/rdisk/4a20532fb078ec81b3c3ba068c814d363be3ed229aac262a5b7b4f030e899be5/607cbe22/gnSuXeIgci3a31TRIZ4g2eE5Hccrxby9fQYKYJOZS81BIdr0m1DRMNZt0nxTtdjhlU_q-CPw0WiKhXjExnMLcA==?uid=223375229&filename=9.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=121748&hid=52e2f1b71cdd65c1a17cae9d58207f67&media_type=image&tknv=v2&etag=eb4e7ca31c1946f7473952bd195df0da&rtoken=dSjbu1mC7lbs&force_default=yes&ycrid=na-5abf53a30c818973b9766badd9630168-downloader9h&ts=5c0476c324c80&s=5c3748dce215520ffb8f834969ec0a4006a7231150e45692df50e1608ea7e03b&pb=U2FsdGVkX1_OaqMa1gz1XxMfB_IIJC9iAqm4dgQ0F3Ya3AA7zEfvBXL8t_mo6FqR5KpKZyDpuCain5zG8uJ20u4yVgLqyLhO-depZgpzhxM',
-  },
-  {
-    src:
-      'https://s320sas.storage.yandex.net/rdisk/85aca088562e6b4474a1ca2a41f2fb62682edfbe8fd04a1eef8469f1540c467b/607cbd02/gnSuXeIgci3a31TRIZ4g2cJUYyAkseuT1GEup7xlguGZIjI5T8QSPG2kKJKF9a4GH6_j4suCtpQefGYvo2V35Q==?uid=223375229&filename=11.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=146385&hid=7f302b702200f97d693cdcbd28c7a67c&media_type=image&tknv=v2&etag=f0a7bc83c20c38ba607c81af5a146585&rtoken=lenyLaNpLo9k&force_default=yes&ycrid=na-528d2d507d82d512c8d1883ecd3904d5-downloader10e&ts=5c0475b07c480&s=00aa31f1920cce6b52773e97a4548b2fa65bd35931d66321f9cf792d511cdf36&pb=U2FsdGVkX18xFgxgMhkwgdDxla0L3MxHxzcMWBaQ3QHrFSwT8k05r7a5rYaj2q0Xsxw9BCHChsOj9vyxPQwMQdZCI_zRpBN7KOHap_zCfjs',
-  },
+export const photos = [
+  { src: linkToPhoto('1.jpg', 'AEAO754DJC5Y3S4EBCJGAQ3APUCYQ') },
+  { src: linkToPhoto('2.jpg', 'AEAO753JT3OZJ5IQEA5TWJTAPUC32') },
 ];
