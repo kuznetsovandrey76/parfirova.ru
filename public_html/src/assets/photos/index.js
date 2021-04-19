@@ -1,7 +1,8 @@
 export const photos = [
   {
     src:
-      'https://s237vla.storage.yandex.net/rdisk/0ba9c0f48bb2f36a91c5dfdd2d81dc7701cd642e4f7884e68017dcce286d0004/607cbc11/gnSuXeIgci3a31TRIZ4g2bu0lH7kBbmUapk7xZ_2Y2uijntC4_JxBofgUg6q6ZbRnH7OW7q4AOyHLwjXe-PvfQ==?uid=223375229&filename=1.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=202244&hid=0134f954981b7ab5b88b9f517f5b6a8b&media_type=image&tknv=v2&etag=d544170410834df253c21bc459d68062&rtoken=Fw0oIInu9IlH&force_default=yes&ycrid=na-0fcdc6c34bc9f681cc3fab1af381b163-downloader9f&ts=5c0474caa6640&s=70dd57cf9295d2707c28c40d69880b05fbd4611b84d55745d147959c18229f62&pb=U2FsdGVkX18b1znFs7WeL65VidqoaSOwJsErSA7iAwjShtbXdyhrukypB1vwyvejrFoixoQCuhX7sgo3_8L3UgnFs6ihlgkZ2N9OWpLNaFo',
+      //   'https://s237vla.storage.yandex.net/rdisk/0ba9c0f48bb2f36a91c5dfdd2d81dc7701cd642e4f7884e68017dcce286d0004/607cbc11/gnSuXeIgci3a31TRIZ4g2bu0lH7kBbmUapk7xZ_2Y2uijntC4_JxBofgUg6q6ZbRnH7OW7q4AOyHLwjXe-PvfQ==?uid=223375229&filename=1.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=223375229&fsize=202244&hid=0134f954981b7ab5b88b9f517f5b6a8b&media_type=image&tknv=v2&etag=d544170410834df253c21bc459d68062&rtoken=Fw0oIInu9IlH&force_default=yes&ycrid=na-0fcdc6c34bc9f681cc3fab1af381b163-downloader9f&ts=5c0474caa6640&s=70dd57cf9295d2707c28c40d69880b05fbd4611b84d55745d147959c18229f62&pb=U2FsdGVkX18b1znFs7WeL65VidqoaSOwJsErSA7iAwjShtbXdyhrukypB1vwyvejrFoixoQCuhX7sgo3_8L3UgnFs6ihlgkZ2N9OWpLNaFo',
+      'https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/ca7956e9e7e2ff26f44a09ae2abeff3faa675a3d/public_html/src/assets/images/slide.jpg?token=AEAO75YJCUACGFM3PMJAZ2DAPUCDO',
   },
   {
     src:
