@@ -1,8 +1,6 @@
-function linkToPhoto(file, token) {
-  return `https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/public_html/src/assets/files/${file}?token=${token}`;
+function linkToPhoto() {
+  //   return `https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/public_html/src/assets/files/${file}?token=${token}`;
+  return 'https://sprutio.beget.com/image_cache/yoda.beget:9443/akuznetsov/66a67c43c134ae65f30added0bafe22c/10.jpg';
 }
 
-export const photos = [
-  { src: linkToPhoto('1.jpg', 'AEAO754DJC5Y3S4EBCJGAQ3APUCYQ') },
-  { src: linkToPhoto('2.jpg', 'AEAO753JT3OZJ5IQEA5TWJTAPUC32') },
-];
+export const photos = [{ src: linkToPhoto() }];
