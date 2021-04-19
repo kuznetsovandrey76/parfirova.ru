@@ -13,4 +13,10 @@ export const photos = [
   { src: linkToPhoto('15d75d89fef92b57cc14802e9e1a5194', '8.jpg') },
   { src: linkToPhoto('45b1048ca643ca6b95717021a5ccf1b8', '9.jpg') },
   { src: linkToPhoto('66a67c43c134ae65f30added0bafe22c', '10.jpg') },
+  { src: linkToPhoto('6ca807004e7517265f3925d9c004732c', '11.jpg') },
+  { src: linkToPhoto('4161bb87cf4a9f086906773abba946d8', '12.jpg') },
+  { src: linkToPhoto('84c948069a24a18a9880671bc126be4e', '13.jpg') },
+  { src: linkToPhoto('2ca3233b2a0c8ca94dc78033a3171eea', '14.jpg') },
+  { src: linkToPhoto('d23e906a3494cb5718b6b4129acf50f2', '15.jpg') },
+  { src: linkToPhoto('e42f3917fc216cec46c89c72f73208cc', '16.jpg') },
 ];
