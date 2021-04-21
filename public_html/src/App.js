@@ -9,6 +9,7 @@ import { Header, Footer } from './components';
 import { store } from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'leaflet/dist/leaflet.css';
 import './App.scss';
 
 function App() {

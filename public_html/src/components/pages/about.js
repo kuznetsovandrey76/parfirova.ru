@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { Carousel, Container } from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { TweenMax, TimelineLite, TweenLite } from 'gsap';
 import { Controls, PlayState, Tween } from 'react-gsap';
+import YouTube from 'react-youtube';
 import images from '../../assets/images';
 
 // https://greensock.com/react/
@@ -12,6 +13,16 @@ function AboutPage() {
   let element = useRef(null);
 
   const [animation, setAnimation] = useState(null);
+
+  const opts = {
+    height: '300px',
+    width: '100%',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+      autoplay: 0,
+    },
+  };
 
   useEffect(() => {
     // #1 Rotate
@@ -27,6 +38,16 @@ function AboutPage() {
 
   return (
     <Container fluid>
+      <Card style={{ width: '50%', padding: '1rem', margin: '0 auto' }}>
+        <YouTube videoId='PKsSSvp5ZSM' opts={opts} />
+        <Card.Body style={{ padding: 0 }}>
+          <Card.Title>Парфирова Ирина Андреевна</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+
       <img
         src={images.slide}
         style={{ height: '150px', opacity: 1 }}
@@ -35,7 +56,6 @@ function AboutPage() {
           element = el;
         }}
       />
-
       <div>
         <button type='button' onClick={() => animation.play()}>
           Play

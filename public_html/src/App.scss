@@ -1,3 +1,5 @@
+@import '../node_modules/leaflet/dist/leaflet.css';
+
 $min-footer-height: 96px;
 
 body, html {
@@ -44,4 +46,8 @@ ol.breadcrumb {
       display: block;
       }
   }
+}
+
+.leaflet-container {
+  height: 500px;
 }

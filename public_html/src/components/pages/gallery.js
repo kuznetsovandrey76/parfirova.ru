@@ -1,21 +1,50 @@
 import React, { useState } from 'react';
-import { Container, Toast } from 'react-bootstrap';
+import ImgsViewer from 'react-images-viewer';
+import { Container, Row, Col } from 'react-bootstrap';
+import { photos } from '../../assets/photos';
 
 function GalleryPage() {
-  const [showA, setShowA] = useState(true);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleShowA = () => setShowA(!showA);
+  const goToNext = () => setCurrentImage(currentImage + 1);
+  const goToPrevious = () => setCurrentImage(currentImage - 1);
+  const goToImage = (index) => setCurrentImage(index);
+  const onClose = () => {
+    setCurrentImage(0);
+    setIsOpen(false);
+  };
+
+  const openImageViewer = (index, event) => {
+    event.preventDefault();
+    setCurrentImage(index);
+    setIsOpen(true);
+  };
 
   return (
     <Container fluid>
-      <Toast show={showA} onClose={toggleShowA}>
-        <Toast.Header>
-          <img src='holder.js/20x20?text=%20' className='rounded mr-2' alt='' />
-          <strong className='mr-auto'>Bootstrap</strong>
-          <small>11 mins ago</small>
-        </Toast.Header>
-        <Toast.Body>Woohoo, you&apos;re reading this text in a Toast!</Toast.Body>
-      </Toast>
+      <Row className='m-0'>
+        {photos &&
+          photos.map((image, index) => (
+            <Col xs={12} md={6} lg={4} className='mb-3' key={index}>
+              <a href={image.src} key={index} onClick={(event) => openImageViewer(index, event)}>
+                <img className='w-100 d-block' src={image.src} />
+              </a>
+            </Col>
+          ))}
+      </Row>
+      <ImgsViewer
+        imgs={photos}
+        currImg={currentImage}
+        isOpen={isOpen}
+        onClickNext={goToNext}
+        onClickPrev={goToPrevious}
+        onClickThumbnail={goToImage}
+        onClose={onClose}
+        leftArrowTitle='Previous'
+        rightArrowTitle='Next'
+        closeBtnTitle='Close'
+      />
     </Container>
   );
 }
