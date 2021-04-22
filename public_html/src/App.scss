@@ -1,6 +1,82 @@
-@import '../node_modules/leaflet/dist/leaflet.css';
+// @import '../node_modules/leaflet/dist/leaflet.css';
 
 $min-footer-height: 96px;
+$ms-word: #2a579a;
+$ms-excel: #347448;
+$ms-ppoint: #b7472a;
+
+.word {
+  background-color: $ms-word;
+  border-color: $ms-word;
+
+  &:hover {
+    background-color: $ms-word;
+    border-color: $ms-word;
+    opacity: 0.9;
+  }
+
+  &:active {
+    background-color: $ms-word !important;
+    border-color: $ms-word !important;
+    opacity: 0.9;
+  }
+
+  &:focus {
+    background-color: $ms-word;
+    border-color: $ms-word;
+    box-shadow: 0 0 0 0.2rem lightblue !important; 
+    opacity: 0.9;
+  }
+}
+
+.excel {
+  background-color: $ms-excel;
+  border-color: $ms-excel;
+  
+  &:hover {
+    background-color: $ms-excel;
+    border-color: $ms-excel;
+    opacity: 0.9;
+  }
+
+  &:active {
+    background-color: $ms-excel !important;
+    border-color: $ms-excel !important;
+    opacity: 0.9;
+  }
+
+  &:focus {
+    background-color: $ms-excel;
+    border-color: $ms-excel;
+    box-shadow: 0 0 0 0.2rem lightgreen !important; 
+    opacity: 0.9;
+  }
+}
+
+.ppoint {
+  background-color: $ms-ppoint;
+  border-color: $ms-ppoint;
+
+  &:hover {
+    background-color: $ms-ppoint;
+    border-color: $ms-ppoint;
+    opacity: 0.9;
+  }
+
+  &:active {
+    background-color: $ms-ppoint !important;
+    border-color: $ms-ppoint !important;
+    opacity: 0.9;
+  }
+
+  &:focus {
+    background-color: $ms-ppoint;
+    border-color: $ms-ppoint;
+    box-shadow: 0 0 0 0.2rem lightcoral !important; 
+    opacity: 0.9;
+  }
+}
+
 
 body, html {
   overflow-x: hidden;

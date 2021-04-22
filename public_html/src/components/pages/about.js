@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 // import { Carousel, Container } from 'react-bootstrap';
 import { Container, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { TweenMax, TimelineLite, TweenLite } from 'gsap';
-import { Controls, PlayState, Tween } from 'react-gsap';
+// import { Controls, PlayState, Tween } from 'react-gsap';
 import YouTube from 'react-youtube';
-import images from '../../assets/images';
+// import images from '../../assets/images';
 
 // https://greensock.com/react/
 
 function AboutPage() {
-  let element = useRef(null);
+  // let element = useRef(null);
 
-  const [animation, setAnimation] = useState(null);
+  // const [animation, setAnimation] = useState(null);
 
   const opts = {
     height: '300px',
@@ -33,12 +33,12 @@ function AboutPage() {
     //   }).pause()
     // );
     // #2 Move
-    setAnimation(TweenLite.to(element, 1, { x: 100, y: -100 }).pause());
+    // setAnimation(TweenLite.to(element, 1, { x: 100, y: -100 }).pause());
   }, []);
 
   return (
     <Container fluid>
-      <Card style={{ width: '50%', padding: '1rem', margin: '0 auto' }}>
+      <Card className='col-xs-12 col-sm-9 col-lg-6 w-100 p-3 mx-auto mb-3'>
         <YouTube videoId='PKsSSvp5ZSM' opts={opts} />
         <Card.Body style={{ padding: 0 }}>
           <Card.Title>Парфирова Ирина Андреевна</Card.Title>
@@ -48,7 +48,7 @@ function AboutPage() {
         </Card.Body>
       </Card>
 
-      <img
+      {/* <img
         src={images.slide}
         style={{ height: '150px', opacity: 1 }}
         className='App-logo'
@@ -66,13 +66,14 @@ function AboutPage() {
         <button type='button' onClick={() => animation.reverse()}>
           Reverse
         </button>
-      </div>
+      </div> */}
 
-      <Controls playState={PlayState.stop}>
+      {/* <Controls playState={PlayState.stop}>
         <Tween to={{ x: '200px', rotation: 180 }} duration={2} ease='back.out(1.7)'>
           <div style={{ width: '100px', height: '100px', background: '#ccc' }} />
         </Tween>
-      </Controls>
+      </Controls> */}
+
       {/* <Carousel>
         <Carousel.Item>
           <img className='d-block w-100' src={images.slide} alt='First slide' />

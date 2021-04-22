@@ -5,6 +5,13 @@ import axios from 'axios';
 import BootstrapLink from '../shared/bootstrap-link';
 import { routes } from '../../constants/routes';
 
+const styleTransformMap = new Map([
+  ['word', 'primary'],
+  ['excel', 'success'],
+  ['ppoint', 'danger'],
+  ['default', 'secondary'],
+]);
+
 function RussianPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +30,7 @@ function RussianPage() {
 
   const notes = (data) =>
     data.map((note) => {
-      const { id, header, title, text, summary_link } = note;
+      const { id, header, title, text, type, summary_link } = note;
 
       return (
         <Col xs={12} md={6} lg={4} className='mb-3' key={id}>
@@ -32,7 +39,12 @@ function RussianPage() {
             <Card.Body>
               <Card.Title>{title}</Card.Title>
               <Card.Text>{text}</Card.Text>
-              <Button variant='info' block href={summary_link} target='_blank'>
+              <Button
+                variant={styleTransformMap.get(type) || styleTransformMap.get('default')}
+                block
+                href={summary_link}
+                target='_blank'
+              >
                 Посмотреть
               </Button>
             </Card.Body>
