@@ -16,7 +16,9 @@
     },
     "scripts": {
       "prettier": "npx prettier --write './**/*.(js|jsx)'",
-      "lint:fix": "npx eslint --fix ."
+      "lint:fix": "npx eslint --fix .",
+      "server": "./run-server.sh",
+      "dash": "./run-dash.sh"
     },
     "lint-staged": {
       "*.(js|jsx)": [

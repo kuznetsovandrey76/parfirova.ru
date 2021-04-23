@@ -21,11 +21,13 @@ app.use(bodyParser.json());
 
 const homeRouter = require('./routers/home-router');
 const russianRouter = require('./routers/russian-router');
+const contactsRouter = require('./routers/contacts-router');
 
 // process.env.NODE_ENV === "local"
 
 app.use('/api/home', homeRouter);
 app.use('/api/russian', russianRouter);
+app.use('/api/contacts', contactsRouter);
 
 app.use(express.static(path.resolve(__dirname, '..', 'public_html/build')));
 
