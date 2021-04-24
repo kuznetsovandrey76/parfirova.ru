@@ -7,7 +7,7 @@ yarn
 
 echo -e '\n3. Install dependencies in server directory\n'
 cd server/
-npm i
+yarn
 
 echo -e '\n4. Install dependencies in frontend directory\n'
 cd ../public_html
