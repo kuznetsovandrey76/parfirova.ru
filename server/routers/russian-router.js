@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const camelcaseKeys = require('camelcase-keys');
 
 const russianRouter = express.Router();
 
@@ -15,7 +16,7 @@ russianRouter.get('/', async (req, res) => {
         db.query('SELECT * FROM russian', (err, results) => {
             if (err) throw err;
             db.end();
-            return res.json(results);
+            return res.json(camelcaseKeys(results));
         });
     } catch (err) {
         console.log(err);

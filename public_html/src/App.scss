@@ -1,6 +1,14 @@
 // @import '../node_modules/leaflet/dist/leaflet.css';
 
-$min-footer-height: 96px;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+
+div,
+p,
+span {
+  font-family: 'Raleway', sans-serif;
+}
+
+$min-footer-height: 216px;
 $ms-word: #2a579a;
 $ms-excel: #347448;
 $ms-ppoint: #b7472a;
@@ -126,4 +134,31 @@ ol.breadcrumb {
 
 .leaflet-container {
   height: 500px;
+}
+
+
+
+.btn-image:before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: text-top;
+  background-color: transparent;
+  background-position : center center;
+  background-repeat:no-repeat;
+}
+
+$bg-word: url('./assets/svg/word.svg');
+$bg-excel: url('./assets/svg/excel.svg');
+$bg-ppoint: url('./assets/svg/ppoint.svg');
+
+.word-btn:before {
+  background-image : $bg-word;
+}
+.ppoint-btn:before {
+  background-image : $bg-ppoint;
+}
+.excel-btn:before {
+  background-image : $bg-excel;
 }

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
@@ -20,7 +19,9 @@ function RussianPage() {
     axios
       .get('/api/russian')
       .then((response) => {
-        setData(response.data);
+        const { data } = response;
+
+        setData(data);
         setLoading(true);
       })
       .catch((error) => {
@@ -30,23 +31,16 @@ function RussianPage() {
 
   const notes = (data) =>
     data.map((note) => {
-      const { id, header, title, text, type, summary_link } = note;
+      const { id, header, title, text, type, summaryLink } = note;
 
       return (
-        <Col xs={12} md={6} lg={4} className='mb-3' key={id}>
-          <Card bg='light' text='dark'>
+        <Col xs sm={6} lg={4} xl={3} className='mb-3' key={id}>
+          <Card bg='light' text='dark' border={styleTransformMap.get(type) || styleTransformMap.get('default')}>
             <Card.Header>{header}</Card.Header>
             <Card.Body>
               <Card.Title>{title}</Card.Title>
               <Card.Text>{text}</Card.Text>
-              <Button
-                variant={styleTransformMap.get(type) || styleTransformMap.get('default')}
-                block
-                href={summary_link}
-                target='_blank'
-              >
-                Посмотреть
-              </Button>
+              <Button variant='default' block href={summaryLink} target='_blank' className={`btn-image ${type}-btn`} />
             </Card.Body>
           </Card>
         </Col>

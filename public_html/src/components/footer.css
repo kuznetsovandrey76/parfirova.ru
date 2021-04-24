@@ -5,12 +5,14 @@
   }
   
   .footer-main {
-    background-color:#2296f3;
+    /* background-color:#2296f3; */
+    background-color: lightgray;
     padding: .5rem 0;
   }
   
   .footer-second {
-    background-color: #1a78c3;
+    /* background-color: #1a78c3; */
+    background-color: gray;
     text-align: center;
     padding: .5rem 0;
   }
