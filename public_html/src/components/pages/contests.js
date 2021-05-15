@@ -43,7 +43,7 @@ function ContestsPage() {
           data.map((image, index) => (
             <Col xs={12} md={6} lg={4} className='mb-3' key={index}>
               <a href={image.src} key={index} onClick={(event) => openImageViewer(index, event)}>
-                <img className='w-100 d-block' src={image.src} />
+                <img className='w-100 d-block rounded' src={image.src} />
               </a>
             </Col>
           ))}

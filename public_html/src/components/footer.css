@@ -9,9 +9,14 @@
   padding: .5rem 0;
 }
 
-/* .footer-block {
-  margin-bottom: 1rem;
-} */
+.header {
+  box-shadow: 2px 0 14px rgba(2,123,243,0.15),0 0 3px rgba(2,123,243,0.1);
+  padding: 0.2rem 1rem !important;
+}
+
+nav {
+  background: white;
+}
 
 .footer-second {
   background-color: gray;

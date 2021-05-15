@@ -12,6 +12,7 @@ $min-footer-height: 216px;
 $ms-word: #2a579a;
 $ms-excel: #347448;
 $ms-ppoint: #b7472a;
+$main-app-bg: #fbfbfb;
 
 .word {
   background-color: $ms-word;
@@ -94,6 +95,10 @@ body, html, #root {
   min-height: 100vh;
 }
 
+body {
+  background: $main-app-bg;
+}
+
 .main {
   min-height: calc(100vh - #{$min-footer-height});
 }
@@ -115,7 +120,7 @@ body, html, #root {
 }
 
 ol.breadcrumb {
-  background-color: white;
+  background-color: $main-app-bg;
 }
 
 
@@ -161,4 +166,17 @@ $bg-ppoint: url('./assets/svg/ppoint.svg');
 }
 .excel-btn:before {
   background-image : $bg-excel;
+}
+
+
+.page-content {
+  margin-top: 4rem;
+}
+
+.card:hover {
+  cursor: pointer;
+  filter: drop-shadow(2px 3px 5px rgba(2,123,243,0.1)) drop-shadow(0 0 20px rgba(2,123,243,0.2));
+  transform: scale(1.02);
+  filter: 0.1s ease-out;
+  box-shadow: 0.1s ease-out;
 }

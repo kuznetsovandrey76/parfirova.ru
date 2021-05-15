@@ -5,7 +5,7 @@ import { routes } from '../constants/routes';
 
 function Header() {
   return (
-    <Navbar collapseOnSelect expand='md' bg='light' variant='light' className='mb-3'>
+    <Navbar collapseOnSelect fixed='top' expand='md' variant='light' className='mb-3 header'>
       <Navbar.Brand className='d-sm-block d-md-none'>Parfirova.ru</Navbar.Brand>
       <Navbar.Toggle className='ml-auto' aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
