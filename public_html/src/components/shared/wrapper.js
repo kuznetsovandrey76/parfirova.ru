@@ -1,6 +1,5 @@
 // import React, { useEffect } from 'react';
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Header } from '..';
 
@@ -28,9 +27,7 @@ const Wrapper = (props) => {
   return (
     <>
       <Header />
-      <Container fluid className='page-content'>
-        {children}
-      </Container>
+      <div className='page-content'>{children}</div>
     </>
   );
 

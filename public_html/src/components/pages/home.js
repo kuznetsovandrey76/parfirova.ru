@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import ImgsViewer from 'react-images-viewer';
 
 function linkToPhoto(file) {
@@ -29,7 +29,7 @@ function HomePage() {
     setIsOpen(true);
   };
   return (
-    <Container fluid className='page-content'>
+    <>
       <Row className='m-0'>
         {data &&
           data.map((image, index) => (
@@ -52,7 +52,7 @@ function HomePage() {
         rightArrowTitle='Next'
         closeBtnTitle='Close'
       />
-    </Container>
+    </>
   );
 }
 

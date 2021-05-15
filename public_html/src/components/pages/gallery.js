@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ImgsViewer from 'react-images-viewer';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { photos } from '../../assets/photos';
 
 function GalleryPage() {
@@ -22,7 +22,7 @@ function GalleryPage() {
   };
 
   return (
-    <Container fluid>
+    <>
       <Row className='m-0'>
         {photos &&
           photos.map((image, index) => (
@@ -45,7 +45,7 @@ function GalleryPage() {
         rightArrowTitle='Next'
         closeBtnTitle='Close'
       />
-    </Container>
+    </>
   );
 }
 

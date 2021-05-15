@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 // import { Carousel, Container } from 'react-bootstrap';
-import { Container, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { TweenMax, TimelineLite, TweenLite } from 'gsap';
 // import { Controls, PlayState, Tween } from 'react-gsap';
@@ -37,7 +37,7 @@ function AboutPage() {
   }, []);
 
   return (
-    <Container fluid>
+    <>
       <Card className='col-xs-12 col-sm-9 col-lg-6 w-100 p-3 mx-auto mb-3'>
         <YouTube videoId='PKsSSvp5ZSM' opts={opts} />
         <Card.Body style={{ padding: 0 }}>
@@ -97,7 +97,7 @@ function AboutPage() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel> */}
-    </Container>
+    </>
   );
 }
 
