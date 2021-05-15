@@ -34,7 +34,7 @@ function RussianPage() {
       const { id, header, title, text, type, summaryLink } = note;
 
       return (
-        <Col xs sm={6} lg={4} xl={3} className='mb-3' key={id}>
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className='mb-3' key={id}>
           <Card bg='light' text='dark' border={styleTransformMap.get(type) || styleTransformMap.get('default')}>
             <Card.Header>{header}</Card.Header>
             <Card.Body>

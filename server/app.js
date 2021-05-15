@@ -29,6 +29,9 @@ app.use('/api/home', homeRouter);
 app.use('/api/russian', russianRouter);
 app.use('/api/contacts', contactsRouter);
 
+console.log(path.resolve(__dirname));
+console.log(path.resolve(__dirname, '..', 'public_html/build'));
+
 app.use(express.static(path.resolve(__dirname, '..', 'public_html/build')));
 
 app.get('*', (req, res) => {
