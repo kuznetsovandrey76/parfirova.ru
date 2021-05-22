@@ -5,7 +5,7 @@ import BootstrapLink from '../shared/bootstrap-link';
 import { routes } from '../../constants/routes';
 
 function linkToPhoto(file) {
-  return `https://parfirova.s3.eu-west-3.amazonaws.com/images/contests/${file}`;
+  return `https://storage.yandexcloud.net/parfirova.ru/contests/${file}`;
 }
 
 const data = [

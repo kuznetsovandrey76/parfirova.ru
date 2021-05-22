@@ -28,6 +28,7 @@ function App() {
               <Route exact path={routes.GALLERY} component={pages.GalleryPage} />
               <Route exact path={routes.LITERATURE} component={pages.LiteraturePage} />
               <Route exact path={routes.RUSSIAN} component={pages.RussianPage} />
+              <Route exact path={routes.NEWS} component={pages.NewsPage} />
 
               <Route exact path={routes.FIFTH_GRADE} component={pages.fifthGradePage} />
               <Route exact path={routes.SIXTH_GRADE} component={pages.sixthGradePage} />

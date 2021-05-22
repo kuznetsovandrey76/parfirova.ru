@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import ImgsViewer from 'react-images-viewer';
 
 function linkToPhoto(file) {
-  return `https://parfirova.s3.eu-west-3.amazonaws.com/images/events/${file}`;
+  return `https://storage.yandexcloud.net/parfirova.ru/events/${file}`;
 }
 
 const data = [
@@ -30,6 +30,11 @@ function HomePage() {
   };
   return (
     <>
+      <Container fluid className='mb-5 text-center'>
+        <h1>Парфирова Ирина Андреевна</h1>
+        <h2>Учитель русского языка и литературы</h2>
+      </Container>
+
       <Row className='m-0'>
         {data &&
           data.map((image, index) => (

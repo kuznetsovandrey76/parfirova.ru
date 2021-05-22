@@ -57,7 +57,7 @@ function Header() {
             <BootstrapLink href={routes.GALLERY} text='Фотогалерея' />
           </Nav.Link>
           <Nav.Link eventKey={13}>
-            <BootstrapLink href={routes.CONTACTS} text='Контакты' />
+            <BootstrapLink href={routes.NEWS} text='Новости' />
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

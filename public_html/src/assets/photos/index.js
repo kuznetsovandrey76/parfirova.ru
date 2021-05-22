@@ -1,5 +1,5 @@
 function linkToPhoto(file) {
-  return `https://parfirova.s3.eu-west-3.amazonaws.com/images/gallery/${file}`;
+  return `https://storage.yandexcloud.net/parfirova.ru/gallery/${file}`;
 }
 
 export const photos = [

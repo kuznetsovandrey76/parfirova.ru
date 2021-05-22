@@ -28,6 +28,8 @@ function Footer() {
             <p className='mb-0 text-dark'>Методическая копилка</p>
             <BootstrapLink href={routes.RUSSIAN} text='Русский язык' block />
             <BootstrapLink href={routes.LITERATURE} text='Литература' block />
+            <div className='mb-3' />
+            <BootstrapLink href={routes.CONTACTS} text='Контакты' block />
           </Col>
         </Row>
       </div>

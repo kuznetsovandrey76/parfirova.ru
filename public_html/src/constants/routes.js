@@ -3,6 +3,7 @@ export const routes = {
   ABOUT: '/about',
   GALLERY: '/gallery',
   CONTACTS: '/contacts',
+  NEWS: '/news',
   LITERATURE: '/literature',
   RUSSIAN: '/russian',
   CONTESTS: '/contests',

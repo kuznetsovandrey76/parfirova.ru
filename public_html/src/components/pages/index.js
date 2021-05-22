@@ -7,6 +7,7 @@ import GalleryPage from './gallery';
 import HomePage from './home';
 import LiteraturePage from './literature';
 import RussianPage from './russian';
+import NewsPage from './news';
 
 import fifthGradePage from './fifth-grade';
 import sixthGradePage from './sixth-grade';
@@ -21,6 +22,7 @@ export const pages = {
   CoursesPage,
   GalleryPage,
   HomePage,
+  NewsPage,
   RussianPage,
   LiteraturePage,
   ContactsPage,
