@@ -1,5 +1,10 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
-export default function () {
-  return <>Hello, World!</>;
+import "./app.scss";
+
+function App() {
+  return <Container fluid>123</Container>;
 }
+
+export default App;
