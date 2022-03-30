@@ -1,10 +1,21 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 
-import "./app.scss";
+import Auth from "./components/auth";
+import Dashboard from "./components/dashboard";
+import { useUserContext } from "./context/userContext";
 
 function App() {
-  return <Container fluid>123</Container>;
+  const { user, loading, error } = useUserContext();
+
+
+
+
+  return (
+    <div className="App">
+      {error && <p className="error">{error}</p>}
+      {loading ? <h2>Loading...</h2> : <> {user ? <Dashboard /> : <Auth />} </>}
+    </div>
+  );
 }
 
 export default App;
