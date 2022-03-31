@@ -104,14 +104,31 @@ export const UserContextProvider = ({ children }) => {
 
   const onSignInSubmit = (e) => {
     e.preventDefault();
-    setUpRecaptcha();
+    // setUpRecaptcha();
 
+    if (Math.random() > 0.5) {
+      console.log('Sorry')
+      return
+    } else {
+      console.log('Nice')
+    }
     // const phoneNumber = getPhoneNumberFromUserInput();
     const phoneNumber = '+78002000500';
-    const appVerifier = window.recaptchaVerifier;
+    // const appVerifier = window.recaptchaVerifier;
+    const appVerifier = new RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        console.log(response)
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // onSignInSubmit();
+      }
+    }, auth);
+
+    console.log(auth, phoneNumber, appVerifier)
 
     // const auth = getAuth();
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    signInWithPhoneNumber(auth, phoneNumber)
+    // signInWithPhoneNumber(auth, phoneNumber, appVerifier)
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
@@ -138,11 +155,13 @@ export const UserContextProvider = ({ children }) => {
   }
 
   function setUpRecaptcha() {
+    // window.recaptchaVerifier = new RecaptchaVerifier('sign-in', {
     window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
       'size': 'invisible',
       'callback': (response) => {
+        console.log(response)
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-        onSignInSubmit();
+        // onSignInSubmit();
       }
     }, auth);
   }
