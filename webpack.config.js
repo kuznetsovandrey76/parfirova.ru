@@ -17,26 +17,12 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.less$/,
+        test: /\.(less|scss)$/,
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
-          {
-            loader: 'postcss-loader', // Automatically prefix
-            options: {
-              plugins: [require('autoprefixer')({ browsers: ['last 5 version'] })],
-            },
-          },
-          { loader: 'less-loader' },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
           { loader: 'postcss-loader' },
+          { loader: 'less-loader' },
         ],
       },
     ],
