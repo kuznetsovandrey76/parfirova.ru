@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-
-import Auth from "./components/auth";
-import Dashboard from "./components/dashboard";
-import { useUserContext } from "./context/userContext";
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  const url = "https://parfirova.herokuapp.com/";
-  const { user, loading, error } = useUserContext();
+  const url = 'https://parfirova.herokuapp.com/';
 
   useEffect(() => {
     axios.get(url).then((resp) => {
@@ -17,8 +12,8 @@ function App() {
 
     axios
       .post(url, {
-        firstName: "Andrey",
-        lastName: "Kuznetsov",
+        firstName: 'Andrey',
+        lastName: 'Kuznetsov',
       })
       .then((response) => {
         console.log(response);
@@ -28,12 +23,7 @@ function App() {
       });
   }, []);
 
-  return (
-    <div className="App">
-      {error && <p className="error">{error}</p>}
-      {loading ? <h2>Loading...</h2> : <> {user ? <Dashboard /> : <Auth />} </>}
-    </div>
-  );
+  return <div className='App'>Hello, World!</div>;
 }
 
 export default App;
