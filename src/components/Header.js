@@ -1,26 +1,44 @@
 import React from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { LinkContainer as Link } from 'react-router-bootstrap'
 
 function Header() {
     return (
-        <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header'>
-            <Container>
-                <Navbar.Brand href="/">Parfirova.ru</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Главная</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+        <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header flex mx-5'>
+            <Link to="/">
+                <Navbar.Brand>Parfirova.ru</Navbar.Brand>
+            </Link>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                    <Link to="main">
+                        <Nav.Link>Главная</Nav.Link>
+                    </Link>
+                    <NavDropdown title="Достижения" id="basic-nav-dropdown">
+                        {[
+                            { to: '/courses', text: 'Курсы & Вебинары' },
+                            { to: '/contests', text: 'Конкурсы' },
+                            { to: '/achievements', text: 'Достижения учеников' },
+                        ].map(({ to, text }, idx) => {
+                            return (
+                                <Link to={to} key={idx}>
+                                    <NavDropdown.Item>{text}</NavDropdown.Item>
+                                </Link>
+                            )
+                        })}
+                    </NavDropdown>
+                    <NavDropdown title="Ученикам" id="basic-nav-dropdown">
+                        {[5, 6, 7, 8, 9, null, 10, 11].map((num) => {
+                            if (!num) return <NavDropdown.Divider />
+                            return (
+                                <Link to={`${num}th-grade`} key={num}>
+                                    <NavDropdown.Item>{`${num} класс`}</NavDropdown.Item>
+                                </Link>
+                            )
+                        })}
+                    </NavDropdown>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
     );
 }

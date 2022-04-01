@@ -1,16 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { HomePage, NotFoundPage, Qwe } from './components/pages'
+import { HomePage, NotFoundPage } from './components/pages'
+import Wrapper from './components/shared/wrapper'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path="*" component={NotFoundPage} />
-      </Switch>
+      <Wrapper>
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path="*" component={NotFoundPage} />
+        </Switch>
+      </Wrapper>
     </BrowserRouter>
   )
 }
