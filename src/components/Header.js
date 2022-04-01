@@ -1,40 +1,28 @@
-import React, { useState } from 'react';
-import { Pane, Paragraph, Tab, Tablist } from 'evergreen-ui';
+import React from 'react';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 
-function Header({ tabs }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  return (
-    <Pane clearfix>
-      <Tablist textAlign={'center'} marginBottom={16}>
-        {tabs.map((tab, index) => (
-          <Tab
-            key={tab}
-            id={tab}
-            onSelect={() => setSelectedIndex(index)}
-            isSelected={index === selectedIndex}
-            aria-controls={`panel-${tab}`}
-          >
-            {tab}
-          </Tab>
-        ))}
-      </Tablist>
-      <Pane padding={16} background='tint1' flex='1'>
-        {tabs.map((tab, index) => (
-          <Pane
-            key={tab}
-            id={`panel-${tab}`}
-            role='tabpanel'
-            aria-labelledby={tab}
-            aria-hidden={index !== selectedIndex}
-            display={index === selectedIndex ? 'block' : 'none'}
-          >
-            <Paragraph>>> {tab}</Paragraph>
-          </Pane>
-        ))}
-      </Pane>
-    </Pane>
-  );
+function Header() {
+    return (
+        <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header'>
+            <Container>
+                <Navbar.Brand href="/">Parfirova.ru</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="#home">Главная</Nav.Link>
+                        <Nav.Link href="#link">Link</Nav.Link>
+                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
 }
 
 export default Header;
