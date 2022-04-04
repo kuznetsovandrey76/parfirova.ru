@@ -1,20 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { HomePage, NotFoundPage } from './components/pages'
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import routes from './routes'
+import RouteWithSubRoutes from './routes/routes-with-sub-routes'
 import Wrapper from './components/shared/wrapper'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-image-lightbox/style.css';
+import './app.css'
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Wrapper>
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path="*" component={NotFoundPage} />
+          {routes.map((route) => <RouteWithSubRoutes {...route} key={route.path} />)}
         </Switch>
       </Wrapper>
-    </BrowserRouter>
+    </Router >
   )
 }
 

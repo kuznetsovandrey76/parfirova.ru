@@ -3,14 +3,14 @@ import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import axios from 'axios';
 
-function HomePage() {
+function CoursePage() {
     const [isOpen, setIsOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState(0);
     const [images, setImages] = useState([]);
 
     useEffect(async () => {
         try {
-            const response = await axios.get(process.env.API_URL)
+            const response = await axios.get(`${process.env.API_URL}course/`)
             const { data: images } = response
 
             setImages(images);
@@ -22,8 +22,7 @@ function HomePage() {
 
     return (
         <Container fluid className='mt-2 mb-5 text-center'>
-            <h1>Парфирова Ирина Андреевна</h1>
-            <h2>Учитель русского языка и литературы</h2>
+            <p>Пройденные курсы:</p>
             <button type="button" onClick={() => setIsOpen(true)}>
                 Показать изображения
             </button>
@@ -43,4 +42,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default CoursePage;

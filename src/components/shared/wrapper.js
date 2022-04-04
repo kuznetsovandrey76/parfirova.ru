@@ -4,7 +4,6 @@ import Header from "../Header";
 
 function Wrapper(props) {
     const { children } = props;
-
     return (
         <Container fluid>
             <Header />
