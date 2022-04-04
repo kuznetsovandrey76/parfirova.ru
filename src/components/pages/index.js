@@ -1,9 +1,9 @@
 import HomePage from './home'
-import CoursePage from './course'
+import CoursesPage from './courses'
 import NotFoundPage from "./not-found";
 
 export {
     HomePage,
-    CoursePage,
+    CoursesPage,
     NotFoundPage,
 }

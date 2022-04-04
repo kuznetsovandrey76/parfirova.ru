@@ -10,6 +10,7 @@ function CoursePage() {
 
     useEffect(async () => {
         try {
+            // todo: rename url
             const response = await axios.get(`${process.env.API_URL}course/`)
             const { data: images } = response
 

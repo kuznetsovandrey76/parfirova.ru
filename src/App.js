@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+// We should use HashRouter for work with gh-pages
+import { HashRouter as Router, Switch } from 'react-router-dom';
 import routes from './routes'
 import RouteWithSubRoutes from './routes/routes-with-sub-routes'
 import Wrapper from './components/shared/wrapper'
