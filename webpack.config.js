@@ -1,14 +1,14 @@
+const path = require('path');
 const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const path = require('path');
 
 module.exports = (env, args) => {
   const { mode } = args;
   const API_URL = mode === 'development' ? 'http://localhost:3000/' : 'https://parfirova.herokuapp.com/';
 
-  console.log(env, args);
   return {
     entry: path.resolve(__dirname, './src/index.js'),
     module: {
