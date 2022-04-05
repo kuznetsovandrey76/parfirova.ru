@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomePage, CoursesPage, NotFoundPage } from '../components/pages'
+import { HomePage, CoursesPage, NotFoundPage, GalleryPage } from '../components/pages'
 import { useLocation } from 'react-router-dom';
 import RouteWithSubRoutes from './routes-with-sub-routes'
 
@@ -22,6 +22,7 @@ const AdminHome = () => 'Home';
 const routes = [
     { path: ['/home', '/'], component: HomePage, exact: true },
     { path: '/courses', component: CoursesPage, exact: true },
+    { path: '/gallery', component: GalleryPage, exact: true },
     {
         path: '/admin', component: Admin, routes: [
             { path: '/admin/home', component: AdminHome }

@@ -5,13 +5,13 @@ import { LinkContainer as Link } from 'react-router-bootstrap'
 function Header() {
     return (
         <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header flex mx-5'>
-            <Link to="/admin/home">
+            <Link to="/">
                 <Navbar.Brand>Parfirova.ru</Navbar.Brand>
             </Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Link to="main" >
+                    <Link to="/" >
                         <Nav.Link>Главная</Nav.Link>
                     </Link>
                     <NavDropdown title="Достижения" id="basic-nav-dropdown">
@@ -37,6 +37,9 @@ function Header() {
                             )
                         })}
                     </NavDropdown>
+                    <Link to="/gallery" >
+                        <Nav.Link>Галерея</Nav.Link>
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar >

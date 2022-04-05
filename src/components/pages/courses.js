@@ -11,7 +11,7 @@ function CoursePage() {
     useEffect(async () => {
         try {
             // todo: rename url
-            const response = await axios.get(`${process.env.API_URL}course/`)
+            const response = await axios.get(`${process.env.API_URL}courses/`)
             const { data: images } = response
 
             setImages(images);

@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, args) => {
   const { mode } = args;
@@ -11,10 +12,19 @@ module.exports = (env, args) => {
 
   return {
     entry: path.resolve(__dirname, './src/index.js'),
+    output: {
+      filename: "[fullhash].[name].js",
+      path: path.resolve(__dirname, 'build'),
+      chunkFilename: '[id].[chunkhash].js',
+      publicPath: "/"
+    },
+    resolve: {
+      extensions: ['.js', '.json', '.css']
+    },
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.js$/,
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
@@ -24,16 +34,11 @@ module.exports = (env, args) => {
         },
       ],
     },
-    output: {
-      path: path.resolve(__dirname, './build'),
-      filename: 'bundle.js',
-      publicPath: '/',
-    },
     plugins: [
       new CleanWebpackPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({ template: './index.html' }),
       new MiniCssExtractPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           'API_URL': JSON.stringify(API_URL),
@@ -41,10 +46,26 @@ module.exports = (env, args) => {
       })
     ],
     devServer: {
+      client: {
+        overlay: {
+          errors: true,
+          warnings: true,
+        },
+      },
       historyApiFallback: true,
       compress: true,
       port: 8081,
       hot: true,
+    },
+    // this can be removed
+    optimization: {
+      minimize: true,
+      minimizer: [new UglifyJsPlugin({
+        include: /\.min\.js$/
+      })],
+      splitChunks: {
+        chunks: 'all',
+      },
     },
   }
 };

@@ -24,6 +24,7 @@ function HomePage() {
         <Container fluid className='mt-2 mb-5 text-center'>
             <h1>Парфирова Ирина Андреевна</h1>
             <h2>Учитель русского языка и литературы</h2>
+            <p>Средняя школа № 18 г. Ярославль</p>
             <button type="button" onClick={() => setIsOpen(true)}>
                 Показать изображения
             </button>
@@ -32,7 +33,6 @@ function HomePage() {
                     mainSrc={images[photoIndex].src}
                     nextSrc={images[(photoIndex + 1) % images.length].src}
                     prevSrc={images[(photoIndex + images.length - 1) % images.length].src}
-                    imageTitle={images[photoIndex].caption}
                     imageCaption={images[photoIndex].caption}
                     onCloseRequest={() => setIsOpen(false)}
                     onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
