@@ -1,19 +1,20 @@
 import React from 'react';
 import {
+    AdminPage,
     HomePage,
     CoursesPage,
     NotFoundPage,
     GalleryPage,
     FiveGradePage
-} from '../components/pages'
+} from '../components/pages';
 import { useLocation } from 'react-router-dom';
-import RouteWithSubRoutes from './routes-with-sub-routes'
+import RouteWithSubRoutes from './routes-with-sub-routes';
 
-function Admin({ routes }) {
+function TestPage({ routes }) {
     const sampleLocation = useLocation();
     const { pathname } = sampleLocation
 
-    if (pathname === '/admin') return <NotFoundPage />
+    if (pathname === '/test') return <NotFoundPage />
 
     return (
         <>
@@ -23,16 +24,17 @@ function Admin({ routes }) {
     )
 }
 
-const AdminHome = () => 'Home';
+const TestInner = () => 'Inner';
 
 const routes = [
+    { path: ['/admin'], component: AdminPage, exact: true },
     { path: ['/home', '/'], component: HomePage, exact: true },
     { path: '/courses', component: CoursesPage, exact: true },
     { path: '/gallery', component: GalleryPage, exact: true },
     { path: '/5th-grade', component: FiveGradePage, exact: true },
     {
-        path: '/admin', component: Admin, routes: [
-            { path: '/admin/home', component: AdminHome }
+        path: '/test', component: TestPage, routes: [
+            { path: '/test/inner', component: TestInner }
         ]
     },
     { path: '*', component: NotFoundPage },

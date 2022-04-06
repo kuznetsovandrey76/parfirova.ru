@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import { Carousel } from 'react-responsive-carousel';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import axios from 'axios';
+import Api from '../../api'
 
 function HomePage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +12,7 @@ function HomePage() {
 
     useEffect(async () => {
         try {
-            const response = await axios.get(process.env.API_URL)
+            const response = await Api.getHome()
             const { data: images } = response
 
             setImages(images);
@@ -44,7 +44,7 @@ function HomePage() {
                 Показать изображения
             </button>
             {imagesBlock}
-            <Carousel
+            {/* <Carousel
                 className='my-3'
                 animationHandler="fade"
                 swipeable={true}
@@ -65,7 +65,7 @@ function HomePage() {
                     <img src="https://storage.yandexcloud.net/parfirova.ru/gallery/17.jpg" />
                     <p className="legend bg-dark bg-gradient">Legend 3</p>
                 </div>
-            </Carousel>
+            </Carousel> */}
         </Container>
     );
 }

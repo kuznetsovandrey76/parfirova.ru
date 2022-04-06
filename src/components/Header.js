@@ -40,6 +40,9 @@ function Header() {
                     <Link to="/gallery" >
                         <Nav.Link>Галерея</Nav.Link>
                     </Link>
+                    <Link to="/admin" >
+                        <Nav.Link>Login</Nav.Link>
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar >

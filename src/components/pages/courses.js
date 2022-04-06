@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import axios from 'axios';
+import Api from '../../api'
 
 function CoursePage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,8 +10,7 @@ function CoursePage() {
 
     useEffect(async () => {
         try {
-            // todo: rename url
-            const response = await axios.get(`${process.env.API_URL}courses/`)
+            const response = await Api.getCourses()
             const { data: images } = response
 
             setImages(images);
