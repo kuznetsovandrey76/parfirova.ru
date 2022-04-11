@@ -3,11 +3,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Container } from 'react-bootstrap';
 
-import { WordSvg, ExcelSvg, PpointSvg } from '../../assets/svg';
+// import { WordSvg, ExcelSvg, PpointSvg } from '../../assets/svg';
 import Api from '../../api';
 
 function FiveGradePage() {
   const [posts, setPosts] = useState([]);
+
   useEffect(async () => {
     try {
       const response = await Api.getPosts();
