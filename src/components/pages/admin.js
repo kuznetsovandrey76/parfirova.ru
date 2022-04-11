@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import Md from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 import Api from '../../api';
-
-import 'react-toastify/dist/ReactToastify.css';
-import './admin.css';
 
 function AdminPage() {
   const [login, setLogin] = useState('');
   const [pass, setPass] = useState('');
-  const [text, setText] = useState('');
 
   const history = useHistory();
 
@@ -33,34 +27,6 @@ function AdminPage() {
     try {
       await Api.signIn(login, pass);
       history.push('/');
-    } catch (err) {
-      toast.warn(err.response.data, {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-      });
-    }
-  };
-
-  const textareaHandler = (e) => {
-    e.preventDefault();
-    const {
-      target: { value },
-    } = e;
-    setText(value);
-  };
-
-  const handleSendPost = async (e) => {
-    e.preventDefault();
-    setText('');
-
-    try {
-      await Api.sendPost(text);
-      history.push('/admin');
     } catch (err) {
       toast.warn(err.response.data, {
         position: 'top-right',
@@ -115,22 +81,6 @@ function AdminPage() {
           Submit
         </Button>
       </Form>
-
-      <hr />
-
-      <Row className='markdown-post mb-2'>
-        <Col>
-          <textarea className='w-100 h-100 p-2' onChange={textareaHandler} value={text} />
-        </Col>
-        <Col>
-          <Md key='text' remarkPlugins={[remarkGfm]}>
-            {text}
-          </Md>
-        </Col>
-      </Row>
-      <Button variant='primary' onClick={handleSendPost}>
-        Send Post
-      </Button>
     </Container>
   );
 }
