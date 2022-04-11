@@ -19,27 +19,20 @@ function FiveGradePage() {
   }, []);
 
   return (
-    <Container fluid className='mt-2 mb-5 text-center'>
+    <Container fluid className='mt-2 mb-5'>
+      <h1>5 класс</h1>
+      <hr />
       {posts.map((post, id) => {
-        console.log(JSON.stringify(post.text.replace(/\n/g, '')));
-        const md = `A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-- [ ] todo
-- [x] done
-
-A table:
-
-| a | b |
-| - | - |
-`;
-        // return <ReactMarkdown key={id}>{post.text.replace(/\n/g, '').trim()}</ReactMarkdown>;
-        return <ReactMarkdown children={md} remarkPlugins={[remarkGfm]} key={id} />;
+        return (
+          <Container className='p-0 mb-3'>
+            <h3>{post.title}</h3>
+            <ReactMarkdown key={id} remarkPlugins={[remarkGfm]}>
+              {post.text}
+            </ReactMarkdown>
+          </Container>
+        );
       })}
-      <p>5 класс</p>
-      <a href='#' className='d-block mb-2'>
+      {/* <a href='#' className='d-block mb-2'>
         <img src={WordSvg} className='me-2' style={{ width: '30px' }} />
         <span>Урок 1</span>
       </a>
@@ -50,7 +43,7 @@ A table:
       <a href='#' className='d-block mb-2'>
         <img src={PpointSvg} className='me-2' style={{ width: '30px' }} />
         <span>Урок 3</span>
-      </a>
+      </a> */}
     </Container>
   );
 }
