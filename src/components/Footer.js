@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -19,7 +20,7 @@ function Footer() {
           <Col>
             <div className='footer-title'>
               <h5> Информация </h5>
-              <p>Вконтакте</p>
+              <a href='https://vk.com/parfirova.irina'>Вконтакте</a>
             </div>
           </Col>
         </Row>
