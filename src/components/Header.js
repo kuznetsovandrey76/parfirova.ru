@@ -44,6 +44,7 @@ function Header() {
             {[
               { to: '/admin', text: 'Вход' },
               { to: '/posts', text: 'Посты' },
+              { to: '/lessons', text: 'Уроки' },
             ].map(({ to, text }) => {
               return (
                 <Link to={to} key={to}>

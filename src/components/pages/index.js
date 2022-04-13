@@ -5,5 +5,15 @@ import NotFoundPage from './not-found';
 import GalleryPage from './gallery';
 import FiveGradePage from './5grade';
 import PostsPage from './posts';
+import LessonsPage from './lessons';
 
-export { AdminPage, HomePage, CoursesPage, NotFoundPage, GalleryPage, FiveGradePage, PostsPage };
+export {
+  AdminPage,
+  HomePage,
+  CoursesPage,
+  NotFoundPage,
+  GalleryPage,
+  FiveGradePage,
+  PostsPage,
+  LessonsPage,
+};

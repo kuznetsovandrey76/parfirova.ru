@@ -6,9 +6,12 @@ const api = axios.create({
 });
 
 export default class {
-  static getHome = () => api.get('/');
   static getCourses = () => api.get('courses/');
   static getGallery = () => api.get('gallery/');
+
+  static getLessons = () => api.get('lessons/');
+  static sendLesson = ({ grade, title, description, active }) =>
+    api.post('lessons/', { grade, title, description, active });
 
   static getPosts = () => api.get('posts/');
   static sendPost = (text) => api.post('posts/', { text });

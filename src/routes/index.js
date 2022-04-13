@@ -7,6 +7,7 @@ import {
   GalleryPage,
   FiveGradePage,
   PostsPage,
+  LessonsPage,
 } from '../components/pages';
 import { useLocation } from 'react-router-dom';
 import RouteWithSubRoutes from './routes-with-sub-routes';
@@ -30,9 +31,12 @@ function TestPage({ routes }) {
 const TestInner = () => 'Inner';
 
 const routes = [
-  { path: ['/admin'], component: AdminPage, exact: true },
-  { path: ['/posts'], component: PostsPage, exact: true },
   { path: ['/home', '/'], component: HomePage, exact: true },
+
+  { path: ['/admin'], component: AdminPage, exact: true },
+  { path: '/posts', component: PostsPage, exact: true },
+  { path: '/lessons', component: LessonsPage, exact: true },
+
   { path: '/courses', component: CoursesPage, exact: true },
   { path: '/gallery', component: GalleryPage, exact: true },
   { path: '/5th-grade', component: FiveGradePage, exact: true },

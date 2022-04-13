@@ -31,9 +31,9 @@ function GalleryPage() {
           img.onerror = () => {
             // todo: Image not found
             resolve({
-              src: 'https://storage.yandexcloud.net/parfirova.ru/gallery/1.jpg',
-              width: 1,
-              height: 1,
+              src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
+              width: 3,
+              height: 2,
               idx,
             });
           };
