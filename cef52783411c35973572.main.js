@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6433:
+/***/ 2262:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -46,16 +46,29 @@ var _default = /*#__PURE__*/_createClass(function _default() {
   _classCallCheck(this, _default);
 });
 
-_defineProperty(_default, "getHome", function () {
-  return api.get('/');
-});
-
 _defineProperty(_default, "getCourses", function () {
   return api.get('courses/');
 });
 
 _defineProperty(_default, "getGallery", function () {
   return api.get('gallery/');
+});
+
+_defineProperty(_default, "getLessons", function () {
+  return api.get('lessons/');
+});
+
+_defineProperty(_default, "sendLesson", function (_ref) {
+  var grade = _ref.grade,
+      title = _ref.title,
+      description = _ref.description,
+      active = _ref.active;
+  return api.post('lessons/', {
+    grade: grade,
+    title: title,
+    description: description,
+    active: active
+  });
 });
 
 _defineProperty(_default, "getPosts", function () {
@@ -207,106 +220,20 @@ function AdminPage() {
 }
 
 /* harmony default export */ var admin = (AdminPage);
-// EXTERNAL MODULE: ./node_modules/react-image-lightbox/dist/index.es.js
-var index_es = __webpack_require__(2879);
 ;// CONCATENATED MODULE: ./src/components/pages/home.js
-function home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function home_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function home_slicedToArray(arr, i) { return home_arrayWithHoles(arr) || home_iterableToArrayLimit(arr, i) || home_unsupportedIterableToArray(arr, i) || home_nonIterableRest(); }
-
-function home_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function home_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return home_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return home_arrayLikeToArray(o, minLen); }
-
-function home_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function home_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function home_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
- // import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-// import { Carousel } from 'react-responsive-carousel';
-
-
 
 
 
 function HomePage() {
-  var _useState = (0,react.useState)(false),
-      _useState2 = home_slicedToArray(_useState, 2),
-      isOpen = _useState2[0],
-      setIsOpen = _useState2[1];
-
-  var _useState3 = (0,react.useState)(0),
-      _useState4 = home_slicedToArray(_useState3, 2),
-      photoIndex = _useState4[0],
-      setPhotoIndex = _useState4[1];
-
-  var _useState5 = (0,react.useState)([]),
-      _useState6 = home_slicedToArray(_useState5, 2),
-      images = _useState6[0],
-      setImages = _useState6[1];
-
-  (0,react.useEffect)( /*#__PURE__*/home_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var response, _images;
-
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return _default.getHome();
-
-          case 3:
-            response = _context.sent;
-            _images = response.data;
-            setImages(_images);
-            _context.next = 11;
-            break;
-
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](0);
-            console.warn('Cannot get images from server');
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[0, 8]]);
-  })), []);
-  var imagesBlock = isOpen && images.length ? /*#__PURE__*/react.createElement(index_es/* default */.Z, {
-    mainSrc: images[photoIndex].src,
-    nextSrc: images[(photoIndex + 1) % images.length].src,
-    prevSrc: images[(photoIndex + images.length - 1) % images.length].src,
-    imageTitle: images[photoIndex].caption,
-    imageCaption: images[photoIndex].caption,
-    onCloseRequest: function onCloseRequest() {
-      return setIsOpen(false);
-    },
-    onMovePrevRequest: function onMovePrevRequest() {
-      return setPhotoIndex((photoIndex + images.length - 1) % images.length);
-    },
-    onMoveNextRequest: function onMoveNextRequest() {
-      return setPhotoIndex((photoIndex + 1) % images.length);
-    }
-  }) : null;
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("h1", null, "\u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430 \u0418\u0440\u0438\u043D\u0430 \u0410\u043D\u0434\u0440\u0435\u0435\u0432\u043D\u0430"), /*#__PURE__*/react.createElement("h2", null, "\u0423\u0447\u0438\u0442\u0435\u043B\u044C \u0440\u0443\u0441\u0441\u043A\u043E\u0433\u043E \u044F\u0437\u044B\u043A\u0430 \u0438 \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u044B"), /*#__PURE__*/react.createElement("p", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0448\u043A\u043E\u043B\u0430 \u2116 18 \u0433. \u042F\u0440\u043E\u0441\u043B\u0430\u0432\u043B\u044C"), /*#__PURE__*/react.createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      return setIsOpen(true);
-    }
-  }, "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F"), imagesBlock);
+  }, /*#__PURE__*/react.createElement("h2", null, "\u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430 \u0418\u0440\u0438\u043D\u0430 \u0410\u043D\u0434\u0440\u0435\u0435\u0432\u043D\u0430"), /*#__PURE__*/react.createElement("h3", null, "\u0423\u0447\u0438\u0442\u0435\u043B\u044C \u0440\u0443\u0441\u0441\u043A\u043E\u0433\u043E \u044F\u0437\u044B\u043A\u0430 \u0438 \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u044B"), /*#__PURE__*/react.createElement("p", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0448\u043A\u043E\u043B\u0430 \u2116 18 \u0433. \u042F\u0440\u043E\u0441\u043B\u0430\u0432\u043B\u044C"));
 }
 
 /* harmony default export */ var home = (HomePage);
+// EXTERNAL MODULE: ./node_modules/react-image-lightbox/dist/index.es.js
+var index_es = __webpack_require__(2879);
 ;// CONCATENATED MODULE: ./src/components/pages/courses.js
 function courses_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -432,7 +359,23 @@ function NotFoundPage() {
 }
 
 /* harmony default export */ var not_found = (NotFoundPage);
+;// CONCATENATED MODULE: ./src/components/utils/get-nod.js
+var getNod = function getNod(x, y) {
+  if (y > x) return getNod(y, x);
+  if (!y) return x;
+  return getNod(y, x % y);
+};
+
+/* harmony default export */ var get_nod = (getNod);
+// EXTERNAL MODULE: ./node_modules/react-photo-gallery/dist/react-photo-gallery.esm.js + 1 modules
+var react_photo_gallery_esm = __webpack_require__(5283);
 ;// CONCATENATED MODULE: ./src/components/pages/gallery.js
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { gallery_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function gallery_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function gallery_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function gallery_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { gallery_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { gallery_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -448,6 +391,8 @@ function gallery_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 function gallery_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function gallery_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -471,7 +416,7 @@ function GalleryPage() {
       setImages = _useState6[1];
 
   (0,react.useEffect)( /*#__PURE__*/gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var response, _images;
+    var response, _images, imagePromises, transformImages;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -484,21 +429,53 @@ function GalleryPage() {
           case 3:
             response = _context.sent;
             _images = response.data;
-            setImages(_images);
-            _context.next = 11;
-            break;
+            imagePromises = _images.map(function (image, idx) {
+              return new Promise(function (resolve, reject) {
+                var img = new Image();
+
+                img.onload = function () {
+                  var nod = get_nod(this.width, this.height);
+                  resolve(_objectSpread(_objectSpread({}, image), {}, {
+                    width: this.width / nod,
+                    height: this.height / nod,
+                    // custom attr
+                    idx: idx
+                  }));
+                };
+
+                img.onerror = function () {
+                  // todo: Image not found
+                  resolve({
+                    src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
+                    width: 3,
+                    height: 2,
+                    idx: idx
+                  });
+                };
+
+                img.src = image.src;
+              });
+            });
+            _context.next = 8;
+            return Promise.all(imagePromises);
 
           case 8:
-            _context.prev = 8;
+            transformImages = _context.sent;
+            setImages(transformImages);
+            _context.next = 15;
+            break;
+
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             console.warn('Cannot get images from server');
 
-          case 11:
+          case 15:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 12]]);
   })), []);
   var imagesBlock = isOpen && images.length ? /*#__PURE__*/react.createElement(index_es/* default */.Z, {
     mainSrc: images[photoIndex].src,
@@ -519,19 +496,23 @@ function GalleryPage() {
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("p", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      return setIsOpen(true);
+  }, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement(react_photo_gallery_esm/* default */.Z, {
+    photos: images,
+    direction: 'row',
+    onClick: function onClick(e) {
+      setPhotoIndex(e.target.attributes.idx.value);
+      setIsOpen(true);
     }
-  }, "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F"), imagesBlock);
+  }), imagesBlock);
 }
 
 /* harmony default export */ var gallery = (GalleryPage);
-// EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 114 modules
-var react_markdown = __webpack_require__(6025);
-// EXTERNAL MODULE: ./node_modules/remark-gfm/index.js + 28 modules
-var remark_gfm = __webpack_require__(906);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Row.js
+var Row = __webpack_require__(4051);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Col.js
+var Col = __webpack_require__(1555);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Card.js + 2 modules
+var Card = __webpack_require__(864);
 ;// CONCATENATED MODULE: ./src/components/pages/5grade.js
 function _5grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -549,8 +530,8 @@ function _5grade_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : ty
 
 function _5grade_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-
-
+ // import ReactMarkdown from 'react-markdown';
+// import remarkGfm from 'remark-gfm';
 
  // import { WordSvg, ExcelSvg, PpointSvg } from '../../assets/svg';
 
@@ -559,8 +540,8 @@ function _5grade_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function FiveGradePage() {
   var _useState = (0,react.useState)([]),
       _useState2 = _5grade_slicedToArray(_useState, 2),
-      posts = _useState2[0],
-      setPosts = _useState2[1];
+      lessons = _useState2[0],
+      setLessons = _useState2[1];
 
   (0,react.useEffect)( /*#__PURE__*/_5grade_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var response, data;
@@ -570,12 +551,12 @@ function FiveGradePage() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _default.getPosts();
+            return _default.getLessons();
 
           case 3:
             response = _context.sent;
             data = response.data;
-            setPosts(data);
+            setLessons(data);
             _context.next = 11;
             break;
 
@@ -594,21 +575,28 @@ function FiveGradePage() {
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5"
-  }, /*#__PURE__*/react.createElement("h1", null, "5 \u043A\u043B\u0430\u0441\u0441"), /*#__PURE__*/react.createElement("hr", null), posts.map(function (post, id) {
-    return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-      className: "p-0 mb-3"
-    }, /*#__PURE__*/react.createElement("h3", null, post.title), /*#__PURE__*/react.createElement(react_markdown/* ReactMarkdown */.D, {
-      key: id,
-      remarkPlugins: [remark_gfm/* default */.Z]
-    }, post.text));
-  }));
+  }, /*#__PURE__*/react.createElement("h1", null, "5 \u043A\u043B\u0430\u0441\u0441"), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement(Row/* default */.Z, null, lessons.map(function (lesson, id) {
+    return /*#__PURE__*/react.createElement(Col/* default */.Z, {
+      md: 6,
+      lg: 4,
+      className: "mb-3"
+    }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, "\u0422\u0435\u043C\u0430: ", lesson.title), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, {
+      className: "mb-2 text-muted"
+    }, "\u041A\u043B\u0430\u0441\u0441: ", lesson.grade), /*#__PURE__*/react.createElement(Card/* default.Text */.Z.Text, null, lesson.description)))) // <Container className='p-0 mb-3'>
+    //   <h3>{post.title}</h3>
+    //   <ReactMarkdown key={id} remarkPlugins={[remarkGfm]}>
+    //     {post.text}
+    //   </ReactMarkdown>
+    // </Container>
+    ;
+  })));
 }
 
 /* harmony default export */ var _5grade = (FiveGradePage);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Row.js
-var Row = __webpack_require__(4051);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Col.js
-var Col = __webpack_require__(1555);
+// EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 114 modules
+var react_markdown = __webpack_require__(6025);
+// EXTERNAL MODULE: ./node_modules/remark-gfm/index.js + 28 modules
+var remark_gfm = __webpack_require__(906);
 // EXTERNAL MODULE: ./src/components/pages/posts.css
 var posts = __webpack_require__(7791);
 ;// CONCATENATED MODULE: ./src/components/pages/posts.js
@@ -726,7 +714,194 @@ function PostsPage() {
 }
 
 /* harmony default export */ var pages_posts = (PostsPage);
+// EXTERNAL MODULE: ./src/components/pages/lessons.css
+var lessons = __webpack_require__(5386);
+;// CONCATENATED MODULE: ./src/components/pages/lessons.js
+function lessons_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function lessons_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { lessons_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { lessons_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function lessons_slicedToArray(arr, i) { return lessons_arrayWithHoles(arr) || lessons_iterableToArrayLimit(arr, i) || lessons_unsupportedIterableToArray(arr, i) || lessons_nonIterableRest(); }
+
+function lessons_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function lessons_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return lessons_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return lessons_arrayLikeToArray(o, minLen); }
+
+function lessons_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function lessons_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function lessons_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function lessonsPage() {
+  var _useState = (0,react.useState)(''),
+      _useState2 = lessons_slicedToArray(_useState, 2),
+      title = _useState2[0],
+      setTitle = _useState2[1];
+
+  var _useState3 = (0,react.useState)(''),
+      _useState4 = lessons_slicedToArray(_useState3, 2),
+      description = _useState4[0],
+      setDescription = _useState4[1];
+
+  var _useState5 = (0,react.useState)(5),
+      _useState6 = lessons_slicedToArray(_useState5, 2),
+      crntGrade = _useState6[0],
+      setCrntGrade = _useState6[1];
+
+  var _useState7 = (0,react.useState)([]),
+      _useState8 = lessons_slicedToArray(_useState7, 2),
+      lessons = _useState8[0],
+      setLessons = _useState8[1];
+
+  (0,react.useEffect)( /*#__PURE__*/lessons_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var response, data;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return _default.getLessons();
+
+          case 3:
+            response = _context.sent;
+            data = response.data;
+            setLessons(data);
+            _context.next = 11;
+            break;
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            console.warn('Cannot get images from server');
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  })), []);
+  var history = (0,react_router/* useHistory */.k6)();
+
+  var titleHandler = function titleHandler(e) {
+    e.preventDefault();
+    var value = e.target.value;
+    setTitle(value);
+  };
+
+  var descriptionHandler = function descriptionHandler(e) {
+    e.preventDefault();
+    var value = e.target.value;
+    setDescription(value);
+  };
+
+  var handleSubmit = /*#__PURE__*/function () {
+    var _ref2 = lessons_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              e.preventDefault();
+              _context2.prev = 1;
+              _context2.next = 4;
+              return _default.sendLesson({
+                grade: crntGrade,
+                title: title,
+                description: description,
+                active: true
+              });
+
+            case 4:
+              history.push('/');
+              _context2.next = 10;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0.response && _context2.t0.response.data, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined
+              });
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    return function handleSubmit(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  console.log(123, lessons);
+  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
+    fluid: true,
+    className: "mt-2 mb-5"
+  }, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    newestOnTop: false,
+    closeOnClick: true,
+    rtl: false,
+    pauseOnFocusLoss: true,
+    draggable: true,
+    pauseOnHover: true
+  }), /*#__PURE__*/react.createElement("h3", null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u043B\u0430\u0441\u0441:"), /*#__PURE__*/react.createElement(Row/* default */.Z, {
+    className: "mb-2"
+  }, /*#__PURE__*/react.createElement(Col/* default */.Z, {
+    className: "d-flex",
+    style: {
+      justifyContent: 'space-between'
+    }
+  }, [5, 6, 7, 8, 9, 10, 11].map(function (num) {
+    return /*#__PURE__*/react.createElement(Button/* default */.Z, {
+      key: num,
+      variant: crntGrade === num ? 'success' : 'outline-secondary',
+      onClick: function onClick() {
+        setCrntGrade(num);
+      },
+      className: "lessons-grade-btn"
+    }, num);
+  }))), /*#__PURE__*/react.createElement("h3", null, "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A"), /*#__PURE__*/react.createElement(Row/* default */.Z, null, /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("input", {
+    className: "w-100 p-2",
+    onChange: titleHandler,
+    value: title
+  }))), /*#__PURE__*/react.createElement("h3", null, "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"), /*#__PURE__*/react.createElement(Row/* default */.Z, null, /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("textarea", {
+    className: "w-100 h-100 p-2",
+    onChange: descriptionHandler,
+    value: description,
+    style: {
+      resize: 'none'
+    }
+  }))), /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    className: "my-3",
+    variant: "primary",
+    onClick: handleSubmit
+  }, "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C"));
+}
+
+/* harmony default export */ var pages_lessons = (lessonsPage);
 ;// CONCATENATED MODULE: ./src/components/pages/index.js
+
 
 
 
@@ -774,16 +949,20 @@ var TestInner = function TestInner() {
 };
 
 var routes = [{
+  path: ['/home', '/'],
+  component: home,
+  exact: true
+}, {
   path: ['/admin'],
   component: admin,
   exact: true
 }, {
-  path: ['/posts'],
+  path: '/posts',
   component: pages_posts,
   exact: true
 }, {
-  path: ['/home', '/'],
-  component: home,
+  path: '/lessons',
+  component: pages_lessons,
   exact: true
 }, {
   path: '/courses',
@@ -811,8 +990,8 @@ var routes = [{
 /* harmony default export */ var src_routes = (routes);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Navbar.js + 17 modules
 var Navbar = __webpack_require__(3197);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Nav.js + 4 modules
-var Nav = __webpack_require__(4315);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Nav.js + 3 modules
+var Nav = __webpack_require__(9370);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavDropdown.js + 75 modules
 var NavDropdown = __webpack_require__(8606);
 // EXTERNAL MODULE: ./node_modules/react-router-bootstrap/lib/index.js
@@ -879,6 +1058,9 @@ function Header() {
   }, {
     to: '/posts',
     text: 'Посты'
+  }, {
+    to: '/lessons',
+    text: 'Уроки'
   }].map(function (_ref2) {
     var to = _ref2.to,
         text = _ref2.text;
@@ -894,6 +1076,7 @@ function Header() {
 
 
 
+
 function Footer() {
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
@@ -906,7 +1089,9 @@ function Footer() {
     className: "footer-title"
   }, /*#__PURE__*/react.createElement("h5", null, " \u0421\u0432\u0435\u0436\u0438\u0435 \u043F\u043E\u0441\u0442\u044B "))), /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
     className: "footer-title"
-  }, /*#__PURE__*/react.createElement("h5", null, " \u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F "), /*#__PURE__*/react.createElement("p", null, "\u0412\u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435"))))), /*#__PURE__*/react.createElement(Container/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("h5", null, " \u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F "), /*#__PURE__*/react.createElement("a", {
+    href: "https://vk.com/parfirova.irina"
+  }, "\u0412\u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435"))))), /*#__PURE__*/react.createElement(Container/* default */.Z, {
     className: "footer-second"
   }, "\xA9", new Date().getFullYear(), " \u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430 \u0418\u0440\u0438\u043D\u0430 \u0410\u043D\u0434\u0440\u0435\u0435\u0432\u043D\u0430"));
 }
@@ -986,6 +1171,26 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n    font-family: 'Exo 2 light';\n    src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\n}\n\nbody {\n    font-family: 'Exo 2 light';\n}\n\na {\n    text-decoration: none;\n}\n\n.wrapper {\n  padding: 0;\n}\n\n.footer {\n  background: #f6f6f6;\n  text-align: center;\n  margin: 0;\n  padding: 0.5rem 0;\n}\n\n.footer-title {\n  text-align: center;\n  width: 90%;\n  margin: 0 auto;\n  overflow: hidden;\n}\n\n.footer-title h5 {\n  position: relative;\n  text-transform: uppercase;\n}\n\n.footer-title h5:before,\n.footer-title h5:after {\n  content: \"\";\n  border-bottom: 1px solid lightgrey;\n  width: 50%;\n  position: absolute;\n  top: 50%;\n  height: 1px;\n}\n\n.footer-title h5:before {\n  margin-left: calc(-50% - 10px);\n}\n\n.footer-title h5:after {\n  margin-left: 10px;\n}\n\n.footer-second {\n  border-top: 1px solid lightgrey;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n", ""]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 866:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8081);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3645);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".lessons-grade-btn {\n  width: 10%;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1113,6 +1318,111 @@ if (true) {
 
 
        /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ 5386:
+/***/ (function(module, __unused_webpack___webpack_exports__, __webpack_require__) {
+
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3379);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7795);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(569);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3565);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9216);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4589);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(866);
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+if (true) {
+  if (!_node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals || module.hot.invalidate) {
+    var isEqualLocals = function isEqualLocals(a, b, isNamedExport) {
+  if (!a && b || a && !b) {
+    return false;
+  }
+
+  var p;
+
+  for (p in a) {
+    if (isNamedExport && p === "default") {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (a[p] !== b[p]) {
+      return false;
+    }
+  }
+
+  for (p in b) {
+    if (isNamedExport && p === "default") {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (!a[p]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+    var isNamedExport = !_node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals;
+    var oldLocals = isNamedExport ? _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__ : _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals;
+
+    module.hot.accept(
+      866,
+      function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(866);
+(function () {
+        if (!isEqualLocals(oldLocals, isNamedExport ? _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__ : _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals, isNamedExport)) {
+                module.hot.invalidate();
+
+                return;
+              }
+
+              oldLocals = isNamedExport ? _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__ : _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals;
+
+              update(_node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"]);
+      })(__WEBPACK_OUTDATED_DEPENDENCIES__); }.bind(this)
+    )
+  }
+
+  module.hot.dispose(function() {
+    update();
+  });
+}
+
+
+
+       /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_lessons_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -1511,7 +1821,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "1f33cd06527a350b0395"; }
+/******/ 		__webpack_require__.h = function() { return "cef52783411c35973572"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -2606,7 +2916,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [638], function() { return __webpack_require__(6433); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [131], function() { return __webpack_require__(2262); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
