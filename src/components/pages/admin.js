@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
-import Api from '../../api';
+import api from '../../api';
 
 function AdminPage() {
   const [login, setLogin] = useState('');
@@ -25,9 +25,10 @@ function AdminPage() {
     setPass('');
 
     try {
-      await Api.signIn(login, pass);
+      await api.login({ login, password: pass });
       history.push('/');
     } catch (err) {
+      console.log(err);
       toast.warn(err.response.data, {
         position: 'top-right',
         autoClose: 3000,

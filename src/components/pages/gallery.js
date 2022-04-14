@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import Api from '../../api';
+import api from '../../api';
 import { getNod } from '../utils';
 import Gallery from 'react-photo-gallery';
 
@@ -12,7 +12,7 @@ function GalleryPage() {
 
   useEffect(async () => {
     try {
-      const response = await Api.getGallery();
+      const response = await api.getGallery();
       const { data: images } = response;
 
       const imagePromises = images.map((image, idx) => {

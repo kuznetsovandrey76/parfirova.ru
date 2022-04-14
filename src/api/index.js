@@ -1,20 +1,89 @@
 import axios from 'axios';
 
-const api = axios.create({
-  withCredentials: true,
-  baseURL: process.env.API_URL,
-});
+class Api {
+  constructor(options = {}) {
+    this.client = axios.create({
+      //   withCredentials: true,
+      baseURL: process.env.API_URL,
+    });
+    this.token = options.token;
+    this.refreshToken = options.refreshToken;
+    this.refreshRequest = null;
 
-export default class {
-  static getCourses = () => api.get('courses/');
-  static getGallery = () => api.get('gallery/');
+    this.client.interceptors.request.use(
+      config => {
+        if (!this.token) {
+          return config;
+        }
 
-  static getLessons = () => api.get('lessons/');
-  static sendLesson = ({ grade, title, description, active }) =>
-    api.post('lessons/', { grade, title, description, active });
+        const newConfig = {
+          headers: {},
+          ...config,
+        };
 
-  static getPosts = () => api.get('posts/');
-  static sendPost = (text) => api.post('posts/', { text });
+        newConfig.headers.Authorization = `Bearer ${this.token}`;
+        return newConfig;
+      },
+      e => Promise.reject(e)
+    );
 
-  static signIn = (login, pass) => api.post('login/', { login, pass });
+    this.client.interceptors.response.use(
+      r => r,
+      async error => {
+        if (
+          !this.refreshToken ||
+          error.response.status !== 401 ||
+          error.config.retry
+        ) {
+          throw error;
+        }
+
+        if (!this.refreshRequest) {
+          this.refreshRequest = this.client.post("/auth/refresh", {
+            refreshToken: this.refreshToken,
+          });
+        }
+        const { data } = await this.refreshRequest;
+        this.token = data.token;
+        this.refreshToken = data.refreshToken;
+        const newRequest = {
+          ...error.config,
+          retry: true,
+        };
+
+        return this.client(newRequest);
+      }
+    );
+  }
+
+  login = async ({ login, password }) => {
+    console.log('Api', login, password);
+    const { data } = await this.client.post("auth/login/", { login, password });
+
+    console.log('data', data);
+
+    this.token = data.token;
+    this.refreshToken = data.refreshToken;
+  }
+
+  logout() {
+    this.token = null;
+    this.refreshToken = null;
+  }
+
+  getUsers = async () => await this.client("users/");
+
+  getLessons = async () => await this.client("lessons/");
+  sendLesson = async ({ grade, title, description, active }) =>
+    await this.client.post('lessons/', { grade, title, description, active });
+
+  getCourses = async () => await this.client("courses/");
+
+  getGallery = async () => await this.client("gallery/");
+  getPosts = async () => await this.client("posts/");
+  sendPost = async (text) => await this.client.post('posts/', { text });
 }
+
+const api = new Api();
+
+export default api;

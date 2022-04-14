@@ -4,15 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 
 // import { WordSvg, ExcelSvg, PpointSvg } from '../../assets/svg';
-import Api from '../../api';
+import api from '../../api';
 
 function FiveGradePage() {
   const [lessons, setLessons] = useState([]);
 
   useEffect(async () => {
     try {
-      const response = await Api.getLessons();
-      const { data } = response;
+      const { data } = await api.getLessons();
       setLessons(data);
     } catch (err) {
       console.warn('Cannot get images from server');
@@ -25,7 +24,7 @@ function FiveGradePage() {
       <hr />
       <Row>
         {lessons.map((lesson, id) => (
-          <Col md={6} lg={4} className='mb-3'>
+          <Col md={6} lg={4} className='mb-3' key={id}>
             <Card>
               <Card.Body>
                 <Card.Title>Тема: {lesson.title}</Card.Title>

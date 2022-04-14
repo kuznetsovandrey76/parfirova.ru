@@ -3,24 +3,13 @@ import { useHistory } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
-import Api from '../../api';
+import api from '../../api';
 import './lessons.css';
 
 function lessonsPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [crntGrade, setCrntGrade] = useState(5);
-  const [lessons, setLessons] = useState([]);
-
-  useEffect(async () => {
-    try {
-      const response = await Api.getLessons();
-      const { data } = response;
-      setLessons(data);
-    } catch (err) {
-      console.warn('Cannot get images from server');
-    }
-  }, []);
 
   const history = useHistory();
 
@@ -44,7 +33,7 @@ function lessonsPage() {
     e.preventDefault();
 
     try {
-      await Api.sendLesson({
+      await api.sendLesson({
         grade: crntGrade,
         title,
         description,
@@ -63,8 +52,6 @@ function lessonsPage() {
       });
     }
   };
-
-  console.log(123, lessons);
 
   return (
     <Container fluid className='mt-2 mb-5'>

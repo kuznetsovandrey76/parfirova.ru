@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import Api from '../../api'
+import api from '../../api'
 
 function CoursePage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ function CoursePage() {
 
     useEffect(async () => {
         try {
-            const response = await Api.getCourses()
+            const response = await api.getCourses()
             const { data: images } = response
 
             setImages(images);
