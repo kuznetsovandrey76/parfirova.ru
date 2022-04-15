@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +8,13 @@ import api from '../../api';
 function AdminPage() {
   const [login, setLogin] = useState('');
   const [pass, setPass] = useState('');
+
+  useEffect(async () => {
+    const refreshToken = localStorage.getItem('refreshToken')
+    if (refreshToken) {
+      await api.checkAuth(refreshToken);
+    }
+  }, []);
 
   const history = useHistory();
 
@@ -25,8 +32,12 @@ function AdminPage() {
     setPass('');
 
     try {
-      await api.login({ login, password: pass });
-      history.push('/');
+      console.log(pass);
+      const ppp = await api.login({ login, password: pass });
+
+
+      console.log(1234, ppp);
+      // history.push('/');
     } catch (err) {
       console.log(err);
       toast.warn(err.response.data, {
@@ -62,7 +73,7 @@ function AdminPage() {
             name='login'
             placeholder='Enter login'
             value={login}
-            onChange={handleChange}
+            onChange={(e) => setLogin(e.target.value)}
             required
           />
         </Form.Group>

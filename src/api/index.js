@@ -11,7 +11,7 @@ class Api {
     this.refreshRequest = null;
 
     this.client.interceptors.request.use(
-      config => {
+      (config) => {
         if (!this.token) {
           return config;
         }
@@ -51,13 +51,13 @@ class Api {
           retry: true,
         };
 
+        console.log('newRequest', newRequest);
         return this.client(newRequest);
       }
     );
   }
 
   login = async ({ login, password }) => {
-    console.log('Api', login, password);
     const { data } = await this.client.post("auth/login/", { login, password });
 
     console.log('data', data);
@@ -66,10 +66,12 @@ class Api {
     this.refreshToken = data.refreshToken;
   }
 
-  logout() {
+  logout = () => {
     this.token = null;
     this.refreshToken = null;
   }
+
+  checkAuth = async (refreshToken) => await this.client.post("/auth/refresh", { refreshToken });
 
   getUsers = async () => await this.client("users/");
 
