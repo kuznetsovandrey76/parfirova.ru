@@ -1,14 +1,18 @@
 @font-face {
-    font-family: 'Exo 2 light';
-    src: url(./fonts/exo-2-light.ttf) format('opentype');
+  font-family: 'Exo 2 light';
+  src: url(./fonts/exo-2-light.ttf) format('opentype');
 }
 
 body {
-    font-family: 'Exo 2 light';
+  font-family: 'Exo 2 light';
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .wrapper {

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Md from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import Api from '../../api';
+import api from '../../api';
 
 import './posts.css';
 
@@ -27,7 +27,7 @@ function PostsPage() {
     setText('');
 
     try {
-      await Api.sendPost(text);
+      await api.sendPost(text);
       history.push('/admin');
     } catch (err) {
       toast.warn(err.response.data, {
