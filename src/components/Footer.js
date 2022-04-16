@@ -7,17 +7,17 @@ function Footer() {
     <Container fluid className='footer'>
       <Container className='mb-3 p-0'>
         <Row>
-          <Col>
+          <Col md={6} lg={4}>
             <div className='footer-title'>
               <h5>Ирина Парфирова</h5>
             </div>
           </Col>
-          <Col>
+          <Col md={6} lg={4}>
             <div className='footer-title'>
               <h5> Свежие посты </h5>
             </div>
           </Col>
-          <Col>
+          <Col md={6} lg={4}>
             <div className='footer-title'>
               <h5> Информация </h5>
               <a href='https://vk.com/parfirova.irina'>Вконтакте</a>

@@ -64,8 +64,6 @@ function lessonsPage() {
     }
   };
 
-  console.log(123, lessons);
-
   return (
     <Container fluid className='mt-2 mb-5'>
       <ToastContainer
