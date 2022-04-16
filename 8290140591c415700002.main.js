@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 7941:
+/***/ 2773:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -16,12 +16,14 @@ var react_dom = __webpack_require__(3935);
 var react_router_dom = __webpack_require__(3727);
 // EXTERNAL MODULE: ./node_modules/react-router/esm/react-router.js + 1 modules
 var react_router = __webpack_require__(5977);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Container.js
-var Container = __webpack_require__(682);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Form.js + 13 modules
 var Form = __webpack_require__(2151);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Button.js
 var Button = __webpack_require__(5005);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Container.js
+var Container = __webpack_require__(682);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Spinner.js
+var Spinner = __webpack_require__(6968);
 // EXTERNAL MODULE: ./node_modules/react-toastify/dist/react-toastify.esm.js + 1 modules
 var react_toastify_esm = __webpack_require__(9249);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
@@ -71,7 +73,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
             case 3:
               _yield$_this$client$p = _context.sent;
               data = _yield$_this$client$p.data;
-              console.log('data', data);
+              localStorage.setItem('refreshToken', data.refreshToken);
               _this.token = data.token;
               _this.refreshToken = data.refreshToken;
 
@@ -349,6 +351,65 @@ var Api = /*#__PURE__*/_createClass(function Api() {
 
 var api = new Api();
 /* harmony default export */ var src_api = (api);
+;// CONCATENATED MODULE: ./src/components/helpers/check-auth.js
+function check_auth_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function check_auth_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { check_auth_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { check_auth_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ function check_auth() {
+  return _ref.apply(this, arguments);
+}
+
+function _ref() {
+  _ref = check_auth_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var refreshToken, _yield$api$checkAuth, data, _refreshToken;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            refreshToken = localStorage.getItem('refreshToken');
+
+            if (!refreshToken) {
+              _context.next = 11;
+              break;
+            }
+
+            _context.next = 4;
+            return src_api.checkAuth(refreshToken);
+
+          case 4:
+            _yield$api$checkAuth = _context.sent;
+            data = _yield$api$checkAuth.data;
+
+            if (!(data && data.refreshToken)) {
+              _context.next = 10;
+              break;
+            }
+
+            _refreshToken = data.refreshToken;
+            localStorage.setItem('refreshToken', _refreshToken);
+            return _context.abrupt("return", true);
+
+          case 10:
+            return _context.abrupt("return", false);
+
+          case 11:
+            return _context.abrupt("return", false);
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _ref.apply(this, arguments);
+}
+;// CONCATENATED MODULE: ./src/components/helpers/index.js
+
+
 ;// CONCATENATED MODULE: ./src/components/pages/admin.js
 function admin_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -380,74 +441,75 @@ function AdminPage() {
 
   var _useState3 = (0,react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      pass = _useState4[0],
-      setPass = _useState4[1];
+      password = _useState4[0],
+      setPassword = _useState4[1];
+
+  var _useState5 = (0,react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isAuth = _useState6[0],
+      setIsAuth = _useState6[1];
+
+  var _useState7 = (0,react.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isLoading = _useState8[0],
+      setIsLoading = _useState8[1];
 
   (0,react.useEffect)( /*#__PURE__*/admin_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var refreshToken;
+    var auth;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            refreshToken = localStorage.getItem('refreshToken');
+            setIsLoading(true);
+            _context.next = 3;
+            return check_auth();
 
-            if (!refreshToken) {
-              _context.next = 4;
-              break;
-            }
+          case 3:
+            auth = _context.sent;
+            setIsAuth(auth);
+            setIsLoading(false);
 
-            _context.next = 4;
-            return src_api.checkAuth(refreshToken);
-
-          case 4:
+          case 6:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   })), []);
-  var history = (0,react_router/* useHistory */.k6)();
-
-  var handleChange = function handleChange(event) {
-    var target = event.target;
-
-    if (target) {
-      var name = target.name,
-          value = target.value;
-      name === 'login' ? setLogin(value) : setPass(value);
-    }
-  };
 
   var handleSubmit = /*#__PURE__*/function () {
     var _ref2 = admin_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(event) {
-      var ppp;
+      var auth;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               event.preventDefault();
               setLogin('');
-              setPass('');
+              setPassword('');
               _context2.prev = 3;
-              console.log(pass);
+              setIsLoading(true);
               _context2.next = 7;
               return src_api.login({
                 login: login,
-                password: pass
+                password: password
               });
 
             case 7:
-              ppp = _context2.sent;
-              console.log(1234, ppp); // history.push('/');
+              _context2.next = 9;
+              return check_auth();
 
-              _context2.next = 15;
+            case 9:
+              auth = _context2.sent;
+              setIsAuth(auth);
+              setIsLoading(false);
+              _context2.next = 17;
               break;
 
-            case 11:
-              _context2.prev = 11;
+            case 14:
+              _context2.prev = 14;
               _context2.t0 = _context2["catch"](3);
-              console.log(_context2.t0);
-              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0.response.data, {
+              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0 && _context2.t0.response && _context2.t0.response.data, {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -457,12 +519,12 @@ function AdminPage() {
                 progress: undefined
               });
 
-            case 15:
+            case 17:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[3, 11]]);
+      }, _callee2, null, [[3, 14]]);
     }));
 
     return function handleSubmit(_x) {
@@ -470,6 +532,33 @@ function AdminPage() {
     };
   }();
 
+  var authBlock = isAuth ? /*#__PURE__*/react.createElement("div", null, "\u0412\u044B \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u044B") : /*#__PURE__*/react.createElement(Form/* default */.Z, {
+    onSubmit: handleSubmit,
+    className: "mb-3"
+  }, /*#__PURE__*/react.createElement(Form/* default.Group */.Z.Group, {
+    className: "mb-3"
+  }, /*#__PURE__*/react.createElement(Form/* default.Label */.Z.Label, null, "\u041B\u043E\u0433\u0438\u043D"), /*#__PURE__*/react.createElement(Form/* default.Control */.Z.Control, {
+    type: "text",
+    placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043B\u043E\u0433\u0438\u043D",
+    value: login,
+    onChange: function onChange(e) {
+      return setLogin(e.target.value);
+    },
+    required: true
+  })), /*#__PURE__*/react.createElement(Form/* default.Group */.Z.Group, {
+    className: "mb-3"
+  }, /*#__PURE__*/react.createElement(Form/* default.Label */.Z.Label, null, "\u041F\u0430\u0440\u043E\u043B\u044C"), /*#__PURE__*/react.createElement(Form/* default.Control */.Z.Control, {
+    type: "password",
+    placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u0430\u0440\u043E\u043B\u044C",
+    value: password,
+    onChange: function onChange(e) {
+      return setPassword(e.target.value);
+    },
+    required: true
+  })), /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "primary",
+    type: "submit"
+  }, "Submit"));
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5"
@@ -483,33 +572,10 @@ function AdminPage() {
     pauseOnFocusLoss: true,
     draggable: true,
     pauseOnHover: true
-  }), /*#__PURE__*/react.createElement(Form/* default */.Z, {
-    onSubmit: handleSubmit,
-    className: "mb-3"
-  }, /*#__PURE__*/react.createElement(Form/* default.Group */.Z.Group, {
-    className: "mb-3"
-  }, /*#__PURE__*/react.createElement(Form/* default.Label */.Z.Label, null, "Login"), /*#__PURE__*/react.createElement(Form/* default.Control */.Z.Control, {
-    type: "text",
-    name: "login",
-    placeholder: "Enter login",
-    value: login,
-    onChange: function onChange(e) {
-      return setLogin(e.target.value);
-    },
-    required: true
-  })), /*#__PURE__*/react.createElement(Form/* default.Group */.Z.Group, {
-    className: "mb-3"
-  }, /*#__PURE__*/react.createElement(Form/* default.Label */.Z.Label, null, "Password"), /*#__PURE__*/react.createElement(Form/* default.Control */.Z.Control, {
-    type: "password",
-    name: "pass",
-    placeholder: "Password",
-    value: pass,
-    onChange: handleChange,
-    required: true
-  })), /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "primary",
-    type: "submit"
-  }, "Submit")));
+  }), isLoading ? /*#__PURE__*/react.createElement(Spinner/* default */.Z, {
+    animation: "border",
+    variant: "danger"
+  }) : authBlock);
 }
 
 /* harmony default export */ var admin = (AdminPage);
@@ -622,8 +688,6 @@ function CoursePage() {
 }
 
 /* harmony default export */ var courses = (CoursePage);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Spinner.js
-var Spinner = __webpack_require__(6968);
 ;// CONCATENATED MODULE: ./src/components/pages/not-found.js
 
 
@@ -1256,12 +1320,71 @@ var Nav = __webpack_require__(9370);
 var NavDropdown = __webpack_require__(8606);
 // EXTERNAL MODULE: ./node_modules/react-router-bootstrap/lib/index.js
 var lib = __webpack_require__(915);
+;// CONCATENATED MODULE: ./src/assets/svg/excel.svg
+/* harmony default export */ var excel = (__webpack_require__.p + "ae061ff55c9f8a9ae203e5ce998cf32b.svg");
+;// CONCATENATED MODULE: ./src/assets/svg/login.svg
+/* harmony default export */ var login = (__webpack_require__.p + "f8428f74aa93d4fe5b1ab071ff4ad58a.svg");
+;// CONCATENATED MODULE: ./src/assets/svg/ppoint.svg
+/* harmony default export */ var ppoint = (__webpack_require__.p + "c352417a85b444c0dc724d31f6c10511.svg");
+;// CONCATENATED MODULE: ./src/assets/svg/word.svg
+/* harmony default export */ var word = (__webpack_require__.p + "88dd14ada168cbe336e329e0e70a5dc6.svg");
+;// CONCATENATED MODULE: ./src/assets/svg/index.js
+
+
+
+
+
 ;// CONCATENATED MODULE: ./src/components/Header.js
+function Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function Header_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function Header_slicedToArray(arr, i) { return Header_arrayWithHoles(arr) || Header_iterableToArrayLimit(arr, i) || Header_unsupportedIterableToArray(arr, i) || Header_nonIterableRest(); }
+
+function Header_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function Header_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Header_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Header_arrayLikeToArray(o, minLen); }
+
+function Header_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function Header_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function Header_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
 
 function Header() {
+  var _useState = (0,react.useState)(false),
+      _useState2 = Header_slicedToArray(_useState, 2),
+      isAuth = _useState2[0],
+      setIsAuth = _useState2[1];
+
+  var history = (0,react_router/* useHistory */.k6)();
+  (0,react.useEffect)( /*#__PURE__*/Header_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var auth;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return check_auth();
+
+          case 2:
+            auth = _context.sent;
+            setIsAuth(auth);
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), []);
   return /*#__PURE__*/react.createElement(Navbar/* default */.Z, {
     collapseOnSelect: true,
     expand: "md",
@@ -1289,9 +1412,9 @@ function Header() {
   }, {
     to: '/achievements',
     text: 'Достижения учеников'
-  }].map(function (_ref) {
-    var to = _ref.to,
-        text = _ref.text;
+  }].map(function (_ref2) {
+    var to = _ref2.to,
+        text = _ref2.text;
     return /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
       to: to,
       key: to
@@ -1309,7 +1432,7 @@ function Header() {
     }, /*#__PURE__*/react.createElement(NavDropdown/* default.Item */.Z.Item, null, "".concat(num, " \u043A\u043B\u0430\u0441\u0441")));
   })), /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
     to: "/gallery"
-  }, /*#__PURE__*/react.createElement(Nav/* default.Link */.Z.Link, null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F")), /*#__PURE__*/react.createElement(NavDropdown/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(Nav/* default.Link */.Z.Link, null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F")), isAuth && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(NavDropdown/* default */.Z, {
     title: "Admin",
     id: "basic-nav-dropdown"
   }, [{
@@ -1321,14 +1444,23 @@ function Header() {
   }, {
     to: '/lessons',
     text: 'Уроки'
-  }].map(function (_ref2) {
-    var to = _ref2.to,
-        text = _ref2.text;
+  }].map(function (_ref3) {
+    var to = _ref3.to,
+        text = _ref3.text;
     return /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
       to: to,
       key: to
     }, /*#__PURE__*/react.createElement(NavDropdown/* default.Item */.Z.Item, null, text));
-  })))));
+  }))), /*#__PURE__*/react.createElement("img", {
+    src: login,
+    className: "me-2 cursor-pointer",
+    style: {
+      width: '30px'
+    },
+    onClick: function onClick() {
+      history.push('admin/');
+    }
+  }))));
 }
 
 /* harmony default export */ var components_Header = (Header);
@@ -1430,7 +1562,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\r\n    font-family: 'Exo 2 light';\r\n    src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\r\n}\r\n\r\nbody {\r\n    font-family: 'Exo 2 light';\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n}\r\n\r\n.wrapper {\r\n  padding: 0;\r\n}\r\n\r\n.footer {\r\n  background: #f6f6f6;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0.5rem 0;\r\n}\r\n\r\n.footer-title {\r\n  text-align: center;\r\n  width: 90%;\r\n  margin: 0 auto;\r\n  overflow: hidden;\r\n}\r\n\r\n.footer-title h5 {\r\n  position: relative;\r\n  text-transform: uppercase;\r\n}\r\n\r\n.footer-title h5:before,\r\n.footer-title h5:after {\r\n  content: \"\";\r\n  border-bottom: 1px solid lightgrey;\r\n  width: 50%;\r\n  position: absolute;\r\n  top: 50%;\r\n  height: 1px;\r\n}\r\n\r\n.footer-title h5:before {\r\n  margin-left: calc(-50% - 10px);\r\n}\r\n\r\n.footer-title h5:after {\r\n  margin-left: 10px;\r\n}\r\n\r\n.footer-second {\r\n  border-top: 1px solid lightgrey;\r\n  padding-top: 0.5rem;\r\n  padding-bottom: 0.5rem;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\r\n  font-family: 'Exo 2 light';\r\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\r\n}\r\n\r\nbody {\r\n  font-family: 'Exo 2 light';\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.cursor-pointer {\r\n  cursor: pointer;\r\n}\r\n\r\n.wrapper {\r\n  padding: 0;\r\n}\r\n\r\n.footer {\r\n  background: #f6f6f6;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0.5rem 0;\r\n}\r\n\r\n.footer-title {\r\n  text-align: center;\r\n  width: 90%;\r\n  margin: 0 auto;\r\n  overflow: hidden;\r\n}\r\n\r\n.footer-title h5 {\r\n  position: relative;\r\n  text-transform: uppercase;\r\n}\r\n\r\n.footer-title h5:before,\r\n.footer-title h5:after {\r\n  content: \"\";\r\n  border-bottom: 1px solid lightgrey;\r\n  width: 50%;\r\n  position: absolute;\r\n  top: 50%;\r\n  height: 1px;\r\n}\r\n\r\n.footer-title h5:before {\r\n  margin-left: calc(-50% - 10px);\r\n}\r\n\r\n.footer-title h5:after {\r\n  margin-left: 10px;\r\n}\r\n\r\n.footer-second {\r\n  border-top: 1px solid lightgrey;\r\n  padding-top: 0.5rem;\r\n  padding-bottom: 0.5rem;\r\n}", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -2081,7 +2213,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "e530bef51ccc27ca0abc"; }
+/******/ 		__webpack_require__.h = function() { return "8290140591c415700002"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -3176,7 +3308,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [131], function() { return __webpack_require__(7941); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [131], function() { return __webpack_require__(2773); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
