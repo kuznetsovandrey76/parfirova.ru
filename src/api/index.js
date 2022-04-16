@@ -60,7 +60,7 @@ class Api {
   login = async ({ login, password }) => {
     const { data } = await this.client.post("auth/login/", { login, password });
 
-    console.log('data', data);
+    localStorage.setItem('refreshToken', data.refreshToken)
 
     this.token = data.token;
     this.refreshToken = data.refreshToken;

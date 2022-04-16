@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer as Link } from 'react-router-bootstrap';
+import { checkAuth } from './helpers'
+import { LoginSvg } from '../assets/svg';
+import { useHistory } from 'react-router-dom';
 
 function Header() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  const history = useHistory();
+
+  useEffect(async () => {
+    const auth = await checkAuth()
+    setIsAuth(auth)
+  }, []);
+
   return (
     <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header flex mx-5'>
       <Link to='/'>
@@ -40,19 +52,26 @@ function Header() {
           <Link to='/gallery'>
             <Nav.Link>Галерея</Nav.Link>
           </Link>
-          <NavDropdown title='Admin' id='basic-nav-dropdown'>
-            {[
-              { to: '/admin', text: 'Вход' },
-              { to: '/posts', text: 'Посты' },
-              { to: '/lessons', text: 'Уроки' },
-            ].map(({ to, text }) => {
-              return (
-                <Link to={to} key={to}>
-                  <NavDropdown.Item>{text}</NavDropdown.Item>
-                </Link>
-              );
-            })}
-          </NavDropdown>
+          {isAuth && (
+            <>
+              <NavDropdown title='Admin' id='basic-nav-dropdown'>
+                {[
+                  { to: '/admin', text: 'Вход' },
+                  { to: '/posts', text: 'Посты' },
+                  { to: '/lessons', text: 'Уроки' },
+                ].map(({ to, text }) => {
+                  return (
+                    <Link to={to} key={to}>
+                      <NavDropdown.Item>{text}</NavDropdown.Item>
+                    </Link>
+                  );
+                })}
+              </NavDropdown>
+            </>
+          )}
+          <img src={LoginSvg} className='me-2 cursor-pointer' style={{ width: '30px' }} onClick={() => {
+            history.push('admin/');
+          }} />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

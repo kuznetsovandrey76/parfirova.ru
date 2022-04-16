@@ -1,46 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
 import api from '../../api';
+import { checkAuth } from '../helpers'
 
 function AdminPage() {
   const [login, setLogin] = useState('');
-  const [pass, setPass] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(async () => {
-    const refreshToken = localStorage.getItem('refreshToken')
-    if (refreshToken) {
-      await api.checkAuth(refreshToken);
-    }
+    setIsLoading(true);
+    const auth = await checkAuth()
+    setIsAuth(auth)
+    setIsLoading(false);
   }, []);
-
-  const history = useHistory();
-
-  const handleChange = (event) => {
-    const { target } = event;
-    if (target) {
-      const { name, value } = target;
-      name === 'login' ? setLogin(value) : setPass(value);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLogin('');
-    setPass('');
+    setPassword('');
 
     try {
-      console.log(pass);
-      const ppp = await api.login({ login, password: pass });
+      setIsLoading(true);
 
-
-      console.log(1234, ppp);
-      // history.push('/');
+      await api.login({ login, password });
+      const auth = await checkAuth()
+      setIsAuth(auth)
+      setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      toast.warn(err.response.data, {
+      toast.warn(err && err.response && err.response.data, {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -51,6 +42,34 @@ function AdminPage() {
       });
     }
   };
+
+  const authBlock = isAuth ? <div>Вы авторизованы</div> :
+    <Form onSubmit={handleSubmit} className='mb-3'>
+      <Form.Group className='mb-3'>
+        <Form.Label>Логин</Form.Label>
+        <Form.Control
+          type='text'
+          placeholder='Введите логин'
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+          required
+        />
+      </Form.Group>
+
+      <Form.Group className='mb-3'>
+        <Form.Label>Пароль</Form.Label>
+        <Form.Control
+          type='password'
+          placeholder='Введите пароль'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Button variant='primary' type='submit'>
+        Submit
+      </Button>
+    </Form>
 
   return (
     <Container fluid className='mt-2 mb-5'>
@@ -65,34 +84,7 @@ function AdminPage() {
         draggable
         pauseOnHover
       />
-      <Form onSubmit={handleSubmit} className='mb-3'>
-        <Form.Group className='mb-3'>
-          <Form.Label>Login</Form.Label>
-          <Form.Control
-            type='text'
-            name='login'
-            placeholder='Enter login'
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className='mb-3'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            name='pass'
-            placeholder='Password'
-            value={pass}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Button variant='primary' type='submit'>
-          Submit
-        </Button>
-      </Form>
+      {isLoading ? <Spinner animation="border" variant="danger" /> : authBlock}
     </Container>
   );
 }
