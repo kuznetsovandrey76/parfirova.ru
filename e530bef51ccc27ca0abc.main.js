@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 2262:
+/***/ 7941:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -28,6 +28,14 @@ var react_toastify_esm = __webpack_require__(9249);
 var axios = __webpack_require__(9669);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// CONCATENATED MODULE: ./src/api/index.js
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -37,62 +45,314 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var api = axios_default().create({
-  withCredentials: true,
-  baseURL: "https://parfirova.herokuapp.com/"
-});
 
-var _default = /*#__PURE__*/_createClass(function _default() {
-  _classCallCheck(this, _default);
-});
+var Api = /*#__PURE__*/_createClass(function Api() {
+  var _this = this;
 
-_defineProperty(_default, "getCourses", function () {
-  return api.get('courses/');
-});
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-_defineProperty(_default, "getGallery", function () {
-  return api.get('gallery/');
-});
+  _classCallCheck(this, Api);
 
-_defineProperty(_default, "getLessons", function () {
-  return api.get('lessons/');
-});
+  _defineProperty(this, "login", /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref) {
+      var login, password, _yield$_this$client$p, data;
 
-_defineProperty(_default, "sendLesson", function (_ref) {
-  var grade = _ref.grade,
-      title = _ref.title,
-      description = _ref.description,
-      active = _ref.active;
-  return api.post('lessons/', {
-    grade: grade,
-    title: title,
-    description: description,
-    active: active
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              login = _ref.login, password = _ref.password;
+              _context.next = 3;
+              return _this.client.post("auth/login/", {
+                login: login,
+                password: password
+              });
+
+            case 3:
+              _yield$_this$client$p = _context.sent;
+              data = _yield$_this$client$p.data;
+              console.log('data', data);
+              _this.token = data.token;
+              _this.refreshToken = data.refreshToken;
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+
+  _defineProperty(this, "logout", function () {
+    _this.token = null;
+    _this.refreshToken = null;
   });
-});
 
-_defineProperty(_default, "getPosts", function () {
-  return api.get('posts/');
-});
+  _defineProperty(this, "checkAuth", /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(refreshToken) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this.client.post("/auth/refresh", {
+                refreshToken: refreshToken
+              });
 
-_defineProperty(_default, "sendPost", function (text) {
-  return api.post('posts/', {
-    text: text
+            case 2:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+
+  _defineProperty(this, "getUsers", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _this.client("users/");
+
+          case 2:
+            return _context3.abrupt("return", _context3.sent);
+
+          case 3:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  })));
+
+  _defineProperty(this, "getLessons", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return _this.client("lessons/");
+
+          case 2:
+            return _context4.abrupt("return", _context4.sent);
+
+          case 3:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  })));
+
+  _defineProperty(this, "sendLesson", /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_ref6) {
+      var grade, title, description, active;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              grade = _ref6.grade, title = _ref6.title, description = _ref6.description, active = _ref6.active;
+              _context5.next = 3;
+              return _this.client.post('lessons/', {
+                grade: grade,
+                title: title,
+                description: description,
+                active: active
+              });
+
+            case 3:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function (_x3) {
+      return _ref7.apply(this, arguments);
+    };
+  }());
+
+  _defineProperty(this, "getCourses", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return _this.client("courses/");
+
+          case 2:
+            return _context6.abrupt("return", _context6.sent);
+
+          case 3:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  })));
+
+  _defineProperty(this, "getGallery", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return _this.client("gallery/");
+
+          case 2:
+            return _context7.abrupt("return", _context7.sent);
+
+          case 3:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  })));
+
+  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return _this.client("posts/");
+
+          case 2:
+            return _context8.abrupt("return", _context8.sent);
+
+          case 3:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  })));
+
+  _defineProperty(this, "sendPost", /*#__PURE__*/function () {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(text) {
+      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return _this.client.post('posts/', {
+                text: text
+              });
+
+            case 2:
+              return _context9.abrupt("return", _context9.sent);
+
+            case 3:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }));
+
+    return function (_x4) {
+      return _ref11.apply(this, arguments);
+    };
+  }());
+
+  this.client = axios_default().create({
+    //   withCredentials: true,
+    baseURL: "https://parfirova.herokuapp.com/"
   });
-});
+  this.token = options.token;
+  this.refreshToken = options.refreshToken;
+  this.refreshRequest = null;
+  this.client.interceptors.request.use(function (config) {
+    if (!_this.token) {
+      return config;
+    }
 
-_defineProperty(_default, "signIn", function (login, pass) {
-  return api.post('login/', {
-    login: login,
-    pass: pass
+    var newConfig = _objectSpread({
+      headers: {}
+    }, config);
+
+    newConfig.headers.Authorization = "Bearer ".concat(_this.token);
+    return newConfig;
+  }, function (e) {
+    return Promise.reject(e);
   });
+  this.client.interceptors.response.use(function (r) {
+    return r;
+  }, /*#__PURE__*/function () {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(error) {
+      var _yield$_this$refreshR, data, newRequest;
+
+      return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              if (!(!_this.refreshToken || error.response.status !== 401 || error.config.retry)) {
+                _context10.next = 2;
+                break;
+              }
+
+              throw error;
+
+            case 2:
+              if (!_this.refreshRequest) {
+                _this.refreshRequest = _this.client.post("/auth/refresh", {
+                  refreshToken: _this.refreshToken
+                });
+              }
+
+              _context10.next = 5;
+              return _this.refreshRequest;
+
+            case 5:
+              _yield$_this$refreshR = _context10.sent;
+              data = _yield$_this$refreshR.data;
+              _this.token = data.token;
+              _this.refreshToken = data.refreshToken;
+              newRequest = _objectSpread(_objectSpread({}, error.config), {}, {
+                retry: true
+              });
+              console.log('newRequest', newRequest);
+              return _context10.abrupt("return", _this.client(newRequest));
+
+            case 12:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    return function (_x5) {
+      return _ref12.apply(this, arguments);
+    };
+  }());
 });
 
-
+var api = new Api();
+/* harmony default export */ var src_api = (api);
 ;// CONCATENATED MODULE: ./src/components/pages/admin.js
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function admin_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function admin_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { admin_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { admin_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -123,6 +383,29 @@ function AdminPage() {
       pass = _useState4[0],
       setPass = _useState4[1];
 
+  (0,react.useEffect)( /*#__PURE__*/admin_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var refreshToken;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            refreshToken = localStorage.getItem('refreshToken');
+
+            if (!refreshToken) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 4;
+            return src_api.checkAuth(refreshToken);
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), []);
   var history = (0,react_router/* useHistory */.k6)();
 
   var handleChange = function handleChange(event) {
@@ -136,27 +419,35 @@ function AdminPage() {
   };
 
   var handleSubmit = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(event) {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+    var _ref2 = admin_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(event) {
+      var ppp;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               event.preventDefault();
               setLogin('');
               setPass('');
-              _context.prev = 3;
-              _context.next = 6;
-              return _default.signIn(login, pass);
+              _context2.prev = 3;
+              console.log(pass);
+              _context2.next = 7;
+              return src_api.login({
+                login: login,
+                password: pass
+              });
 
-            case 6:
-              history.push('/');
-              _context.next = 12;
+            case 7:
+              ppp = _context2.sent;
+              console.log(1234, ppp); // history.push('/');
+
+              _context2.next = 15;
               break;
 
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](3);
-              react_toastify_esm/* toast.warn */.Am.warn(_context.t0.response.data, {
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](3);
+              console.log(_context2.t0);
+              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0.response.data, {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -166,16 +457,16 @@ function AdminPage() {
                 progress: undefined
               });
 
-            case 12:
+            case 15:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, null, [[3, 9]]);
+      }, _callee2, null, [[3, 11]]);
     }));
 
     return function handleSubmit(_x) {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -202,7 +493,9 @@ function AdminPage() {
     name: "login",
     placeholder: "Enter login",
     value: login,
-    onChange: handleChange,
+    onChange: function onChange(e) {
+      return setLogin(e.target.value);
+    },
     required: true
   })), /*#__PURE__*/react.createElement(Form/* default.Group */.Z.Group, {
     className: "mb-3"
@@ -281,7 +574,7 @@ function CoursePage() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _default.getCourses();
+            return src_api.getCourses();
 
           case 3:
             response = _context.sent;
@@ -370,9 +663,9 @@ var getNod = function getNod(x, y) {
 // EXTERNAL MODULE: ./node_modules/react-photo-gallery/dist/react-photo-gallery.esm.js + 1 modules
 var react_photo_gallery_esm = __webpack_require__(5283);
 ;// CONCATENATED MODULE: ./src/components/pages/gallery.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function gallery_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { gallery_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function gallery_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? gallery_ownKeys(Object(source), !0).forEach(function (key) { gallery_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : gallery_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function gallery_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -424,7 +717,7 @@ function GalleryPage() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _default.getGallery();
+            return src_api.getGallery();
 
           case 3:
             response = _context.sent;
@@ -435,7 +728,7 @@ function GalleryPage() {
 
                 img.onload = function () {
                   var nod = get_nod(this.width, this.height);
-                  resolve(_objectSpread(_objectSpread({}, image), {}, {
+                  resolve(gallery_objectSpread(gallery_objectSpread({}, image), {}, {
                     width: this.width / nod,
                     height: this.height / nod,
                     // custom attr
@@ -513,22 +806,22 @@ var Row = __webpack_require__(4051);
 var Col = __webpack_require__(1555);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Card.js + 2 modules
 var Card = __webpack_require__(864);
-;// CONCATENATED MODULE: ./src/components/pages/5grade.js
-function _5grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+;// CONCATENATED MODULE: ./src/components/pages/5th-grade.js
+function _5th_grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-function _5grade_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { _5grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { _5grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _5th_grade_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { _5th_grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { _5th_grade_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _5grade_slicedToArray(arr, i) { return _5grade_arrayWithHoles(arr) || _5grade_iterableToArrayLimit(arr, i) || _5grade_unsupportedIterableToArray(arr, i) || _5grade_nonIterableRest(); }
+function _5th_grade_slicedToArray(arr, i) { return _5th_grade_arrayWithHoles(arr) || _5th_grade_iterableToArrayLimit(arr, i) || _5th_grade_unsupportedIterableToArray(arr, i) || _5th_grade_nonIterableRest(); }
 
-function _5grade_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _5th_grade_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _5grade_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _5grade_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _5grade_arrayLikeToArray(o, minLen); }
+function _5th_grade_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _5th_grade_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _5th_grade_arrayLikeToArray(o, minLen); }
 
-function _5grade_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _5th_grade_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _5grade_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _5th_grade_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _5grade_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _5th_grade_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
  // import ReactMarkdown from 'react-markdown';
 // import remarkGfm from 'remark-gfm';
@@ -539,23 +832,24 @@ function _5grade_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function FiveGradePage() {
   var _useState = (0,react.useState)([]),
-      _useState2 = _5grade_slicedToArray(_useState, 2),
+      _useState2 = _5th_grade_slicedToArray(_useState, 2),
       lessons = _useState2[0],
       setLessons = _useState2[1];
 
-  (0,react.useEffect)( /*#__PURE__*/_5grade_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var response, data;
+  (0,react.useEffect)( /*#__PURE__*/_5th_grade_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var _yield$api$getLessons, data;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _default.getLessons();
+            return src_api.getLessons();
 
           case 3:
-            response = _context.sent;
-            data = response.data;
+            _yield$api$getLessons = _context.sent;
+            data = _yield$api$getLessons.data;
             setLessons(data);
             _context.next = 11;
             break;
@@ -579,7 +873,8 @@ function FiveGradePage() {
     return /*#__PURE__*/react.createElement(Col/* default */.Z, {
       md: 6,
       lg: 4,
-      className: "mb-3"
+      className: "mb-3",
+      key: id
     }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, "\u0422\u0435\u043C\u0430: ", lesson.title), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, {
       className: "mb-2 text-muted"
     }, "\u041A\u043B\u0430\u0441\u0441: ", lesson.grade), /*#__PURE__*/react.createElement(Card/* default.Text */.Z.Text, null, lesson.description)))) // <Container className='p-0 mb-3'>
@@ -592,7 +887,7 @@ function FiveGradePage() {
   })));
 }
 
-/* harmony default export */ var _5grade = (FiveGradePage);
+/* harmony default export */ var _5th_grade = (FiveGradePage);
 // EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 114 modules
 var react_markdown = __webpack_require__(6025);
 // EXTERNAL MODULE: ./node_modules/remark-gfm/index.js + 28 modules
@@ -649,7 +944,7 @@ function PostsPage() {
               setText('');
               _context.prev = 2;
               _context.next = 5;
-              return _default.sendPost(text);
+              return src_api.sendPost(text);
 
             case 5:
               history.push('/admin');
@@ -756,40 +1051,6 @@ function lessonsPage() {
       crntGrade = _useState6[0],
       setCrntGrade = _useState6[1];
 
-  var _useState7 = (0,react.useState)([]),
-      _useState8 = lessons_slicedToArray(_useState7, 2),
-      lessons = _useState8[0],
-      setLessons = _useState8[1];
-
-  (0,react.useEffect)( /*#__PURE__*/lessons_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var response, data;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return _default.getLessons();
-
-          case 3:
-            response = _context.sent;
-            data = response.data;
-            setLessons(data);
-            _context.next = 11;
-            break;
-
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](0);
-            console.warn('Cannot get images from server');
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[0, 8]]);
-  })), []);
   var history = (0,react_router/* useHistory */.k6)();
 
   var titleHandler = function titleHandler(e) {
@@ -805,15 +1066,15 @@ function lessonsPage() {
   };
 
   var handleSubmit = /*#__PURE__*/function () {
-    var _ref2 = lessons_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    var _ref = lessons_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               e.preventDefault();
-              _context2.prev = 1;
-              _context2.next = 4;
-              return _default.sendLesson({
+              _context.prev = 1;
+              _context.next = 4;
+              return src_api.sendLesson({
                 grade: crntGrade,
                 title: title,
                 description: description,
@@ -822,13 +1083,13 @@ function lessonsPage() {
 
             case 4:
               history.push('/');
-              _context2.next = 10;
+              _context.next = 10;
               break;
 
             case 7:
-              _context2.prev = 7;
-              _context2.t0 = _context2["catch"](1);
-              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0.response && _context2.t0.response.data, {
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
+              react_toastify_esm/* toast.warn */.Am.warn(_context.t0.response && _context.t0.response.data, {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -840,18 +1101,17 @@ function lessonsPage() {
 
             case 10:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee, null, [[1, 7]]);
     }));
 
     return function handleSubmit(_x) {
-      return _ref2.apply(this, arguments);
+      return _ref.apply(this, arguments);
     };
   }();
 
-  console.log(123, lessons);
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5"
@@ -974,7 +1234,7 @@ var routes = [{
   exact: true
 }, {
   path: '/5th-grade',
-  component: _5grade,
+  component: _5th_grade,
   exact: true
 }, {
   path: '/test',
@@ -1170,7 +1430,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n    font-family: 'Exo 2 light';\n    src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\n}\n\nbody {\n    font-family: 'Exo 2 light';\n}\n\na {\n    text-decoration: none;\n}\n\n.wrapper {\n  padding: 0;\n}\n\n.footer {\n  background: #f6f6f6;\n  text-align: center;\n  margin: 0;\n  padding: 0.5rem 0;\n}\n\n.footer-title {\n  text-align: center;\n  width: 90%;\n  margin: 0 auto;\n  overflow: hidden;\n}\n\n.footer-title h5 {\n  position: relative;\n  text-transform: uppercase;\n}\n\n.footer-title h5:before,\n.footer-title h5:after {\n  content: \"\";\n  border-bottom: 1px solid lightgrey;\n  width: 50%;\n  position: absolute;\n  top: 50%;\n  height: 1px;\n}\n\n.footer-title h5:before {\n  margin-left: calc(-50% - 10px);\n}\n\n.footer-title h5:after {\n  margin-left: 10px;\n}\n\n.footer-second {\n  border-top: 1px solid lightgrey;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\r\n    font-family: 'Exo 2 light';\r\n    src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\r\n}\r\n\r\nbody {\r\n    font-family: 'Exo 2 light';\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n}\r\n\r\n.wrapper {\r\n  padding: 0;\r\n}\r\n\r\n.footer {\r\n  background: #f6f6f6;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0.5rem 0;\r\n}\r\n\r\n.footer-title {\r\n  text-align: center;\r\n  width: 90%;\r\n  margin: 0 auto;\r\n  overflow: hidden;\r\n}\r\n\r\n.footer-title h5 {\r\n  position: relative;\r\n  text-transform: uppercase;\r\n}\r\n\r\n.footer-title h5:before,\r\n.footer-title h5:after {\r\n  content: \"\";\r\n  border-bottom: 1px solid lightgrey;\r\n  width: 50%;\r\n  position: absolute;\r\n  top: 50%;\r\n  height: 1px;\r\n}\r\n\r\n.footer-title h5:before {\r\n  margin-left: calc(-50% - 10px);\r\n}\r\n\r\n.footer-title h5:after {\r\n  margin-left: 10px;\r\n}\r\n\r\n.footer-second {\r\n  border-top: 1px solid lightgrey;\r\n  padding-top: 0.5rem;\r\n  padding-bottom: 0.5rem;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1190,7 +1450,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".lessons-grade-btn {\n  width: 10%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".lessons-grade-btn {\r\n  width: 10%;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1210,7 +1470,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".markdown-post {\n  min-height: 200px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".markdown-post {\r\n  min-height: 200px;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1821,7 +2081,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "cef52783411c35973572"; }
+/******/ 		__webpack_require__.h = function() { return "e530bef51ccc27ca0abc"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -2916,7 +3176,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [131], function() { return __webpack_require__(2262); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [131], function() { return __webpack_require__(7941); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
