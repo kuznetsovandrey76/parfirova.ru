@@ -51,8 +51,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Api = /*#__PURE__*/_createClass(function Api() {
   var _this = this;
 
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
   _classCallCheck(this, Api);
 
   _defineProperty(this, "login", /*#__PURE__*/function () {
@@ -65,7 +63,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
             case 0:
               login = _ref.login, password = _ref.password;
               _context.next = 3;
-              return _this.client.post("auth/login/", {
+              return _this.client.post('auth/login/', {
                 login: login,
                 password: password
               });
@@ -73,11 +71,20 @@ var Api = /*#__PURE__*/_createClass(function Api() {
             case 3:
               _yield$_this$client$p = _context.sent;
               data = _yield$_this$client$p.data;
-              localStorage.setItem('refreshToken', data.refreshToken);
-              _this.token = data.token;
-              _this.refreshToken = data.refreshToken;
 
-            case 8:
+              if (data) {
+                _context.next = 7;
+                break;
+              }
+
+              return _context.abrupt("return", false);
+
+            case 7:
+              _this.token = data.token;
+              localStorage.setItem('refreshToken', data.refreshToken);
+              return _context.abrupt("return", true);
+
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -92,24 +99,39 @@ var Api = /*#__PURE__*/_createClass(function Api() {
 
   _defineProperty(this, "logout", function () {
     _this.token = null;
-    _this.refreshToken = null;
   });
 
   _defineProperty(this, "checkAuth", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(refreshToken) {
+      var _yield$_this$client$p2, data;
+
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this.client.post("/auth/refresh", {
+              return _this.client.post('/auth/refresh', {
                 refreshToken: refreshToken
               });
 
             case 2:
-              return _context2.abrupt("return", _context2.sent);
+              _yield$_this$client$p2 = _context2.sent;
+              data = _yield$_this$client$p2.data;
 
-            case 3:
+              if (data) {
+                _context2.next = 7;
+                break;
+              }
+
+              localStorage.removeItem('refreshToken');
+              return _context2.abrupt("return", false);
+
+            case 7:
+              _this.token = data.token;
+              localStorage.setItem('refreshToken', data.refreshToken);
+              return _context2.abrupt("return", true);
+
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -128,7 +150,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return _this.client("users/");
+            return _this.client('users/');
 
           case 2:
             return _context3.abrupt("return", _context3.sent);
@@ -147,7 +169,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return _this.client("lessons/");
+            return _this.client('lessons/');
 
           case 2:
             return _context4.abrupt("return", _context4.sent);
@@ -198,7 +220,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return _this.client("courses/");
+            return _this.client('courses/');
 
           case 2:
             return _context6.abrupt("return", _context6.sent);
@@ -217,7 +239,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
         switch (_context7.prev = _context7.next) {
           case 0:
             _context7.next = 2;
-            return _this.client("gallery/");
+            return _this.client('gallery/');
 
           case 2:
             return _context7.abrupt("return", _context7.sent);
@@ -236,7 +258,7 @@ var Api = /*#__PURE__*/_createClass(function Api() {
         switch (_context8.prev = _context8.next) {
           case 0:
             _context8.next = 2;
-            return _this.client("posts/");
+            return _this.client('posts/');
 
           case 2:
             return _context8.abrupt("return", _context8.sent);
@@ -277,12 +299,11 @@ var Api = /*#__PURE__*/_createClass(function Api() {
   }());
 
   this.client = axios_default().create({
-    //   withCredentials: true,
+    withCredentials: true,
+    // ??
     baseURL: "https://parfirova.herokuapp.com/"
   });
-  this.token = options.token;
-  this.refreshToken = options.refreshToken;
-  this.refreshRequest = null;
+  this.token = null;
   this.client.interceptors.request.use(function (config) {
     if (!_this.token) {
       return config;
@@ -301,41 +322,34 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     return r;
   }, /*#__PURE__*/function () {
     var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(error) {
-      var _yield$_this$refreshR, data, newRequest;
+      var _yield$_this$client$p3, data;
 
       return regeneratorRuntime.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
-              if (!(!_this.refreshToken || error.response.status !== 401 || error.config.retry)) {
-                _context10.next = 2;
+              _context10.next = 2;
+              return _this.client.post('/auth/refresh', {
+                refreshToken: localStorage.getItem('refreshToken')
+              });
+
+            case 2:
+              _yield$_this$client$p3 = _context10.sent;
+              data = _yield$_this$client$p3.data;
+
+              if (data) {
+                _context10.next = 7;
                 break;
               }
 
-              throw error;
+              localStorage.removeItem('refreshToken');
+              return _context10.abrupt("return");
 
-            case 2:
-              if (!_this.refreshRequest) {
-                _this.refreshRequest = _this.client.post("/auth/refresh", {
-                  refreshToken: _this.refreshToken
-                });
-              }
-
-              _context10.next = 5;
-              return _this.refreshRequest;
-
-            case 5:
-              _yield$_this$refreshR = _context10.sent;
-              data = _yield$_this$refreshR.data;
+            case 7:
               _this.token = data.token;
-              _this.refreshToken = data.refreshToken;
-              newRequest = _objectSpread(_objectSpread({}, error.config), {}, {
-                retry: true
-              });
-              console.log('newRequest', newRequest);
-              return _context10.abrupt("return", _this.client(newRequest));
+              localStorage.setItem('refreshToken', data.refreshToken);
 
-            case 12:
+            case 9:
             case "end":
               return _context10.stop();
           }
@@ -363,8 +377,7 @@ function check_auth_asyncToGenerator(fn) { return function () { var self = this,
 
 function _ref() {
   _ref = check_auth_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var refreshToken, _yield$api$checkAuth, data, _refreshToken;
-
+    var refreshToken, isAuth;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -372,7 +385,7 @@ function _ref() {
             refreshToken = localStorage.getItem('refreshToken');
 
             if (!refreshToken) {
-              _context.next = 11;
+              _context.next = 6;
               break;
             }
 
@@ -380,25 +393,13 @@ function _ref() {
             return src_api.checkAuth(refreshToken);
 
           case 4:
-            _yield$api$checkAuth = _context.sent;
-            data = _yield$api$checkAuth.data;
+            isAuth = _context.sent;
+            return _context.abrupt("return", isAuth);
 
-            if (!(data && data.refreshToken)) {
-              _context.next = 10;
-              break;
-            }
-
-            _refreshToken = data.refreshToken;
-            localStorage.setItem('refreshToken', _refreshToken);
-            return _context.abrupt("return", true);
-
-          case 10:
+          case 6:
             return _context.abrupt("return", false);
 
-          case 11:
-            return _context.abrupt("return", false);
-
-          case 12:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -496,20 +497,24 @@ function AdminPage() {
               });
 
             case 7:
-              _context2.next = 9;
-              return check_auth();
-
-            case 9:
               auth = _context2.sent;
+
+              if (auth) {
+                _context2.next = 10;
+                break;
+              }
+
+              throw new Error();
+
+            case 10:
               setIsAuth(auth);
-              setIsLoading(false);
-              _context2.next = 17;
+              _context2.next = 16;
               break;
 
-            case 14:
-              _context2.prev = 14;
+            case 13:
+              _context2.prev = 13;
               _context2.t0 = _context2["catch"](3);
-              react_toastify_esm/* toast.warn */.Am.warn(_context2.t0 && _context2.t0.response && _context2.t0.response.data, {
+              react_toastify_esm/* toast.warn */.Am.warn('Вы ошиблись =)', {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -519,12 +524,17 @@ function AdminPage() {
                 progress: undefined
               });
 
-            case 17:
+            case 16:
+              _context2.prev = 16;
+              setIsLoading(false);
+              return _context2.finish(16);
+
+            case 19:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[3, 14]]);
+      }, _callee2, null, [[3, 13, 16, 19]]);
     }));
 
     return function handleSubmit(_x) {
@@ -580,6 +590,11 @@ function AdminPage() {
 
 /* harmony default export */ var admin = (AdminPage);
 ;// CONCATENATED MODULE: ./src/components/pages/home.js
+function home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function home_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { home_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
 
 
 
@@ -587,7 +602,23 @@ function HomePage() {
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("h2", null, "\u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430 \u0418\u0440\u0438\u043D\u0430 \u0410\u043D\u0434\u0440\u0435\u0435\u0432\u043D\u0430"), /*#__PURE__*/react.createElement("h3", null, "\u0423\u0447\u0438\u0442\u0435\u043B\u044C \u0440\u0443\u0441\u0441\u043A\u043E\u0433\u043E \u044F\u0437\u044B\u043A\u0430 \u0438 \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u044B"), /*#__PURE__*/react.createElement("p", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0448\u043A\u043E\u043B\u0430 \u2116 18 \u0433. \u042F\u0440\u043E\u0441\u043B\u0430\u0432\u043B\u044C"));
+  }, /*#__PURE__*/react.createElement("h2", null, "\u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430 \u0418\u0440\u0438\u043D\u0430 \u0410\u043D\u0434\u0440\u0435\u0435\u0432\u043D\u0430"), /*#__PURE__*/react.createElement("h3", null, "\u0423\u0447\u0438\u0442\u0435\u043B\u044C \u0440\u0443\u0441\u0441\u043A\u043E\u0433\u043E \u044F\u0437\u044B\u043A\u0430 \u0438 \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u044B"), /*#__PURE__*/react.createElement("p", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0448\u043A\u043E\u043B\u0430 \u2116 18 \u0433. \u042F\u0440\u043E\u0441\u043B\u0430\u0432\u043B\u044C"), /*#__PURE__*/react.createElement("div", {
+    onClick: /*#__PURE__*/home_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return src_api.getUsers();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))
+  }, "Users"));
 }
 
 /* harmony default export */ var home = (HomePage);
@@ -1335,56 +1366,18 @@ var lib = __webpack_require__(915);
 
 
 ;// CONCATENATED MODULE: ./src/components/Header.js
-function Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function Header_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { Header_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function Header_slicedToArray(arr, i) { return Header_arrayWithHoles(arr) || Header_iterableToArrayLimit(arr, i) || Header_unsupportedIterableToArray(arr, i) || Header_nonIterableRest(); }
-
-function Header_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function Header_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Header_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Header_arrayLikeToArray(o, minLen); }
-
-function Header_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function Header_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function Header_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
-
-
-
+ // import api from '../api';
 
 function Header() {
-  var _useState = (0,react.useState)(false),
-      _useState2 = Header_slicedToArray(_useState, 2),
-      isAuth = _useState2[0],
-      setIsAuth = _useState2[1];
-
-  var history = (0,react_router/* useHistory */.k6)();
-  (0,react.useEffect)( /*#__PURE__*/Header_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var auth;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return check_auth();
-
-          case 2:
-            auth = _context.sent;
-            setIsAuth(auth);
-
-          case 4:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  })), []);
+  // const [isAuth, setIsAuth] = useState(false);
+  // useEffect(async () => {
+  //   const auth = await checkAuth();
+  //   setIsAuth(auth);
+  // }, []);
   return /*#__PURE__*/react.createElement(Navbar/* default */.Z, {
     collapseOnSelect: true,
     expand: "md",
@@ -1412,9 +1405,9 @@ function Header() {
   }, {
     to: '/achievements',
     text: 'Достижения учеников'
-  }].map(function (_ref2) {
-    var to = _ref2.to,
-        text = _ref2.text;
+  }].map(function (_ref) {
+    var to = _ref.to,
+        text = _ref.text;
     return /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
       to: to,
       key: to
@@ -1432,35 +1425,12 @@ function Header() {
     }, /*#__PURE__*/react.createElement(NavDropdown/* default.Item */.Z.Item, null, "".concat(num, " \u043A\u043B\u0430\u0441\u0441")));
   })), /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
     to: "/gallery"
-  }, /*#__PURE__*/react.createElement(Nav/* default.Link */.Z.Link, null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F")), isAuth && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(NavDropdown/* default */.Z, {
-    title: "Admin",
-    id: "basic-nav-dropdown"
-  }, [{
-    to: '/admin',
-    text: 'Вход'
-  }, {
-    to: '/posts',
-    text: 'Посты'
-  }, {
-    to: '/lessons',
-    text: 'Уроки'
-  }].map(function (_ref3) {
-    var to = _ref3.to,
-        text = _ref3.text;
-    return /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
-      to: to,
-      key: to
-    }, /*#__PURE__*/react.createElement(NavDropdown/* default.Item */.Z.Item, null, text));
-  }))), /*#__PURE__*/react.createElement("img", {
+  }, /*#__PURE__*/react.createElement(Nav/* default.Link */.Z.Link, null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F")), /*#__PURE__*/react.createElement(lib/* LinkContainer */.Ji, {
+    to: "/admin"
+  }, /*#__PURE__*/react.createElement("img", {
     src: login,
-    className: "me-2 cursor-pointer",
-    style: {
-      width: '30px'
-    },
-    onClick: function onClick() {
-      history.push('admin/');
-    }
-  }))));
+    className: "me-2 cursor-pointer d-block login-svg"
+  })))));
 }
 
 /* harmony default export */ var components_Header = (Header);
@@ -1475,11 +1445,20 @@ function Footer() {
     className: "footer"
   }, /*#__PURE__*/react.createElement(Container/* default */.Z, {
     className: "mb-3 p-0"
-  }, /*#__PURE__*/react.createElement(Row/* default */.Z, null, /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement(Row/* default */.Z, null, /*#__PURE__*/react.createElement(Col/* default */.Z, {
+    md: 6,
+    lg: 4
+  }, /*#__PURE__*/react.createElement("div", {
     className: "footer-title"
-  }, /*#__PURE__*/react.createElement("h5", null, "\u0418\u0440\u0438\u043D\u0430 \u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430"))), /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement("h5", null, "\u0418\u0440\u0438\u043D\u0430 \u041F\u0430\u0440\u0444\u0438\u0440\u043E\u0432\u0430"))), /*#__PURE__*/react.createElement(Col/* default */.Z, {
+    md: 6,
+    lg: 4
+  }, /*#__PURE__*/react.createElement("div", {
     className: "footer-title"
-  }, /*#__PURE__*/react.createElement("h5", null, " \u0421\u0432\u0435\u0436\u0438\u0435 \u043F\u043E\u0441\u0442\u044B "))), /*#__PURE__*/react.createElement(Col/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement("h5", null, " \u0421\u0432\u0435\u0436\u0438\u0435 \u043F\u043E\u0441\u0442\u044B "))), /*#__PURE__*/react.createElement(Col/* default */.Z, {
+    md: 6,
+    lg: 4
+  }, /*#__PURE__*/react.createElement("div", {
     className: "footer-title"
   }, /*#__PURE__*/react.createElement("h5", null, " \u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F "), /*#__PURE__*/react.createElement("a", {
     href: "https://vk.com/parfirova.irina"
@@ -1562,7 +1541,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\r\n  font-family: 'Exo 2 light';\r\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\r\n}\r\n\r\nbody {\r\n  font-family: 'Exo 2 light';\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.cursor-pointer {\r\n  cursor: pointer;\r\n}\r\n\r\n.wrapper {\r\n  padding: 0;\r\n}\r\n\r\n.footer {\r\n  background: #f6f6f6;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0.5rem 0;\r\n}\r\n\r\n.footer-title {\r\n  text-align: center;\r\n  width: 90%;\r\n  margin: 0 auto;\r\n  overflow: hidden;\r\n}\r\n\r\n.footer-title h5 {\r\n  position: relative;\r\n  text-transform: uppercase;\r\n}\r\n\r\n.footer-title h5:before,\r\n.footer-title h5:after {\r\n  content: \"\";\r\n  border-bottom: 1px solid lightgrey;\r\n  width: 50%;\r\n  position: absolute;\r\n  top: 50%;\r\n  height: 1px;\r\n}\r\n\r\n.footer-title h5:before {\r\n  margin-left: calc(-50% - 10px);\r\n}\r\n\r\n.footer-title h5:after {\r\n  margin-left: 10px;\r\n}\r\n\r\n.footer-second {\r\n  border-top: 1px solid lightgrey;\r\n  padding-top: 0.5rem;\r\n  padding-bottom: 0.5rem;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: 'Exo 2 light';\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format('opentype');\n}\n\nbody {\n  font-family: 'Exo 2 light';\n}\n\na {\n  text-decoration: none;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.login-svg {\n  width: 30px;\n}\n\n.wrapper {\n  padding: 0;\n}\n\n.footer {\n  background: #f6f6f6;\n  text-align: center;\n  margin: 0;\n  padding: 0.5rem 0;\n}\n\n.footer-title {\n  text-align: center;\n  width: 90%;\n  margin: 0 auto;\n  overflow: hidden;\n}\n\n.footer-title h5 {\n  position: relative;\n  text-transform: uppercase;\n}\n\n.footer-title h5:before,\n.footer-title h5:after {\n  content: \"\";\n  border-bottom: 1px solid lightgrey;\n  width: 50%;\n  position: absolute;\n  top: 50%;\n  height: 1px;\n}\n\n.footer-title h5:before {\n  margin-left: calc(-50% - 10px);\n}\n\n.footer-title h5:after {\n  margin-left: 10px;\n}\n\n.footer-second {\n  border-top: 1px solid lightgrey;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1582,7 +1561,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".lessons-grade-btn {\r\n  width: 10%;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".lessons-grade-btn {\n  width: 10%;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1602,7 +1581,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".markdown-post {\r\n  min-height: 200px;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".markdown-post {\n  min-height: 200px;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -2213,7 +2192,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "8290140591c415700002"; }
+/******/ 		__webpack_require__.h = function() { return "181d953d97a026f0b690"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
