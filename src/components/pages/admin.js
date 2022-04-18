@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
+import { checkAuth } from '../helpers';
 import api from '../../api';
-import { checkAuth } from '../helpers'
 
 function AdminPage() {
   const [login, setLogin] = useState('');
@@ -13,8 +13,8 @@ function AdminPage() {
 
   useEffect(async () => {
     setIsLoading(true);
-    const auth = await checkAuth()
-    setIsAuth(auth)
+    const auth = await checkAuth();
+    setIsAuth(auth);
     setIsLoading(false);
   }, []);
 
@@ -25,13 +25,11 @@ function AdminPage() {
 
     try {
       setIsLoading(true);
-
-      await api.login({ login, password });
-      const auth = await checkAuth()
-      setIsAuth(auth)
-      setIsLoading(false);
+      const auth = await api.login({ login, password });
+      if (!auth) throw new Error();
+      setIsAuth(auth);
     } catch (err) {
-      toast.warn(err && err.response && err.response.data, {
+      toast.warn('Вы ошиблись =)', {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -40,10 +38,14 @@ function AdminPage() {
         draggable: false,
         progress: undefined,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const authBlock = isAuth ? <div>Вы авторизованы</div> :
+  const authBlock = isAuth ? (
+    <div>Вы авторизованы</div>
+  ) : (
     <Form onSubmit={handleSubmit} className='mb-3'>
       <Form.Group className='mb-3'>
         <Form.Label>Логин</Form.Label>
@@ -70,6 +72,7 @@ function AdminPage() {
         Submit
       </Button>
     </Form>
+  );
 
   return (
     <Container fluid className='mt-2 mb-5'>
@@ -84,7 +87,7 @@ function AdminPage() {
         draggable
         pauseOnHover
       />
-      {isLoading ? <Spinner animation="border" variant="danger" /> : authBlock}
+      {isLoading ? <Spinner animation='border' variant='danger' /> : authBlock}
     </Container>
   );
 }

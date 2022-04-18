@@ -15,6 +15,10 @@ a {
   cursor: pointer;
 }
 
+.login-svg {
+  width: 30px;
+}
+
 .wrapper {
   padding: 0;
 }

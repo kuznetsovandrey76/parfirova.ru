@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer as Link } from 'react-router-bootstrap';
-import { checkAuth } from './helpers'
+import { checkAuth } from './helpers';
 import { LoginSvg } from '../assets/svg';
-import { useHistory } from 'react-router-dom';
+// import api from '../api';
 
 function Header() {
-  const [isAuth, setIsAuth] = useState(false);
+  // const [isAuth, setIsAuth] = useState(false);
 
-  const history = useHistory();
-
-  useEffect(async () => {
-    const auth = await checkAuth()
-    setIsAuth(auth)
-  }, []);
+  // useEffect(async () => {
+  //   const auth = await checkAuth();
+  //   setIsAuth(auth);
+  // }, []);
 
   return (
     <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header flex mx-5'>
@@ -52,11 +50,10 @@ function Header() {
           <Link to='/gallery'>
             <Nav.Link>Галерея</Nav.Link>
           </Link>
-          {isAuth && (
+          {/* {isAuth && (
             <>
               <NavDropdown title='Admin' id='basic-nav-dropdown'>
                 {[
-                  { to: '/admin', text: 'Вход' },
                   { to: '/posts', text: 'Посты' },
                   { to: '/lessons', text: 'Уроки' },
                 ].map(({ to, text }) => {
@@ -68,10 +65,10 @@ function Header() {
                 })}
               </NavDropdown>
             </>
-          )}
-          <img src={LoginSvg} className='me-2 cursor-pointer' style={{ width: '30px' }} onClick={() => {
-            history.push('admin/');
-          }} />
+          )} */}
+          <Link to='/admin'>
+            <img src={LoginSvg} className='me-2 cursor-pointer d-block login-svg' />
+          </Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

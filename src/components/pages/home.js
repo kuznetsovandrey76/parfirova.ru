@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import api from '../../api';
 
 function HomePage() {
   return (
@@ -7,6 +8,13 @@ function HomePage() {
       <h2>Парфирова Ирина Андреевна</h2>
       <h3>Учитель русского языка и литературы</h3>
       <p>Средняя школа № 18 г. Ярославль</p>
+      <div
+        onClick={async () => {
+          await api.getUsers();
+        }}
+      >
+        Users
+      </div>
     </Container>
   );
 }
