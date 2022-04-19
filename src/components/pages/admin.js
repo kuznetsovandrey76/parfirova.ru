@@ -44,7 +44,18 @@ function AdminPage() {
   };
 
   const authBlock = isAuth ? (
-    <div>Вы авторизованы</div>
+    <>
+      <div>Вы авторизованы</div>
+      <Button
+        variant='primary'
+        onClick={async () => {
+          console.log(123);
+          await api.logout();
+        }}
+      >
+        Выйти
+      </Button>
+    </>
   ) : (
     <Form onSubmit={handleSubmit} className='mb-3'>
       <Form.Group className='mb-3'>

@@ -51,6 +51,8 @@ class Api {
 
   logout = () => {
     this.token = null;
+    localStorage.removeItem('refreshToken');
+    window.location.reload();
   };
 
   checkAuth = async (refreshToken) => {
