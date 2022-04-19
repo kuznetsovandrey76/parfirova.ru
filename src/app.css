@@ -11,6 +11,23 @@ a {
   text-decoration: none;
 }
 
+/* === Sticky footer ====== */
+
+html, body, #root {
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.main {
+  flex: 1 0 auto;
+}
+
+/* ======================== */
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -21,47 +38,4 @@ a {
 
 .wrapper {
   padding: 0;
-}
-
-.footer {
-  background: #f6f6f6;
-  text-align: center;
-  margin: 0;
-  padding: 0.5rem 0;
-}
-
-.footer-title {
-  text-align: center;
-  width: 90%;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.footer-title h5 {
-  position: relative;
-  text-transform: uppercase;
-}
-
-.footer-title h5:before,
-.footer-title h5:after {
-  content: "";
-  border-bottom: 1px solid lightgrey;
-  width: 50%;
-  position: absolute;
-  top: 50%;
-  height: 1px;
-}
-
-.footer-title h5:before {
-  margin-left: calc(-50% - 10px);
-}
-
-.footer-title h5:after {
-  margin-left: 10px;
-}
-
-.footer-second {
-  border-top: 1px solid lightgrey;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }

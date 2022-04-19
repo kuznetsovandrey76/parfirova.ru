@@ -3,16 +3,8 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer as Link } from 'react-router-bootstrap';
 import { checkAuth } from './helpers';
 import { LoginSvg } from '../assets/svg';
-// import api from '../api';
 
 function Header() {
-  // const [isAuth, setIsAuth] = useState(false);
-
-  // useEffect(async () => {
-  //   const auth = await checkAuth();
-  //   setIsAuth(auth);
-  // }, []);
-
   return (
     <Navbar collapseOnSelect expand='md' variant='light' className='mb-3 header flex mx-5'>
       <Link to='/'>

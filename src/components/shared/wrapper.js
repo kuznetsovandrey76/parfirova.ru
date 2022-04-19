@@ -7,8 +7,10 @@ function Wrapper(props) {
   const { children } = props;
   return (
     <Container fluid className='wrapper'>
-      <Header />
-      <Container>{children}</Container>
+      <div className='main'>
+        <Header />
+        <Container>{children}</Container>
+      </div>
       <Footer />
     </Container>
   );
