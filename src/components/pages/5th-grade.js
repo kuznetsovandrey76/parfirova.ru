@@ -1,45 +1,92 @@
 import React, { useEffect, useState } from 'react';
-// import ReactMarkdown from 'react-markdown';
-// import remarkGfm from 'remark-gfm';
-import { Container, Card, Row, Col } from 'react-bootstrap';
+import { Container, Card, Row, Col, Spinner } from 'react-bootstrap';
 import Switch from 'react-switch';
 
-// import { WordSvg, ExcelSvg, PpointSvg } from '../../assets/svg';
 import api from '../../api';
 
 function FiveGradePage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [lessons, setLessons] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [currentLessons, setCurrentLessons] = useState([]);
 
   useEffect(async () => {
     try {
+      setIsLoading(true);
       const { data } = await api.getLessons();
       setLessons(data);
+      setCurrentLessons(
+        data.filter(
+          (lesson) =>
+            (lesson.subject === 'Русский язык' && !checked) ||
+            (lesson.subject === 'Литература' && checked)
+        )
+      );
+      setIsLoading(false);
     } catch (err) {
       console.warn('Cannot get images from server');
     }
   }, []);
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  useEffect(async () => {
+    setCurrentLessons(
+      lessons.filter(
+        (lesson) =>
+          (lesson.subject === 'Русский язык' && !checked) ||
+          (lesson.subject === 'Литература' && checked)
+      )
+    );
+  }, [checked]);
+
+  const lessonsBlock = (
+    <Row>
+      {currentLessons.map((lesson, id) => (
+        <Col md={6} lg={4} className='mb-3' key={id}>
+          <Card>
+            <Card.Body>
+              <Card.Title>Тема: {lesson.title}</Card.Title>
+              <Card.Subtitle>{lesson.subject}</Card.Subtitle>
+              <Card.Text>{lesson.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+  );
 
   return (
     <Container fluid className='mt-2 mb-5'>
-      <h1>5 класс</h1>
-      <label htmlFor='small-radius-switch'>
+      <div className='d-flex mb-3'>
+        <h1 className='d-inline-block me-4'>5 класс</h1>
         <Switch
           checked={checked}
-          onChange={handleChange}
-          handleDiameter={28}
-          offColor='#08f'
-          onColor='#0ff'
-          offHandleColor='#0ff'
-          onHandleColor='#08f'
-          height={40}
-          width={70}
-          borderRadius={6}
+          onChange={() => setChecked(!checked)}
+          handleDiameter={36}
+          onColor='#87e6de'
+          offColor='#008000'
+          offHandleColor='#fff'
+          onHandleColor='#fff'
+          height={42}
+          width={160}
           activeBoxShadow='0px 0px 1px 2px #fffc35'
+          checkedIcon={
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+                fontSize: 17,
+                fontWeight: 'bolder',
+                color: 'black',
+                paddingLeft: 60,
+                left: 0,
+                width: '20',
+              }}
+            >
+              Литература
+            </div>
+          }
           uncheckedIcon={
             <div
               style={{
@@ -47,82 +94,22 @@ function FiveGradePage() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: '100%',
-                fontSize: 15,
-                color: 'orange',
-                paddingRight: 2,
+                fontSize: 17,
+                color: 'white',
+                fontWeight: 'bolder',
+                paddingRight: 80,
+                whiteSpace: 'nowrap',
               }}
             >
-              Off
+              Русский язык
             </div>
           }
-          checkedIcon={
-            <svg viewBox='0 0 10 10' height='100%' width='100%' fill='yellow'>
-              <circle r={3} cx={5} cy={5} />
-            </svg>
-          }
-          uncheckedHandleIcon={
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                fontSize: 20,
-              }}
-            >
-              ☹
-            </div>
-          }
-          checkedHandleIcon={
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                color: 'red',
-                fontSize: 18,
-              }}
-            >
-              ♥
-            </div>
-          }
-          className='react-switch'
+          className='react-switch mt-1'
           id='small-radius-switch'
         />
-      </label>
+      </div>
       <hr />
-      <Row>
-        {lessons.map((lesson, id) => (
-          <Col md={6} lg={4} className='mb-3' key={id}>
-            <Card>
-              <Card.Body>
-                <Card.Title>Тема: {lesson.title}</Card.Title>
-                <Card.Subtitle className='mb-2 text-muted'>Класс: {lesson.grade}</Card.Subtitle>
-                <Card.Text>{lesson.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          // <Container className='p-0 mb-3'>
-          //   <h3>{post.title}</h3>
-          //   <ReactMarkdown key={id} remarkPlugins={[remarkGfm]}>
-          //     {post.text}
-          //   </ReactMarkdown>
-          // </Container>
-        ))}
-      </Row>
-      {/* <a href='#' className='d-block mb-2'>
-        <img src={WordSvg} className='me-2' style={{ width: '30px' }} />
-        <span>Урок 1</span>
-      </a>
-      <a href='#' className='d-block mb-2'>
-        <img src={ExcelSvg} className='me-2' style={{ width: '30px' }} />
-        <span>Урок 2</span>
-      </a>
-      <a href='#' className='d-block mb-2'>
-        <img src={PpointSvg} className='me-2' style={{ width: '30px' }} />
-        <span>Урок 3</span>
-      </a> */}
+      {isLoading ? <Spinner animation='border' variant='danger' /> : lessonsBlock}
     </Container>
   );
 }
