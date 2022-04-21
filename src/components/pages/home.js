@@ -16,7 +16,7 @@ function HomePage() {
   return (
     <Container fluid className='mt-2 mb-5 text-center'>
       <h2>Парфирова Ирина Андреевна</h2>
-      <h3>Учитель русского языка и литературы</h3>
+      <h3>учитель русского языка и литературы</h3>
       <p>Средняя школа № 18 г. Ярославль</p>
       <Swiper
         slidesPerView={1}
