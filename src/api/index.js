@@ -7,37 +7,37 @@ class Api {
       baseURL: process.env.API_URL,
     });
     this.token = null;
-    this.client.interceptors.request.use(
-      (config) => {
-        if (!this.token) {
-          return config;
-        }
+    // this.client.interceptors.request.use(
+    //   (config) => {
+    //     if (!this.token) {
+    //       return config;
+    //     }
 
-        const newConfig = {
-          headers: {},
-          ...config,
-        };
+    //     const newConfig = {
+    //       headers: {},
+    //       ...config,
+    //     };
 
-        newConfig.headers.Authorization = `Bearer ${this.token}`;
-        return newConfig;
-      },
-      (e) => Promise.reject(e)
-    );
+    //     newConfig.headers.Authorization = `Bearer ${this.token}`;
+    //     return newConfig;
+    //   },
+    //   (e) => Promise.reject(e)
+    // );
 
-    this.client.interceptors.response.use(
-      (r) => r,
-      async (error) => {
-        const { data } = await this.client.post('/auth/refresh', {
-          refreshToken: localStorage.getItem('refreshToken'),
-        });
-        if (!data) {
-          localStorage.removeItem('refreshToken');
-          return;
-        }
-        this.token = data.token;
-        localStorage.setItem('refreshToken', data.refreshToken);
-      }
-    );
+    //   this.client.interceptors.response.use(
+    //     (r) => r,
+    //     async (error) => {
+    //       const { data } = await this.client.post('/auth/refresh', {
+    //         refreshToken: localStorage.getItem('refreshToken'),
+    //       });
+    //       if (!data) {
+    //         localStorage.removeItem('refreshToken');
+    //         return;
+    //       }
+    //       this.token = data.token;
+    //       localStorage.setItem('refreshToken', data.refreshToken);
+    //     }
+    //   );
   }
 
   login = async ({ login, password }) => {
@@ -77,6 +77,15 @@ class Api {
   getCourses = async () => await this.client('courses/');
 
   getGallery = async () => await this.client('gallery/');
+  testGallery = async (file) => {
+    console.log(file);
+    await this.client.post('gallery/', file, {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+  };
+
   getPosts = async () => await this.client('posts/');
   sendPost = async (text) => await this.client.post('posts/', { text });
 }
