@@ -30,10 +30,6 @@ var react_toastify_esm = __webpack_require__(9249);
 var axios = __webpack_require__(9669);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// CONCATENATED MODULE: ./src/api/index.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -254,104 +250,67 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     }, _callee7);
   })));
 
-  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-    return regeneratorRuntime.wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            _context8.next = 2;
-            return _this.client('posts/');
-
-          case 2:
-            return _context8.abrupt("return", _context8.sent);
-
-          case 3:
-          case "end":
-            return _context8.stop();
-        }
-      }
-    }, _callee8);
-  })));
-
-  _defineProperty(this, "sendPost", /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(text) {
-      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+  _defineProperty(this, "testGallery", /*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(file) {
+      return regeneratorRuntime.wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
-              _context9.next = 2;
-              return _this.client.post('posts/', {
-                text: text
+              console.log(file);
+              _context8.next = 3;
+              return _this.client.post('gallery/', file, {
+                headers: {
+                  'content-type': 'multipart/form-data'
+                }
               });
-
-            case 2:
-              return _context9.abrupt("return", _context9.sent);
 
             case 3:
             case "end":
-              return _context9.stop();
+              return _context8.stop();
           }
         }
-      }, _callee9);
+      }, _callee8);
     }));
 
     return function (_x4) {
-      return _ref11.apply(this, arguments);
+      return _ref10.apply(this, arguments);
     };
   }());
 
-  this.client = axios_default().create({
-    withCredentials: true,
-    // ??
-    baseURL: "https://parfirova.herokuapp.com/"
-  });
-  this.token = null;
-  this.client.interceptors.request.use(function (config) {
-    if (!_this.token) {
-      return config;
-    }
+  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return _this.client('posts/');
 
-    var newConfig = _objectSpread({
-      headers: {}
-    }, config);
+          case 2:
+            return _context9.abrupt("return", _context9.sent);
 
-    newConfig.headers.Authorization = "Bearer ".concat(_this.token);
-    return newConfig;
-  }, function (e) {
-    return Promise.reject(e);
-  });
-  this.client.interceptors.response.use(function (r) {
-    return r;
-  }, /*#__PURE__*/function () {
-    var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(error) {
-      var _yield$_this$client$p3, data;
+          case 3:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  })));
 
+  _defineProperty(this, "sendPost", /*#__PURE__*/function () {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(text) {
       return regeneratorRuntime.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
               _context10.next = 2;
-              return _this.client.post('/auth/refresh', {
-                refreshToken: localStorage.getItem('refreshToken')
+              return _this.client.post('posts/', {
+                text: text
               });
 
             case 2:
-              _yield$_this$client$p3 = _context10.sent;
-              data = _yield$_this$client$p3.data;
+              return _context10.abrupt("return", _context10.sent);
 
-              if (data) {
-                _context10.next = 7;
-                break;
-              }
-
-              localStorage.removeItem('refreshToken');
-              return _context10.abrupt("return");
-
-            case 7:
-              _this.token = data.token;
-              localStorage.setItem('refreshToken', data.refreshToken);
-
-            case 9:
+            case 3:
             case "end":
               return _context10.stop();
           }
@@ -363,6 +322,40 @@ var Api = /*#__PURE__*/_createClass(function Api() {
       return _ref12.apply(this, arguments);
     };
   }());
+
+  this.client = axios_default().create({
+    withCredentials: true,
+    // ??
+    baseURL: "https://parfirova.herokuapp.com/"
+  });
+  this.token = null; // this.client.interceptors.request.use(
+  //   (config) => {
+  //     if (!this.token) {
+  //       return config;
+  //     }
+  //     const newConfig = {
+  //       headers: {},
+  //       ...config,
+  //     };
+  //     newConfig.headers.Authorization = `Bearer ${this.token}`;
+  //     return newConfig;
+  //   },
+  //   (e) => Promise.reject(e)
+  // );
+  //   this.client.interceptors.response.use(
+  //     (r) => r,
+  //     async (error) => {
+  //       const { data } = await this.client.post('/auth/refresh', {
+  //         refreshToken: localStorage.getItem('refreshToken'),
+  //       });
+  //       if (!data) {
+  //         localStorage.removeItem('refreshToken');
+  //         return;
+  //       }
+  //       this.token = data.token;
+  //       localStorage.setItem('refreshToken', data.refreshToken);
+  //     }
+  //   );
 });
 
 var api = new Api();
@@ -801,9 +794,9 @@ var getNod = function getNod(x, y) {
 // EXTERNAL MODULE: ./node_modules/react-photo-gallery/dist/react-photo-gallery.esm.js + 1 modules
 var react_photo_gallery_esm = __webpack_require__(5283);
 ;// CONCATENATED MODULE: ./src/components/pages/gallery.js
-function gallery_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function gallery_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? gallery_ownKeys(Object(source), !0).forEach(function (key) { gallery_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : gallery_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { gallery_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function gallery_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -830,6 +823,8 @@ function gallery_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function GalleryPage() {
   var _useState = (0,react.useState)(false),
       _useState2 = gallery_slicedToArray(_useState, 2),
@@ -845,6 +840,16 @@ function GalleryPage() {
       _useState6 = gallery_slicedToArray(_useState5, 2),
       images = _useState6[0],
       setImages = _useState6[1];
+
+  var _useState7 = (0,react.useState)(null),
+      _useState8 = gallery_slicedToArray(_useState7, 2),
+      content = _useState8[0],
+      setContent = _useState8[1];
+
+  var _useState9 = (0,react.useState)(null),
+      _useState10 = gallery_slicedToArray(_useState9, 2),
+      img = _useState10[0],
+      setImg = _useState10[1];
 
   (0,react.useEffect)( /*#__PURE__*/gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var response, _images, imagePromises, transformImages;
@@ -866,7 +871,7 @@ function GalleryPage() {
 
                 img.onload = function () {
                   var nod = get_nod(this.width, this.height);
-                  resolve(gallery_objectSpread(gallery_objectSpread({}, image), {}, {
+                  resolve(_objectSpread(_objectSpread({}, image), {}, {
                     width: this.width / nod,
                     height: this.height / nod,
                     // custom attr
@@ -908,12 +913,54 @@ function GalleryPage() {
       }
     }, _callee, null, [[0, 12]]);
   })), []);
+
+  var uploadFile = /*#__PURE__*/function () {
+    var _ref2 = gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var formData;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              formData = new FormData();
+              formData.append('file', img);
+              console.log('img', img); // console.log(content);
+              // var options = { content };
+              // const data = fileFormData.getBuffer();
+              // const contentType = 'image/jpeg';
+              // const file = new Blob([content], { type: contentType });
+              // const file = Buffer.from(content, 'base64');
+              // const file = Buffer.from(content, 'base64');
+              // console.log(content);
+              // const arrayBuffer = await content.arrayBuffer();
+              // console.log(arrayBuffer);
+              // const myBlob = new Blob([new Uint8Array(arrayBuffer)], {
+              // type: content.type,
+              // });
+              // console.log(myBlob);
+              // formData.append('myBlob', myBlob, content.name);
+
+              _context2.next = 5;
+              return src_api.testGallery(formData);
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function uploadFile() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
   var imagesBlock = isOpen && images.length ? /*#__PURE__*/react.createElement(index_es/* default */.Z, {
     mainSrc: images[photoIndex].src,
     nextSrc: images[(photoIndex + 1) % images.length].src,
     prevSrc: images[(photoIndex + images.length - 1) % images.length].src,
     imageTitle: images[photoIndex].caption,
-    imageCaption: images[photoIndex].caption,
+    imageCaption: 'Выслушав доклад министра обороны Сергея Шойгу об установлении контроля над городом, глава государства приказал отменить штурм промзоны завода «Азовсталь», где остаются подразделения боевиков.',
     onCloseRequest: function onCloseRequest() {
       return setIsOpen(false);
     },
@@ -927,7 +974,15 @@ function GalleryPage() {
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement(react_photo_gallery_esm/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement("input", {
+    type: "file",
+    onChange: function onChange(e) {
+      console.log(e.target.files);
+      setImg(e.target.files[0]);
+    }
+  }), /*#__PURE__*/react.createElement("button", {
+    onClick: uploadFile
+  }, "Click"), /*#__PURE__*/react.createElement(react_photo_gallery_esm/* default */.Z, {
     photos: images,
     direction: 'row',
     onClick: function onClick(e) {
@@ -2570,7 +2625,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "e254d64dffc95f271ee6"; }
+/******/ 		__webpack_require__.h = function() { return "466eeddd22dc4bb93d41"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
