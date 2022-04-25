@@ -70,6 +70,8 @@ class Api {
 
   getUsers = async () => await this.client('users/');
 
+  getEighteenSchool = async () => await this.client('eighteen-school/');
+
   getLessons = async () => await this.client('lessons/');
   sendLesson = async ({ grade, title, description, active }) =>
     await this.client.post('lessons/', { grade, title, description, active });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import Dropzone from 'react-dropzone';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
@@ -53,38 +53,20 @@ function GalleryPage() {
     }
   }, []);
 
+  const dropzoneRef = createRef();
+  const openDialog = () => {
+    // Note that the ref is set async,
+    // so it might be null at some point
+    if (dropzoneRef.current) {
+      dropzoneRef.current.open();
+    }
+  };
+
   const uploadFile = async () => {
     const formData = new FormData();
     formData.append('file', img);
 
-    console.log('img', img);
-
-    // console.log(content);
-    // var options = { content };
-
-    // const data = fileFormData.getBuffer();
-    // const contentType = 'image/jpeg';
-    // const file = new Blob([content], { type: contentType });
-
-    // const file = Buffer.from(content, 'base64');
-    // const file = Buffer.from(content, 'base64');
-
-    // console.log(content);
-    // const arrayBuffer = await content.arrayBuffer();
-    // console.log(arrayBuffer);
-    // const myBlob = new Blob([new Uint8Array(arrayBuffer)], {
-    // type: content.type,
-    // });
-    // console.log(myBlob);
-    // formData.append('myBlob', myBlob, content.name);
     await api.testGallery(formData);
-    // axios({
-    //   url: '/api',
-    //   method: 'post',
-    //   data: formData,
-    // });
-
-    // console.log(file, formData);
   };
 
   const imagesBlock =
@@ -106,7 +88,32 @@ function GalleryPage() {
   return (
     <Container fluid className='mt-2 mb-5 text-center'>
       <h2>Галерея:</h2>
-      {/* <Dropzone onDrop={([acceptedFile]) => setContent(acceptedFile)}>
+      <Dropzone ref={dropzoneRef} noClick noKeyboard>
+        {({ getRootProps, getInputProps, acceptedFiles }) => {
+          return (
+            <div className='container'>
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here</p>
+                <button type='button' onClick={openDialog}>
+                  Open File Dialog
+                </button>
+              </div>
+              <aside>
+                <h4>Files</h4>
+                <ul>
+                  {acceptedFiles.map((file) => (
+                    <li key={file.path}>
+                      {file.path} - {file.size} bytes
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+          );
+        }}
+      </Dropzone>
+      {/* <Dropzone onDrop={([acceptedFile]) => setImg(acceptedFile)}>
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>
@@ -115,8 +122,8 @@ function GalleryPage() {
             </div>
           </section>
         )}
-      </Dropzone>
-        */}
+      </Dropzone> */}
+
       <hr />
       <input
         type='file'

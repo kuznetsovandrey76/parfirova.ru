@@ -39,9 +39,21 @@ function Header() {
               );
             })}
           </NavDropdown>
-          <Link to='/gallery'>
+          <NavDropdown title='Галерея' id='basic-nav-dropdown'>
+            {[
+              { to: '/eighteen-school', text: '18 Школа' },
+              { to: '/gallery', text: 'Test' },
+            ].map(({ to, text }) => {
+              return (
+                <Link to={to} key={to}>
+                  <NavDropdown.Item>{text}</NavDropdown.Item>
+                </Link>
+              );
+            })}
+          </NavDropdown>
+          {/* <Link to='/gallery'>
             <Nav.Link>Галерея</Nav.Link>
-          </Link>
+          </Link> */}
           {/* {isAuth && (
             <>
               <NavDropdown title='Admin' id='basic-nav-dropdown'>

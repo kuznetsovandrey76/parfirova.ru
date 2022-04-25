@@ -8,6 +8,7 @@ import {
   FiveGradePage,
   PostsPage,
   LessonsPage,
+  EighteenSchoolPage,
 } from '../components/pages';
 import { useLocation } from 'react-router-dom';
 import RouteWithSubRoutes from './routes-with-sub-routes';
@@ -40,6 +41,7 @@ const routes = [
   { path: '/courses', component: CoursesPage, exact: true },
   { path: '/gallery', component: GalleryPage, exact: true },
   { path: '/5th-grade', component: FiveGradePage, exact: true },
+  { path: '/eighteen-school', component: EighteenSchoolPage, exact: true },
   {
     path: '/test',
     component: TestPage,
