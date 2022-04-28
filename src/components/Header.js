@@ -41,7 +41,8 @@ function Header() {
           </NavDropdown>
           <NavDropdown title='Галерея' id='basic-nav-dropdown'>
             {[
-              { to: '/eighteen-school', text: '18 Школа' },
+              { to: '/eighteen-school', text: '18 Школа, Ярославль' },
+              { to: '/third-school', text: '3 Школа, Ростов Великий' },
               { to: '/gallery', text: 'Test' },
             ].map(({ to, text }) => {
               return (

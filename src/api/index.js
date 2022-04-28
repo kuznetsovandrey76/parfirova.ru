@@ -71,6 +71,7 @@ class Api {
   getUsers = async () => await this.client('users/');
 
   getEighteenSchool = async () => await this.client('eighteen-school/');
+  getThirdSchool = async () => await this.client('third-school/');
 
   getLessons = async () => await this.client('lessons/');
   sendLesson = async ({ grade, title, description, active }) =>

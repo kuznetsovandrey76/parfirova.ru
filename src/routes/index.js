@@ -9,6 +9,7 @@ import {
   PostsPage,
   LessonsPage,
   EighteenSchoolPage,
+  ThirdSchoolPage,
 } from '../components/pages';
 import { useLocation } from 'react-router-dom';
 import RouteWithSubRoutes from './routes-with-sub-routes';
@@ -42,6 +43,7 @@ const routes = [
   { path: '/gallery', component: GalleryPage, exact: true },
   { path: '/5th-grade', component: FiveGradePage, exact: true },
   { path: '/eighteen-school', component: EighteenSchoolPage, exact: true },
+  { path: '/third-school', component: ThirdSchoolPage, exact: true },
   {
     path: '/test',
     component: TestPage,
