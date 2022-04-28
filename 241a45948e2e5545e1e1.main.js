@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6273:
+/***/ 5752:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -180,13 +180,13 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     }, _callee4);
   })));
 
-  _defineProperty(this, "getLessons", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+  _defineProperty(this, "getThirdSchool", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.next = 2;
-            return _this.client('lessons/');
+            return _this.client('third-school/');
 
           case 2:
             return _context5.abrupt("return", _context5.sent);
@@ -199,15 +199,34 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     }, _callee5);
   })));
 
+  _defineProperty(this, "getLessons", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return _this.client('lessons/');
+
+          case 2:
+            return _context6.abrupt("return", _context6.sent);
+
+          case 3:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  })));
+
   _defineProperty(this, "sendLesson", /*#__PURE__*/function () {
-    var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref7) {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref8) {
       var grade, title, description, active;
-      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              grade = _ref7.grade, title = _ref7.title, description = _ref7.description, active = _ref7.active;
-              _context6.next = 3;
+              grade = _ref8.grade, title = _ref8.title, description = _ref8.description, active = _ref8.active;
+              _context7.next = 3;
               return _this.client.post('lessons/', {
                 grade: grade,
                 title: title,
@@ -216,47 +235,28 @@ var Api = /*#__PURE__*/_createClass(function Api() {
               });
 
             case 3:
-              return _context6.abrupt("return", _context6.sent);
+              return _context7.abrupt("return", _context7.sent);
 
             case 4:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
         }
-      }, _callee6);
+      }, _callee7);
     }));
 
     return function (_x3) {
-      return _ref8.apply(this, arguments);
+      return _ref9.apply(this, arguments);
     };
   }());
 
-  _defineProperty(this, "getCourses", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-    return regeneratorRuntime.wrap(function _callee7$(_context7) {
-      while (1) {
-        switch (_context7.prev = _context7.next) {
-          case 0:
-            _context7.next = 2;
-            return _this.client('courses/');
-
-          case 2:
-            return _context7.abrupt("return", _context7.sent);
-
-          case 3:
-          case "end":
-            return _context7.stop();
-        }
-      }
-    }, _callee7);
-  })));
-
-  _defineProperty(this, "getGallery", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+  _defineProperty(this, "getCourses", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
             _context8.next = 2;
-            return _this.client('gallery/');
+            return _this.client('courses/');
 
           case 2:
             return _context8.abrupt("return", _context8.sent);
@@ -269,14 +269,33 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     }, _callee8);
   })));
 
+  _defineProperty(this, "getGallery", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return _this.client('gallery/');
+
+          case 2:
+            return _context9.abrupt("return", _context9.sent);
+
+          case 3:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  })));
+
   _defineProperty(this, "testGallery", /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(file) {
-      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(file) {
+      return regeneratorRuntime.wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
               console.log(file);
-              _context9.next = 3;
+              _context10.next = 3;
               return _this.client.post('gallery/', file, {
                 headers: {
                   'content-type': 'multipart/form-data'
@@ -285,60 +304,60 @@ var Api = /*#__PURE__*/_createClass(function Api() {
 
             case 3:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
         }
-      }, _callee9);
+      }, _callee10);
     }));
 
     return function (_x4) {
-      return _ref11.apply(this, arguments);
+      return _ref12.apply(this, arguments);
     };
   }());
 
-  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-    return regeneratorRuntime.wrap(function _callee10$(_context10) {
+  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+    return regeneratorRuntime.wrap(function _callee11$(_context11) {
       while (1) {
-        switch (_context10.prev = _context10.next) {
+        switch (_context11.prev = _context11.next) {
           case 0:
-            _context10.next = 2;
+            _context11.next = 2;
             return _this.client('posts/');
 
           case 2:
-            return _context10.abrupt("return", _context10.sent);
+            return _context11.abrupt("return", _context11.sent);
 
           case 3:
           case "end":
-            return _context10.stop();
+            return _context11.stop();
         }
       }
-    }, _callee10);
+    }, _callee11);
   })));
 
   _defineProperty(this, "sendPost", /*#__PURE__*/function () {
-    var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(text) {
-      return regeneratorRuntime.wrap(function _callee11$(_context11) {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(text) {
+      return regeneratorRuntime.wrap(function _callee12$(_context12) {
         while (1) {
-          switch (_context11.prev = _context11.next) {
+          switch (_context12.prev = _context12.next) {
             case 0:
-              _context11.next = 2;
+              _context12.next = 2;
               return _this.client.post('posts/', {
                 text: text
               });
 
             case 2:
-              return _context11.abrupt("return", _context11.sent);
+              return _context12.abrupt("return", _context12.sent);
 
             case 3:
             case "end":
-              return _context11.stop();
+              return _context12.stop();
           }
         }
-      }, _callee11);
+      }, _callee12);
     }));
 
     return function (_x5) {
-      return _ref13.apply(this, arguments);
+      return _ref14.apply(this, arguments);
     };
   }());
 
@@ -1602,7 +1621,145 @@ function EighteenSchoolPage() {
 }
 
 /* harmony default export */ var _18school = (EighteenSchoolPage);
+;// CONCATENATED MODULE: ./src/components/pages/third-school.js
+function third_school_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function third_school_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? third_school_ownKeys(Object(source), !0).forEach(function (key) { third_school_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : third_school_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function third_school_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function third_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function third_school_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { third_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { third_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function third_school_slicedToArray(arr, i) { return third_school_arrayWithHoles(arr) || third_school_iterableToArrayLimit(arr, i) || third_school_unsupportedIterableToArray(arr, i) || third_school_nonIterableRest(); }
+
+function third_school_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function third_school_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return third_school_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return third_school_arrayLikeToArray(o, minLen); }
+
+function third_school_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function third_school_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function third_school_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+function ThirdSchoolPage() {
+  var _useState = (0,react.useState)(false),
+      _useState2 = third_school_slicedToArray(_useState, 2),
+      isOpen = _useState2[0],
+      setIsOpen = _useState2[1];
+
+  var _useState3 = (0,react.useState)(0),
+      _useState4 = third_school_slicedToArray(_useState3, 2),
+      photoIndex = _useState4[0],
+      setPhotoIndex = _useState4[1];
+
+  var _useState5 = (0,react.useState)([]),
+      _useState6 = third_school_slicedToArray(_useState5, 2),
+      images = _useState6[0],
+      setImages = _useState6[1];
+
+  (0,react.useEffect)( /*#__PURE__*/third_school_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var response, _images, imagePromises, transformImages;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return src_api.getThirdSchool();
+
+          case 3:
+            response = _context.sent;
+            _images = response.data;
+            imagePromises = _images.map(function (image, idx) {
+              return new Promise(function (resolve, reject) {
+                var img = new Image();
+
+                img.onload = function () {
+                  var nod = get_nod(this.width, this.height);
+                  resolve(third_school_objectSpread(third_school_objectSpread({}, image), {}, {
+                    src: image.location,
+                    width: this.width / nod,
+                    height: this.height / nod,
+                    idx: idx
+                  }));
+                };
+
+                img.onerror = function () {
+                  resolve({
+                    src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
+                    width: 3,
+                    height: 2,
+                    idx: idx
+                  });
+                };
+
+                img.src = image.location;
+              });
+            });
+            _context.next = 8;
+            return Promise.all(imagePromises);
+
+          case 8:
+            transformImages = _context.sent;
+            setImages(transformImages);
+            _context.next = 15;
+            break;
+
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](0);
+            console.warn('Cannot get images from server');
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 12]]);
+  })), []);
+  var imagesBlock = isOpen && images.length ? /*#__PURE__*/react.createElement(index_es/* default */.Z, {
+    mainSrc: images[photoIndex].src,
+    nextSrc: images[(photoIndex + 1) % images.length].src,
+    prevSrc: images[(photoIndex + images.length - 1) % images.length].src,
+    imageTitle: images[photoIndex].title,
+    imageCaption: images[photoIndex].caption,
+    onCloseRequest: function onCloseRequest() {
+      return setIsOpen(false);
+    },
+    onMovePrevRequest: function onMovePrevRequest() {
+      return setPhotoIndex((photoIndex + images.length - 1) % images.length);
+    },
+    onMoveNextRequest: function onMoveNextRequest() {
+      return setPhotoIndex((photoIndex + 1) % images.length);
+    }
+  }) : null;
+  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
+    fluid: true,
+    className: "mt-2 mb-5 text-center"
+  }, /*#__PURE__*/react.createElement("h2", null, "3 \u0448\u043A\u043E\u043B\u0430, \u0420\u043E\u0441\u0442\u043E\u0432 \u0412\u0435\u043B\u0438\u043A\u0438\u0439"), /*#__PURE__*/react.createElement(react_photo_gallery_esm/* default */.Z, {
+    photos: images,
+    direction: 'row',
+    onClick: function onClick(e) {
+      setPhotoIndex(e.target.attributes.idx.value);
+      setIsOpen(true);
+    }
+  }), imagesBlock);
+}
+
+/* harmony default export */ var third_school = (ThirdSchoolPage);
 ;// CONCATENATED MODULE: ./src/components/pages/index.js
+
 
 
 
@@ -1682,6 +1839,10 @@ var routes = [{
 }, {
   path: '/eighteen-school',
   component: _18school,
+  exact: true
+}, {
+  path: '/third-school',
+  component: third_school,
   exact: true
 }, {
   path: '/test',
@@ -1775,7 +1936,10 @@ function Header() {
     id: "basic-nav-dropdown"
   }, [{
     to: '/eighteen-school',
-    text: '18 Школа'
+    text: '18 Школа, Ярославль'
+  }, {
+    to: '/third-school',
+    text: '3 Школа, Ростов Великий'
   }, {
     to: '/gallery',
     text: 'Test'
@@ -2815,7 +2979,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "e4669b1c4c7933876546"; }
+/******/ 		__webpack_require__.h = function() { return "241a45948e2e5545e1e1"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -3910,7 +4074,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [512], function() { return __webpack_require__(6273); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [512], function() { return __webpack_require__(5752); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
