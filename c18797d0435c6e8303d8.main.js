@@ -1074,7 +1074,7 @@ function Arrow(_ref) {
   var children = _ref.children,
       disabled = _ref.disabled,
       onClick = _ref.onClick;
-  return /*#__PURE__*/react.createElement("button", {
+  return /*#__PURE__*/React.createElement("button", {
     disabled: disabled,
     onClick: onClick,
     style: {
@@ -1090,24 +1090,24 @@ function Arrow(_ref) {
 }
 
 function LeftArrow() {
-  var _React$useContext = react.useContext(index_umd.VisibilityContext),
+  var _React$useContext = React.useContext(VisibilityContext),
       isFirstItemVisible = _React$useContext.isFirstItemVisible,
       scrollPrev = _React$useContext.scrollPrev,
       visibleItemsWithoutSeparators = _React$useContext.visibleItemsWithoutSeparators,
       initComplete = _React$useContext.initComplete;
 
-  var _React$useState = react.useState(!initComplete || initComplete && isFirstItemVisible),
+  var _React$useState = React.useState(!initComplete || initComplete && isFirstItemVisible),
       _React$useState2 = arrows_slicedToArray(_React$useState, 2),
       disabled = _React$useState2[0],
       setDisabled = _React$useState2[1];
 
-  react.useEffect(function () {
+  React.useEffect(function () {
     // NOTE: detect if whole component visible
     if (visibleItemsWithoutSeparators.length) {
       setDisabled(isFirstItemVisible);
     }
   }, [isFirstItemVisible, visibleItemsWithoutSeparators]);
-  return /*#__PURE__*/react.createElement(Arrow, {
+  return /*#__PURE__*/React.createElement(Arrow, {
     disabled: disabled,
     onClick: function onClick() {
       return scrollPrev();
@@ -1115,22 +1115,22 @@ function LeftArrow() {
   }, "Left");
 }
 function RightArrow() {
-  var _React$useContext2 = react.useContext(index_umd.VisibilityContext),
+  var _React$useContext2 = React.useContext(VisibilityContext),
       isLastItemVisible = _React$useContext2.isLastItemVisible,
       scrollNext = _React$useContext2.scrollNext,
       visibleItemsWithoutSeparators = _React$useContext2.visibleItemsWithoutSeparators;
 
-  var _React$useState3 = react.useState(!visibleItemsWithoutSeparators.length && isLastItemVisible),
+  var _React$useState3 = React.useState(!visibleItemsWithoutSeparators.length && isLastItemVisible),
       _React$useState4 = arrows_slicedToArray(_React$useState3, 2),
       disabled = _React$useState4[0],
       setDisabled = _React$useState4[1];
 
-  react.useEffect(function () {
+  React.useEffect(function () {
     if (visibleItemsWithoutSeparators.length) {
       setDisabled(isLastItemVisible);
     }
   }, [isLastItemVisible, visibleItemsWithoutSeparators]);
-  return /*#__PURE__*/react.createElement(Arrow, {
+  return /*#__PURE__*/React.createElement(Arrow, {
     disabled: disabled,
     onClick: function onClick() {
       return scrollNext();
@@ -1154,9 +1154,11 @@ function card_Card(_ref) {
     role: "button",
     style: {
       border: '1px solid',
+      borderRadius: '5px',
       display: 'inline-block',
       margin: '0 10px',
       width: '160px',
+      padding: '5px',
       userSelect: 'none'
     },
     tabIndex: 0,
@@ -1168,7 +1170,7 @@ function card_Card(_ref) {
   }, "visible: ", JSON.stringify(visible)), /*#__PURE__*/react.createElement("div", null, "selected: ", JSON.stringify(!!selected))), /*#__PURE__*/react.createElement("div", {
     style: {
       backgroundColor: selected ? 'green' : 'bisque',
-      height: '200px'
+      height: '50px'
     }
   }));
 }
@@ -1393,19 +1395,16 @@ function FiveGradePage() {
       key: id
     }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, "\u0422\u0435\u043C\u0430: ", lesson.title), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, null, lesson.subject), /*#__PURE__*/react.createElement(Card/* default.Text */.Z.Text, null, lesson.description))));
   }));
-  console.log({
-    items: items
-  });
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
     className: "mt-2 mb-5"
   }, /*#__PURE__*/react.createElement("div", {
     onMouseLeave: dragStop,
     className: "mb-3"
-  }, /*#__PURE__*/react.createElement(index_umd.ScrollMenu, {
-    LeftArrow: LeftArrow,
-    RightArrow: RightArrow // onWheel={onWheel}
-    ,
+  }, /*#__PURE__*/react.createElement(index_umd.ScrollMenu // LeftArrow={LeftArrow}
+  // RightArrow={RightArrow}
+  // onWheel={onWheel}
+  , {
     onMouseDown: function onMouseDown() {
       return dragStart;
     },
@@ -1415,32 +1414,16 @@ function FiveGradePage() {
     onMouseMove: handleDrag
   }, items.map(function (_ref4) {
     var id = _ref4.id;
-    return (
-      /*#__PURE__*/
-      // <Card
-      //   title={id}
-      //   itemId={id} // NOTE: itemId is required for track items
-      //   key={id}
-      //   onClick={() => handleItemClick(id)}
-      //   selected={id === selected}
-      // >
-      //   <Card.Body>
-      //     <Card.Title>Тема: {id}</Card.Title>
-      //     {/* <Card.Subtitle>{lesson.subject}</Card.Subtitle> */}
-      //     {/* <Card.Text>{lesson.description}</Card.Text> */}
-      //   </Card.Body>
-      // </Card>
-      react.createElement(card_Card, {
-        title: id,
-        itemId: id // NOTE: itemId is required for track items
-        ,
-        key: id,
-        onClick: function onClick() {
-          return handleItemClick(id);
-        },
-        selected: id === selected
-      })
-    );
+    return /*#__PURE__*/react.createElement(card_Card, {
+      title: id,
+      itemId: id // NOTE: itemId is required for track items
+      ,
+      key: id,
+      onClick: function onClick() {
+        return handleItemClick(id);
+      },
+      selected: id === selected
+    });
   }))), /*#__PURE__*/react.createElement("div", {
     className: "d-flex mb-3"
   }, /*#__PURE__*/react.createElement("h1", {
@@ -3440,7 +3423,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "5b83e2ab6cbd8159f2c6"; }
+/******/ 		__webpack_require__.h = function() { return "c18797d0435c6e8303d8"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
