@@ -91,32 +91,18 @@ function FiveGradePage() {
     </Row>
   );
 
-  console.log({ items });
   return (
     <Container fluid className='mt-2 mb-5'>
       <div onMouseLeave={dragStop} className='mb-3'>
         <ScrollMenu
-          LeftArrow={LeftArrow}
-          RightArrow={RightArrow}
+          // LeftArrow={LeftArrow}
+          // RightArrow={RightArrow}
           // onWheel={onWheel}
           onMouseDown={() => dragStart}
           onMouseUp={() => dragStop}
           onMouseMove={handleDrag}
         >
           {items.map(({ id }) => (
-            // <Card
-            //   title={id}
-            //   itemId={id} // NOTE: itemId is required for track items
-            //   key={id}
-            //   onClick={() => handleItemClick(id)}
-            //   selected={id === selected}
-            // >
-            //   <Card.Body>
-            //     <Card.Title>Тема: {id}</Card.Title>
-            //     {/* <Card.Subtitle>{lesson.subject}</Card.Subtitle> */}
-            //     {/* <Card.Text>{lesson.description}</Card.Text> */}
-            //   </Card.Body>
-            // </Card>
             <Card2
               title={id}
               itemId={id} // NOTE: itemId is required for track items

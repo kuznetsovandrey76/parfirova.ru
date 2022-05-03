@@ -13,9 +13,11 @@ export default function Card({ itemId, selected, onClick, title }) {
       role='button'
       style={{
         border: '1px solid',
+        borderRadius: '5px',
         display: 'inline-block',
         margin: '0 10px',
         width: '160px',
+        padding: '5px',
         userSelect: 'none',
       }}
       tabIndex={0}
@@ -31,7 +33,7 @@ export default function Card({ itemId, selected, onClick, title }) {
       <div
         style={{
           backgroundColor: selected ? 'green' : 'bisque',
-          height: '200px',
+          height: '50px',
         }}
       />
     </div>
