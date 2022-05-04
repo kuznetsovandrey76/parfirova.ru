@@ -1,23 +1,55 @@
-(self["webpackChunkparfirova_ru"] = self["webpackChunkparfirova_ru"] || []).push([[679],{
+(self["webpackChunkparfirova_ru"] = self["webpackChunkparfirova_ru"] || []).push([[736],{
 
-/***/ 6895:
+/***/ 2092:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useCallbackRef; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ useEventCallback; }
-});
+/**
+ * A convenience hook around `useState` designed to be paired with
+ * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
+ * Callback refs are useful over `useRef()` when you need to respond to the ref being set
+ * instead of lazily accessing it in an effect.
+ *
+ * ```ts
+ * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
+ *
+ * useEffect(() => {
+ *   if (!element) return
+ *
+ *   const calendar = new FullCalendar.Calendar(element)
+ *
+ *   return () => {
+ *     calendar.destroy()
+ *   }
+ * }, [element])
+ *
+ * return <div ref={attachRef} />
+ * ```
+ *
+ * @category refs
+ */
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCommittedRef.js
+function useCallbackRef() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+}
+
+/***/ }),
+
+/***/ 2029:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
 
 /**
  * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
  * value is the one rendered with. Generally only required for Concurrent mode usage
- * where previous work in `render()` may be discarded befor being used.
+ * where previous work in `render()` may be discarded before being used.
  *
  * This is safe to access in an event handler.
  *
@@ -25,22 +57,71 @@ var react = __webpack_require__(7294);
  */
 
 function useCommittedRef(value) {
-  var ref = (0,react.useRef)(value);
-  (0,react.useEffect)(function () {
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     ref.current = value;
   }, [value]);
   return ref;
 }
 
-/* harmony default export */ var esm_useCommittedRef = (useCommittedRef);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+/* harmony default export */ __webpack_exports__["Z"] = (useCommittedRef);
+
+/***/ }),
+
+/***/ 8146:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useEventCallback; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2029);
 
 
 function useEventCallback(fn) {
-  var ref = esm_useCommittedRef(fn);
-  return (0,react.useCallback)(function () {
+  var ref = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(fn);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
     return ref.current && ref.current.apply(ref, arguments);
   }, [ref]);
+}
+
+/***/ }),
+
+/***/ 5111:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useEventListener; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var _useEventCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8146);
+
+
+
+/**
+ * Attaches an event handler outside directly to specified DOM element
+ * bypassing the react synthetic event system.
+ *
+ * @param element The target to listen for events on
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useEventListener(eventTarget, event, listener, capture) {
+  if (capture === void 0) {
+    capture = false;
+  }
+
+  var handler = (0,_useEventCallback__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(listener);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
+    target.addEventListener(event, handler, capture);
+    return function () {
+      return target.removeEventListener(event, handler, capture);
+    };
+  }, [eventTarget]);
 }
 
 /***/ }),
@@ -81,6 +162,29 @@ function useForceUpdate() {
 
   return dispatch;
 }
+
+/***/ }),
+
+/***/ 9585:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+var isReactNative = typeof __webpack_require__.g !== 'undefined' && // @ts-ignore
+__webpack_require__.g.navigator && // @ts-ignore
+__webpack_require__.g.navigator.product === 'ReactNative';
+var isDOM = typeof document !== 'undefined';
+/**
+ * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
+ * Only useful to avoid the console warning.
+ *
+ * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
+ *
+ * @category effects
+ */
+
+/* harmony default export */ __webpack_exports__["Z"] = (isDOM || isReactNative ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect);
 
 /***/ }),
 
@@ -130,6 +234,817 @@ function useMergedRefs(refA, refB) {
 }
 
 /* harmony default export */ __webpack_exports__["Z"] = (useMergedRefs);
+
+/***/ }),
+
+/***/ 6454:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useMounted; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+/**
+ * Track whether a component is current mounted. Generally less preferable than
+ * properlly canceling effects so they don't run after a component is unmounted,
+ * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
+ *
+ * @returns a function that returns the current isMounted state of the component
+ *
+ * ```ts
+ * const [data, setData] = useState(null)
+ * const isMounted = useMounted()
+ *
+ * useEffect(() => {
+ *   fetchdata().then((newData) => {
+ *      if (isMounted()) {
+ *        setData(newData);
+ *      }
+ *   })
+ * })
+ * ```
+ */
+
+function useMounted() {
+  var mounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
+  var isMounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(function () {
+    return mounted.current;
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    mounted.current = true;
+    return function () {
+      mounted.current = false;
+    };
+  }, []);
+  return isMounted.current;
+}
+
+/***/ }),
+
+/***/ 8833:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ usePrevious; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+/**
+ * Store the last of some value. Tracked via a `Ref` only updating it
+ * after the component renders.
+ *
+ * Helpful if you need to compare a prop value to it's previous value during render.
+ *
+ * ```ts
+ * function Component(props) {
+ *   const lastProps = usePrevious(props)
+ *
+ *   if (lastProps.foo !== props.foo)
+ *     resetValueFromProps(props.foo)
+ * }
+ * ```
+ *
+ * @param value the value to track
+ */
+
+function usePrevious(value) {
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+/***/ }),
+
+/***/ 3735:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ esm_Anchor; }
+});
+
+// UNUSED EXPORTS: isTrivialHref
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useCallbackRef.js
+var useCallbackRef = __webpack_require__(2092);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useCommittedRef.js
+var esm_useCommittedRef = __webpack_require__(2029);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+var useEventCallback = __webpack_require__(8146);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventListener.js
+var esm_useEventListener = __webpack_require__(5111);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useGlobalListener.js
+
+
+
+/**
+ * Attaches an event handler outside directly to the `document`,
+ * bypassing the react synthetic event system.
+ *
+ * ```ts
+ * useGlobalListener('keydown', (event) => {
+ *  console.log(event.key)
+ * })
+ * ```
+ *
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useGlobalListener(event, handler, capture) {
+  if (capture === void 0) {
+    capture = false;
+  }
+
+  var documentTarget = useCallback(function () {
+    return document;
+  }, []);
+  return useEventListener(documentTarget, event, handler, capture);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useInterval.js
+
+
+/**
+ * Creates a `setInterval` that is properly cleaned up when a component unmounted
+ *
+ * ```tsx
+ *  function Timer() {
+ *    const [timer, setTimer] = useState(0)
+ *    useInterval(() => setTimer(i => i + 1), 1000)
+ *
+ *    return <span>{timer} seconds past</span>
+ *  }
+ * ```
+ *
+ * @param fn an function run on each interval
+ * @param ms The milliseconds duration of the interval
+ */
+
+function useInterval(fn, ms, paused, runImmediately) {
+  if (paused === void 0) {
+    paused = false;
+  }
+
+  if (runImmediately === void 0) {
+    runImmediately = false;
+  }
+
+  var handle;
+  var fnRef = useCommittedRef(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+
+  var pausedRef = useCommittedRef(paused);
+
+  var tick = function tick() {
+    if (pausedRef.current) return;
+    fnRef.current();
+    schedule(); // eslint-disable-line no-use-before-define
+  };
+
+  var schedule = function schedule() {
+    clearTimeout(handle);
+    handle = setTimeout(tick, ms);
+  };
+
+  useEffect(function () {
+    if (runImmediately) {
+      tick();
+    } else {
+      schedule();
+    }
+
+    return function () {
+      return clearTimeout(handle);
+    };
+  }, [paused, runImmediately]);
+}
+
+/* harmony default export */ var esm_useInterval = ((/* unused pure expression or super */ null && (useInterval)));
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useRafInterval.js
+
+
+
+function useRafInterval(fn, ms, paused) {
+  if (paused === void 0) {
+    paused = false;
+  }
+
+  var handle;
+  var start = new Date().getTime();
+  var fnRef = useCommittedRef(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+
+  var pausedRef = useCommittedRef(paused);
+
+  function loop() {
+    var current = new Date().getTime();
+    var delta = current - start;
+    if (pausedRef.current) return;
+
+    if (delta >= ms && fnRef.current) {
+      fnRef.current();
+      start = new Date().getTime();
+    }
+
+    cancelAnimationFrame(handle);
+    handle = requestAnimationFrame(loop);
+  }
+
+  useEffect(function () {
+    handle = requestAnimationFrame(loop);
+    return function () {
+      return cancelAnimationFrame(handle);
+    };
+  }, []);
+}
+
+/* harmony default export */ var esm_useRafInterval = ((/* unused pure expression or super */ null && (useRafInterval)));
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMergeState.js
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+/**
+ * Mimics a React class component's state model, of having a single unified
+ * `state` object and an updater that merges updates into the existing state, as
+ * opposed to replacing it.
+ *
+ * ```js
+ * const [state, setState] = useMergeState({ name: 'Betsy', age: 24 })
+ *
+ * setState({ name: 'Johan' }) // { name: 'Johan', age: 24 }
+ *
+ * setState(state => ({ age: state.age + 10 })) // { name: 'Johan', age: 34 }
+ * ```
+ *
+ * @param initialState The initial state object
+ */
+function useMergeState_useMergeState(initialState) {
+  var _useState = useState(initialState),
+      state = _useState[0],
+      setState = _useState[1];
+
+  var updater = useCallback(function (update) {
+    if (update === null) return;
+
+    if (typeof update === 'function') {
+      setState(function (state) {
+        var nextState = update(state);
+        return nextState == null ? state : _extends({}, state, nextState);
+      });
+    } else {
+      setState(function (state) {
+        return _extends({}, state, update);
+      });
+    }
+  }, [setState]);
+  return [state, updater];
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMergeStateFromProps.js
+
+function useMergeStateFromProps(props, gDSFP, initialState) {
+  var _useMergeState = useMergeState(initialState),
+      state = _useMergeState[0],
+      setState = _useMergeState[1];
+
+  var nextState = gDSFP(props, state);
+  if (nextState !== null) setState(nextState);
+  return [state, setState];
+}
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
+var useMounted = __webpack_require__(6454);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
+var usePrevious = __webpack_require__(8833);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useImage.js
+
+
+/**
+ * Fetch and load an image for programatic use such as in a `<canvas>` element.
+ *
+ * @param imageOrUrl The `HtmlImageElement` or image url to load
+ * @param crossOrigin The `crossorigin` attribute to set
+ *
+ * ```ts
+ * const { image, error } = useImage('/static/kittens.png')
+ * const ref = useRef<HTMLCanvasElement>()
+ *
+ * useEffect(() => {
+ *   const ctx = ref.current.getContext('2d')
+ *
+ *   if (image) {
+ *     ctx.drawImage(image, 0, 0)
+ *   }
+ * }, [ref, image])
+ *
+ * return (
+ *   <>
+ *     {error && "there was a problem loading the image"}
+ *     <canvas ref={ref} />
+ *   </>
+ * ```
+ */
+function useImage(imageOrUrl, crossOrigin) {
+  var _useState = useState({
+    image: null,
+    error: null
+  }),
+      state = _useState[0],
+      setState = _useState[1];
+
+  useEffect(function () {
+    if (!imageOrUrl) return undefined;
+    var image;
+
+    if (typeof imageOrUrl === 'string') {
+      image = new Image();
+      if (crossOrigin) image.crossOrigin = crossOrigin;
+      image.src = imageOrUrl;
+    } else {
+      image = imageOrUrl;
+
+      if (image.complete && image.naturalHeight > 0) {
+        setState({
+          image: image,
+          error: null
+        });
+        return;
+      }
+    }
+
+    function onLoad() {
+      setState({
+        image: image,
+        error: null
+      });
+    }
+
+    function onError(error) {
+      setState({
+        image: image,
+        error: error
+      });
+    }
+
+    image.addEventListener('load', onLoad);
+    image.addEventListener('error', onError);
+    return function () {
+      image.removeEventListener('load', onLoad);
+      image.removeEventListener('error', onError);
+    };
+  }, [imageOrUrl, crossOrigin]);
+  return state;
+}
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js
+var useIsomorphicEffect = __webpack_require__(9585);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useResizeObserver.js
+
+
+var targetMap = new WeakMap();
+var resizeObserver;
+
+function getResizeObserver() {
+  // eslint-disable-next-line no-return-assign
+  return resizeObserver = resizeObserver || new window.ResizeObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var handler = targetMap.get(entry.target);
+      if (handler) handler(entry.contentRect);
+    });
+  });
+}
+/**
+ * Efficiently observe size changes on an element. Depends on the `ResizeObserver` api,
+ * and polyfills are needed in older browsers.
+ *
+ * ```ts
+ * const [ref, attachRef] = useCallbackRef(null);
+ *
+ * const rect = useResizeObserver(ref);
+ *
+ * return (
+ *  <div ref={attachRef}>
+ *    {JSON.stringify(rect)}
+ *  </div>
+ * )
+ * ```
+ *
+ * @param element The DOM element to observe
+ */
+
+
+function useResizeObserver(element) {
+  var _useState = useState(null),
+      rect = _useState[0],
+      setRect = _useState[1];
+
+  useEffect(function () {
+    if (!element) return;
+    getResizeObserver().observe(element);
+    setRect(element.getBoundingClientRect());
+    targetMap.set(element, function (rect) {
+      setRect(rect);
+    });
+    return function () {
+      targetMap.delete(element);
+    };
+  }, [element]);
+  return rect;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/Button.js
+var Button = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Anchor.js
+const _excluded = ["onKeyDown"];
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
+/* eslint-disable jsx-a11y/anchor-has-content */
+
+
+
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+
+/**
+ * An generic `<a>` component that covers a few A11y cases, ensuring that
+ * cases where the `href` is missing or trivial like "#" are treated like buttons.
+ */
+const Anchor = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  let {
+    onKeyDown
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  const [buttonProps] = (0,Button/* useButtonProps */.FT)(Object.assign({
+    tagName: 'a'
+  }, props));
+  const handleKeyDown = (0,useEventCallback/* default */.Z)(e => {
+    buttonProps.onKeyDown(e);
+    onKeyDown == null ? void 0 : onKeyDown(e);
+  });
+
+  if (isTrivialHref(props.href) && !props.role || props.role === 'button') {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)("a", Object.assign({
+      ref: ref
+    }, props, buttonProps, {
+      onKeyDown: handleKeyDown
+    }));
+  }
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("a", Object.assign({
+    ref: ref
+  }, props, {
+    onKeyDown: onKeyDown
+  }));
+});
+Anchor.displayName = 'Anchor';
+/* harmony default export */ var esm_Anchor = (Anchor);
+
+/***/ }),
+
+/***/ 861:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FT": function() { return /* binding */ useButtonProps; }
+/* harmony export */ });
+/* unused harmony export isTrivialHref */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5893);
+const _excluded = ["as", "disabled"];
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+function useButtonProps({
+  tagName,
+  disabled,
+  href,
+  target,
+  rel,
+  onClick,
+  tabIndex = 0,
+  type
+}) {
+  if (!tagName) {
+    if (href != null || target != null || rel != null) {
+      tagName = 'a';
+    } else {
+      tagName = 'button';
+    }
+  }
+
+  const meta = {
+    tagName
+  };
+
+  if (tagName === 'button') {
+    return [{
+      type: type || 'button',
+      disabled
+    }, meta];
+  }
+
+  const handleClick = event => {
+    if (disabled || tagName === 'a' && isTrivialHref(href)) {
+      event.preventDefault();
+    }
+
+    if (disabled) {
+      event.stopPropagation();
+      return;
+    }
+
+    onClick == null ? void 0 : onClick(event);
+  };
+
+  const handleKeyDown = event => {
+    if (event.key === ' ') {
+      event.preventDefault();
+      handleClick(event);
+    }
+  };
+
+  if (tagName === 'a') {
+    // Ensure there's a href so Enter can trigger anchor button.
+    href || (href = '#');
+
+    if (disabled) {
+      href = undefined;
+    }
+  }
+
+  return [{
+    role: 'button',
+    // explicitly undefined so that it overrides the props disabled in a spread
+    // e.g. <Tag {...props} {...hookProps} />
+    disabled: undefined,
+    tabIndex: disabled ? undefined : tabIndex,
+    href,
+    target: tagName === 'a' ? target : undefined,
+    'aria-disabled': !disabled ? undefined : disabled,
+    rel: tagName === 'a' ? rel : undefined,
+    onClick: handleClick,
+    onKeyDown: handleKeyDown
+  }, meta];
+}
+const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref, ref) => {
+  let {
+    as: asProp,
+    disabled
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  const [buttonProps, {
+    tagName: Component
+  }] = useButtonProps(Object.assign({
+    tagName: asProp,
+    disabled
+  }, props));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Component, Object.assign({}, props, buttonProps, {
+    ref: ref
+  }));
+});
+Button.displayName = 'Button';
+/* harmony default export */ __webpack_exports__["ZP"] = (Button);
+
+/***/ }),
+
+/***/ 2747:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "$F": function() { return /* binding */ dataProp; },
+/* harmony export */   "PB": function() { return /* binding */ dataAttr; }
+/* harmony export */ });
+/* unused harmony exports ATTRIBUTE_PREFIX, PROPERTY_PREFIX */
+const ATTRIBUTE_PREFIX = `data-rr-ui-`;
+const PROPERTY_PREFIX = `rrUi`;
+function dataAttr(property) {
+  return `${ATTRIBUTE_PREFIX}${property}`;
+}
+function dataProp(property) {
+  return `${PROPERTY_PREFIX}${property}`;
+}
+
+/***/ }),
+
+/***/ 6056:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+const NavContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
+NavContext.displayName = 'NavContext';
+/* harmony default export */ __webpack_exports__["Z"] = (NavContext);
+
+/***/ }),
+
+/***/ 3716:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "v": function() { return /* binding */ useNavItem; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var _restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8146);
+/* harmony import */ var _NavContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6056);
+/* harmony import */ var _SelectableContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7126);
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(861);
+/* harmony import */ var _DataKey__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2747);
+/* harmony import */ var _TabContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6626);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
+const _excluded = ["as", "active", "eventKey"];
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+
+
+function useNavItem({
+  key,
+  onClick,
+  active,
+  id,
+  role,
+  disabled
+}) {
+  const parentOnSelect = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_SelectableContext__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
+  const navContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_NavContext__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
+  const tabContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_TabContext__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z);
+  let isActive = active;
+  const props = {
+    role
+  };
+
+  if (navContext) {
+    if (!role && navContext.role === 'tablist') props.role = 'tab';
+    const contextControllerId = navContext.getControllerId(key != null ? key : null);
+    const contextControlledId = navContext.getControlledId(key != null ? key : null); // @ts-ignore
+
+    props[(0,_DataKey__WEBPACK_IMPORTED_MODULE_6__/* .dataAttr */ .PB)('event-key')] = key;
+    props.id = contextControllerId || id;
+    isActive = active == null && key != null ? navContext.activeKey === key : active;
+    /**
+     * Simplified scenario for `mountOnEnter`.
+     *
+     * While it would make sense to keep 'aria-controls' for tabs that have been mounted at least
+     * once, it would also complicate the code quite a bit, for very little gain.
+     * The following implementation is probably good enough.
+     *
+     * @see https://github.com/react-restart/ui/pull/40#issuecomment-1009971561
+     */
+
+    if (isActive || !(tabContext != null && tabContext.unmountOnExit) && !(tabContext != null && tabContext.mountOnEnter)) props['aria-controls'] = contextControlledId;
+  }
+
+  if (props.role === 'tab') {
+    if (disabled) {
+      props.tabIndex = -1;
+      props['aria-disabled'] = true;
+    }
+
+    if (isActive) {
+      props['aria-selected'] = isActive;
+    } else {
+      props.tabIndex = -1;
+    }
+  }
+
+  props.onClick = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(e => {
+    if (disabled) return;
+    onClick == null ? void 0 : onClick(e);
+
+    if (key == null) {
+      return;
+    }
+
+    if (parentOnSelect && !e.isPropagationStopped()) {
+      parentOnSelect(key, e);
+    }
+  });
+  return [props, {
+    isActive
+  }];
+}
+const NavItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref, ref) => {
+  let {
+    as: Component = _Button__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .ZP,
+    active,
+    eventKey
+  } = _ref,
+      options = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  const [props, meta] = useNavItem(Object.assign({
+    key: (0,_SelectableContext__WEBPACK_IMPORTED_MODULE_3__/* .makeEventKey */ .h)(eventKey, options.href),
+    active
+  }, options)); // @ts-ignore
+
+  props[(0,_DataKey__WEBPACK_IMPORTED_MODULE_6__/* .dataAttr */ .PB)('active')] = meta.isActive;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, Object.assign({}, options, props, {
+    ref: ref
+  }));
+});
+NavItem.displayName = 'NavItem';
+/* harmony default export */ __webpack_exports__["Z"] = (NavItem);
+
+/***/ }),
+
+/***/ 7126:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "h": function() { return /* binding */ makeEventKey; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+const SelectableContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
+const makeEventKey = (eventKey, href = null) => {
+  if (eventKey != null) return String(eventKey);
+  return href || null;
+};
+/* harmony default export */ __webpack_exports__["Z"] = (SelectableContext);
+
+/***/ }),
+
+/***/ 6626:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+const TabContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
+/* harmony default export */ __webpack_exports__["Z"] = (TabContext);
+
+/***/ }),
+
+/***/ 2963:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useWindow; }
+/* harmony export */ });
+/* unused harmony export WindowProvider */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3004);
+
+
+const Context = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(dom_helpers_canUseDOM__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z ? window : undefined);
+const WindowProvider = Context.Provider;
+/**
+ * The document "window" placed in React context. Helpful for determining
+ * SSR context, or when rendering into an iframe.
+ *
+ * @returns the current window
+ */
+
+function useWindow() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(Context);
+}
 
 /***/ }),
 
@@ -2641,21 +3556,12 @@ module.exports = function (i) {
 
 /***/ }),
 
-/***/ 1998:
+/***/ 9351:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "ZP": function() { return /* binding */ esm_addEventListener; }
-});
-
-// UNUSED EXPORTS: onceSupported, optionsSupported
-
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/canUseDOM.js
-/* harmony default export */ var canUseDOM = (!!(typeof window !== 'undefined' && window.document && window.document.createElement));
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addEventListener.js
+/* unused harmony exports optionsSupported, onceSupported */
+/* harmony import */ var _canUseDOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3004);
 /* eslint-disable no-return-assign */
 
 var optionsSupported = false;
@@ -2674,7 +3580,7 @@ try {
 
   };
 
-  if (canUseDOM) {
+  if (_canUseDOM__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z) {
     window.addEventListener('test', options, options);
     window.removeEventListener('test', options, true);
   }
@@ -2711,7 +3617,132 @@ function addEventListener(node, eventName, handler, options) {
   node.addEventListener(eventName, handler, options);
 }
 
-/* harmony default export */ var esm_addEventListener = (addEventListener);
+/* harmony default export */ __webpack_exports__["ZP"] = (addEventListener);
+
+/***/ }),
+
+/***/ 3004:
+/***/ (function(__unused_webpack_module, __webpack_exports__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["Z"] = (!!(typeof window !== 'undefined' && window.document && window.document.createElement));
+
+/***/ }),
+
+/***/ 424:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ contains; }
+/* harmony export */ });
+/* eslint-disable no-bitwise, no-cond-assign */
+
+/**
+ * Checks if an element contains another given element.
+ * 
+ * @param context the context element
+ * @param node the element to check
+ */
+function contains(context, node) {
+  // HTML DOM and SVG DOM may have different support levels,
+  // so we need to check on context instead of a document root element.
+  if (context.contains) return context.contains(node);
+  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
+}
+
+/***/ }),
+
+/***/ 3164:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ css; }
+});
+
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
+var ownerDocument = __webpack_require__(7216);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerWindow.js
+
+/**
+ * Returns the owner window of a given element.
+ * 
+ * @param node the element
+ */
+
+function ownerWindow(node) {
+  var doc = (0,ownerDocument/* default */.Z)(node);
+  return doc && doc.defaultView || window;
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/getComputedStyle.js
+
+/**
+ * Returns one or all computed style properties of an element.
+ * 
+ * @param node the element
+ * @param psuedoElement the style property
+ */
+
+function getComputedStyle(node, psuedoElement) {
+  return ownerWindow(node).getComputedStyle(node, psuedoElement);
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenate.js
+var rUpper = /([A-Z])/g;
+function hyphenate(string) {
+  return string.replace(rUpper, '-$1').toLowerCase();
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenateStyle.js
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
+ */
+
+var msPattern = /^ms-/;
+function hyphenateStyleName(string) {
+  return hyphenate(string).replace(msPattern, '-ms-');
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/isTransform.js
+var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
+function isTransform(value) {
+  return !!(value && supportedTransforms.test(value));
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/css.js
+
+
+
+
+function style(node, property) {
+  var css = '';
+  var transforms = '';
+
+  if (typeof property === 'string') {
+    return node.style.getPropertyValue(hyphenateStyleName(property)) || getComputedStyle(node).getPropertyValue(hyphenateStyleName(property));
+  }
+
+  Object.keys(property).forEach(function (key) {
+    var value = property[key];
+
+    if (!value && value !== 0) {
+      node.style.removeProperty(hyphenateStyleName(key));
+    } else if (isTransform(key)) {
+      transforms += key + "(" + value + ") ";
+    } else {
+      css += hyphenateStyleName(key) + ": " + value + ";";
+    }
+  });
+
+  if (transforms) {
+    css += "transform: " + transforms + ";";
+  }
+
+  node.style.cssText += ";" + css;
+}
+
+/* harmony default export */ var css = (style);
 
 /***/ }),
 
@@ -2725,8 +3756,8 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ esm_listen; }
 });
 
-// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/addEventListener.js + 1 modules
-var addEventListener = __webpack_require__(1998);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/addEventListener.js
+var addEventListener = __webpack_require__(9351);
 ;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeEventListener.js
 /**
  * A `removeEventListener` ponyfill
@@ -4732,36 +5763,6 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 5638:
-/***/ (function(module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isRequiredForA11y;
-function isRequiredForA11y(validator) {
-  return function validate(props, propName, componentName, location, propFullName) {
-    var componentNameSafe = componentName || '<<anonymous>>';
-    var propFullNameSafe = propFullName || propName;
-
-    if (props[propName] == null) {
-      return new Error('The ' + location + ' `' + propFullNameSafe + '` is required to make ' + ('`' + componentNameSafe + '` accessible for users of assistive ') + 'technologies such as screen readers.');
-    }
-
-    for (var _len = arguments.length, args = Array(_len > 5 ? _len - 5 : 0), _key = 5; _key < _len; _key++) {
-      args[_key - 5] = arguments[_key];
-    }
-
-    return validator.apply(undefined, [props, propName, componentName, location, propFullName].concat(args));
-  };
-}
-module.exports = exports['default'];
-
-/***/ }),
-
 /***/ 2613:
 /***/ (function(module, exports) {
 
@@ -4928,61 +5929,44 @@ module.exports = ReactPropTypesSecret;
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3366);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
+/* harmony import */ var _restart_ui_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(861);
 /* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
-/* harmony import */ var _SafeAnchor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8358);
-
-
-var _excluded = ["bsPrefix", "variant", "size", "active", "className", "block", "type", "as"];
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
 
 
 
 
-var defaultProps = {
+
+const defaultProps = {
   variant: 'primary',
   active: false,
   disabled: false
 };
-var Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      variant = _ref.variant,
-      size = _ref.size,
-      active = _ref.active,
-      className = _ref.className,
-      block = _ref.block,
-      type = _ref.type,
-      as = _ref.as,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_ref, _excluded);
-
-  var prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'btn');
-  var classes = classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, prefix, active && 'active', variant && prefix + "-" + variant, block && prefix + "-block", size && prefix + "-" + size);
-
-  if (props.href) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_SafeAnchor__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z)({}, props, {
-      as: as,
-      ref: ref,
-      className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(classes, props.disabled && 'disabled')
-    }));
-  }
-
-  if (ref) {
-    props.ref = ref;
-  }
-
-  if (type) {
-    props.type = type;
-  } else if (!as) {
-    props.type = 'button';
-  }
-
-  var Component = as || 'button';
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z)({}, props, {
-    className: classes
-  }));
+const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  as,
+  bsPrefix,
+  variant,
+  size,
+  active,
+  className,
+  ...props
+}, ref) => {
+  const prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'btn');
+  const [buttonProps, {
+    tagName
+  }] = (0,_restart_ui_Button__WEBPACK_IMPORTED_MODULE_4__/* .useButtonProps */ .FT)({
+    tagName: as,
+    ...props
+  });
+  const Component = tagName;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, { ...buttonProps,
+    ...props,
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, prefix, active && 'active', variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && props.disabled && 'disabled')
+  });
 });
 Button.displayName = 'Button';
 Button.defaultProps = defaultProps;
@@ -4990,7 +5974,7 @@ Button.defaultProps = defaultProps;
 
 /***/ }),
 
-/***/ 864:
+/***/ 6025:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5000,10 +5984,6 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ esm_Card; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -5013,132 +5993,138 @@ var react = __webpack_require__(7294);
 var ThemeProvider = __webpack_require__(6792);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
 var createWithBsPrefix = __webpack_require__(4680);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/divWithClassName.js
-
-
-
-/* harmony default export */ var divWithClassName = (function (className) {
-  return /*#__PURE__*/react.forwardRef(function (p, ref) {
-    return /*#__PURE__*/react.createElement("div", (0,esm_extends/* default */.Z)({}, p, {
-      ref: ref,
-      className: classnames_default()(p.className, className)
-    }));
-  });
-});
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/CardContext.js
-var CardContext = __webpack_require__(8154);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/divWithClassName.js
+var divWithClassName = __webpack_require__(9602);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardImg.js
 
 
-var _excluded = ["bsPrefix", "className", "variant", "as"];
 
 
-
-var defaultProps = {
-  variant: null
-};
-var CardImg = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      variant = _ref.variant,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'img' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
-
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'card-img');
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({
+const CardImg = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  bsPrefix,
+  className,
+  variant,
+  as: Component = 'img',
+  ...props
+}, ref) => {
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'card-img');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
     ref: ref,
-    className: classnames_default()(variant ? prefix + "-" + variant : prefix, className)
-  }, props));
+    className: classnames_default()(variant ? `${prefix}-${variant}` : prefix, className),
+    ...props
+  });
 });
 CardImg.displayName = 'CardImg';
-CardImg.defaultProps = defaultProps;
 /* harmony default export */ var esm_CardImg = (CardImg);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/CardHeaderContext.js
+var CardHeaderContext = __webpack_require__(9059);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardHeader.js
+
+
+
+
+
+
+const CardHeader = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'card-header');
+  const contextValue = (0,react.useMemo)(() => ({
+    cardHeaderBsPrefix: prefix
+  }), [prefix]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(CardHeaderContext/* default.Provider */.Z.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: classnames_default()(className, prefix)
+    })
+  });
+});
+CardHeader.displayName = 'CardHeader';
+/* harmony default export */ var esm_CardHeader = (CardHeader);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Card.js
 
 
-var Card_excluded = ["bsPrefix", "className", "bg", "text", "border", "body", "children", "as"];
 
 
 
 
 
 
-
-var DivStyledAsH5 = divWithClassName('h5');
-var DivStyledAsH6 = divWithClassName('h6');
-var CardBody = (0,createWithBsPrefix/* default */.Z)('card-body');
-var CardTitle = (0,createWithBsPrefix/* default */.Z)('card-title', {
+const DivStyledAsH5 = (0,divWithClassName/* default */.Z)('h5');
+const DivStyledAsH6 = (0,divWithClassName/* default */.Z)('h6');
+const CardBody = (0,createWithBsPrefix/* default */.Z)('card-body');
+const CardTitle = (0,createWithBsPrefix/* default */.Z)('card-title', {
   Component: DivStyledAsH5
 });
-var CardSubtitle = (0,createWithBsPrefix/* default */.Z)('card-subtitle', {
+const CardSubtitle = (0,createWithBsPrefix/* default */.Z)('card-subtitle', {
   Component: DivStyledAsH6
 });
-var CardLink = (0,createWithBsPrefix/* default */.Z)('card-link', {
+const CardLink = (0,createWithBsPrefix/* default */.Z)('card-link', {
   Component: 'a'
 });
-var CardText = (0,createWithBsPrefix/* default */.Z)('card-text', {
+const CardText = (0,createWithBsPrefix/* default */.Z)('card-text', {
   Component: 'p'
 });
-var CardHeader = (0,createWithBsPrefix/* default */.Z)('card-header');
-var CardFooter = (0,createWithBsPrefix/* default */.Z)('card-footer');
-var CardImgOverlay = (0,createWithBsPrefix/* default */.Z)('card-img-overlay');
-var Card_defaultProps = {
+const CardFooter = (0,createWithBsPrefix/* default */.Z)('card-footer');
+const CardImgOverlay = (0,createWithBsPrefix/* default */.Z)('card-img-overlay');
+const defaultProps = {
   body: false
 };
-var Card = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      bg = _ref.bg,
-      text = _ref.text,
-      border = _ref.border,
-      body = _ref.body,
-      children = _ref.children,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, Card_excluded);
-
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'card');
-  var cardContext = (0,react.useMemo)(function () {
-    return {
-      cardHeaderBsPrefix: prefix + "-header"
-    };
-  }, [prefix]);
-  return /*#__PURE__*/react.createElement(CardContext/* default.Provider */.Z.Provider, {
-    value: cardContext
-  }, /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({
-    ref: ref
-  }, props, {
-    className: classnames_default()(className, prefix, bg && "bg-" + bg, text && "text-" + text, border && "border-" + border)
-  }), body ?
-  /*#__PURE__*/
-  // @ts-ignore
-  react.createElement(CardBody, null, children) : children));
+const Card = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  bg,
+  text,
+  border,
+  body,
+  children,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'card');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
+    children: body ? /*#__PURE__*/(0,jsx_runtime.jsx)(CardBody, {
+      children: children
+    }) : children
+  });
 });
 Card.displayName = 'Card';
-Card.defaultProps = Card_defaultProps;
-Card.Img = esm_CardImg;
-Card.Title = CardTitle;
-Card.Subtitle = CardSubtitle;
-Card.Body = CardBody;
-Card.Link = CardLink;
-Card.Text = CardText;
-Card.Header = CardHeader;
-Card.Footer = CardFooter;
-Card.ImgOverlay = CardImgOverlay;
-/* harmony default export */ var esm_Card = (Card);
+Card.defaultProps = defaultProps;
+/* harmony default export */ var esm_Card = (Object.assign(Card, {
+  Img: esm_CardImg,
+  Title: CardTitle,
+  Subtitle: CardSubtitle,
+  Body: CardBody,
+  Link: CardLink,
+  Text: CardText,
+  Header: esm_CardHeader,
+  Footer: CardFooter,
+  ImgOverlay: CardImgOverlay
+}));
 
 /***/ }),
 
-/***/ 8154:
+/***/ 9059:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
 
-var context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-context.displayName = 'CardContext';
+const context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
+context.displayName = 'CardHeaderContext';
 /* harmony default export */ __webpack_exports__["Z"] = (context);
 
 /***/ }),
@@ -5147,60 +6133,70 @@ context.displayName = 'CardContext';
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3366);
+/* unused harmony export useCol */
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
 /* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
 
 
-var _excluded = ["bsPrefix", "className", "as"];
 
 
-
-var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
-var Col = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_ref, _excluded);
-
-  var prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'col');
-  var spans = [];
-  var classes = [];
-  DEVICE_SIZES.forEach(function (brkPoint) {
-    var propValue = props[brkPoint];
+function useCol({
+  as,
+  bsPrefix,
+  className,
+  ...props
+}) {
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'col');
+  const breakpoints = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapBreakpoints */ .pi)();
+  const spans = [];
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
     delete props[brkPoint];
-    var span;
-    var offset;
-    var order;
+    let span;
+    let offset;
+    let order;
 
     if (typeof propValue === 'object' && propValue != null) {
-      var _propValue$span = propValue.span;
-      span = _propValue$span === void 0 ? true : _propValue$span;
-      offset = propValue.offset;
-      order = propValue.order;
+      ({
+        span,
+        offset,
+        order
+      } = propValue);
     } else {
       span = propValue;
     }
 
-    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
-    if (span) spans.push(span === true ? "" + prefix + infix : "" + prefix + infix + "-" + span);
-    if (order != null) classes.push("order" + infix + "-" + order);
-    if (offset != null) classes.push("offset" + infix + "-" + offset);
+    const infix = brkPoint !== 'xs' ? `-${brkPoint}` : '';
+    if (span) spans.push(span === true ? `${bsPrefix}${infix}` : `${bsPrefix}${infix}-${span}`);
+    if (order != null) classes.push(`order${infix}-${order}`);
+    if (offset != null) classes.push(`offset${infix}-${offset}`);
   });
-
-  if (!spans.length) {
-    spans.push(prefix); // plain 'col'
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)({}, props, {
+  return [{ ...props,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, ...spans, ...classes)
+  }, {
+    as,
+    bsPrefix,
+    spans
+  }];
+}
+const Col = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+(props, ref) => {
+  const [{
+    className,
+    ...colProps
+  }, {
+    as: Component = 'div',
+    bsPrefix,
+    spans
+  }] = useCol(props);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, { ...colProps,
     ref: ref,
-    className: classnames__WEBPACK_IMPORTED_MODULE_0___default().apply(void 0, [className].concat(spans, classes))
-  }));
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, !spans.length && bsPrefix)
+  });
 });
 Col.displayName = 'Col';
 /* harmony default export */ __webpack_exports__["Z"] = (Col);
@@ -5211,36 +6207,33 @@ Col.displayName = 'Col';
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3366);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
 /* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
 
 
-var _excluded = ["bsPrefix", "fluid", "as", "className"];
 
 
-
-var defaultProps = {
+const defaultProps = {
   fluid: false
 };
-var Container = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      fluid = _ref.fluid,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      className = _ref.className,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_ref, _excluded);
-
-  var prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'container');
-  var suffix = typeof fluid === 'string' ? "-" + fluid : '-fluid';
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)({
-    ref: ref
-  }, props, {
-    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, fluid ? "" + prefix + suffix : prefix)
-  }));
+const Container = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  bsPrefix,
+  fluid,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  className,
+  ...props
+}, ref) => {
+  const prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'container');
+  const suffix = typeof fluid === 'string' ? `-${fluid}` : '-fluid';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, fluid ? `${prefix}${suffix}` : prefix)
+  });
 });
 Container.displayName = 'Container';
 Container.defaultProps = defaultProps;
@@ -5248,38 +6241,32 @@ Container.defaultProps = defaultProps;
 
 /***/ }),
 
-/***/ 2151:
+/***/ 7833:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ Form; }
+  "Z": function() { return /* binding */ esm_Form; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
-// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/all.js
-var lib_all = __webpack_require__(4391);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(5697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Feedback.js
 
 
-var _excluded = ["as", "className", "type", "tooltip"];
 
 
-
-var propTypes = {
+const propTypes = {
   /**
    * Specify whether the feedback is for valid or invalid fields
    *
@@ -5291,112 +6278,126 @@ var propTypes = {
   tooltip: (prop_types_default()).bool,
   as: (prop_types_default()).elementType
 };
-var Feedback = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      className = _ref.className,
-      _ref$type = _ref.type,
-      type = _ref$type === void 0 ? 'valid' : _ref$type,
-      _ref$tooltip = _ref.tooltip,
-      tooltip = _ref$tooltip === void 0 ? false : _ref$tooltip,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
-
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, type + "-" + (tooltip ? 'tooltip' : 'feedback'))
-  }));
-});
+const Feedback = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  as: Component = 'div',
+  className,
+  type = 'valid',
+  tooltip = false,
+  ...props
+}, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+  ref: ref,
+  className: classnames_default()(className, `${type}-${tooltip ? 'tooltip' : 'feedback'}`)
+}));
 Feedback.displayName = 'Feedback';
 Feedback.propTypes = propTypes;
 /* harmony default export */ var esm_Feedback = (Feedback);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormContext.js
  // TODO
 
-var FormContext = /*#__PURE__*/react.createContext({
-  controlId: undefined
-});
+const FormContext = /*#__PURE__*/react.createContext({});
 /* harmony default export */ var esm_FormContext = (FormContext);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
 var ThemeProvider = __webpack_require__(6792);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormCheckInput.js
 
 
-var FormCheckInput_excluded = ["id", "bsPrefix", "bsCustomPrefix", "className", "type", "isValid", "isInvalid", "isStatic", "as"];
 
 
 
 
-var FormCheckInput = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var id = _ref.id,
-      bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      className = _ref.className,
-      _ref$type = _ref.type,
-      type = _ref$type === void 0 ? 'checkbox' : _ref$type,
-      _ref$isValid = _ref.isValid,
-      isValid = _ref$isValid === void 0 ? false : _ref$isValid,
-      _ref$isInvalid = _ref.isInvalid,
-      isInvalid = _ref$isInvalid === void 0 ? false : _ref$isInvalid,
-      isStatic = _ref.isStatic,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'input' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormCheckInput_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId,
-      custom = _useContext.custom;
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom-control-input'] : [bsPrefix, 'form-check-input'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
+const FormCheckInput = /*#__PURE__*/react.forwardRef(({
+  id,
+  bsPrefix,
+  className,
+  type = 'checkbox',
+  isValid = false,
+  isInvalid = false,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'input',
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-check-input');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
     ref: ref,
     type: type,
     id: id || controlId,
-    className: classnames_default()(className, bsPrefix, isValid && 'is-valid', isInvalid && 'is-invalid', isStatic && 'position-static')
-  }));
+    className: classnames_default()(className, bsPrefix, isValid && 'is-valid', isInvalid && 'is-invalid')
+  });
 });
 FormCheckInput.displayName = 'FormCheckInput';
 /* harmony default export */ var esm_FormCheckInput = (FormCheckInput);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormCheckLabel.js
 
 
-var FormCheckLabel_excluded = ["bsPrefix", "bsCustomPrefix", "className", "htmlFor"];
 
 
 
 
-var FormCheckLabel = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      className = _ref.className,
-      htmlFor = _ref.htmlFor,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormCheckLabel_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId,
-      custom = _useContext.custom;
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom-control-label'] : [bsPrefix, 'form-check-label'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  return /*#__PURE__*/react.createElement("label", (0,esm_extends/* default */.Z)({}, props, {
+const FormCheckLabel = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  htmlFor,
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-check-label');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("label", { ...props,
     ref: ref,
     htmlFor: htmlFor || controlId,
     className: classnames_default()(className, bsPrefix)
-  }));
+  });
 });
 FormCheckLabel.displayName = 'FormCheckLabel';
 /* harmony default export */ var esm_FormCheckLabel = (FormCheckLabel);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ElementChildren.js
+
+/**
+ * Iterates through children that are typically specified as `props.children`,
+ * but only maps over children that are "valid elements".
+ *
+ * The mapFunction provided index will be normalised to the components mapped,
+ * so an invalid component would not increase the index.
+ *
+ */
+
+function map(children, func) {
+  let index = 0;
+  return React.Children.map(children, child => /*#__PURE__*/React.isValidElement(child) ? func(child, index++) : child);
+}
+/**
+ * Iterates through children that are "valid elements".
+ *
+ * The provided forEachFunc(child, index) will be called for each
+ * leaf child with the index reflecting the position relative to "valid components".
+ */
+
+
+function forEach(children, func) {
+  let index = 0;
+  React.Children.forEach(children, child => {
+    if ( /*#__PURE__*/React.isValidElement(child)) func(child, index++);
+  });
+}
+/**
+ * Finds whether a component's `children` prop includes a React element of the
+ * specified type.
+ */
+
+
+function hasChildOfType(children, type) {
+  return react.Children.toArray(children).some(child => /*#__PURE__*/react.isValidElement(child) && child.type === type);
+}
+
+
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormCheck.js
 
 
-var FormCheck_excluded = ["id", "bsPrefix", "bsCustomPrefix", "inline", "disabled", "isValid", "isInvalid", "feedbackTooltip", "feedback", "className", "style", "title", "type", "label", "children", "custom", "as"];
 
 
 
@@ -5405,337 +6406,153 @@ var FormCheck_excluded = ["id", "bsPrefix", "bsCustomPrefix", "inline", "disable
 
 
 
-var FormCheck = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var id = _ref.id,
-      bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      _ref$inline = _ref.inline,
-      inline = _ref$inline === void 0 ? false : _ref$inline,
-      _ref$disabled = _ref.disabled,
-      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
-      _ref$isValid = _ref.isValid,
-      isValid = _ref$isValid === void 0 ? false : _ref$isValid,
-      _ref$isInvalid = _ref.isInvalid,
-      isInvalid = _ref$isInvalid === void 0 ? false : _ref$isInvalid,
-      _ref$feedbackTooltip = _ref.feedbackTooltip,
-      feedbackTooltip = _ref$feedbackTooltip === void 0 ? false : _ref$feedbackTooltip,
-      feedback = _ref.feedback,
-      className = _ref.className,
-      style = _ref.style,
-      _ref$title = _ref.title,
-      title = _ref$title === void 0 ? '' : _ref$title,
-      _ref$type = _ref.type,
-      type = _ref$type === void 0 ? 'checkbox' : _ref$type,
-      label = _ref.label,
-      children = _ref.children,
-      propCustom = _ref.custom,
-      _ref$as = _ref.as,
-      as = _ref$as === void 0 ? 'input' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormCheck_excluded);
 
-  var custom = type === 'switch' ? true : propCustom;
 
-  var _ref2 = custom ? [bsCustomPrefix, 'custom-control'] : [bsPrefix, 'form-check'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
+const FormCheck = /*#__PURE__*/react.forwardRef(({
+  id,
+  bsPrefix,
+  bsSwitchPrefix,
+  inline = false,
+  disabled = false,
+  isValid = false,
+  isInvalid = false,
+  feedbackTooltip = false,
+  feedback,
+  feedbackType,
+  className,
+  style,
+  title = '',
+  type = 'checkbox',
+  label,
+  children,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as = 'input',
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-check');
+  bsSwitchPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsSwitchPrefix, 'form-switch');
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  const innerFormContext = (0,react.useMemo)(() => ({
+    controlId: id || controlId
+  }), [controlId, id]);
+  const hasLabel = !children && label != null && label !== false || hasChildOfType(children, esm_FormCheckLabel);
 
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId;
-
-  var innerFormContext = (0,react.useMemo)(function () {
-    return {
-      controlId: id || controlId,
-      custom: custom
-    };
-  }, [controlId, custom, id]);
-  var hasLabel = custom || label != null && label !== false && !children;
-  var input = /*#__PURE__*/react.createElement(esm_FormCheckInput, (0,esm_extends/* default */.Z)({}, props, {
+  const input = /*#__PURE__*/(0,jsx_runtime.jsx)(esm_FormCheckInput, { ...props,
     type: type === 'switch' ? 'checkbox' : type,
     ref: ref,
     isValid: isValid,
     isInvalid: isInvalid,
-    isStatic: !hasLabel,
     disabled: disabled,
     as: as
-  }));
-  return /*#__PURE__*/react.createElement(esm_FormContext.Provider, {
-    value: innerFormContext
-  }, /*#__PURE__*/react.createElement("div", {
-    style: style,
-    className: classnames_default()(className, bsPrefix, custom && "custom-" + type, inline && bsPrefix + "-inline")
-  }, children || /*#__PURE__*/react.createElement(react.Fragment, null, input, hasLabel && /*#__PURE__*/react.createElement(esm_FormCheckLabel, {
-    title: title
-  }, label), (isValid || isInvalid) && /*#__PURE__*/react.createElement(esm_Feedback, {
-    type: isValid ? 'valid' : 'invalid',
-    tooltip: feedbackTooltip
-  }, feedback))));
+  });
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_FormContext.Provider, {
+    value: innerFormContext,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      style: style,
+      className: classnames_default()(className, hasLabel && bsPrefix, inline && `${bsPrefix}-inline`, type === 'switch' && bsSwitchPrefix),
+      children: children || /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+        children: [input, hasLabel && /*#__PURE__*/(0,jsx_runtime.jsx)(esm_FormCheckLabel, {
+          title: title,
+          children: label
+        }), feedback && /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Feedback, {
+          type: feedbackType,
+          tooltip: feedbackTooltip,
+          children: feedback
+        })]
+      })
+    })
+  });
 });
 FormCheck.displayName = 'FormCheck';
-FormCheck.Input = esm_FormCheckInput;
-FormCheck.Label = esm_FormCheckLabel;
-/* harmony default export */ var esm_FormCheck = (FormCheck);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormFileInput.js
-
-
-var FormFileInput_excluded = ["id", "bsPrefix", "bsCustomPrefix", "className", "isValid", "isInvalid", "lang", "as"];
-
-
-
-
-var FormFileInput = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var id = _ref.id,
-      bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      className = _ref.className,
-      isValid = _ref.isValid,
-      isInvalid = _ref.isInvalid,
-      lang = _ref.lang,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'input' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormFileInput_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId,
-      custom = _useContext.custom;
-
-  var type = 'file';
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom-file-input'] : [bsPrefix, 'form-control-file'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    id: id || controlId,
-    type: type,
-    lang: lang,
-    className: classnames_default()(className, bsPrefix, isValid && 'is-valid', isInvalid && 'is-invalid')
-  }));
-});
-FormFileInput.displayName = 'FormFileInput';
-/* harmony default export */ var esm_FormFileInput = (FormFileInput);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormFileLabel.js
-
-
-var FormFileLabel_excluded = ["bsPrefix", "bsCustomPrefix", "className", "htmlFor"];
-
-
-
-
-var FormFileLabel = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      className = _ref.className,
-      htmlFor = _ref.htmlFor,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormFileLabel_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId,
-      custom = _useContext.custom;
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom-file-label'] : [bsPrefix, 'form-file-label'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  return /*#__PURE__*/react.createElement("label", (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    htmlFor: htmlFor || controlId,
-    className: classnames_default()(className, bsPrefix),
-    "data-browse": props['data-browse']
-  }));
-});
-FormFileLabel.displayName = 'FormFileLabel';
-/* harmony default export */ var esm_FormFileLabel = (FormFileLabel);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormFile.js
-
-
-var FormFile_excluded = ["id", "bsPrefix", "bsCustomPrefix", "disabled", "isValid", "isInvalid", "feedbackTooltip", "feedback", "className", "style", "label", "children", "custom", "lang", "data-browse", "as", "inputAs"];
-
-
-
-
-
-
-
-
-var FormFile = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var id = _ref.id,
-      bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      _ref$disabled = _ref.disabled,
-      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
-      _ref$isValid = _ref.isValid,
-      isValid = _ref$isValid === void 0 ? false : _ref$isValid,
-      _ref$isInvalid = _ref.isInvalid,
-      isInvalid = _ref$isInvalid === void 0 ? false : _ref$isInvalid,
-      _ref$feedbackTooltip = _ref.feedbackTooltip,
-      feedbackTooltip = _ref$feedbackTooltip === void 0 ? false : _ref$feedbackTooltip,
-      feedback = _ref.feedback,
-      className = _ref.className,
-      style = _ref.style,
-      label = _ref.label,
-      children = _ref.children,
-      custom = _ref.custom,
-      lang = _ref.lang,
-      dataBrowse = _ref['data-browse'],
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      _ref$inputAs = _ref.inputAs,
-      inputAs = _ref$inputAs === void 0 ? 'input' : _ref$inputAs,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormFile_excluded);
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom'] : [bsPrefix, 'form-file'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  var type = 'file';
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId;
-
-  var innerFormContext = (0,react.useMemo)(function () {
-    return {
-      controlId: id || controlId,
-      custom: custom
-    };
-  }, [controlId, custom, id]);
-  var hasLabel = label != null && label !== false && !children;
-  var input = /*#__PURE__*/react.createElement(esm_FormFileInput, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    isValid: isValid,
-    isInvalid: isInvalid,
-    disabled: disabled,
-    as: inputAs,
-    lang: lang
-  }));
-  return /*#__PURE__*/react.createElement(esm_FormContext.Provider, {
-    value: innerFormContext
-  }, /*#__PURE__*/react.createElement(Component, {
-    style: style,
-    className: classnames_default()(className, bsPrefix, custom && "custom-" + type)
-  }, children || /*#__PURE__*/react.createElement(react.Fragment, null, custom ? /*#__PURE__*/react.createElement(react.Fragment, null, input, hasLabel && /*#__PURE__*/react.createElement(esm_FormFileLabel, {
-    "data-browse": dataBrowse
-  }, label)) : /*#__PURE__*/react.createElement(react.Fragment, null, hasLabel && /*#__PURE__*/react.createElement(esm_FormFileLabel, null, label), input), (isValid || isInvalid) && /*#__PURE__*/react.createElement(esm_Feedback, {
-    type: isValid ? 'valid' : 'invalid',
-    tooltip: feedbackTooltip
-  }, feedback))));
-});
-FormFile.displayName = 'FormFile';
-FormFile.Input = esm_FormFileInput;
-FormFile.Label = esm_FormFileLabel;
-/* harmony default export */ var esm_FormFile = (FormFile);
+/* harmony default export */ var esm_FormCheck = (Object.assign(FormCheck, {
+  Input: esm_FormCheckInput,
+  Label: esm_FormCheckLabel
+}));
 // EXTERNAL MODULE: ./node_modules/warning/warning.js
 var warning = __webpack_require__(2473);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormControl.js
 
 
-var FormControl_excluded = ["bsPrefix", "bsCustomPrefix", "type", "size", "htmlSize", "id", "className", "isValid", "isInvalid", "plaintext", "readOnly", "custom", "as"];
 
 
 
 
 
 
-
-var FormControl = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      bsCustomPrefix = _ref.bsCustomPrefix,
-      type = _ref.type,
-      size = _ref.size,
-      htmlSize = _ref.htmlSize,
-      id = _ref.id,
-      className = _ref.className,
-      _ref$isValid = _ref.isValid,
-      isValid = _ref$isValid === void 0 ? false : _ref$isValid,
-      _ref$isInvalid = _ref.isInvalid,
-      isInvalid = _ref$isInvalid === void 0 ? false : _ref$isInvalid,
-      plaintext = _ref.plaintext,
-      readOnly = _ref.readOnly,
-      custom = _ref.custom,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'input' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormControl_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId;
-
-  var _ref2 = custom ? [bsCustomPrefix, 'custom'] : [bsPrefix, 'form-control'],
-      prefix = _ref2[0],
-      defaultPrefix = _ref2[1];
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(prefix, defaultPrefix);
-  var classes;
+const FormControl = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  type,
+  size,
+  htmlSize,
+  id,
+  className,
+  isValid = false,
+  isInvalid = false,
+  plaintext,
+  readOnly,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'input',
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-control');
+  let classes;
 
   if (plaintext) {
-    var _classes;
-
-    classes = (_classes = {}, _classes[bsPrefix + "-plaintext"] = true, _classes);
-  } else if (type === 'file') {
-    var _classes2;
-
-    classes = (_classes2 = {}, _classes2[bsPrefix + "-file"] = true, _classes2);
-  } else if (type === 'range') {
-    var _classes3;
-
-    classes = (_classes3 = {}, _classes3[bsPrefix + "-range"] = true, _classes3);
-  } else if (Component === 'select' && custom) {
-    var _classes4;
-
-    classes = (_classes4 = {}, _classes4[bsPrefix + "-select"] = true, _classes4[bsPrefix + "-select-" + size] = size, _classes4);
+    classes = {
+      [`${bsPrefix}-plaintext`]: true
+    };
   } else {
-    var _classes5;
-
-    classes = (_classes5 = {}, _classes5[bsPrefix] = true, _classes5[bsPrefix + "-" + size] = size, _classes5);
+    classes = {
+      [bsPrefix]: true,
+      [`${bsPrefix}-${size}`]: size
+    };
   }
 
    false ? 0 : void 0;
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
     type: type,
     size: htmlSize,
     ref: ref,
     readOnly: readOnly,
     id: id || controlId,
-    className: classnames_default()(className, classes, isValid && "is-valid", isInvalid && "is-invalid")
-  }));
+    className: classnames_default()(className, classes, isValid && `is-valid`, isInvalid && `is-invalid`, type === 'color' && `${bsPrefix}-color`)
+  });
 });
 FormControl.displayName = 'FormControl';
 /* harmony default export */ var esm_FormControl = (Object.assign(FormControl, {
   Feedback: esm_Feedback
 }));
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
+var createWithBsPrefix = __webpack_require__(4680);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormFloating.js
+
+/* harmony default export */ var FormFloating = ((0,createWithBsPrefix/* default */.Z)('form-floating'));
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormGroup.js
 
 
-var FormGroup_excluded = ["bsPrefix", "className", "children", "controlId", "as"];
 
 
-
-
-var FormGroup = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      children = _ref.children,
-      controlId = _ref.controlId,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormGroup_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-group');
-  var context = (0,react.useMemo)(function () {
-    return {
-      controlId: controlId
-    };
-  }, [controlId]);
-  return /*#__PURE__*/react.createElement(esm_FormContext.Provider, {
-    value: context
-  }, /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix)
-  }), children));
+const FormGroup = /*#__PURE__*/react.forwardRef(({
+  controlId,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const context = (0,react.useMemo)(() => ({
+    controlId
+  }), [controlId]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_FormContext.Provider, {
+    value: context,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+      ref: ref
+    })
+  });
 });
 FormGroup.displayName = 'FormGroup';
 /* harmony default export */ var esm_FormGroup = (FormGroup);
@@ -5744,76 +6561,130 @@ var Col = __webpack_require__(1555);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormLabel.js
 
 
-var FormLabel_excluded = ["as", "bsPrefix", "column", "srOnly", "className", "htmlFor"];
 
 
 
 
 
 
-var defaultProps = {
+const defaultProps = {
   column: false,
-  srOnly: false
+  visuallyHidden: false
 };
-var FormLabel = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'label' : _ref$as,
-      bsPrefix = _ref.bsPrefix,
-      column = _ref.column,
-      srOnly = _ref.srOnly,
-      className = _ref.className,
-      htmlFor = _ref.htmlFor,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormLabel_excluded);
-
-  var _useContext = (0,react.useContext)(esm_FormContext),
-      controlId = _useContext.controlId;
-
+const FormLabel = /*#__PURE__*/react.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'label',
+  bsPrefix,
+  column,
+  visuallyHidden,
+  className,
+  htmlFor,
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
   bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-label');
-  var columnClass = 'col-form-label';
-  if (typeof column === 'string') columnClass = columnClass + " " + columnClass + "-" + column;
-  var classes = classnames_default()(className, bsPrefix, srOnly && 'sr-only', column && columnClass);
+  let columnClass = 'col-form-label';
+  if (typeof column === 'string') columnClass = `${columnClass} ${columnClass}-${column}`;
+  const classes = classnames_default()(className, bsPrefix, visuallyHidden && 'visually-hidden', column && columnClass);
    false ? 0 : void 0;
   htmlFor = htmlFor || controlId;
-  if (column) return /*#__PURE__*/react.createElement(Col/* default */.Z, (0,esm_extends/* default */.Z)({
+  if (column) return /*#__PURE__*/(0,jsx_runtime.jsx)(Col/* default */.Z, {
     ref: ref,
     as: "label",
     className: classes,
-    htmlFor: htmlFor
-  }, props));
+    htmlFor: htmlFor,
+    ...props
+  });
   return (
     /*#__PURE__*/
     // eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control
-    react.createElement(Component, (0,esm_extends/* default */.Z)({
+    (0,jsx_runtime.jsx)(Component, {
       ref: ref,
       className: classes,
-      htmlFor: htmlFor
-    }, props))
+      htmlFor: htmlFor,
+      ...props
+    })
   );
 });
 FormLabel.displayName = 'FormLabel';
 FormLabel.defaultProps = defaultProps;
 /* harmony default export */ var esm_FormLabel = (FormLabel);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormRange.js
+
+
+
+
+
+
+const FormRange = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  id,
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-range');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("input", { ...props,
+    type: "range",
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    id: id || controlId
+  });
+});
+FormRange.displayName = 'FormRange';
+/* harmony default export */ var esm_FormRange = (FormRange);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormSelect.js
+
+
+
+
+
+
+const FormSelect = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  size,
+  htmlSize,
+  className,
+  isValid = false,
+  isInvalid = false,
+  id,
+  ...props
+}, ref) => {
+  const {
+    controlId
+  } = (0,react.useContext)(esm_FormContext);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-select');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("select", { ...props,
+    size: htmlSize,
+    ref: ref,
+    className: classnames_default()(className, bsPrefix, size && `${bsPrefix}-${size}`, isValid && `is-valid`, isInvalid && `is-invalid`),
+    id: id || controlId
+  });
+});
+FormSelect.displayName = 'FormSelect';
+/* harmony default export */ var esm_FormSelect = (FormSelect);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FormText.js
 
 
-var FormText_excluded = ["bsPrefix", "className", "as", "muted"];
 
 
-
-var FormText = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'small' : _ref$as,
-      muted = _ref.muted,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, FormText_excluded);
-
+const FormText = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  bsPrefix,
+  className,
+  as: Component = 'small',
+  muted,
+  ...props
+}, ref) => {
   bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-text');
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
     ref: ref,
     className: classnames_default()(className, bsPrefix, muted && 'text-muted')
-  }));
+  });
 });
 FormText.displayName = 'FormText';
 /* harmony default export */ var esm_FormText = (FormText);
@@ -5821,22 +6692,47 @@ FormText.displayName = 'FormText';
 
 
 
-var Switch = /*#__PURE__*/react.forwardRef(function (props, ref) {
-  return /*#__PURE__*/react.createElement(esm_FormCheck, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    type: "switch"
-  }));
-});
+const Switch = /*#__PURE__*/react.forwardRef((props, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)(esm_FormCheck, { ...props,
+  ref: ref,
+  type: "switch"
+}));
 Switch.displayName = 'Switch';
-Switch.Input = esm_FormCheck.Input;
-Switch.Label = esm_FormCheck.Label;
-/* harmony default export */ var esm_Switch = (Switch);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
-var createWithBsPrefix = __webpack_require__(4680);
+/* harmony default export */ var esm_Switch = (Object.assign(Switch, {
+  Input: esm_FormCheck.Input,
+  Label: esm_FormCheck.Label
+}));
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/FloatingLabel.js
+
+
+
+
+
+
+const FloatingLabel = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  controlId,
+  label,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form-floating');
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)(esm_FormGroup, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    controlId: controlId,
+    ...props,
+    children: [children, /*#__PURE__*/(0,jsx_runtime.jsx)("label", {
+      htmlFor: controlId,
+      children: label
+    })]
+  });
+});
+FloatingLabel.displayName = 'FloatingLabel';
+/* harmony default export */ var esm_FloatingLabel = (FloatingLabel);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Form.js
 
 
-var Form_excluded = ["bsPrefix", "inline", "className", "validated", "as"];
 
 
 
@@ -5848,53 +6744,62 @@ var Form_excluded = ["bsPrefix", "inline", "className", "validated", "as"];
 
 
 
-var FormRow = (0,createWithBsPrefix/* default */.Z)('form-row');
-var Form_defaultProps = {
-  inline: false
+
+const Form_propTypes = {
+  /**
+   * The Form `ref` will be forwarded to the underlying element,
+   * which means, unless it's rendered `as` a composite component,
+   * it will be a DOM node, when resolved.
+   *
+   * @type {ReactRef}
+   * @alias ref
+   */
+  _ref: (prop_types_default()).any,
+
+  /**
+   * Mark a form as having been validated. Setting it to `true` will
+   * toggle any validation styles on the forms elements.
+   */
+  validated: (prop_types_default()).bool,
+  as: (prop_types_default()).elementType
 };
-var FormImpl = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      inline = _ref.inline,
-      className = _ref.className,
-      validated = _ref.validated,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'form' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, Form_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'form');
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, validated && 'was-validated', inline && bsPrefix + "-inline")
-  }));
-});
-FormImpl.displayName = 'Form';
-FormImpl.defaultProps = Form_defaultProps;
-FormImpl.Row = FormRow;
-FormImpl.Group = esm_FormGroup;
-FormImpl.Control = esm_FormControl;
-FormImpl.Check = esm_FormCheck;
-FormImpl.File = esm_FormFile;
-FormImpl.Switch = esm_Switch;
-FormImpl.Label = esm_FormLabel;
-FormImpl.Text = esm_FormText;
-/* harmony default export */ var Form = (FormImpl);
+const Form = /*#__PURE__*/react.forwardRef(({
+  className,
+  validated,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'form',
+  ...props
+}, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+  ref: ref,
+  className: classnames_default()(className, validated && 'was-validated')
+}));
+Form.displayName = 'Form';
+Form.propTypes = Form_propTypes;
+/* harmony default export */ var esm_Form = (Object.assign(Form, {
+  Group: esm_FormGroup,
+  Control: esm_FormControl,
+  Floating: FormFloating,
+  Check: esm_FormCheck,
+  Switch: esm_Switch,
+  Label: esm_FormLabel,
+  Text: esm_FormText,
+  Range: esm_FormRange,
+  Select: esm_FormSelect,
+  FloatingLabel: esm_FloatingLabel
+}));
 
 /***/ }),
 
-/***/ 9370:
+/***/ 4365:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ esm_Nav; }
+  "Z": function() { return /* binding */ react_bootstrap_esm_Nav; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -5904,30 +6809,33 @@ var lib_all = __webpack_require__(4391);
 var react = __webpack_require__(7294);
 // EXTERNAL MODULE: ./node_modules/uncontrollable/lib/esm/index.js + 3 modules
 var esm = __webpack_require__(8977);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
-var ThemeProvider = __webpack_require__(6792);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
-var NavbarContext = __webpack_require__(4819);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/CardContext.js
-var CardContext = __webpack_require__(8154);
 // EXTERNAL MODULE: ./node_modules/dom-helpers/esm/querySelectorAll.js
 var querySelectorAll = __webpack_require__(930);
 // EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useForceUpdate.js
 var useForceUpdate = __webpack_require__(4357);
 // EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMergedRefs.js
 var useMergedRefs = __webpack_require__(5654);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavContext.js
-var NavContext = __webpack_require__(590);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SelectableContext.js
-var SelectableContext = __webpack_require__(5017);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/TabContext.js
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/NavContext.js
+var NavContext = __webpack_require__(6056);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/SelectableContext.js
+var SelectableContext = __webpack_require__(7126);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/TabContext.js
+var TabContext = __webpack_require__(6626);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/DataKey.js
+var DataKey = __webpack_require__(2747);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/NavItem.js
+var NavItem = __webpack_require__(3716);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Nav.js
+const _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
 
-var TabContext = /*#__PURE__*/react.createContext(null);
-/* harmony default export */ var esm_TabContext = (TabContext);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/AbstractNav.js
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
-var _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
+
+
+
 
 
 
@@ -5937,67 +6845,76 @@ var _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-var noop = function noop() {};
+const noop = () => {};
 
-var AbstractNav = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'ul' : _ref$as,
-      onSelect = _ref.onSelect,
-      activeKey = _ref.activeKey,
-      role = _ref.role,
-      onKeyDown = _ref.onKeyDown,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
+const EVENT_KEY_ATTR = (0,DataKey/* dataAttr */.PB)('event-key');
+const Nav = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  let {
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'div',
+    onSelect,
+    activeKey,
+    role,
+    onKeyDown
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   // A ref and forceUpdate for refocus, b/c we only want to trigger when needed
   // and don't want to reset the set in the effect
-  var forceUpdate = (0,useForceUpdate/* default */.Z)();
-  var needsRefocusRef = (0,react.useRef)(false);
-  var parentOnSelect = (0,react.useContext)(SelectableContext/* default */.Z);
-  var tabContext = (0,react.useContext)(esm_TabContext);
-  var getControlledId, getControllerId;
+  const forceUpdate = (0,useForceUpdate/* default */.Z)();
+  const needsRefocusRef = (0,react.useRef)(false);
+  const parentOnSelect = (0,react.useContext)(SelectableContext/* default */.Z);
+  const tabContext = (0,react.useContext)(TabContext/* default */.Z);
+  let getControlledId, getControllerId;
 
   if (tabContext) {
     role = role || 'tablist';
-    activeKey = tabContext.activeKey;
+    activeKey = tabContext.activeKey; // TODO: do we need to duplicate these?
+
     getControlledId = tabContext.getControlledId;
     getControllerId = tabContext.getControllerId;
   }
 
-  var listNode = (0,react.useRef)(null);
+  const listNode = (0,react.useRef)(null);
 
-  var getNextActiveChild = function getNextActiveChild(offset) {
-    var currentListNode = listNode.current;
+  const getNextActiveTab = offset => {
+    const currentListNode = listNode.current;
     if (!currentListNode) return null;
-    var items = (0,querySelectorAll/* default */.Z)(currentListNode, '[data-rb-event-key]:not(.disabled)');
-    var activeChild = currentListNode.querySelector('.active');
-    if (!activeChild) return null;
-    var index = items.indexOf(activeChild);
+    const items = (0,querySelectorAll/* default */.Z)(currentListNode, `[${EVENT_KEY_ATTR}]:not([aria-disabled=true])`);
+    const activeChild = currentListNode.querySelector('[aria-selected=true]');
+    if (!activeChild || activeChild !== document.activeElement) return null;
+    const index = items.indexOf(activeChild);
     if (index === -1) return null;
-    var nextIndex = index + offset;
+    let nextIndex = index + offset;
     if (nextIndex >= items.length) nextIndex = 0;
     if (nextIndex < 0) nextIndex = items.length - 1;
     return items[nextIndex];
   };
 
-  var handleSelect = function handleSelect(key, event) {
+  const handleSelect = (key, event) => {
     if (key == null) return;
-    if (onSelect) onSelect(key, event);
-    if (parentOnSelect) parentOnSelect(key, event);
+    onSelect == null ? void 0 : onSelect(key, event);
+    parentOnSelect == null ? void 0 : parentOnSelect(key, event);
   };
 
-  var handleKeyDown = function handleKeyDown(event) {
-    if (onKeyDown) onKeyDown(event);
-    var nextActiveChild;
+  const handleKeyDown = event => {
+    onKeyDown == null ? void 0 : onKeyDown(event);
+
+    if (!tabContext) {
+      return;
+    }
+
+    let nextActiveChild;
 
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowUp':
-        nextActiveChild = getNextActiveChild(-1);
+        nextActiveChild = getNextActiveTab(-1);
         break;
 
       case 'ArrowRight':
       case 'ArrowDown':
-        nextActiveChild = getNextActiveChild(1);
+        nextActiveChild = getNextActiveTab(1);
         break;
 
       default:
@@ -6006,67 +6923,58 @@ var AbstractNav = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
 
     if (!nextActiveChild) return;
     event.preventDefault();
-    handleSelect(nextActiveChild.dataset.rbEventKey, event);
+    handleSelect(nextActiveChild.dataset[(0,DataKey/* dataProp */.$F)('EventKey')] || null, event);
     needsRefocusRef.current = true;
     forceUpdate();
   };
 
-  (0,react.useEffect)(function () {
+  (0,react.useEffect)(() => {
     if (listNode.current && needsRefocusRef.current) {
-      var activeChild = listNode.current.querySelector('[data-rb-event-key].active');
-      if (activeChild) activeChild.focus();
+      const activeChild = listNode.current.querySelector(`[${EVENT_KEY_ATTR}][aria-selected=true]`);
+      activeChild == null ? void 0 : activeChild.focus();
     }
 
     needsRefocusRef.current = false;
   });
-  var mergedRef = (0,useMergedRefs/* default */.Z)(ref, listNode);
-  return /*#__PURE__*/react.createElement(SelectableContext/* default.Provider */.Z.Provider, {
-    value: handleSelect
-  }, /*#__PURE__*/react.createElement(NavContext/* default.Provider */.Z.Provider, {
-    value: {
-      role: role,
-      // used by NavLink to determine it's role
-      activeKey: (0,SelectableContext/* makeEventKey */.h)(activeKey),
-      getControlledId: getControlledId || noop,
-      getControllerId: getControllerId || noop
-    }
-  }, /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    onKeyDown: handleKeyDown,
-    ref: mergedRef,
-    role: role
-  }))));
+  const mergedRef = (0,useMergedRefs/* default */.Z)(ref, listNode);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(SelectableContext/* default.Provider */.Z.Provider, {
+    value: handleSelect,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(NavContext/* default.Provider */.Z.Provider, {
+      value: {
+        role,
+        // used by NavLink to determine it's role
+        activeKey: (0,SelectableContext/* makeEventKey */.h)(activeKey),
+        getControlledId: getControlledId || noop,
+        getControllerId: getControllerId || noop
+      },
+      children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({}, props, {
+        onKeyDown: handleKeyDown,
+        ref: mergedRef,
+        role: role
+      }))
+    })
+  });
 });
-/* harmony default export */ var esm_AbstractNav = (AbstractNav);
+Nav.displayName = 'Nav';
+/* harmony default export */ var esm_Nav = (Object.assign(Nav, {
+  Item: NavItem/* default */.Z
+}));
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
+var ThemeProvider = __webpack_require__(6792);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
+var NavbarContext = __webpack_require__(4819);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/CardHeaderContext.js
+var CardHeaderContext = __webpack_require__(9059);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
+var createWithBsPrefix = __webpack_require__(4680);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavItem.js
 
-
-var NavItem_excluded = ["bsPrefix", "className", "children", "as"];
-
-
-
-var NavItem = /*#__PURE__*/react.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      children = _ref.children,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, NavItem_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'nav-item');
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix)
-  }), children);
-});
-NavItem.displayName = 'NavItem';
-/* harmony default export */ var esm_NavItem = (NavItem);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavLink.js + 1 modules
-var NavLink = __webpack_require__(3982);
+/* harmony default export */ var esm_NavItem = ((0,createWithBsPrefix/* default */.Z)('nav-item'));
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavLink.js
+var NavLink = __webpack_require__(4691);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Nav.js
 
 
-var Nav_excluded = ["as", "bsPrefix", "variant", "fill", "justify", "navbar", "navbarScroll", "className", "children", "activeKey"];
 
 
 
@@ -6077,72 +6985,67 @@ var Nav_excluded = ["as", "bsPrefix", "variant", "fill", "justify", "navbar", "n
 
 
 
-var defaultProps = {
+const defaultProps = {
   justify: false,
   fill: false
 };
-var Nav = /*#__PURE__*/react.forwardRef(function (uncontrolledProps, ref) {
-  var _classNames;
-
-  var _useUncontrolled = (0,esm/* useUncontrolled */.Ch)(uncontrolledProps, {
+const Nav_Nav = /*#__PURE__*/react.forwardRef((uncontrolledProps, ref) => {
+  const {
+    as = 'div',
+    bsPrefix: initialBsPrefix,
+    variant,
+    fill,
+    justify,
+    navbar,
+    navbarScroll,
+    className,
+    activeKey,
+    ...props
+  } = (0,esm/* useUncontrolled */.Ch)(uncontrolledProps, {
     activeKey: 'onSelect'
-  }),
-      _useUncontrolled$as = _useUncontrolled.as,
-      as = _useUncontrolled$as === void 0 ? 'div' : _useUncontrolled$as,
-      initialBsPrefix = _useUncontrolled.bsPrefix,
-      variant = _useUncontrolled.variant,
-      fill = _useUncontrolled.fill,
-      justify = _useUncontrolled.justify,
-      navbar = _useUncontrolled.navbar,
-      navbarScroll = _useUncontrolled.navbarScroll,
-      className = _useUncontrolled.className,
-      children = _useUncontrolled.children,
-      activeKey = _useUncontrolled.activeKey,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_useUncontrolled, Nav_excluded);
-
-  var bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(initialBsPrefix, 'nav');
-  var navbarBsPrefix;
-  var cardHeaderBsPrefix;
-  var isNavbar = false;
-  var navbarContext = (0,react.useContext)(NavbarContext/* default */.Z);
-  var cardContext = (0,react.useContext)(CardContext/* default */.Z);
+  });
+  const bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(initialBsPrefix, 'nav');
+  let navbarBsPrefix;
+  let cardHeaderBsPrefix;
+  let isNavbar = false;
+  const navbarContext = (0,react.useContext)(NavbarContext/* default */.Z);
+  const cardHeaderContext = (0,react.useContext)(CardHeaderContext/* default */.Z);
 
   if (navbarContext) {
     navbarBsPrefix = navbarContext.bsPrefix;
     isNavbar = navbar == null ? true : navbar;
-  } else if (cardContext) {
-    cardHeaderBsPrefix = cardContext.cardHeaderBsPrefix;
+  } else if (cardHeaderContext) {
+    ({
+      cardHeaderBsPrefix
+    } = cardHeaderContext);
   }
 
-  return /*#__PURE__*/react.createElement(esm_AbstractNav, (0,esm_extends/* default */.Z)({
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Nav, {
     as: as,
     ref: ref,
     activeKey: activeKey,
-    className: classnames_default()(className, (_classNames = {}, _classNames[bsPrefix] = !isNavbar, _classNames[navbarBsPrefix + "-nav"] = isNavbar, _classNames[navbarBsPrefix + "-nav-scroll"] = isNavbar && navbarScroll, _classNames[cardHeaderBsPrefix + "-" + variant] = !!cardHeaderBsPrefix, _classNames[bsPrefix + "-" + variant] = !!variant, _classNames[bsPrefix + "-fill"] = fill, _classNames[bsPrefix + "-justified"] = justify, _classNames))
-  }, props), children);
+    className: classnames_default()(className, {
+      [bsPrefix]: !isNavbar,
+      [`${navbarBsPrefix}-nav`]: isNavbar,
+      [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
+      [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
+      [`${bsPrefix}-${variant}`]: !!variant,
+      [`${bsPrefix}-fill`]: fill,
+      [`${bsPrefix}-justified`]: justify
+    }),
+    ...props
+  });
 });
-Nav.displayName = 'Nav';
-Nav.defaultProps = defaultProps;
-Nav.Item = esm_NavItem;
-Nav.Link = NavLink/* default */.Z;
-/* harmony default export */ var esm_Nav = (Nav);
+Nav_Nav.displayName = 'Nav';
+Nav_Nav.defaultProps = defaultProps;
+/* harmony default export */ var react_bootstrap_esm_Nav = (Object.assign(Nav_Nav, {
+  Item: esm_NavItem,
+  Link: NavLink/* default */.Z
+}));
 
 /***/ }),
 
-/***/ 590:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
- // TODO: check this
-
-var NavContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-NavContext.displayName = 'NavContext';
-/* harmony default export */ __webpack_exports__["Z"] = (NavContext);
-
-/***/ }),
-
-/***/ 8606:
+/***/ 252:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6152,10 +7055,6 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ esm_NavDropdown; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -6163,197 +7062,120 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 var react = __webpack_require__(7294);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
 var ThemeProvider = __webpack_require__(6792);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/matches.js
-var matchesImpl;
-/**
- * Checks if a given element matches a selector.
- * 
- * @param node the element
- * @param selector the selector
- */
-
-function matches(node, selector) {
-  if (!matchesImpl) {
-    var body = document.body;
-    var nativeMatch = body.matches || body.matchesSelector || body.webkitMatchesSelector || body.mozMatchesSelector || body.msMatchesSelector;
-
-    matchesImpl = function matchesImpl(n, s) {
-      return nativeMatch.call(n, s);
-    };
-  }
-
-  return matchesImpl(node, selector);
-}
 // EXTERNAL MODULE: ./node_modules/dom-helpers/esm/querySelectorAll.js
 var querySelectorAll = __webpack_require__(930);
-// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/addEventListener.js + 1 modules
-var addEventListener = __webpack_require__(1998);
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(5697);
-var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/addEventListener.js
+var addEventListener = __webpack_require__(9351);
 // EXTERNAL MODULE: ./node_modules/uncontrollable/lib/esm/index.js + 3 modules
 var esm = __webpack_require__(8977);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
-
-/**
- * Store the last of some value. Tracked via a `Ref` only updating it
- * after the component renders.
- *
- * Helpful if you need to compare a prop value to it's previous value during render.
- *
- * ```ts
- * function Component(props) {
- *   const lastProps = usePrevious(props)
- *
- *   if (lastProps.foo !== props.foo)
- *     resetValueFromProps(props.foo)
- * }
- * ```
- *
- * @param value the value to track
- */
-
-function usePrevious(value) {
-  var ref = (0,react.useRef)(null);
-  (0,react.useEffect)(function () {
-    ref.current = value;
-  });
-  return ref.current;
-}
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
+var usePrevious = __webpack_require__(8833);
 // EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useForceUpdate.js
 var useForceUpdate = __webpack_require__(4357);
-// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js + 1 modules
-var useEventCallback = __webpack_require__(6895);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useEventListener.js
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventListener.js
+var useEventListener = __webpack_require__(5111);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+var useEventCallback = __webpack_require__(8146);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DropdownContext.js
 
-
-
-/**
- * Attaches an event handler outside directly to specified DOM element
- * bypassing the react synthetic event system.
- *
- * @param element The target to listen for events on
- * @param event The DOM event name
- * @param handler An event handler
- * @param capture Whether or not to listen during the capture event phase
- */
-function useEventListener(eventTarget, event, listener, capture) {
-  if (capture === void 0) {
-    capture = false;
-  }
-
-  var handler = (0,useEventCallback/* default */.Z)(listener);
-  (0,react.useEffect)(function () {
-    var target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
-    target.addEventListener(event, handler, capture);
-    return function () {
-      return target.removeEventListener(event, handler, capture);
-    };
-  }, [eventTarget]);
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useGlobalListener.js
-
-
-
-/**
- * Attaches an event handler outside directly to the `document`,
- * bypassing the react synthetic event system.
- *
- * ```ts
- * useGlobalListener('keydown', (event) => {
- *  console.log(event.key)
- * })
- * ```
- *
- * @param event The DOM event name
- * @param handler An event handler
- * @param capture Whether or not to listen during the capture event phase
- */
-function useGlobalListener(event, handler, capture) {
-  if (capture === void 0) {
-    capture = false;
-  }
-
-  var documentTarget = (0,react.useCallback)(function () {
-    return document;
-  }, []);
-  return useEventListener(documentTarget, event, handler, capture);
-}
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/DropdownContext.js
-
-var DropdownContext = /*#__PURE__*/react.createContext(null);
+const DropdownContext = /*#__PURE__*/react.createContext(null);
 /* harmony default export */ var esm_DropdownContext = (DropdownContext);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCallbackRef.js
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useCallbackRef.js
+var useCallbackRef = __webpack_require__(2092);
+;// CONCATENATED MODULE: ./node_modules/dequal/dist/index.mjs
+var has = Object.prototype.hasOwnProperty;
 
-/**
- * A convenience hook around `useState` designed to be paired with
- * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
- * Callback refs are useful over `useRef()` when you need to respond to the ref being set
- * instead of lazily accessing it in an effect.
- *
- * ```ts
- * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
- *
- * useEffect(() => {
- *   if (!element) return
- *
- *   const calendar = new FullCalendar.Calendar(element)
- *
- *   return () => {
- *     calendar.destroy()
- *   }
- * }, [element])
- *
- * return <div ref={attachRef} />
- * ```
- *
- * @category refs
- */
-
-function useCallbackRef() {
-  return (0,react.useState)(null);
+function find(iter, tar, key) {
+	for (key of iter.keys()) {
+		if (dequal(key, tar)) return key;
+	}
 }
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
 
-/**
- * Track whether a component is current mounted. Generally less preferable than
- * properlly canceling effects so they don't run after a component is unmounted,
- * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
- *
- * @returns a function that returns the current isMounted state of the component
- *
- * ```ts
- * const [data, setData] = useState(null)
- * const isMounted = useMounted()
- *
- * useEffect(() => {
- *   fetchdata().then((newData) => {
- *      if (isMounted()) {
- *        setData(newData);
- *      }
- *   })
- * })
- * ```
- */
+function dequal(foo, bar) {
+	var ctor, len, tmp;
+	if (foo === bar) return true;
 
-function useMounted() {
-  var mounted = (0,react.useRef)(true);
-  var isMounted = (0,react.useRef)(function () {
-    return mounted.current;
-  });
-  (0,react.useEffect)(function () {
-    return function () {
-      mounted.current = false;
-    };
-  }, []);
-  return isMounted.current;
+	if (foo && bar && (ctor=foo.constructor) === bar.constructor) {
+		if (ctor === Date) return foo.getTime() === bar.getTime();
+		if (ctor === RegExp) return foo.toString() === bar.toString();
+
+		if (ctor === Array) {
+			if ((len=foo.length) === bar.length) {
+				while (len-- && dequal(foo[len], bar[len]));
+			}
+			return len === -1;
+		}
+
+		if (ctor === Set) {
+			if (foo.size !== bar.size) {
+				return false;
+			}
+			for (len of foo) {
+				tmp = len;
+				if (tmp && typeof tmp === 'object') {
+					tmp = find(bar, tmp);
+					if (!tmp) return false;
+				}
+				if (!bar.has(tmp)) return false;
+			}
+			return true;
+		}
+
+		if (ctor === Map) {
+			if (foo.size !== bar.size) {
+				return false;
+			}
+			for (len of foo) {
+				tmp = len[0];
+				if (tmp && typeof tmp === 'object') {
+					tmp = find(bar, tmp);
+					if (!tmp) return false;
+				}
+				if (!dequal(len[1], bar.get(tmp))) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		if (ctor === ArrayBuffer) {
+			foo = new Uint8Array(foo);
+			bar = new Uint8Array(bar);
+		} else if (ctor === DataView) {
+			if ((len=foo.byteLength) === bar.byteLength) {
+				while (len-- && foo.getInt8(len) === bar.getInt8(len));
+			}
+			return len === -1;
+		}
+
+		if (ArrayBuffer.isView(foo)) {
+			if ((len=foo.byteLength) === bar.byteLength) {
+				while (len-- && foo[len] === bar[len]);
+			}
+			return len === -1;
+		}
+
+		if (!ctor || typeof foo === 'object') {
+			len = 0;
+			for (ctor in foo) {
+				if (has.call(foo, ctor) && ++len && !has.call(bar, ctor)) return false;
+				if (!(ctor in bar) || !dequal(foo[ctor], bar[ctor])) return false;
+			}
+			return Object.keys(bar).length === len;
+		}
+	}
+
+	return foo !== foo && bar !== bar;
 }
+
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
+var useMounted = __webpack_require__(6454);
 ;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useSafeState.js
 
 
 
 function useSafeState(state) {
-  var isMounted = useMounted();
+  var isMounted = (0,useMounted/* default */.Z)();
   return [state[0], (0,react.useCallback)(function (nextState) {
     if (!isMounted()) return;
     return state[1](nextState);
@@ -8238,7 +9060,7 @@ function popperGenerator(generatorOptions) {
 var createPopper = /*#__PURE__*/(/* unused pure expression or super */ null && (popperGenerator())); // eslint-disable-next-line import/no-unused-modules
 
 
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/popper.js
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/popper.js
 
 
 
@@ -8251,72 +9073,66 @@ var createPopper = /*#__PURE__*/(/* unused pure expression or super */ null && (
  // For the common JS build we will turn this file into a bundle with no imports.
 // This is b/c the Popper lib is all esm files, and would break in a common js only environment
 
-var popper_createPopper = popperGenerator({
+const popper_createPopper = popperGenerator({
   defaultModifiers: [modifiers_hide, modifiers_popperOffsets, modifiers_computeStyles, eventListeners, modifiers_offset, modifiers_flip, modifiers_preventOverflow, modifiers_arrow]
 });
 
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/usePopper.js
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/usePopper.js
+const _excluded = ["enabled", "placement", "strategy", "modifiers"];
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
 
 
 
-
-var initialPopperStyles = function initialPopperStyles(position) {
-  return {
-    position: position,
-    top: '0',
-    left: '0',
-    opacity: '0',
-    pointerEvents: 'none'
-  };
-};
-
-var disabledApplyStylesModifier = {
+const disabledApplyStylesModifier = {
   name: 'applyStyles',
-  enabled: false
+  enabled: false,
+  phase: 'afterWrite',
+  fn: () => undefined
 }; // until docjs supports type exports...
 
-var ariaDescribedByModifier = {
+const ariaDescribedByModifier = {
   name: 'ariaDescribedBy',
   enabled: true,
   phase: 'afterWrite',
-  effect: function effect(_ref) {
-    var state = _ref.state;
-    return function () {
-      var _state$elements = state.elements,
-          reference = _state$elements.reference,
-          popper = _state$elements.popper;
+  effect: ({
+    state
+  }) => () => {
+    const {
+      reference,
+      popper
+    } = state.elements;
 
-      if ('removeAttribute' in reference) {
-        var ids = (reference.getAttribute('aria-describedby') || '').split(',').filter(function (id) {
-          return id.trim() !== popper.id;
-        });
-        if (!ids.length) reference.removeAttribute('aria-describedby');else reference.setAttribute('aria-describedby', ids.join(','));
-      }
-    };
+    if ('removeAttribute' in reference) {
+      const ids = (reference.getAttribute('aria-describedby') || '').split(',').filter(id => id.trim() !== popper.id);
+      if (!ids.length) reference.removeAttribute('aria-describedby');else reference.setAttribute('aria-describedby', ids.join(','));
+    }
   },
-  fn: function fn(_ref2) {
+  fn: ({
+    state
+  }) => {
     var _popper$getAttribute;
 
-    var state = _ref2.state;
-    var _state$elements2 = state.elements,
-        popper = _state$elements2.popper,
-        reference = _state$elements2.reference;
-    var role = (_popper$getAttribute = popper.getAttribute('role')) == null ? void 0 : _popper$getAttribute.toLowerCase();
+    const {
+      popper,
+      reference
+    } = state.elements;
+    const role = (_popper$getAttribute = popper.getAttribute('role')) == null ? void 0 : _popper$getAttribute.toLowerCase();
 
     if (popper.id && role === 'tooltip' && 'setAttribute' in reference) {
-      var ids = reference.getAttribute('aria-describedby');
+      const ids = reference.getAttribute('aria-describedby');
 
       if (ids && ids.split(',').indexOf(popper.id) !== -1) {
         return;
       }
 
-      reference.setAttribute('aria-describedby', ids ? ids + "," + popper.id : popper.id);
+      reference.setAttribute('aria-describedby', ids ? `${ids},${popper.id}` : popper.id);
     }
   }
 };
-var EMPTY_MODIFIERS = [];
+const EMPTY_MODIFIERS = [];
 /**
  * Position an element relative some reference element using Popper.js
  *
@@ -8327,106 +9143,102 @@ var EMPTY_MODIFIERS = [];
  * @param {boolean=}    options.enabled toggle the popper functionality on/off
  * @param {string=}     options.placement The popper element placement relative to the reference element
  * @param {string=}     options.strategy the positioning strategy
- * @param {boolean=}    options.eventsEnabled have Popper listen on window resize events to reposition the element
  * @param {function=}   options.onCreate called when the popper is created
  * @param {function=}   options.onUpdate called when the popper is updated
  *
  * @returns {UsePopperState} The popper state
  */
 
-function usePopper(referenceElement, popperElement, _temp) {
-  var _ref3 = _temp === void 0 ? {} : _temp,
-      _ref3$enabled = _ref3.enabled,
-      enabled = _ref3$enabled === void 0 ? true : _ref3$enabled,
-      _ref3$placement = _ref3.placement,
-      placement = _ref3$placement === void 0 ? 'bottom' : _ref3$placement,
-      _ref3$strategy = _ref3.strategy,
-      strategy = _ref3$strategy === void 0 ? 'absolute' : _ref3$strategy,
-      _ref3$modifiers = _ref3.modifiers,
-      modifiers = _ref3$modifiers === void 0 ? EMPTY_MODIFIERS : _ref3$modifiers,
-      config = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref3, ["enabled", "placement", "strategy", "modifiers"]);
+function usePopper(referenceElement, popperElement, _ref = {}) {
+  let {
+    enabled = true,
+    placement = 'bottom',
+    strategy = 'absolute',
+    modifiers = EMPTY_MODIFIERS
+  } = _ref,
+      config = _objectWithoutPropertiesLoose(_ref, _excluded);
 
-  var popperInstanceRef = (0,react.useRef)();
-  var update = (0,react.useCallback)(function () {
+  const prevModifiers = (0,react.useRef)(modifiers);
+  const popperInstanceRef = (0,react.useRef)();
+  const update = (0,react.useCallback)(() => {
     var _popperInstanceRef$cu;
 
     (_popperInstanceRef$cu = popperInstanceRef.current) == null ? void 0 : _popperInstanceRef$cu.update();
   }, []);
-  var forceUpdate = (0,react.useCallback)(function () {
+  const forceUpdate = (0,react.useCallback)(() => {
     var _popperInstanceRef$cu2;
 
     (_popperInstanceRef$cu2 = popperInstanceRef.current) == null ? void 0 : _popperInstanceRef$cu2.forceUpdate();
   }, []);
-
-  var _useSafeState = esm_useSafeState((0,react.useState)({
-    placement: placement,
-    update: update,
-    forceUpdate: forceUpdate,
+  const [popperState, setState] = esm_useSafeState((0,react.useState)({
+    placement,
+    update,
+    forceUpdate,
     attributes: {},
     styles: {
-      popper: initialPopperStyles(strategy),
+      popper: {},
       arrow: {}
     }
-  })),
-      popperState = _useSafeState[0],
-      setState = _useSafeState[1];
+  }));
+  const updateModifier = (0,react.useMemo)(() => ({
+    name: 'updateStateModifier',
+    enabled: true,
+    phase: 'write',
+    requires: ['computeStyles'],
+    fn: ({
+      state
+    }) => {
+      const styles = {};
+      const attributes = {};
+      Object.keys(state.elements).forEach(element => {
+        styles[element] = state.styles[element];
+        attributes[element] = state.attributes[element];
+      });
+      setState({
+        state,
+        styles,
+        attributes,
+        update,
+        forceUpdate,
+        placement: state.placement
+      });
+    }
+  }), [update, forceUpdate, setState]);
+  const nextModifiers = (0,react.useMemo)(() => {
+    if (!dequal(prevModifiers.current, modifiers)) {
+      prevModifiers.current = modifiers;
+    }
 
-  var updateModifier = (0,react.useMemo)(function () {
-    return {
-      name: 'updateStateModifier',
-      enabled: true,
-      phase: 'write',
-      requires: ['computeStyles'],
-      fn: function fn(_ref4) {
-        var state = _ref4.state;
-        var styles = {};
-        var attributes = {};
-        Object.keys(state.elements).forEach(function (element) {
-          styles[element] = state.styles[element];
-          attributes[element] = state.attributes[element];
-        });
-        setState({
-          state: state,
-          styles: styles,
-          attributes: attributes,
-          update: update,
-          forceUpdate: forceUpdate,
-          placement: state.placement
-        });
-      }
-    };
-  }, [update, forceUpdate, setState]);
-  (0,react.useEffect)(function () {
+    return prevModifiers.current;
+  }, [modifiers]);
+  (0,react.useEffect)(() => {
     if (!popperInstanceRef.current || !enabled) return;
     popperInstanceRef.current.setOptions({
-      placement: placement,
-      strategy: strategy,
-      modifiers: [].concat(modifiers, [updateModifier, disabledApplyStylesModifier])
-    }); // intentionally NOT re-running on new modifiers
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [strategy, placement, updateModifier, enabled]);
-  (0,react.useEffect)(function () {
+      placement,
+      strategy,
+      modifiers: [...nextModifiers, updateModifier, disabledApplyStylesModifier]
+    });
+  }, [strategy, placement, updateModifier, enabled, nextModifiers]);
+  (0,react.useEffect)(() => {
     if (!enabled || referenceElement == null || popperElement == null) {
       return undefined;
     }
 
-    popperInstanceRef.current = popper_createPopper(referenceElement, popperElement, (0,esm_extends/* default */.Z)({}, config, {
-      placement: placement,
-      strategy: strategy,
-      modifiers: [].concat(modifiers, [ariaDescribedByModifier, updateModifier])
+    popperInstanceRef.current = popper_createPopper(referenceElement, popperElement, Object.assign({}, config, {
+      placement,
+      strategy,
+      modifiers: [...nextModifiers, ariaDescribedByModifier, updateModifier]
     }));
-    return function () {
+    return () => {
       if (popperInstanceRef.current != null) {
         popperInstanceRef.current.destroy();
         popperInstanceRef.current = undefined;
-        setState(function (s) {
-          return (0,esm_extends/* default */.Z)({}, s, {
-            attributes: {},
-            styles: {
-              popper: initialPopperStyles(strategy)
-            }
-          });
-        });
+        setState(s => Object.assign({}, s, {
+          attributes: {},
+          styles: {
+            popper: {}
+          }
+        }));
       }
     }; // This is only run once to _create_ the popper
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -8435,55 +9247,24 @@ function usePopper(referenceElement, popperElement, _temp) {
 }
 
 /* harmony default export */ var esm_usePopper = (usePopper);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/contains.js
-/* eslint-disable no-bitwise, no-cond-assign */
-
-/**
- * Checks if an element contains another given element.
- * 
- * @param context the context element
- * @param node the element to check
- */
-function contains_contains(context, node) {
-  // HTML DOM and SVG DOM may have different support levels,
-  // so we need to check on context instead of a document root element.
-  if (context.contains) return context.contains(node);
-  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
-}
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/contains.js
+var esm_contains = __webpack_require__(424);
 // EXTERNAL MODULE: ./node_modules/dom-helpers/esm/listen.js + 1 modules
 var listen = __webpack_require__(3299);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
+var ownerDocument = __webpack_require__(7216);
 // EXTERNAL MODULE: ./node_modules/warning/warning.js
 var warning = __webpack_require__(2473);
 var warning_default = /*#__PURE__*/__webpack_require__.n(warning);
-// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
-var ownerDocument = __webpack_require__(7216);
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(3935);
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/safeFindDOMNode.js
-
-function safeFindDOMNode(componentOrElement) {
-  if (componentOrElement && 'setState' in componentOrElement) {
-    return react_dom.findDOMNode(componentOrElement);
-  }
-
-  return componentOrElement != null ? componentOrElement : null;
-}
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/ownerDocument.js
-
-
-/* harmony default export */ var esm_ownerDocument = (function (componentOrElement) {
-  return (0,ownerDocument/* default */.Z)(safeFindDOMNode(componentOrElement));
-});
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/useRootClose.js
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useClickOutside.js
 
 
 
 
 
 
-var escapeKeyCode = 27;
 
-var noop = function noop() {};
+const noop = () => {};
 
 function isLeftClickEvent(event) {
   return event.button === 0;
@@ -8493,56 +9274,64 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-var getRefTarget = function getRefTarget(ref) {
-  return ref && ('current' in ref ? ref.current : ref);
+const getRefTarget = ref => ref && ('current' in ref ? ref.current : ref);
+const InitialTriggerEvents = {
+  click: 'mousedown',
+  mouseup: 'mousedown',
+  pointerup: 'pointerdown'
 };
-
 /**
- * The `useRootClose` hook registers your callback on the document
- * when rendered. Powers the `<Overlay/>` component. This is used achieve modal
- * style behavior where your callback is triggered when the user tries to
- * interact with the rest of the document or hits the `esc` key.
+ * The `useClickOutside` hook registers your callback on the document that fires
+ * when a pointer event is registered outside of the provided ref or element.
  *
  * @param {Ref<HTMLElement>| HTMLElement} ref  The element boundary
- * @param {function} onRootClose
+ * @param {function} onClickOutside
  * @param {object=}  options
  * @param {boolean=} options.disabled
  * @param {string=}  options.clickTrigger The DOM event name (click, mousedown, etc) to attach listeners on
  */
-function useRootClose(ref, onRootClose, _temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-      disabled = _ref.disabled,
-      _ref$clickTrigger = _ref.clickTrigger,
-      clickTrigger = _ref$clickTrigger === void 0 ? 'click' : _ref$clickTrigger;
 
-  var preventMouseRootCloseRef = (0,react.useRef)(false);
-  var onClose = onRootClose || noop;
-  var handleMouseCapture = (0,react.useCallback)(function (e) {
-    var currentTarget = getRefTarget(ref);
-    warning_default()(!!currentTarget, 'RootClose captured a close event but does not have a ref to compare it to. ' + 'useRootClose(), should be passed a ref that resolves to a DOM node');
-    preventMouseRootCloseRef.current = !currentTarget || isModifiedEvent(e) || !isLeftClickEvent(e) || !!contains_contains(currentTarget, e.target);
+function useClickOutside(ref, onClickOutside = noop, {
+  disabled,
+  clickTrigger = 'click'
+} = {}) {
+  const preventMouseClickOutsideRef = (0,react.useRef)(false);
+  const waitingForTrigger = (0,react.useRef)(false);
+  const handleMouseCapture = (0,react.useCallback)(e => {
+    const currentTarget = getRefTarget(ref);
+    warning_default()(!!currentTarget, 'ClickOutside captured a close event but does not have a ref to compare it to. ' + 'useClickOutside(), should be passed a ref that resolves to a DOM node');
+    preventMouseClickOutsideRef.current = !currentTarget || isModifiedEvent(e) || !isLeftClickEvent(e) || !!(0,esm_contains/* default */.Z)(currentTarget, e.target) || waitingForTrigger.current;
+    waitingForTrigger.current = false;
   }, [ref]);
-  var handleMouse = (0,useEventCallback/* default */.Z)(function (e) {
-    if (!preventMouseRootCloseRef.current) {
-      onClose(e);
+  const handleInitialMouse = (0,useEventCallback/* default */.Z)(e => {
+    const currentTarget = getRefTarget(ref);
+
+    if (currentTarget && (0,esm_contains/* default */.Z)(currentTarget, e.target)) {
+      waitingForTrigger.current = true;
     }
   });
-  var handleKeyUp = (0,useEventCallback/* default */.Z)(function (e) {
-    if (e.keyCode === escapeKeyCode) {
-      onClose(e);
+  const handleMouse = (0,useEventCallback/* default */.Z)(e => {
+    if (!preventMouseClickOutsideRef.current) {
+      onClickOutside(e);
     }
   });
-  (0,react.useEffect)(function () {
-    if (disabled || ref == null) return undefined; // Store the current event to avoid triggering handlers immediately
+  (0,react.useEffect)(() => {
+    if (disabled || ref == null) return undefined;
+    const doc = (0,ownerDocument/* default */.Z)(getRefTarget(ref)); // Store the current event to avoid triggering handlers immediately
     // https://github.com/facebook/react/issues/20074
 
-    var currentEvent = window.event;
-    var doc = esm_ownerDocument(getRefTarget(ref)); // Use capture for this listener so it fires before React's listener, to
+    let currentEvent = (doc.defaultView || window).event;
+    let removeInitialTriggerListener = null;
+
+    if (InitialTriggerEvents[clickTrigger]) {
+      removeInitialTriggerListener = (0,listen/* default */.Z)(doc, InitialTriggerEvents[clickTrigger], handleInitialMouse, true);
+    } // Use capture for this listener so it fires before React's listener, to
     // avoid false positives in the contains() check below if the target DOM
     // element is removed in the React mouse callback.
 
-    var removeMouseCaptureListener = (0,listen/* default */.Z)(doc, clickTrigger, handleMouseCapture, true);
-    var removeMouseListener = (0,listen/* default */.Z)(doc, clickTrigger, function (e) {
+
+    const removeMouseCaptureListener = (0,listen/* default */.Z)(doc, clickTrigger, handleMouseCapture, true);
+    const removeMouseListener = (0,listen/* default */.Z)(doc, clickTrigger, e => {
       // skip if this event is the same as the one running when we added the handlers
       if (e === currentEvent) {
         currentEvent = undefined;
@@ -8551,106 +9340,93 @@ function useRootClose(ref, onRootClose, _temp) {
 
       handleMouse(e);
     });
-    var removeKeyupListener = (0,listen/* default */.Z)(doc, 'keyup', function (e) {
-      // skip if this event is the same as the one running when we added the handlers
-      if (e === currentEvent) {
-        currentEvent = undefined;
-        return;
-      }
-
-      handleKeyUp(e);
-    });
-    var mobileSafariHackListeners = [];
+    let mobileSafariHackListeners = [];
 
     if ('ontouchstart' in doc.documentElement) {
-      mobileSafariHackListeners = [].slice.call(doc.body.children).map(function (el) {
-        return (0,listen/* default */.Z)(el, 'mousemove', noop);
-      });
+      mobileSafariHackListeners = [].slice.call(doc.body.children).map(el => (0,listen/* default */.Z)(el, 'mousemove', noop));
     }
 
-    return function () {
+    return () => {
+      removeInitialTriggerListener == null ? void 0 : removeInitialTriggerListener();
       removeMouseCaptureListener();
       removeMouseListener();
-      removeKeyupListener();
-      mobileSafariHackListeners.forEach(function (remove) {
-        return remove();
-      });
+      mobileSafariHackListeners.forEach(remove => remove());
     };
-  }, [ref, disabled, clickTrigger, handleMouseCapture, handleMouse, handleKeyUp]);
+  }, [ref, disabled, clickTrigger, handleMouseCapture, handleInitialMouse, handleMouse]);
 }
 
-/* harmony default export */ var esm_useRootClose = (useRootClose);
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/mergeOptionsWithPopperConfig.js
-
+/* harmony default export */ var esm_useClickOutside = (useClickOutside);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/mergeOptionsWithPopperConfig.js
 function toModifierMap(modifiers) {
-  var result = {};
+  const result = {};
 
   if (!Array.isArray(modifiers)) {
     return modifiers || result;
   } // eslint-disable-next-line no-unused-expressions
 
 
-  modifiers == null ? void 0 : modifiers.forEach(function (m) {
+  modifiers == null ? void 0 : modifiers.forEach(m => {
     result[m.name] = m;
   });
   return result;
 }
-function toModifierArray(map) {
-  if (map === void 0) {
-    map = {};
-  }
-
+function toModifierArray(map = {}) {
   if (Array.isArray(map)) return map;
-  return Object.keys(map).map(function (k) {
+  return Object.keys(map).map(k => {
     map[k].name = k;
     return map[k];
   });
 }
-function mergeOptionsWithPopperConfig(_ref) {
+function mergeOptionsWithPopperConfig({
+  enabled,
+  enableEvents,
+  placement,
+  flip,
+  offset,
+  fixed,
+  containerPadding,
+  arrowElement,
+  popperConfig = {}
+}) {
   var _modifiers$preventOve, _modifiers$preventOve2, _modifiers$offset, _modifiers$arrow;
 
-  var enabled = _ref.enabled,
-      enableEvents = _ref.enableEvents,
-      placement = _ref.placement,
-      flip = _ref.flip,
-      offset = _ref.offset,
-      fixed = _ref.fixed,
-      containerPadding = _ref.containerPadding,
-      arrowElement = _ref.arrowElement,
-      _ref$popperConfig = _ref.popperConfig,
-      popperConfig = _ref$popperConfig === void 0 ? {} : _ref$popperConfig;
-  var modifiers = toModifierMap(popperConfig.modifiers);
-  return (0,esm_extends/* default */.Z)({}, popperConfig, {
-    placement: placement,
-    enabled: enabled,
+  const modifiers = toModifierMap(popperConfig.modifiers);
+  return Object.assign({}, popperConfig, {
+    placement,
+    enabled,
     strategy: fixed ? 'fixed' : popperConfig.strategy,
-    modifiers: toModifierArray((0,esm_extends/* default */.Z)({}, modifiers, {
+    modifiers: toModifierArray(Object.assign({}, modifiers, {
       eventListeners: {
         enabled: enableEvents
       },
-      preventOverflow: (0,esm_extends/* default */.Z)({}, modifiers.preventOverflow, {
-        options: containerPadding ? (0,esm_extends/* default */.Z)({
+      preventOverflow: Object.assign({}, modifiers.preventOverflow, {
+        options: containerPadding ? Object.assign({
           padding: containerPadding
         }, (_modifiers$preventOve = modifiers.preventOverflow) == null ? void 0 : _modifiers$preventOve.options) : (_modifiers$preventOve2 = modifiers.preventOverflow) == null ? void 0 : _modifiers$preventOve2.options
       }),
       offset: {
-        options: (0,esm_extends/* default */.Z)({
-          offset: offset
+        options: Object.assign({
+          offset
         }, (_modifiers$offset = modifiers.offset) == null ? void 0 : _modifiers$offset.options)
       },
-      arrow: (0,esm_extends/* default */.Z)({}, modifiers.arrow, {
+      arrow: Object.assign({}, modifiers.arrow, {
         enabled: !!arrowElement,
-        options: (0,esm_extends/* default */.Z)({}, (_modifiers$arrow = modifiers.arrow) == null ? void 0 : _modifiers$arrow.options, {
+        options: Object.assign({}, (_modifiers$arrow = modifiers.arrow) == null ? void 0 : _modifiers$arrow.options, {
           element: arrowElement
         })
       }),
-      flip: (0,esm_extends/* default */.Z)({
+      flip: Object.assign({
         enabled: !!flip
       }, modifiers.flip)
     }))
   });
 }
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/DropdownMenu.js
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DropdownMenu.js
+const DropdownMenu_excluded = ["children"];
+
+function DropdownMenu_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
 
@@ -8661,7 +9437,8 @@ function mergeOptionsWithPopperConfig(_ref) {
 
 
 
-var DropdownMenu_noop = function noop() {};
+
+const DropdownMenu_noop = () => {};
 /**
  * @memberOf Dropdown
  * @param {object}  options
@@ -8674,141 +9451,71 @@ var DropdownMenu_noop = function noop() {};
  */
 
 
-function useDropdownMenu(options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var context = (0,react.useContext)(esm_DropdownContext);
-
-  var _useCallbackRef = useCallbackRef(),
-      arrowElement = _useCallbackRef[0],
-      attachArrowRef = _useCallbackRef[1];
-
-  var hasShownRef = (0,react.useRef)(false);
-  var _options = options,
-      flip = _options.flip,
-      offset = _options.offset,
-      rootCloseEvent = _options.rootCloseEvent,
-      _options$fixed = _options.fixed,
-      fixed = _options$fixed === void 0 ? false : _options$fixed,
-      _options$popperConfig = _options.popperConfig,
-      popperConfig = _options$popperConfig === void 0 ? {} : _options$popperConfig,
-      _options$usePopper = _options.usePopper,
-      shouldUsePopper = _options$usePopper === void 0 ? !!context : _options$usePopper;
-  var show = (context == null ? void 0 : context.show) == null ? !!options.show : context.show;
-  var alignEnd = (context == null ? void 0 : context.alignEnd) == null ? options.alignEnd : context.alignEnd;
+function useDropdownMenu(options = {}) {
+  const context = (0,react.useContext)(esm_DropdownContext);
+  const [arrowElement, attachArrowRef] = (0,useCallbackRef/* default */.Z)();
+  const hasShownRef = (0,react.useRef)(false);
+  const {
+    flip,
+    offset,
+    rootCloseEvent,
+    fixed = false,
+    placement: placementOverride,
+    popperConfig = {},
+    enableEventListeners = true,
+    usePopper: shouldUsePopper = !!context
+  } = options;
+  const show = (context == null ? void 0 : context.show) == null ? !!options.show : context.show;
 
   if (show && !hasShownRef.current) {
     hasShownRef.current = true;
   }
 
-  var handleClose = function handleClose(e) {
+  const handleClose = e => {
     context == null ? void 0 : context.toggle(false, e);
   };
 
-  var _ref = context || {},
-      drop = _ref.drop,
-      setMenu = _ref.setMenu,
-      menuElement = _ref.menuElement,
-      toggleElement = _ref.toggleElement;
-
-  var placement = alignEnd ? 'bottom-end' : 'bottom-start';
-  if (drop === 'up') placement = alignEnd ? 'top-end' : 'top-start';else if (drop === 'right') placement = alignEnd ? 'right-end' : 'right-start';else if (drop === 'left') placement = alignEnd ? 'left-end' : 'left-start';
-  var popper = esm_usePopper(toggleElement, menuElement, mergeOptionsWithPopperConfig({
-    placement: placement,
-    enabled: !!(shouldUsePopper && show),
-    enableEvents: show,
-    offset: offset,
-    flip: flip,
-    fixed: fixed,
-    arrowElement: arrowElement,
-    popperConfig: popperConfig
+  const {
+    placement,
+    setMenu,
+    menuElement,
+    toggleElement
+  } = context || {};
+  const popper = esm_usePopper(toggleElement, menuElement, mergeOptionsWithPopperConfig({
+    placement: placementOverride || placement || 'bottom-start',
+    enabled: shouldUsePopper,
+    enableEvents: enableEventListeners == null ? show : enableEventListeners,
+    offset,
+    flip,
+    fixed,
+    arrowElement,
+    popperConfig
   }));
-
-  var menuProps = (0,esm_extends/* default */.Z)({
+  const menuProps = Object.assign({
     ref: setMenu || DropdownMenu_noop,
     'aria-labelledby': toggleElement == null ? void 0 : toggleElement.id
   }, popper.attributes.popper, {
     style: popper.styles.popper
   });
-
-  var metadata = {
-    show: show,
-    alignEnd: alignEnd,
+  const metadata = {
+    show,
+    placement,
     hasShown: hasShownRef.current,
     toggle: context == null ? void 0 : context.toggle,
     popper: shouldUsePopper ? popper : null,
-    arrowProps: shouldUsePopper ? (0,esm_extends/* default */.Z)({
+    arrowProps: shouldUsePopper ? Object.assign({
       ref: attachArrowRef
     }, popper.attributes.arrow, {
       style: popper.styles.arrow
     }) : {}
   };
-  esm_useRootClose(menuElement, handleClose, {
+  esm_useClickOutside(menuElement, handleClose, {
     clickTrigger: rootCloseEvent,
     disabled: !show
   });
   return [menuProps, metadata];
 }
-var propTypes = {
-  /**
-   * A render prop that returns a Menu element. The `props`
-   * argument should spread through to **a component that can accept a ref**.
-   *
-   * @type {Function ({
-   *   show: boolean,
-   *   alignEnd: boolean,
-   *   close: (?SyntheticEvent) => void,
-   *   placement: Placement,
-   *   update: () => void,
-   *   forceUpdate: () => void,
-   *   props: {
-   *     ref: (?HTMLElement) => void,
-   *     style: { [string]: string | number },
-   *     aria-labelledby: ?string
-   *   },
-   *   arrowProps: {
-   *     ref: (?HTMLElement) => void,
-   *     style: { [string]: string | number },
-   *   },
-   * }) => React.Element}
-   */
-  children: (prop_types_default()).func.isRequired,
-
-  /**
-   * Controls the visible state of the menu, generally this is
-   * provided by the parent `Dropdown` component,
-   * but may also be specified as a prop directly.
-   */
-  show: (prop_types_default()).bool,
-
-  /**
-   * Aligns the dropdown menu to the 'end' of it's placement position.
-   * Generally this is provided by the parent `Dropdown` component,
-   * but may also be specified as a prop directly.
-   */
-  alignEnd: (prop_types_default()).bool,
-
-  /**
-   * Enables the Popper.js `flip` modifier, allowing the Dropdown to
-   * automatically adjust it's placement in case of overlap with the viewport or toggle.
-   * Refer to the [flip docs](https://popper.js.org/popper-documentation.html#modifiers..flip.enabled) for more info
-   */
-  flip: (prop_types_default()).bool,
-  usePopper: prop_types_default().oneOf([true, false]),
-
-  /**
-   * A set of popper options and props passed directly to react-popper's Popper component.
-   */
-  popperConfig: (prop_types_default()).object,
-
-  /**
-   * Override the default event used by RootCloseWrapper.
-   */
-  rootCloseEvent: (prop_types_default()).string
-};
-var defaultProps = {
+const defaultProps = {
   usePopper: true
 };
 
@@ -8818,29 +9525,106 @@ var defaultProps = {
  * @displayName DropdownMenu
  * @memberOf Dropdown
  */
-function DropdownMenu(_ref2) {
-  var children = _ref2.children,
-      options = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref2, ["children"]);
+function DropdownMenu(_ref) {
+  let {
+    children
+  } = _ref,
+      options = DropdownMenu_objectWithoutPropertiesLoose(_ref, DropdownMenu_excluded);
 
-  var _useDropdownMenu = useDropdownMenu(options),
-      props = _useDropdownMenu[0],
-      meta = _useDropdownMenu[1];
-
-  return /*#__PURE__*/react.createElement(react.Fragment, null, meta.hasShown ? children(props, meta) : null);
+  const [props, meta] = useDropdownMenu(options);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: children(props, meta)
+  });
 }
 
-DropdownMenu.displayName = 'ReactOverlaysDropdownMenu';
-DropdownMenu.propTypes = propTypes;
+DropdownMenu.displayName = 'DropdownMenu';
 DropdownMenu.defaultProps = defaultProps;
 /** @component */
 
 /* harmony default export */ var esm_DropdownMenu = (DropdownMenu);
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/DropdownToggle.js
+;// CONCATENATED MODULE: ./node_modules/@react-aria/ssr/dist/module.js
+
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+var $9d939cbc98267846$exports = {};
+
+$parcel$export($9d939cbc98267846$exports, "SSRProvider", () => $9d939cbc98267846$export$9f8ac96af4b1b2ae);
+$parcel$export($9d939cbc98267846$exports, "useSSRSafeId", () => $9d939cbc98267846$export$619500959fc48b26);
+$parcel$export($9d939cbc98267846$exports, "useIsSSR", () => $9d939cbc98267846$export$535bd6ca7f90a273);
+
+// Default context value to use in case there is no SSRProvider. This is fine for
+// client-only apps. In order to support multiple copies of React Aria potentially
+// being on the page at once, the prefix is set to a random number. SSRProvider
+// will reset this to zero for consistency between server and client, so in the
+// SSR case multiple copies of React Aria is not supported.
+const $9d939cbc98267846$var$defaultContext = {
+    prefix: String(Math.round(Math.random() * 10000000000)),
+    current: 0
+};
+const $9d939cbc98267846$var$SSRContext = /*#__PURE__*/ react.createContext($9d939cbc98267846$var$defaultContext);
+function $9d939cbc98267846$export$9f8ac96af4b1b2ae(props) {
+    let cur = (0,react.useContext)($9d939cbc98267846$var$SSRContext);
+    let value = (0,react.useMemo)(()=>({
+            // If this is the first SSRProvider, start with an empty string prefix, otherwise
+            // append and increment the counter.
+            prefix: cur === $9d939cbc98267846$var$defaultContext ? '' : `${cur.prefix}-${++cur.current}`,
+            current: 0
+        })
+    , [
+        cur
+    ]);
+    return(/*#__PURE__*/ react.createElement($9d939cbc98267846$var$SSRContext.Provider, {
+        value: value
+    }, props.children));
+}
+let $9d939cbc98267846$var$canUseDOM = Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
+function $9d939cbc98267846$export$619500959fc48b26(defaultId) {
+    let ctx = (0,react.useContext)($9d939cbc98267846$var$SSRContext);
+    // If we are rendering in a non-DOM environment, and there's no SSRProvider,
+    // provide a warning to hint to the developer to add one.
+    if (ctx === $9d939cbc98267846$var$defaultContext && !$9d939cbc98267846$var$canUseDOM) console.warn('When server rendering, you must wrap your application in an <SSRProvider> to ensure consistent ids are generated between the client and server.');
+    return (0,react.useMemo)(()=>defaultId || `react-aria${ctx.prefix}-${++ctx.current}`
+    , [
+        defaultId
+    ]);
+}
+function $9d939cbc98267846$export$535bd6ca7f90a273() {
+    let cur = (0,react.useContext)($9d939cbc98267846$var$SSRContext);
+    let isInSSRContext = cur !== $9d939cbc98267846$var$defaultContext;
+    let [isSSR, setIsSSR] = (0,react.useState)(isInSSRContext);
+    // If on the client, and the component was initially server rendered,
+    // then schedule a layout effect to update the component after hydration.
+    if (typeof window !== 'undefined' && isInSSRContext) // This if statement technically breaks the rules of hooks, but is safe
+    // because the condition never changes after mounting.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    (0,react.useLayoutEffect)(()=>{
+        setIsSSR(false);
+    }, []);
+    return isSSR;
+}
 
 
 
 
-var DropdownToggle_noop = function noop() {};
+
+//# sourceMappingURL=module.js.map
+
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DropdownToggle.js
+
+
+
+
+
+
+const isRoleMenu = el => {
+  var _el$getAttribute;
+
+  return ((_el$getAttribute = el.getAttribute('role')) == null ? void 0 : _el$getAttribute.toLowerCase()) === 'menu';
+};
+
+const DropdownToggle_noop = () => {};
 /**
  * Wires up Dropdown toggle functionality, returning a set a props to attach
  * to the element that functions as the dropdown toggle (generally a button).
@@ -8850,44 +9634,34 @@ var DropdownToggle_noop = function noop() {};
 
 
 function useDropdownToggle() {
-  var _ref = (0,react.useContext)(esm_DropdownContext) || {},
-      _ref$show = _ref.show,
-      show = _ref$show === void 0 ? false : _ref$show,
-      _ref$toggle = _ref.toggle,
-      toggle = _ref$toggle === void 0 ? DropdownToggle_noop : _ref$toggle,
-      setToggle = _ref.setToggle;
-
-  var handleClick = (0,react.useCallback)(function (e) {
+  const id = $9d939cbc98267846$export$619500959fc48b26();
+  const {
+    show = false,
+    toggle = DropdownToggle_noop,
+    setToggle,
+    menuElement
+  } = (0,react.useContext)(esm_DropdownContext) || {};
+  const handleClick = (0,react.useCallback)(e => {
     toggle(!show, e);
   }, [show, toggle]);
-  return [{
+  const props = {
+    id,
     ref: setToggle || DropdownToggle_noop,
     onClick: handleClick,
-    'aria-haspopup': true,
     'aria-expanded': !!show
-  }, {
-    show: show,
-    toggle: toggle
+  }; // This is maybe better down in an effect, but
+  // the component is going to update anyway when the menu element
+  // is set so might return new props.
+
+  if (menuElement && isRoleMenu(menuElement)) {
+    props['aria-haspopup'] = true;
+  }
+
+  return [props, {
+    show,
+    toggle
   }];
 }
-var DropdownToggle_propTypes = {
-  /**
-   * A render prop that returns a Toggle element. The `props`
-   * argument should spread through to **a component that can accept a ref**. Use
-   * the `onToggle` argument to toggle the menu open or closed
-   *
-   * @type {Function ({
-   *   show: boolean,
-   *   toggle: (show: boolean) => void,
-   *   props: {
-   *     ref: (?HTMLElement) => void,
-   *     aria-haspopup: true
-   *     aria-expanded: boolean
-   *   },
-   * }) => React.Element}
-   */
-  children: (prop_types_default()).func.isRequired
-};
 
 /**
  * Also exported as `<Dropdown.Toggle>` from `Dropdown`.
@@ -8895,22 +9669,102 @@ var DropdownToggle_propTypes = {
  * @displayName DropdownToggle
  * @memberOf Dropdown
  */
-function DropdownToggle(_ref2) {
-  var children = _ref2.children;
-
-  var _useDropdownToggle = useDropdownToggle(),
-      props = _useDropdownToggle[0],
-      meta = _useDropdownToggle[1];
-
-  return /*#__PURE__*/react.createElement(react.Fragment, null, children(props, meta));
+function DropdownToggle({
+  children
+}) {
+  const [props, meta] = useDropdownToggle();
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: children(props, meta)
+  });
 }
 
-DropdownToggle.displayName = 'ReactOverlaysDropdownToggle';
-DropdownToggle.propTypes = DropdownToggle_propTypes;
+DropdownToggle.displayName = 'DropdownToggle';
 /** @component */
 
 /* harmony default export */ var esm_DropdownToggle = (DropdownToggle);
-;// CONCATENATED MODULE: ./node_modules/react-overlays/esm/Dropdown.js
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/SelectableContext.js
+var SelectableContext = __webpack_require__(7126);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/NavContext.js
+var NavContext = __webpack_require__(6056);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/Button.js
+var Button = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/DataKey.js
+var DataKey = __webpack_require__(2747);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DropdownItem.js
+const DropdownItem_excluded = ["eventKey", "disabled", "onClick", "active", "as"];
+
+function DropdownItem_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+
+
+
+
+
+/**
+ * Create a dropdown item. Returns a set of props for the dropdown item component
+ * including an `onClick` handler that prevents selection when the item is disabled
+ */
+function useDropdownItem({
+  key,
+  href,
+  active,
+  disabled,
+  onClick
+}) {
+  const onSelectCtx = (0,react.useContext)(SelectableContext/* default */.Z);
+  const navContext = (0,react.useContext)(NavContext/* default */.Z);
+  const {
+    activeKey
+  } = navContext || {};
+  const eventKey = (0,SelectableContext/* makeEventKey */.h)(key, href);
+  const isActive = active == null && key != null ? (0,SelectableContext/* makeEventKey */.h)(activeKey) === eventKey : active;
+  const handleClick = (0,useEventCallback/* default */.Z)(event => {
+    if (disabled) return;
+    onClick == null ? void 0 : onClick(event);
+
+    if (onSelectCtx && !event.isPropagationStopped()) {
+      onSelectCtx(eventKey, event);
+    }
+  });
+  return [{
+    onClick: handleClick,
+    'aria-disabled': disabled || undefined,
+    'aria-selected': isActive,
+    [(0,DataKey/* dataAttr */.PB)('dropdown-item')]: ''
+  }, {
+    isActive
+  }];
+}
+const DropdownItem = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  let {
+    eventKey,
+    disabled,
+    onClick,
+    active,
+    as: Component = Button/* default */.ZP
+  } = _ref,
+      props = DropdownItem_objectWithoutPropertiesLoose(_ref, DropdownItem_excluded);
+
+  const [dropdownItemProps] = useDropdownItem({
+    key: eventKey,
+    href: props.href,
+    disabled,
+    onClick,
+    active
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({}, props, {
+    ref: ref
+  }, dropdownItemProps));
+});
+DropdownItem.displayName = 'DropdownItem';
+/* harmony default export */ var esm_DropdownItem = (DropdownItem);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/useWindow.js
+var useWindow = __webpack_require__(2963);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Dropdown.js
 
 
 
@@ -8924,79 +9778,15 @@ DropdownToggle.propTypes = DropdownToggle_propTypes;
 
 
 
-var Dropdown_propTypes = {
-  /**
-   * A render prop that returns the root dropdown element. The `props`
-   * argument should spread through to an element containing _both_ the
-   * menu and toggle in order to handle keyboard events for focus management.
-   *
-   * @type {Function ({
-   *   props: {
-   *     onKeyDown: (SyntheticEvent) => void,
-   *   },
-   * }) => React.Element}
-   */
-  children: (prop_types_default()).node,
 
-  /**
-   * Determines the direction and location of the Menu in relation to it's Toggle.
-   */
-  drop: prop_types_default().oneOf(['up', 'left', 'right', 'down']),
 
-  /**
-   * Controls the focus behavior for when the Dropdown is opened. Set to
-   * `true` to always focus the first menu item, `keyboard` to focus only when
-   * navigating via the keyboard, or `false` to disable completely
-   *
-   * The Default behavior is `false` **unless** the Menu has a `role="menu"`
-   * where it will default to `keyboard` to match the recommended [ARIA Authoring practices](https://www.w3.org/TR/wai-aria-practices-1.1/#menubutton).
-   */
-  focusFirstItemOnShow: prop_types_default().oneOf([false, true, 'keyboard']),
 
-  /**
-   * A css slector string that will return __focusable__ menu items.
-   * Selectors should be relative to the menu component:
-   * e.g. ` > li:not('.disabled')`
-   */
-  itemSelector: (prop_types_default()).string,
 
-  /**
-   * Align the menu to the 'end' side of the placement side of the Dropdown toggle. The default placement is `top-start` or `bottom-start`.
-   */
-  alignEnd: (prop_types_default()).bool,
-
-  /**
-   * Whether or not the Dropdown is visible.
-   *
-   * @controllable onToggle
-   */
-  show: (prop_types_default()).bool,
-
-  /**
-   * Sets the initial show position of the Dropdown.
-   */
-  defaultShow: (prop_types_default()).bool,
-
-  /**
-   * A callback fired when the Dropdown wishes to change visibility. Called with the requested
-   * `show` value, the DOM event, and the source that fired it: `'click'`,`'keydown'`,`'rootClose'`, or `'select'`.
-   *
-   * ```ts static
-   * function(
-   *   isOpen: boolean,
-   *   event: SyntheticEvent,
-   * ): void
-   * ```
-   *
-   * @controllable show
-   */
-  onToggle: (prop_types_default()).func
-};
 
 function useRefWithUpdate() {
-  var forceUpdate = (0,useForceUpdate/* default */.Z)();
-  var ref = (0,react.useRef)(null);
-  var attachRef = (0,react.useCallback)(function (element) {
+  const forceUpdate = (0,useForceUpdate/* default */.Z)();
+  const ref = (0,react.useRef)(null);
+  const attachRef = (0,react.useCallback)(element => {
     ref.current = element; // ensure that a menu set triggers an update for consumers
 
     forceUpdate();
@@ -9009,108 +9799,109 @@ function useRefWithUpdate() {
  */
 
 
-function Dropdown(_ref) {
-  var drop = _ref.drop,
-      alignEnd = _ref.alignEnd,
-      defaultShow = _ref.defaultShow,
-      rawShow = _ref.show,
-      rawOnToggle = _ref.onToggle,
-      _ref$itemSelector = _ref.itemSelector,
-      itemSelector = _ref$itemSelector === void 0 ? '* > *' : _ref$itemSelector,
-      focusFirstItemOnShow = _ref.focusFirstItemOnShow,
-      children = _ref.children;
-
-  var _useUncontrolledProp = (0,esm/* useUncontrolledProp */.$c)(rawShow, defaultShow, rawOnToggle),
-      show = _useUncontrolledProp[0],
-      onToggle = _useUncontrolledProp[1]; // We use normal refs instead of useCallbackRef in order to populate the
+function Dropdown({
+  defaultShow,
+  show: rawShow,
+  onSelect,
+  onToggle: rawOnToggle,
+  itemSelector = `* [${(0,DataKey/* dataAttr */.PB)('dropdown-item')}]`,
+  focusFirstItemOnShow,
+  placement = 'bottom-start',
+  children
+}) {
+  const window = (0,useWindow/* default */.Z)();
+  const [show, onToggle] = (0,esm/* useUncontrolledProp */.$c)(rawShow, defaultShow, rawOnToggle); // We use normal refs instead of useCallbackRef in order to populate the
   // the value as quickly as possible, otherwise the effect to focus the element
   // may run before the state value is set
 
-
-  var _useRefWithUpdate = useRefWithUpdate(),
-      menuRef = _useRefWithUpdate[0],
-      setMenu = _useRefWithUpdate[1];
-
-  var menuElement = menuRef.current;
-
-  var _useRefWithUpdate2 = useRefWithUpdate(),
-      toggleRef = _useRefWithUpdate2[0],
-      setToggle = _useRefWithUpdate2[1];
-
-  var toggleElement = toggleRef.current;
-  var lastShow = usePrevious(show);
-  var lastSourceEvent = (0,react.useRef)(null);
-  var focusInDropdown = (0,react.useRef)(false);
-  var toggle = (0,react.useCallback)(function (nextShow, event) {
-    onToggle(nextShow, event);
+  const [menuRef, setMenu] = useRefWithUpdate();
+  const menuElement = menuRef.current;
+  const [toggleRef, setToggle] = useRefWithUpdate();
+  const toggleElement = toggleRef.current;
+  const lastShow = (0,usePrevious/* default */.Z)(show);
+  const lastSourceEvent = (0,react.useRef)(null);
+  const focusInDropdown = (0,react.useRef)(false);
+  const onSelectCtx = (0,react.useContext)(SelectableContext/* default */.Z);
+  const toggle = (0,react.useCallback)((nextShow, event, source = event == null ? void 0 : event.type) => {
+    onToggle(nextShow, {
+      originalEvent: event,
+      source
+    });
   }, [onToggle]);
-  var context = (0,react.useMemo)(function () {
-    return {
-      toggle: toggle,
-      drop: drop,
-      show: show,
-      alignEnd: alignEnd,
-      menuElement: menuElement,
-      toggleElement: toggleElement,
-      setMenu: setMenu,
-      setToggle: setToggle
-    };
-  }, [toggle, drop, show, alignEnd, menuElement, toggleElement, setMenu, setToggle]);
+  const handleSelect = (0,useEventCallback/* default */.Z)((key, event) => {
+    onSelect == null ? void 0 : onSelect(key, event);
+    toggle(false, event, 'select');
+
+    if (!event.isPropagationStopped()) {
+      onSelectCtx == null ? void 0 : onSelectCtx(key, event);
+    }
+  });
+  const context = (0,react.useMemo)(() => ({
+    toggle,
+    placement,
+    show,
+    menuElement,
+    toggleElement,
+    setMenu,
+    setToggle
+  }), [toggle, placement, show, menuElement, toggleElement, setMenu, setToggle]);
 
   if (menuElement && lastShow && !show) {
-    focusInDropdown.current = menuElement.contains(document.activeElement);
+    focusInDropdown.current = menuElement.contains(menuElement.ownerDocument.activeElement);
   }
 
-  var focusToggle = (0,useEventCallback/* default */.Z)(function () {
+  const focusToggle = (0,useEventCallback/* default */.Z)(() => {
     if (toggleElement && toggleElement.focus) {
       toggleElement.focus();
     }
   });
-  var maybeFocusFirst = (0,useEventCallback/* default */.Z)(function () {
-    var type = lastSourceEvent.current;
-    var focusType = focusFirstItemOnShow;
+  const maybeFocusFirst = (0,useEventCallback/* default */.Z)(() => {
+    const type = lastSourceEvent.current;
+    let focusType = focusFirstItemOnShow;
 
     if (focusType == null) {
-      focusType = menuRef.current && matches(menuRef.current, '[role=menu]') ? 'keyboard' : false;
+      focusType = menuRef.current && isRoleMenu(menuRef.current) ? 'keyboard' : false;
     }
 
     if (focusType === false || focusType === 'keyboard' && !/^key.+$/.test(type)) {
       return;
     }
 
-    var first = (0,querySelectorAll/* default */.Z)(menuRef.current, itemSelector)[0];
+    const first = (0,querySelectorAll/* default */.Z)(menuRef.current, itemSelector)[0];
     if (first && first.focus) first.focus();
   });
-  (0,react.useEffect)(function () {
+  (0,react.useEffect)(() => {
     if (show) maybeFocusFirst();else if (focusInDropdown.current) {
       focusInDropdown.current = false;
       focusToggle();
     } // only `show` should be changing
   }, [show, focusInDropdown, focusToggle, maybeFocusFirst]);
-  (0,react.useEffect)(function () {
+  (0,react.useEffect)(() => {
     lastSourceEvent.current = null;
   });
 
-  var getNextFocusedChild = function getNextFocusedChild(current, offset) {
+  const getNextFocusedChild = (current, offset) => {
     if (!menuRef.current) return null;
-    var items = (0,querySelectorAll/* default */.Z)(menuRef.current, itemSelector);
-    var index = items.indexOf(current) + offset;
+    const items = (0,querySelectorAll/* default */.Z)(menuRef.current, itemSelector);
+    let index = items.indexOf(current) + offset;
     index = Math.max(0, Math.min(index, items.length));
     return items[index];
   };
 
-  useGlobalListener('keydown', function (event) {
+  (0,useEventListener/* default */.Z)((0,react.useCallback)(() => window.document, [window]), 'keydown', event => {
     var _menuRef$current, _toggleRef$current;
 
-    var key = event.key;
-    var target = event.target;
-    var fromMenu = (_menuRef$current = menuRef.current) == null ? void 0 : _menuRef$current.contains(target);
-    var fromToggle = (_toggleRef$current = toggleRef.current) == null ? void 0 : _toggleRef$current.contains(target); // Second only to https://github.com/twbs/bootstrap/blob/8cfbf6933b8a0146ac3fbc369f19e520bd1ebdac/js/src/dropdown.js#L400
+    const {
+      key
+    } = event;
+    const target = event.target;
+    const fromMenu = (_menuRef$current = menuRef.current) == null ? void 0 : _menuRef$current.contains(target);
+    const fromToggle = (_toggleRef$current = toggleRef.current) == null ? void 0 : _toggleRef$current.contains(target); // Second only to https://github.com/twbs/bootstrap/blob/8cfbf6933b8a0146ac3fbc369f19e520bd1ebdac/js/src/dropdown.js#L400
     // in inscrutability
 
-    var isInput = /input|textarea/i.test(target.tagName);
+    const isInput = /input|textarea/i.test(target.tagName);
 
-    if (isInput && (key === ' ' || key !== 'Escape' && fromMenu)) {
+    if (isInput && (key === ' ' || key !== 'Escape' && fromMenu || key === 'Escape' && target.type === 'search')) {
       return;
     }
 
@@ -9118,16 +9909,20 @@ function Dropdown(_ref) {
       return;
     }
 
-    if (!menuRef.current && key === 'Tab') {
+    if (key === 'Tab' && (!menuRef.current || !show)) {
       return;
     }
 
     lastSourceEvent.current = event.type;
+    const meta = {
+      originalEvent: event,
+      source: event.type
+    };
 
     switch (key) {
       case 'ArrowUp':
         {
-          var next = getNextFocusedChild(target, -1);
+          const next = getNextFocusedChild(target, -1);
           if (next && next.focus) next.focus();
           event.preventDefault();
           return;
@@ -9137,11 +9932,10 @@ function Dropdown(_ref) {
         event.preventDefault();
 
         if (!show) {
-          onToggle(true, event);
+          onToggle(true, meta);
         } else {
-          var _next = getNextFocusedChild(target, 1);
-
-          if (_next && _next.focus) _next.focus();
+          const next = getNextFocusedChild(target, 1);
+          if (next && next.focus) next.focus();
         }
 
         return;
@@ -9151,11 +9945,11 @@ function Dropdown(_ref) {
         // to know if this event is relevant to this dropdown (e.g. in this menu).
         // On `keyup` the target is the element being tagged TO which we use to check
         // if focus has left the menu
-        (0,addEventListener/* default */.ZP)(document, 'keyup', function (e) {
+        (0,addEventListener/* default */.ZP)(target.ownerDocument, 'keyup', e => {
           var _menuRef$current2;
 
           if (e.key === 'Tab' && !e.target || !((_menuRef$current2 = menuRef.current) != null && _menuRef$current2.contains(e.target))) {
-            onToggle(false, event);
+            onToggle(false, meta);
           }
         }, {
           once: true
@@ -9163,93 +9957,80 @@ function Dropdown(_ref) {
         break;
 
       case 'Escape':
-        event.preventDefault();
-        event.stopPropagation();
-        onToggle(false, event);
+        if (key === 'Escape') {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        onToggle(false, meta);
         break;
 
       default:
     }
   });
-  return /*#__PURE__*/react.createElement(esm_DropdownContext.Provider, {
-    value: context
-  }, children);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(SelectableContext/* default.Provider */.Z.Provider, {
+    value: handleSelect,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(esm_DropdownContext.Provider, {
+      value: context,
+      children: children
+    })
+  });
 }
 
-Dropdown.displayName = 'ReactOverlaysDropdown';
-Dropdown.propTypes = Dropdown_propTypes;
+Dropdown.displayName = 'Dropdown';
 Dropdown.Menu = esm_DropdownMenu;
 Dropdown.Toggle = esm_DropdownToggle;
+Dropdown.Item = esm_DropdownItem;
 /* harmony default export */ var esm_Dropdown = (Dropdown);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SelectableContext.js
-var SelectableContext = __webpack_require__(5017);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavContext.js
-var NavContext = __webpack_require__(590);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SafeAnchor.js
-var SafeAnchor = __webpack_require__(8358);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownContext.js
+
+const DropdownContext_DropdownContext = /*#__PURE__*/react.createContext({});
+DropdownContext_DropdownContext.displayName = 'DropdownContext';
+/* harmony default export */ var react_bootstrap_esm_DropdownContext = (DropdownContext_DropdownContext);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/Anchor.js + 8 modules
+var Anchor = __webpack_require__(3735);
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownItem.js
 
 
-var _excluded = ["bsPrefix", "className", "children", "eventKey", "disabled", "href", "onClick", "onSelect", "active", "as"];
 
 
 
 
-
-
-
-var DropdownItem_defaultProps = {
-  as: SafeAnchor/* default */.Z,
-  disabled: false
-};
-var DropdownItem = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      children = _ref.children,
-      eventKey = _ref.eventKey,
-      disabled = _ref.disabled,
-      href = _ref.href,
-      onClick = _ref.onClick,
-      onSelect = _ref.onSelect,
-      propActive = _ref.active,
-      Component = _ref.as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
-
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-item');
-  var onSelectCtx = (0,react.useContext)(SelectableContext/* default */.Z);
-  var navContext = (0,react.useContext)(NavContext/* default */.Z);
-
-  var _ref2 = navContext || {},
-      activeKey = _ref2.activeKey;
-
-  var key = (0,SelectableContext/* makeEventKey */.h)(eventKey, href);
-  var active = propActive == null && key != null ? (0,SelectableContext/* makeEventKey */.h)(activeKey) === key : propActive;
-  var handleClick = (0,useEventCallback/* default */.Z)(function (event) {
-    // SafeAnchor handles the disabled case, but we handle it here
-    // for other components
-    if (disabled) return;
-    if (onClick) onClick(event);
-    if (onSelectCtx) onSelectCtx(key, event);
-    if (onSelect) onSelect(key, event);
+const DropdownItem_DropdownItem = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  eventKey,
+  disabled = false,
+  onClick,
+  active,
+  as: Component = Anchor/* default */.Z,
+  ...props
+}, ref) => {
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-item');
+  const [dropdownItemProps, meta] = useDropdownItem({
+    key: eventKey,
+    href: props.href,
+    disabled,
+    onClick,
+    active
   });
-  return (
-    /*#__PURE__*/
-    // "TS2604: JSX element type 'Component' does not have any construct or call signatures."
-    // @ts-ignore
-    react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-      ref: ref,
-      href: href,
-      disabled: disabled,
-      className: classnames_default()(className, prefix, active && 'active', disabled && 'disabled'),
-      onClick: handleClick
-    }), children)
-  );
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+    ...dropdownItemProps,
+    ref: ref,
+    className: classnames_default()(className, prefix, meta.isActive && 'active', disabled && 'disabled')
+  });
 });
-DropdownItem.displayName = 'DropdownItem';
-DropdownItem.defaultProps = DropdownItem_defaultProps;
-/* harmony default export */ var esm_DropdownItem = (DropdownItem);
+DropdownItem_DropdownItem.displayName = 'DropdownItem';
+/* harmony default export */ var react_bootstrap_esm_DropdownItem = (DropdownItem_DropdownItem);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js
+var useIsomorphicEffect = __webpack_require__(9585);
 // EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMergedRefs.js
 var useMergedRefs = __webpack_require__(5654);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/InputGroupContext.js
+
+const context = /*#__PURE__*/react.createContext(null);
+context.displayName = 'InputGroupContext';
+/* harmony default export */ var InputGroupContext = (context);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
 var NavbarContext = __webpack_require__(4819);
 // EXTERNAL MODULE: ./node_modules/invariant/browser.js
@@ -9263,12 +10044,1759 @@ function useWrappedRefWithWarning(ref, componentName) {
   // @ts-ignore
   if (true) return ref; // eslint-disable-next-line react-hooks/rules-of-hooks
 
-  var warningRef = (0,react.useCallback)(function (refValue) {
+  const warningRef = (0,react.useCallback)(refValue => {
     !(refValue == null || !refValue.isReactComponent) ?  false ? 0 : browser_default()(false) : void 0;
   }, [componentName]); // eslint-disable-next-line react-hooks/rules-of-hooks
 
   return (0,useMergedRefs/* default */.Z)(warningRef, ref);
 }
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownMenu.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const DropdownMenu_defaultProps = {
+  flip: true
+};
+function getDropdownMenuPlacement(alignEnd, dropDirection, isRTL) {
+  const topStart = isRTL ? 'top-end' : 'top-start';
+  const topEnd = isRTL ? 'top-start' : 'top-end';
+  const bottomStart = isRTL ? 'bottom-end' : 'bottom-start';
+  const bottomEnd = isRTL ? 'bottom-start' : 'bottom-end';
+  const leftStart = isRTL ? 'right-start' : 'left-start';
+  const leftEnd = isRTL ? 'right-end' : 'left-end';
+  const rightStart = isRTL ? 'left-start' : 'right-start';
+  const rightEnd = isRTL ? 'left-end' : 'right-end';
+  let placement = alignEnd ? bottomEnd : bottomStart;
+  if (dropDirection === 'up') placement = alignEnd ? topEnd : topStart;else if (dropDirection === 'end') placement = alignEnd ? rightEnd : rightStart;else if (dropDirection === 'start') placement = alignEnd ? leftEnd : leftStart;
+  return placement;
+}
+const DropdownMenu_DropdownMenu = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  align,
+  rootCloseEvent,
+  flip,
+  show: showProps,
+  renderOnMount,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  popperConfig,
+  variant,
+  ...props
+}, ref) => {
+  let alignEnd = false;
+  const isNavbar = (0,react.useContext)(NavbarContext/* default */.Z);
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-menu');
+  const {
+    align: contextAlign,
+    drop,
+    isRTL
+  } = (0,react.useContext)(react_bootstrap_esm_DropdownContext);
+  align = align || contextAlign;
+  const isInputGroup = (0,react.useContext)(InputGroupContext);
+  const alignClasses = [];
+
+  if (align) {
+    if (typeof align === 'object') {
+      const keys = Object.keys(align);
+       false ? 0 : void 0;
+
+      if (keys.length) {
+        const brkPoint = keys[0];
+        const direction = align[brkPoint]; // .dropdown-menu-end is required for responsively aligning
+        // left in addition to align left classes.
+
+        alignEnd = direction === 'start';
+        alignClasses.push(`${prefix}-${brkPoint}-${direction}`);
+      }
+    } else if (align === 'end') {
+      alignEnd = true;
+    }
+  }
+
+  const placement = getDropdownMenuPlacement(alignEnd, drop, isRTL);
+  const [menuProps, {
+    hasShown,
+    popper,
+    show,
+    toggle
+  }] = useDropdownMenu({
+    flip,
+    rootCloseEvent,
+    show: showProps,
+    usePopper: !isNavbar && alignClasses.length === 0,
+    offset: [0, 2],
+    popperConfig,
+    placement
+  });
+  menuProps.ref = (0,useMergedRefs/* default */.Z)(useWrappedRefWithWarning(ref, 'DropdownMenu'), menuProps.ref);
+  (0,useIsomorphicEffect/* default */.Z)(() => {
+    // Popper's initial position for the menu is incorrect when
+    // renderOnMount=true. Need to call update() to correct it.
+    if (show) popper == null ? void 0 : popper.update();
+  }, [show]);
+  if (!hasShown && !renderOnMount && !isInputGroup) return null; // For custom components provide additional, non-DOM, props;
+
+  if (typeof Component !== 'string') {
+    menuProps.show = show;
+
+    menuProps.close = () => toggle == null ? void 0 : toggle(false);
+
+    menuProps.align = align;
+  }
+
+  let style = props.style;
+
+  if (popper != null && popper.placement) {
+    // we don't need the default popper style,
+    // menus are display: none when not shown.
+    style = { ...props.style,
+      ...menuProps.style
+    };
+    props['x-placement'] = popper.placement;
+  }
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+    ...menuProps,
+    style: style // Bootstrap css requires this data attrib to style responsive menus.
+    ,
+    ...((alignClasses.length || isNavbar) && {
+      'data-bs-popper': 'static'
+    }),
+    className: classnames_default()(className, prefix, show && 'show', alignEnd && `${prefix}-end`, variant && `${prefix}-${variant}`, ...alignClasses)
+  });
+});
+DropdownMenu_DropdownMenu.displayName = 'DropdownMenu';
+DropdownMenu_DropdownMenu.defaultProps = DropdownMenu_defaultProps;
+/* harmony default export */ var react_bootstrap_esm_DropdownMenu = (DropdownMenu_DropdownMenu);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Button.js
+var esm_Button = __webpack_require__(5005);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownToggle.js
+
+
+
+
+
+
+
+
+
+
+
+const DropdownToggle_DropdownToggle = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  split,
+  className,
+  childBsPrefix,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = esm_Button/* default */.Z,
+  ...props
+}, ref) => {
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-toggle');
+  const dropdownContext = (0,react.useContext)(esm_DropdownContext);
+  const isInputGroup = (0,react.useContext)(InputGroupContext);
+
+  if (childBsPrefix !== undefined) {
+    props.bsPrefix = childBsPrefix;
+  }
+
+  const [toggleProps] = useDropdownToggle();
+  toggleProps.ref = (0,useMergedRefs/* default */.Z)(toggleProps.ref, useWrappedRefWithWarning(ref, 'DropdownToggle')); // This intentionally forwards size and variant (if set) to the
+  // underlying component, to allow it to render size and style variants.
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    className: classnames_default()(className, prefix, split && `${prefix}-split`, !!isInputGroup && (dropdownContext == null ? void 0 : dropdownContext.show) && 'show'),
+    ...toggleProps,
+    ...props
+  });
+});
+DropdownToggle_DropdownToggle.displayName = 'DropdownToggle';
+/* harmony default export */ var react_bootstrap_esm_DropdownToggle = (DropdownToggle_DropdownToggle);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
+var createWithBsPrefix = __webpack_require__(4680);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Dropdown.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const DropdownHeader = (0,createWithBsPrefix/* default */.Z)('dropdown-header', {
+  defaultProps: {
+    role: 'heading'
+  }
+});
+const DropdownDivider = (0,createWithBsPrefix/* default */.Z)('dropdown-divider', {
+  Component: 'hr',
+  defaultProps: {
+    role: 'separator'
+  }
+});
+const DropdownItemText = (0,createWithBsPrefix/* default */.Z)('dropdown-item-text', {
+  Component: 'span'
+});
+const Dropdown_defaultProps = {
+  navbar: false,
+  align: 'start',
+  autoClose: true
+};
+const Dropdown_Dropdown = /*#__PURE__*/react.forwardRef((pProps, ref) => {
+  const {
+    bsPrefix,
+    drop,
+    show,
+    className,
+    align,
+    onSelect,
+    onToggle,
+    focusFirstItemOnShow,
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'div',
+    navbar: _4,
+    autoClose,
+    ...props
+  } = (0,esm/* useUncontrolled */.Ch)(pProps, {
+    show: 'onToggle'
+  });
+  const isInputGroup = (0,react.useContext)(InputGroupContext);
+  const prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown');
+  const isRTL = (0,ThemeProvider/* useIsRTL */.SC)();
+
+  const isClosingPermitted = source => {
+    // autoClose=false only permits close on button click
+    if (autoClose === false) return source === 'click'; // autoClose=inside doesn't permit close on rootClose
+
+    if (autoClose === 'inside') return source !== 'rootClose'; // autoClose=outside doesn't permit close on select
+
+    if (autoClose === 'outside') return source !== 'select';
+    return true;
+  };
+
+  const handleToggle = (0,useEventCallback/* default */.Z)((nextShow, meta) => {
+    if (meta.originalEvent.currentTarget === document && (meta.source !== 'keydown' || meta.originalEvent.key === 'Escape')) meta.source = 'rootClose';
+    if (isClosingPermitted(meta.source)) onToggle == null ? void 0 : onToggle(nextShow, meta);
+  });
+  const alignEnd = align === 'end';
+  const placement = getDropdownMenuPlacement(alignEnd, drop, isRTL);
+  const contextValue = (0,react.useMemo)(() => ({
+    align,
+    drop,
+    isRTL
+  }), [align, drop, isRTL]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(react_bootstrap_esm_DropdownContext.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Dropdown, {
+      placement: placement,
+      show: show,
+      onSelect: onSelect,
+      onToggle: handleToggle,
+      focusFirstItemOnShow: focusFirstItemOnShow,
+      itemSelector: `.${prefix}-item:not(.disabled):not(:disabled)`,
+      children: isInputGroup ? props.children : /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+        ref: ref,
+        className: classnames_default()(className, show && 'show', (!drop || drop === 'down') && prefix, drop === 'up' && 'dropup', drop === 'end' && 'dropend', drop === 'start' && 'dropstart')
+      })
+    })
+  });
+});
+Dropdown_Dropdown.displayName = 'Dropdown';
+Dropdown_Dropdown.defaultProps = Dropdown_defaultProps;
+/* harmony default export */ var react_bootstrap_esm_Dropdown = (Object.assign(Dropdown_Dropdown, {
+  Toggle: react_bootstrap_esm_DropdownToggle,
+  Menu: react_bootstrap_esm_DropdownMenu,
+  Item: react_bootstrap_esm_DropdownItem,
+  ItemText: DropdownItemText,
+  Divider: DropdownDivider,
+  Header: DropdownHeader
+}));
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavLink.js
+var NavLink = __webpack_require__(4691);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavDropdown.js
+
+
+
+
+
+
+
+const NavDropdown = /*#__PURE__*/react.forwardRef(({
+  id,
+  title,
+  children,
+  bsPrefix,
+  className,
+  rootCloseEvent,
+  menuRole,
+  disabled,
+  active,
+  renderMenuOnMount,
+  menuVariant,
+  ...props
+}, ref) => {
+  /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
+  const navItemPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(undefined, 'nav-item');
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)(react_bootstrap_esm_Dropdown, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, navItemPrefix),
+    children: [/*#__PURE__*/(0,jsx_runtime.jsx)(react_bootstrap_esm_Dropdown.Toggle, {
+      id: id,
+      eventKey: null,
+      active: active,
+      disabled: disabled,
+      childBsPrefix: bsPrefix,
+      as: NavLink/* default */.Z,
+      children: title
+    }), /*#__PURE__*/(0,jsx_runtime.jsx)(react_bootstrap_esm_Dropdown.Menu, {
+      role: menuRole,
+      renderOnMount: renderMenuOnMount,
+      rootCloseEvent: rootCloseEvent,
+      variant: menuVariant,
+      children: children
+    })]
+  });
+});
+NavDropdown.displayName = 'NavDropdown';
+/* harmony default export */ var esm_NavDropdown = (Object.assign(NavDropdown, {
+  Item: react_bootstrap_esm_Dropdown.Item,
+  ItemText: react_bootstrap_esm_Dropdown.ItemText,
+  Divider: react_bootstrap_esm_Dropdown.Divider,
+  Header: react_bootstrap_esm_Dropdown.Header
+}));
+
+/***/ }),
+
+/***/ 4691:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
+/* harmony import */ var _restart_ui_Anchor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3735);
+/* harmony import */ var _restart_ui_NavItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3716);
+/* harmony import */ var _restart_ui_SelectableContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7126);
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6792);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
+
+
+
+
+
+
+
+const defaultProps = {
+  disabled: false
+};
+const NavLink = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  bsPrefix,
+  className,
+  as: Component = _restart_ui_Anchor__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z,
+  active,
+  eventKey,
+  ...props
+}, ref) => {
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_4__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'nav-link');
+  const [navItemProps, meta] = (0,_restart_ui_NavItem__WEBPACK_IMPORTED_MODULE_5__/* .useNavItem */ .v)({
+    key: (0,_restart_ui_SelectableContext__WEBPACK_IMPORTED_MODULE_6__/* .makeEventKey */ .h)(eventKey, props.href),
+    active,
+    ...props
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, { ...props,
+    ...navItemProps,
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, bsPrefix, props.disabled && 'disabled', meta.isActive && 'active')
+  });
+});
+NavLink.displayName = 'NavLink';
+NavLink.defaultProps = defaultProps;
+/* harmony default export */ __webpack_exports__["Z"] = (NavLink);
+
+/***/ }),
+
+/***/ 1017:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ esm_Navbar; }
+});
+
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4184);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/SelectableContext.js
+var SelectableContext = __webpack_require__(7126);
+// EXTERNAL MODULE: ./node_modules/uncontrollable/lib/esm/index.js + 3 modules
+var esm = __webpack_require__(8977);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
+var createWithBsPrefix = __webpack_require__(4680);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
+var ThemeProvider = __webpack_require__(6792);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarBrand.js
+
+
+
+
+const NavbarBrand = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  as,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-brand');
+  const Component = as || (props.href ? 'a' : 'span');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+    ref: ref,
+    className: classnames_default()(className, bsPrefix)
+  });
+});
+NavbarBrand.displayName = 'NavbarBrand';
+/* harmony default export */ var esm_NavbarBrand = (NavbarBrand);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/css.js + 5 modules
+var css = __webpack_require__(3164);
+// EXTERNAL MODULE: ./node_modules/react-transition-group/esm/Transition.js + 2 modules
+var Transition = __webpack_require__(660);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/transitionEndListener.js + 2 modules
+var transitionEndListener = __webpack_require__(492);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/createChainedFunction.js
+/**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+function createChainedFunction(...funcs) {
+  return funcs.filter(f => f != null).reduce((acc, f) => {
+    if (typeof f !== 'function') {
+      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
+    }
+
+    if (acc === null) return f;
+    return function chainedFunction(...args) {
+      // @ts-ignore
+      acc.apply(this, args); // @ts-ignore
+
+      f.apply(this, args);
+    };
+  }, null);
+}
+
+/* harmony default export */ var esm_createChainedFunction = (createChainedFunction);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js
+var triggerBrowserReflow = __webpack_require__(4509);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/TransitionWrapper.js + 1 modules
+var TransitionWrapper = __webpack_require__(360);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Collapse.js
+
+
+
+
+
+
+
+
+
+const MARGINS = {
+  height: ['marginTop', 'marginBottom'],
+  width: ['marginLeft', 'marginRight']
+};
+
+function getDefaultDimensionValue(dimension, elem) {
+  const offset = `offset${dimension[0].toUpperCase()}${dimension.slice(1)}`;
+  const value = elem[offset];
+  const margins = MARGINS[dimension];
+  return value + // @ts-ignore
+  parseInt((0,css/* default */.Z)(elem, margins[0]), 10) + // @ts-ignore
+  parseInt((0,css/* default */.Z)(elem, margins[1]), 10);
+}
+
+const collapseStyles = {
+  [Transition/* EXITED */.Wj]: 'collapse',
+  [Transition/* EXITING */.Ix]: 'collapsing',
+  [Transition/* ENTERING */.d0]: 'collapsing',
+  [Transition/* ENTERED */.cn]: 'collapse show'
+};
+const defaultProps = {
+  in: false,
+  timeout: 300,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  getDimensionValue: getDefaultDimensionValue
+};
+const Collapse = /*#__PURE__*/react.forwardRef(({
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  className,
+  children,
+  dimension = 'height',
+  getDimensionValue = getDefaultDimensionValue,
+  ...props
+}, ref) => {
+  /* Compute dimension */
+  const computedDimension = typeof dimension === 'function' ? dimension() : dimension;
+  /* -- Expanding -- */
+
+  const handleEnter = (0,react.useMemo)(() => esm_createChainedFunction(elem => {
+    elem.style[computedDimension] = '0';
+  }, onEnter), [computedDimension, onEnter]);
+  const handleEntering = (0,react.useMemo)(() => esm_createChainedFunction(elem => {
+    const scroll = `scroll${computedDimension[0].toUpperCase()}${computedDimension.slice(1)}`;
+    elem.style[computedDimension] = `${elem[scroll]}px`;
+  }, onEntering), [computedDimension, onEntering]);
+  const handleEntered = (0,react.useMemo)(() => esm_createChainedFunction(elem => {
+    elem.style[computedDimension] = null;
+  }, onEntered), [computedDimension, onEntered]);
+  /* -- Collapsing -- */
+
+  const handleExit = (0,react.useMemo)(() => esm_createChainedFunction(elem => {
+    elem.style[computedDimension] = `${getDimensionValue(computedDimension, elem)}px`;
+    (0,triggerBrowserReflow/* default */.Z)(elem);
+  }, onExit), [onExit, getDimensionValue, computedDimension]);
+  const handleExiting = (0,react.useMemo)(() => esm_createChainedFunction(elem => {
+    elem.style[computedDimension] = null;
+  }, onExiting), [computedDimension, onExiting]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(TransitionWrapper/* default */.Z, {
+    ref: ref,
+    addEndListener: transitionEndListener/* default */.Z,
+    ...props,
+    "aria-expanded": props.role ? props.in : null,
+    onEnter: handleEnter,
+    onEntering: handleEntering,
+    onEntered: handleEntered,
+    onExit: handleExit,
+    onExiting: handleExiting,
+    childRef: children.ref,
+    children: (state, innerProps) => /*#__PURE__*/react.cloneElement(children, { ...innerProps,
+      className: classnames_default()(className, children.props.className, collapseStyles[state], computedDimension === 'width' && 'collapse-horizontal')
+    })
+  });
+}); // @ts-ignore
+
+// @ts-ignore
+Collapse.defaultProps = defaultProps;
+/* harmony default export */ var esm_Collapse = (Collapse);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
+var NavbarContext = __webpack_require__(4819);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarCollapse.js
+
+
+
+
+
+
+const NavbarCollapse = /*#__PURE__*/react.forwardRef(({
+  children,
+  bsPrefix,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-collapse');
+  const context = (0,react.useContext)(NavbarContext/* default */.Z);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Collapse, {
+    in: !!(context && context.expanded),
+    ...props,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      ref: ref,
+      className: bsPrefix,
+      children: children
+    })
+  });
+});
+NavbarCollapse.displayName = 'NavbarCollapse';
+/* harmony default export */ var esm_NavbarCollapse = (NavbarCollapse);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+var useEventCallback = __webpack_require__(8146);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarToggle.js
+
+
+
+
+
+
+
+const NavbarToggle_defaultProps = {
+  label: 'Toggle navigation'
+};
+const NavbarToggle = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  label,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'button',
+  onClick,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-toggler');
+  const {
+    onToggle,
+    expanded
+  } = (0,react.useContext)(NavbarContext/* default */.Z) || {};
+  const handleClick = (0,useEventCallback/* default */.Z)(e => {
+    if (onClick) onClick(e);
+    if (onToggle) onToggle();
+  });
+
+  if (Component === 'button') {
+    props.type = 'button';
+  }
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, { ...props,
+    ref: ref,
+    onClick: handleClick,
+    "aria-label": label,
+    className: classnames_default()(className, bsPrefix, !expanded && 'collapsed'),
+    children: children || /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+      className: `${bsPrefix}-icon`
+    })
+  });
+});
+NavbarToggle.displayName = 'NavbarToggle';
+NavbarToggle.defaultProps = NavbarToggle_defaultProps;
+/* harmony default export */ var esm_NavbarToggle = (NavbarToggle);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js
+var useIsomorphicEffect = __webpack_require__(9585);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMediaQuery.js
+
+
+var matchersByWindow = new WeakMap();
+
+var getMatcher = function getMatcher(query, targetWindow) {
+  if (!query || !targetWindow) return undefined;
+  var matchers = matchersByWindow.get(targetWindow) || new Map();
+  matchersByWindow.set(targetWindow, matchers);
+  var mql = matchers.get(query);
+
+  if (!mql) {
+    mql = targetWindow.matchMedia(query);
+    mql.refCount = 0;
+    matchers.set(mql.media, mql);
+  }
+
+  return mql;
+};
+/**
+ * Match a media query and get updates as the match changes. The media string is
+ * passed directly to `window.matchMedia` and run as a Layout Effect, so initial
+ * matches are returned before the browser has a chance to paint.
+ *
+ * ```tsx
+ * function Page() {
+ *   const isWide = useMediaQuery('min-width: 1000px')
+ *
+ *   return isWide ? "very wide" : 'not so wide'
+ * }
+ * ```
+ *
+ * Media query lists are also reused globally, hook calls for the same query
+ * will only create a matcher once under the hood.
+ *
+ * @param query A media query
+ * @param targetWindow The window to match against, uses the globally available one as a default.
+ */
+
+
+function useMediaQuery(query, targetWindow) {
+  if (targetWindow === void 0) {
+    targetWindow = typeof window === 'undefined' ? undefined : window;
+  }
+
+  var mql = getMatcher(query, targetWindow);
+
+  var _useState = (0,react.useState)(function () {
+    return mql ? mql.matches : false;
+  }),
+      matches = _useState[0],
+      setMatches = _useState[1];
+
+  (0,useIsomorphicEffect/* default */.Z)(function () {
+    var mql = getMatcher(query, targetWindow);
+
+    if (!mql) {
+      return setMatches(false);
+    }
+
+    var matchers = matchersByWindow.get(targetWindow);
+
+    var handleChange = function handleChange() {
+      setMatches(mql.matches);
+    };
+
+    mql.refCount++;
+    mql.addListener(handleChange);
+    handleChange();
+    return function () {
+      mql.removeListener(handleChange);
+      mql.refCount--;
+
+      if (mql.refCount <= 0) {
+        matchers == null ? void 0 : matchers.delete(mql.media);
+      }
+
+      mql = undefined;
+    };
+  }, [query]);
+  return matches;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useBreakpoint.js
+
+
+
+/**
+ * Create a responsive hook we a set of breakpoint names and widths.
+ * You can use any valid css units as well as a numbers (for pixels).
+ *
+ * **NOTE:** The object key order is important! it's assumed to be in order from smallest to largest
+ *
+ * ```ts
+ * const useBreakpoint = createBreakpointHook({
+ *  xs: 0,
+ *  sm: 576,
+ *  md: 768,
+ *  lg: 992,
+ *  xl: 1200,
+ * })
+ * ```
+ *
+ * **Watch out!** using string values will sometimes construct media queries using css `calc()` which
+ * is NOT supported in media queries by all browsers at the moment. use numbers for
+ * the widest range of browser support.
+ *
+ * @param breakpointValues A object hash of names to breakpoint dimensions
+ */
+function createBreakpointHook(breakpointValues) {
+  var names = Object.keys(breakpointValues);
+
+  function and(query, next) {
+    if (query === next) {
+      return next;
+    }
+
+    return query ? query + " and " + next : next;
+  }
+
+  function getNext(breakpoint) {
+    return names[Math.min(names.indexOf(breakpoint) + 1, names.length - 1)];
+  }
+
+  function getMaxQuery(breakpoint) {
+    var next = getNext(breakpoint);
+    var value = breakpointValues[next];
+    if (typeof value === 'number') value = value - 0.2 + "px";else value = "calc(" + value + " - 0.2px)";
+    return "(max-width: " + value + ")";
+  }
+
+  function getMinQuery(breakpoint) {
+    var value = breakpointValues[breakpoint];
+
+    if (typeof value === 'number') {
+      value = value + "px";
+    }
+
+    return "(min-width: " + value + ")";
+  }
+  /**
+   * Match a set of breakpoints
+   *
+   * ```tsx
+   * const MidSizeOnly = () => {
+   *   const isMid = useBreakpoint({ lg: 'down', sm: 'up' });
+   *
+   *   if (isMid) return <div>On a Reasonable sized Screen!</div>
+   *   return null;
+   * }
+   * ```
+   * @param breakpointMap An object map of breakpoints and directions, queries are constructed using "and" to join
+   * breakpoints together
+   * @param window Optionally specify the target window to match against (useful when rendering into iframes)
+   */
+
+
+  function useBreakpoint(breakpointOrMap, direction, window) {
+    var breakpointMap;
+
+    if (typeof breakpointOrMap === 'object') {
+      breakpointMap = breakpointOrMap;
+      window = direction;
+      direction = true;
+    } else {
+      var _breakpointMap;
+
+      direction = direction || true;
+      breakpointMap = (_breakpointMap = {}, _breakpointMap[breakpointOrMap] = direction, _breakpointMap);
+    }
+
+    var query = (0,react.useMemo)(function () {
+      return Object.entries(breakpointMap).reduce(function (query, _ref) {
+        var key = _ref[0],
+            direction = _ref[1];
+
+        if (direction === 'up' || direction === true) {
+          query = and(query, getMinQuery(key));
+        }
+
+        if (direction === 'down' || direction === true) {
+          query = and(query, getMaxQuery(key));
+        }
+
+        return query;
+      }, '');
+    }, [JSON.stringify(breakpointMap)]);
+    return useMediaQuery(query, window);
+  }
+
+  return useBreakpoint;
+}
+var useBreakpoint = createBreakpointHook({
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400
+});
+/* harmony default export */ var esm_useBreakpoint = (useBreakpoint);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Offcanvas.js + 19 modules
+var Offcanvas = __webpack_require__(1751);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarOffcanvas.js
+
+
+
+
+
+
+
+
+const NavbarOffcanvas = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  backdrop,
+  backdropClassName,
+  keyboard,
+  scroll,
+  placement,
+  autoFocus,
+  enforceFocus,
+  restoreFocus,
+  restoreFocusOptions,
+  onShow,
+  onHide,
+  onEscapeKeyDown,
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  onExited,
+  ...props
+}, ref) => {
+  const context = (0,react.useContext)(NavbarContext/* default */.Z);
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'offcanvas');
+  const hasExpandProp = typeof (context == null ? void 0 : context.expand) === 'string';
+  const shouldExpand = esm_useBreakpoint(hasExpandProp ? context.expand : 'xs', 'up');
+  return hasExpandProp && shouldExpand ? /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, bsPrefix, `${bsPrefix}-${placement}`)
+  }) : /*#__PURE__*/(0,jsx_runtime.jsx)(Offcanvas/* default */.Z, {
+    ref: ref,
+    show: !!(context != null && context.expanded),
+    bsPrefix: bsPrefix,
+    backdrop: backdrop,
+    backdropClassName: backdropClassName,
+    keyboard: keyboard,
+    scroll: scroll,
+    placement: placement,
+    autoFocus: autoFocus,
+    enforceFocus: enforceFocus,
+    restoreFocus: restoreFocus,
+    restoreFocusOptions: restoreFocusOptions,
+    onShow: onShow,
+    onHide: onHide,
+    onEscapeKeyDown: onEscapeKeyDown,
+    onEnter: onEnter,
+    onEntering: onEntering,
+    onEntered: onEntered,
+    onExit: onExit,
+    onExiting: onExiting,
+    onExited: onExited,
+    ...props
+  });
+});
+NavbarOffcanvas.displayName = 'NavbarOffcanvas';
+/* harmony default export */ var esm_NavbarOffcanvas = (NavbarOffcanvas);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Navbar.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+const NavbarText = (0,createWithBsPrefix/* default */.Z)('navbar-text', {
+  Component: 'span'
+});
+const Navbar_defaultProps = {
+  expand: true,
+  variant: 'light',
+  collapseOnSelect: false
+};
+const Navbar = /*#__PURE__*/react.forwardRef((props, ref) => {
+  const {
+    bsPrefix: initialBsPrefix,
+    expand,
+    variant,
+    bg,
+    fixed,
+    sticky,
+    className,
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'nav',
+    expanded,
+    onToggle,
+    onSelect,
+    collapseOnSelect,
+    ...controlledProps
+  } = (0,esm/* useUncontrolled */.Ch)(props, {
+    expanded: 'onToggle'
+  });
+  const bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(initialBsPrefix, 'navbar');
+  const handleCollapse = (0,react.useCallback)((...args) => {
+    onSelect == null ? void 0 : onSelect(...args);
+
+    if (collapseOnSelect && expanded) {
+      onToggle == null ? void 0 : onToggle(false);
+    }
+  }, [onSelect, collapseOnSelect, expanded, onToggle]); // will result in some false positives but that seems better
+  // than false negatives. strict `undefined` check allows explicit
+  // "nulling" of the role if the user really doesn't want one
+
+  if (controlledProps.role === undefined && Component !== 'nav') {
+    controlledProps.role = 'navigation';
+  }
+
+  let expandClass = `${bsPrefix}-expand`;
+  if (typeof expand === 'string') expandClass = `${expandClass}-${expand}`;
+  const navbarContext = (0,react.useMemo)(() => ({
+    onToggle: () => onToggle == null ? void 0 : onToggle(!expanded),
+    bsPrefix,
+    expanded: !!expanded,
+    expand
+  }), [bsPrefix, expanded, expand, onToggle]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(NavbarContext/* default.Provider */.Z.Provider, {
+    value: navbarContext,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(SelectableContext/* default.Provider */.Z.Provider, {
+      value: handleCollapse,
+      children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+        ref: ref,
+        ...controlledProps,
+        className: classnames_default()(className, bsPrefix, expand && expandClass, variant && `${bsPrefix}-${variant}`, bg && `bg-${bg}`, sticky && `sticky-${sticky}`, fixed && `fixed-${fixed}`)
+      })
+    })
+  });
+});
+Navbar.defaultProps = Navbar_defaultProps;
+Navbar.displayName = 'Navbar';
+/* harmony default export */ var esm_Navbar = (Object.assign(Navbar, {
+  Brand: esm_NavbarBrand,
+  Collapse: esm_NavbarCollapse,
+  Offcanvas: esm_NavbarOffcanvas,
+  Text: NavbarText,
+  Toggle: esm_NavbarToggle
+}));
+
+/***/ }),
+
+/***/ 4819:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+ // TODO: check
+
+const context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
+context.displayName = 'NavbarContext';
+/* harmony default export */ __webpack_exports__["Z"] = (context);
+
+/***/ }),
+
+/***/ 1751:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ esm_Offcanvas; }
+});
+
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4184);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+var useEventCallback = __webpack_require__(8146);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
+var ownerDocument = __webpack_require__(7216);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/activeElement.js
+
+/**
+ * Returns the actively focused element safely.
+ *
+ * @param doc the document to check
+ */
+
+function activeElement(doc) {
+  if (doc === void 0) {
+    doc = (0,ownerDocument/* default */.Z)();
+  }
+
+  // Support: IE 9 only
+  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+  try {
+    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
+    // document.activeElement from an <iframe>
+
+    if (!active || !active.nodeName) return null;
+    return active;
+  } catch (e) {
+    /* ie throws if no active element */
+    return doc.body;
+  }
+}
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/contains.js
+var contains = __webpack_require__(424);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/canUseDOM.js
+var canUseDOM = __webpack_require__(3004);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/listen.js + 1 modules
+var listen = __webpack_require__(3299);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(3935);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
+var useMounted = __webpack_require__(6454);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useUpdatedRef.js
+
+/**
+ * Returns a ref that is immediately updated with the new value
+ *
+ * @param value The Ref value
+ * @category refs
+ */
+
+function useUpdatedRef(value) {
+  var valueRef = (0,react.useRef)(value);
+  valueRef.current = value;
+  return valueRef;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useWillUnmount.js
+
+
+/**
+ * Attach a callback that fires when a component unmounts
+ *
+ * @param fn Handler to run when the component unmounts
+ * @category effects
+ */
+
+function useWillUnmount(fn) {
+  var onUnmount = useUpdatedRef(fn);
+  (0,react.useEffect)(function () {
+    return function () {
+      return onUnmount.current();
+    };
+  }, []);
+}
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
+var usePrevious = __webpack_require__(8833);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/css.js + 5 modules
+var css = __webpack_require__(3164);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/DataKey.js
+var DataKey = __webpack_require__(2747);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/getScrollbarWidth.js
+/**
+ * Get the width of the vertical window scrollbar if it's visible
+ */
+function getBodyScrollbarWidth(ownerDocument = document) {
+  const window = ownerDocument.defaultView;
+  return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/ModalManager.js
+
+
+
+const OPEN_DATA_ATTRIBUTE = (0,DataKey/* dataAttr */.PB)('modal-open');
+/**
+ * Manages a stack of Modals as well as ensuring
+ * body scrolling is is disabled and padding accounted for
+ */
+
+class ModalManager {
+  constructor({
+    ownerDocument,
+    handleContainerOverflow = true,
+    isRTL = false
+  } = {}) {
+    this.handleContainerOverflow = handleContainerOverflow;
+    this.isRTL = isRTL;
+    this.modals = [];
+    this.ownerDocument = ownerDocument;
+  }
+
+  getScrollbarWidth() {
+    return getBodyScrollbarWidth(this.ownerDocument);
+  }
+
+  getElement() {
+    return (this.ownerDocument || document).body;
+  }
+
+  setModalAttributes(_modal) {// For overriding
+  }
+
+  removeModalAttributes(_modal) {// For overriding
+  }
+
+  setContainerStyle(containerState) {
+    const style = {
+      overflow: 'hidden'
+    }; // we are only interested in the actual `style` here
+    // because we will override it
+
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const container = this.getElement();
+    containerState.style = {
+      overflow: container.style.overflow,
+      [paddingProp]: container.style[paddingProp]
+    };
+
+    if (containerState.scrollBarWidth) {
+      // use computed style, here to get the real padding
+      // to add our scrollbar width
+      style[paddingProp] = `${parseInt((0,css/* default */.Z)(container, paddingProp) || '0', 10) + containerState.scrollBarWidth}px`;
+    }
+
+    container.setAttribute(OPEN_DATA_ATTRIBUTE, '');
+    (0,css/* default */.Z)(container, style);
+  }
+
+  reset() {
+    [...this.modals].forEach(m => this.remove(m));
+  }
+
+  removeContainerStyle(containerState) {
+    const container = this.getElement();
+    container.removeAttribute(OPEN_DATA_ATTRIBUTE);
+    Object.assign(container.style, containerState.style);
+  }
+
+  add(modal) {
+    let modalIdx = this.modals.indexOf(modal);
+
+    if (modalIdx !== -1) {
+      return modalIdx;
+    }
+
+    modalIdx = this.modals.length;
+    this.modals.push(modal);
+    this.setModalAttributes(modal);
+
+    if (modalIdx !== 0) {
+      return modalIdx;
+    }
+
+    this.state = {
+      scrollBarWidth: this.getScrollbarWidth(),
+      style: {}
+    };
+
+    if (this.handleContainerOverflow) {
+      this.setContainerStyle(this.state);
+    }
+
+    return modalIdx;
+  }
+
+  remove(modal) {
+    const modalIdx = this.modals.indexOf(modal);
+
+    if (modalIdx === -1) {
+      return;
+    }
+
+    this.modals.splice(modalIdx, 1); // if that was the last modal in a container,
+    // clean up the container
+
+    if (!this.modals.length && this.handleContainerOverflow) {
+      this.removeContainerStyle(this.state);
+    }
+
+    this.removeModalAttributes(modal);
+  }
+
+  isTopModal(modal) {
+    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
+  }
+
+}
+
+/* harmony default export */ var esm_ModalManager = (ModalManager);
+// EXTERNAL MODULE: ./node_modules/@restart/ui/esm/useWindow.js
+var useWindow = __webpack_require__(2963);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useWaitForDOMRef.js
+
+
+
+
+const resolveContainerRef = (ref, document) => {
+  var _ref;
+
+  if (!canUseDOM/* default */.Z) return null;
+  if (ref == null) return (document || (0,ownerDocument/* default */.Z)()).body;
+  if (typeof ref === 'function') ref = ref();
+  if (ref && 'current' in ref) ref = ref.current;
+  if ((_ref = ref) != null && _ref.nodeType) return ref || null;
+  return null;
+};
+function useWaitForDOMRef(ref, onResolved) {
+  const window = (0,useWindow/* default */.Z)();
+  const [resolvedRef, setRef] = (0,react.useState)(() => resolveContainerRef(ref, window == null ? void 0 : window.document));
+
+  if (!resolvedRef) {
+    const earlyRef = resolveContainerRef(ref);
+    if (earlyRef) setRef(earlyRef);
+  }
+
+  (0,react.useEffect)(() => {
+    if (onResolved && resolvedRef) {
+      onResolved(resolvedRef);
+    }
+  }, [onResolved, resolvedRef]);
+  (0,react.useEffect)(() => {
+    const nextRef = resolveContainerRef(ref);
+
+    if (nextRef !== resolvedRef) {
+      setRef(nextRef);
+    }
+  }, [ref, resolvedRef]);
+  return resolvedRef;
+}
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Modal.js
+const _excluded = ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "backdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"];
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let manager;
+
+function getManager(window) {
+  if (!manager) manager = new esm_ModalManager({
+    ownerDocument: window == null ? void 0 : window.document
+  });
+  return manager;
+}
+
+function useModalManager(provided) {
+  const window = (0,useWindow/* default */.Z)();
+  const modalManager = provided || getManager(window);
+  const modal = (0,react.useRef)({
+    dialog: null,
+    backdrop: null
+  });
+  return Object.assign(modal.current, {
+    add: () => modalManager.add(modal.current),
+    remove: () => modalManager.remove(modal.current),
+    isTopModal: () => modalManager.isTopModal(modal.current),
+    setDialogRef: (0,react.useCallback)(ref => {
+      modal.current.dialog = ref;
+    }, []),
+    setBackdropRef: (0,react.useCallback)(ref => {
+      modal.current.backdrop = ref;
+    }, [])
+  });
+}
+
+const Modal = /*#__PURE__*/(0,react.forwardRef)((_ref, ref) => {
+  let {
+    show = false,
+    role = 'dialog',
+    className,
+    style,
+    children,
+    backdrop = true,
+    keyboard = true,
+    onBackdropClick,
+    onEscapeKeyDown,
+    transition,
+    backdropTransition,
+    autoFocus = true,
+    enforceFocus = true,
+    restoreFocus = true,
+    restoreFocusOptions,
+    renderDialog,
+    renderBackdrop = props => /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, props)),
+    manager: providedManager,
+    container: containerRef,
+    onShow,
+    onHide = () => {},
+    onExit,
+    onExited,
+    onExiting,
+    onEnter,
+    onEntering,
+    onEntered
+  } = _ref,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  const container = useWaitForDOMRef(containerRef);
+  const modal = useModalManager(providedManager);
+  const isMounted = (0,useMounted/* default */.Z)();
+  const prevShow = (0,usePrevious/* default */.Z)(show);
+  const [exited, setExited] = (0,react.useState)(!show);
+  const lastFocusRef = (0,react.useRef)(null);
+  (0,react.useImperativeHandle)(ref, () => modal, [modal]);
+
+  if (canUseDOM/* default */.Z && !prevShow && show) {
+    lastFocusRef.current = activeElement();
+  }
+
+  if (!transition && !show && !exited) {
+    setExited(true);
+  } else if (show && exited) {
+    setExited(false);
+  }
+
+  const handleShow = (0,useEventCallback/* default */.Z)(() => {
+    modal.add();
+    removeKeydownListenerRef.current = (0,listen/* default */.Z)(document, 'keydown', handleDocumentKeyDown);
+    removeFocusListenerRef.current = (0,listen/* default */.Z)(document, 'focus', // the timeout is necessary b/c this will run before the new modal is mounted
+    // and so steals focus from it
+    () => setTimeout(handleEnforceFocus), true);
+
+    if (onShow) {
+      onShow();
+    } // autofocus after onShow to not trigger a focus event for previous
+    // modals before this one is shown.
+
+
+    if (autoFocus) {
+      const currentActiveElement = activeElement(document);
+
+      if (modal.dialog && currentActiveElement && !(0,contains/* default */.Z)(modal.dialog, currentActiveElement)) {
+        lastFocusRef.current = currentActiveElement;
+        modal.dialog.focus();
+      }
+    }
+  });
+  const handleHide = (0,useEventCallback/* default */.Z)(() => {
+    modal.remove();
+    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
+    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
+
+    if (restoreFocus) {
+      var _lastFocusRef$current;
+
+      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
+      lastFocusRef.current = null;
+    }
+  }); // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
+  // Show logic when:
+  //  - show is `true` _and_ `container` has resolved
+
+  (0,react.useEffect)(() => {
+    if (!show || !container) return;
+    handleShow();
+  }, [show, container,
+  /* should never change: */
+  handleShow]); // Hide cleanup logic when:
+  //  - `exited` switches to true
+  //  - component unmounts;
+
+  (0,react.useEffect)(() => {
+    if (!exited) return;
+    handleHide();
+  }, [exited, handleHide]);
+  useWillUnmount(() => {
+    handleHide();
+  }); // --------------------------------
+
+  const handleEnforceFocus = (0,useEventCallback/* default */.Z)(() => {
+    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
+      return;
+    }
+
+    const currentActiveElement = activeElement();
+
+    if (modal.dialog && currentActiveElement && !(0,contains/* default */.Z)(modal.dialog, currentActiveElement)) {
+      modal.dialog.focus();
+    }
+  });
+  const handleBackdropClick = (0,useEventCallback/* default */.Z)(e => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    onBackdropClick == null ? void 0 : onBackdropClick(e);
+
+    if (backdrop === true) {
+      onHide();
+    }
+  });
+  const handleDocumentKeyDown = (0,useEventCallback/* default */.Z)(e => {
+    if (keyboard && e.keyCode === 27 && modal.isTopModal()) {
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+
+      if (!e.defaultPrevented) {
+        onHide();
+      }
+    }
+  });
+  const removeFocusListenerRef = (0,react.useRef)();
+  const removeKeydownListenerRef = (0,react.useRef)();
+
+  const handleHidden = (...args) => {
+    setExited(true);
+    onExited == null ? void 0 : onExited(...args);
+  };
+
+  const Transition = transition;
+
+  if (!container || !(show || Transition && !exited)) {
+    return null;
+  }
+
+  const dialogProps = Object.assign({
+    role,
+    ref: modal.setDialogRef,
+    // apparently only works on the dialog role element
+    'aria-modal': role === 'dialog' ? true : undefined
+  }, rest, {
+    style,
+    className,
+    tabIndex: -1
+  });
+  let dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, dialogProps, {
+    children: /*#__PURE__*/react.cloneElement(children, {
+      role: 'document'
+    })
+  }));
+
+  if (Transition) {
+    dialog = /*#__PURE__*/(0,jsx_runtime.jsx)(Transition, {
+      appear: true,
+      unmountOnExit: true,
+      in: !!show,
+      onExit: onExit,
+      onExiting: onExiting,
+      onExited: handleHidden,
+      onEnter: onEnter,
+      onEntering: onEntering,
+      onEntered: onEntered,
+      children: dialog
+    });
+  }
+
+  let backdropElement = null;
+
+  if (backdrop) {
+    const BackdropTransition = backdropTransition;
+    backdropElement = renderBackdrop({
+      ref: modal.setBackdropRef,
+      onClick: handleBackdropClick
+    });
+
+    if (BackdropTransition) {
+      backdropElement = /*#__PURE__*/(0,jsx_runtime.jsx)(BackdropTransition, {
+        appear: true,
+        in: !!show,
+        children: backdropElement
+      });
+    }
+  }
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: /*#__PURE__*/react_dom.createPortal( /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+      children: [backdropElement, dialog]
+    }), container)
+  });
+});
+Modal.displayName = 'Modal';
+/* harmony default export */ var esm_Modal = (Object.assign(Modal, {
+  Manager: esm_ModalManager
+}));
+// EXTERNAL MODULE: ./node_modules/react-transition-group/esm/Transition.js + 2 modules
+var Transition = __webpack_require__(660);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/transitionEndListener.js + 2 modules
+var transitionEndListener = __webpack_require__(492);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js
+var triggerBrowserReflow = __webpack_require__(4509);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/TransitionWrapper.js + 1 modules
+var TransitionWrapper = __webpack_require__(360);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Fade.js
+
+
+
+
+
+
+
+
+const defaultProps = {
+  in: false,
+  timeout: 300,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false
+};
+const fadeStyles = {
+  [Transition/* ENTERING */.d0]: 'show',
+  [Transition/* ENTERED */.cn]: 'show'
+};
+const Fade = /*#__PURE__*/react.forwardRef(({
+  className,
+  children,
+  transitionClasses = {},
+  ...props
+}, ref) => {
+  const handleEnter = (0,react.useCallback)((node, isAppearing) => {
+    (0,triggerBrowserReflow/* default */.Z)(node);
+    props.onEnter == null ? void 0 : props.onEnter(node, isAppearing);
+  }, [props]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(TransitionWrapper/* default */.Z, {
+    ref: ref,
+    addEndListener: transitionEndListener/* default */.Z,
+    ...props,
+    onEnter: handleEnter,
+    childRef: children.ref,
+    children: (status, innerProps) => /*#__PURE__*/react.cloneElement(children, { ...innerProps,
+      className: classnames_default()('fade', className, children.props.className, fadeStyles[status], transitionClasses[status])
+    })
+  });
+});
+Fade.defaultProps = defaultProps;
+Fade.displayName = 'Fade';
+/* harmony default export */ var esm_Fade = (Fade);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
+var createWithBsPrefix = __webpack_require__(4680);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/OffcanvasBody.js
+
+/* harmony default export */ var OffcanvasBody = ((0,createWithBsPrefix/* default */.Z)('offcanvas-body'));
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
+var ThemeProvider = __webpack_require__(6792);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/OffcanvasToggling.js
+
+
+
+
+
+
+
+const OffcanvasToggling_defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false
+};
+const transitionStyles = {
+  [Transition/* ENTERING */.d0]: 'show',
+  [Transition/* ENTERED */.cn]: 'show'
+};
+const OffcanvasToggling = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'offcanvas');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(TransitionWrapper/* default */.Z, {
+    ref: ref,
+    addEndListener: transitionEndListener/* default */.Z,
+    ...props,
+    childRef: children.ref,
+    children: (status, innerProps) => /*#__PURE__*/react.cloneElement(children, { ...innerProps,
+      className: classnames_default()(className, children.props.className, (status === Transition/* ENTERING */.d0 || status === Transition/* EXITING */.Ix) && `${bsPrefix}-toggling`, transitionStyles[status])
+    })
+  });
+});
+OffcanvasToggling.defaultProps = OffcanvasToggling_defaultProps;
+OffcanvasToggling.displayName = 'OffcanvasToggling';
+/* harmony default export */ var esm_OffcanvasToggling = (OffcanvasToggling);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalContext.js
+
+const ModalContext = /*#__PURE__*/react.createContext({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onHide() {}
+
+});
+/* harmony default export */ var esm_ModalContext = (ModalContext);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
+var NavbarContext = __webpack_require__(4819);
+// EXTERNAL MODULE: ./node_modules/prop-types/index.js
+var prop_types = __webpack_require__(5697);
+var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CloseButton.js
+
+
+
+
+const propTypes = {
+  'aria-label': (prop_types_default()).string,
+  onClick: (prop_types_default()).func,
+
+  /**
+   * Render different color variant for the button.
+   *
+   * Omitting this will render the default dark color.
+   */
+  variant: prop_types_default().oneOf(['white'])
+};
+const CloseButton_defaultProps = {
+  'aria-label': 'Close'
+};
+const CloseButton = /*#__PURE__*/react.forwardRef(({
+  className,
+  variant,
+  ...props
+}, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
+  ref: ref,
+  type: "button",
+  className: classnames_default()('btn-close', variant && `btn-close-${variant}`, className),
+  ...props
+}));
+CloseButton.displayName = 'CloseButton';
+CloseButton.propTypes = propTypes;
+CloseButton.defaultProps = CloseButton_defaultProps;
+/* harmony default export */ var esm_CloseButton = (CloseButton);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/AbstractModalHeader.js
+
+
+
+
+
+
+
+const AbstractModalHeader_defaultProps = {
+  closeLabel: 'Close',
+  closeButton: false
+};
+const AbstractModalHeader = /*#__PURE__*/react.forwardRef(({
+  closeLabel,
+  closeVariant,
+  closeButton,
+  onHide,
+  children,
+  ...props
+}, ref) => {
+  const context = (0,react.useContext)(esm_ModalContext);
+  const handleClick = (0,useEventCallback/* default */.Z)(() => {
+    context == null ? void 0 : context.onHide();
+    onHide == null ? void 0 : onHide();
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+    ref: ref,
+    ...props,
+    children: [children, closeButton && /*#__PURE__*/(0,jsx_runtime.jsx)(esm_CloseButton, {
+      "aria-label": closeLabel,
+      variant: closeVariant,
+      onClick: handleClick
+    })]
+  });
+});
+AbstractModalHeader.defaultProps = AbstractModalHeader_defaultProps;
+/* harmony default export */ var esm_AbstractModalHeader = (AbstractModalHeader);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/OffcanvasHeader.js
+
+
+
+
+
+const OffcanvasHeader_defaultProps = {
+  closeLabel: 'Close',
+  closeButton: false
+};
+const OffcanvasHeader = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  ...props
+}, ref) => {
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'offcanvas-header');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_AbstractModalHeader, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, bsPrefix)
+  });
+});
+OffcanvasHeader.displayName = 'OffcanvasHeader';
+OffcanvasHeader.defaultProps = OffcanvasHeader_defaultProps;
+/* harmony default export */ var esm_OffcanvasHeader = (OffcanvasHeader);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/divWithClassName.js
+var divWithClassName = __webpack_require__(9602);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/OffcanvasTitle.js
+
+
+const DivStyledAsH5 = (0,divWithClassName/* default */.Z)('h5');
+/* harmony default export */ var OffcanvasTitle = ((0,createWithBsPrefix/* default */.Z)('offcanvas-title', {
+  Component: DivStyledAsH5
+}));
 ;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hasClass.js
 /**
  * Checks if a given element has a CSS class.
@@ -9280,1150 +11808,624 @@ function hasClass(element, className) {
   if (element.classList) return !!className && element.classList.contains(className);
   return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
 }
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/usePopperMarginModifiers.js
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addClass.js
 
+/**
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
 
-
-
-function getMargins(element) {
-  var styles = window.getComputedStyle(element);
-  var top = parseFloat(styles.marginTop) || 0;
-  var right = parseFloat(styles.marginRight) || 0;
-  var bottom = parseFloat(styles.marginBottom) || 0;
-  var left = parseFloat(styles.marginLeft) || 0;
-  return {
-    top: top,
-    right: right,
-    bottom: bottom,
-    left: left
-  };
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!hasClass(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
 }
-
-function usePopperMarginModifiers() {
-  var overlayRef = (0,react.useRef)(null);
-  var margins = (0,react.useRef)(null);
-  var arrowMargins = (0,react.useRef)(null);
-  var popoverClass = (0,ThemeProvider/* useBootstrapPrefix */.vE)(undefined, 'popover');
-  var dropdownMenuClass = (0,ThemeProvider/* useBootstrapPrefix */.vE)(undefined, 'dropdown-menu');
-  var callback = (0,react.useCallback)(function (overlay) {
-    if (!overlay || !(hasClass(overlay, popoverClass) || hasClass(overlay, dropdownMenuClass))) return;
-    margins.current = getMargins(overlay);
-    overlay.style.margin = '0';
-    overlayRef.current = overlay;
-  }, [popoverClass, dropdownMenuClass]);
-  var offset = (0,react.useMemo)(function () {
-    return {
-      name: 'offset',
-      options: {
-        offset: function offset(_ref) {
-          var placement = _ref.placement;
-          if (!margins.current) return [0, 0];
-          var _margins$current = margins.current,
-              top = _margins$current.top,
-              left = _margins$current.left,
-              bottom = _margins$current.bottom,
-              right = _margins$current.right;
-
-          switch (placement.split('-')[0]) {
-            case 'top':
-              return [0, bottom];
-
-            case 'left':
-              return [0, right];
-
-            case 'bottom':
-              return [0, top];
-
-            case 'right':
-              return [0, left];
-
-            default:
-              return [0, 0];
-          }
-        }
-      }
-    };
-  }, [margins]);
-  var arrow = (0,react.useMemo)(function () {
-    return {
-      name: 'arrow',
-      options: {
-        padding: function padding() {
-          // The options here are used for Popper 2.8.4 and up.
-          // For earlier version, padding is handled in popoverArrowMargins below.
-          if (!arrowMargins.current) {
-            return 0;
-          }
-
-          var _arrowMargins$current = arrowMargins.current,
-              top = _arrowMargins$current.top,
-              right = _arrowMargins$current.right;
-          var padding = top || right;
-          return {
-            top: padding,
-            left: padding,
-            right: padding,
-            bottom: padding
-          };
-        }
-      }
-    };
-  }, [arrowMargins]); // Converts popover arrow margin to arrow modifier padding
-
-  var popoverArrowMargins = (0,react.useMemo)(function () {
-    return {
-      name: 'popoverArrowMargins',
-      enabled: true,
-      phase: 'main',
-      fn: function fn() {
-        return undefined;
-      },
-      requiresIfExists: ['arrow'],
-      effect: function effect(_ref2) {
-        var state = _ref2.state;
-
-        if (!overlayRef.current || !state.elements.arrow || !hasClass(overlayRef.current, popoverClass)) {
-          return undefined;
-        }
-
-        if (state.modifiersData['arrow#persistent']) {
-          // @popperjs/core <= 2.8.3 uses arrow#persistent to pass padding to arrow modifier.
-          var _getMargins = getMargins(state.elements.arrow),
-              top = _getMargins.top,
-              right = _getMargins.right;
-
-          var padding = top || right;
-          state.modifiersData['arrow#persistent'].padding = {
-            top: padding,
-            left: padding,
-            right: padding,
-            bottom: padding
-          };
-        } else {
-          // @popperjs/core >= 2.8.4 gets the padding from the arrow modifier options,
-          // so we'll get the margins here, and let the arrow modifier above pass
-          // it to popper.
-          arrowMargins.current = getMargins(state.elements.arrow);
-        }
-
-        state.elements.arrow.style.margin = '0';
-        return function () {
-          if (state.elements.arrow) state.elements.arrow.style.margin = '';
-        };
-      }
-    };
-  }, [popoverClass]);
-  return [callback, [offset, arrow, popoverArrowMargins]];
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/querySelectorAll.js
+var querySelectorAll = __webpack_require__(930);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeClass.js
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
 }
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownMenu.js
+/**
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
 
 
-var DropdownMenu_excluded = ["bsPrefix", "className", "align", "alignRight", "rootCloseEvent", "flip", "show", "renderOnMount", "as", "popperConfig"];
+function removeClass(element, className) {
+  if (element.classList) {
+    element.classList.remove(className);
+  } else if (typeof element.className === 'string') {
+    element.className = replaceClassName(element.className, className);
+  } else {
+    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/BootstrapModalManager.js
 
 
 
 
 
-
-
-
-
-
-var alignDirection = prop_types_default().oneOf(['left', 'right']);
-var alignPropType = prop_types_default().oneOfType([alignDirection, prop_types_default().shape({
-  sm: alignDirection
-}), prop_types_default().shape({
-  md: alignDirection
-}), prop_types_default().shape({
-  lg: alignDirection
-}), prop_types_default().shape({
-  xl: alignDirection
-})]);
-var DropdownMenu_defaultProps = {
-  align: 'left',
-  alignRight: false,
-  flip: true
+const Selector = {
+  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+  STICKY_CONTENT: '.sticky-top',
+  NAVBAR_TOGGLER: '.navbar-toggler'
 };
-var DropdownMenu_DropdownMenu = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      align = _ref.align,
-      alignRight = _ref.alignRight,
-      rootCloseEvent = _ref.rootCloseEvent,
-      flip = _ref.flip,
-      showProps = _ref.show,
-      renderOnMount = _ref.renderOnMount,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      popperConfig = _ref.popperConfig,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, DropdownMenu_excluded);
 
-  var isNavbar = (0,react.useContext)(NavbarContext/* default */.Z);
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-menu');
+class BootstrapModalManager extends esm_ModalManager {
+  adjustAndStore(prop, element, adjust) {
+    const actual = element.style[prop]; // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
+    // @ts-ignore
 
-  var _usePopperMarginModif = usePopperMarginModifiers(),
-      popperRef = _usePopperMarginModif[0],
-      marginModifiers = _usePopperMarginModif[1];
-
-  var alignClasses = [];
-
-  if (align) {
-    if (typeof align === 'object') {
-      var keys = Object.keys(align);
-       false ? 0 : void 0;
-
-      if (keys.length) {
-        var brkPoint = keys[0];
-        var direction = align[brkPoint]; // .dropdown-menu-right is required for responsively aligning
-        // left in addition to align left classes.
-        // Reuse alignRight to toggle the class below.
-
-        alignRight = direction === 'left';
-        alignClasses.push(prefix + "-" + brkPoint + "-" + direction);
-      }
-    } else if (align === 'right') {
-      alignRight = true;
-    }
+    element.dataset[prop] = actual;
+    (0,css/* default */.Z)(element, {
+      [prop]: `${parseFloat((0,css/* default */.Z)(element, prop)) + adjust}px`
+    });
   }
 
-  var _useDropdownMenu = useDropdownMenu({
-    flip: flip,
-    rootCloseEvent: rootCloseEvent,
-    show: showProps,
-    alignEnd: alignRight,
-    usePopper: !isNavbar && alignClasses.length === 0,
-    popperConfig: (0,esm_extends/* default */.Z)({}, popperConfig, {
-      modifiers: marginModifiers.concat((popperConfig == null ? void 0 : popperConfig.modifiers) || [])
-    })
-  }),
-      menuProps = _useDropdownMenu[0],
-      _useDropdownMenu$ = _useDropdownMenu[1],
-      hasShown = _useDropdownMenu$.hasShown,
-      popper = _useDropdownMenu$.popper,
-      show = _useDropdownMenu$.show,
-      alignEnd = _useDropdownMenu$.alignEnd,
-      toggle = _useDropdownMenu$.toggle;
+  restore(prop, element) {
+    const value = element.dataset[prop];
 
-  menuProps.ref = (0,useMergedRefs/* default */.Z)(popperRef, (0,useMergedRefs/* default */.Z)(useWrappedRefWithWarning(ref, 'DropdownMenu'), menuProps.ref));
-  if (!hasShown && !renderOnMount) return null; // For custom components provide additional, non-DOM, props;
-
-  if (typeof Component !== 'string') {
-    menuProps.show = show;
-
-    menuProps.close = function () {
-      return toggle == null ? void 0 : toggle(false);
-    };
-
-    menuProps.alignRight = alignEnd;
-  }
-
-  var style = props.style;
-
-  if (popper != null && popper.placement) {
-    // we don't need the default popper style,
-    // menus are display: none when not shown.
-    style = (0,esm_extends/* default */.Z)({}, props.style, menuProps.style);
-    props['x-placement'] = popper.placement;
-  }
-
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, menuProps, {
-    style: style,
-    className: classnames_default().apply(void 0, [className, prefix, show && 'show', alignEnd && prefix + "-right"].concat(alignClasses))
-  }));
-});
-DropdownMenu_DropdownMenu.displayName = 'DropdownMenu';
-DropdownMenu_DropdownMenu.defaultProps = DropdownMenu_defaultProps;
-/* harmony default export */ var react_bootstrap_esm_DropdownMenu = (DropdownMenu_DropdownMenu);
-// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/isRequiredForA11y.js
-var isRequiredForA11y = __webpack_require__(5638);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Button.js
-var Button = __webpack_require__(5005);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/DropdownToggle.js
-
-
-var DropdownToggle_excluded = ["bsPrefix", "split", "className", "childBsPrefix", "as"];
-
-
-
-
-
-
-
-
-var DropdownToggle_DropdownToggle = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      split = _ref.split,
-      className = _ref.className,
-      childBsPrefix = _ref.childBsPrefix,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? Button/* default */.Z : _ref$as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, DropdownToggle_excluded);
-
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown-toggle');
-
-  if (childBsPrefix !== undefined) {
-    props.bsPrefix = childBsPrefix;
-  }
-
-  var _useDropdownToggle = useDropdownToggle(),
-      toggleProps = _useDropdownToggle[0];
-
-  toggleProps.ref = (0,useMergedRefs/* default */.Z)(toggleProps.ref, useWrappedRefWithWarning(ref, 'DropdownToggle')); // This intentionally forwards size and variant (if set) to the
-  // underlying component, to allow it to render size and style variants.
-
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({
-    className: classnames_default()(className, prefix, split && prefix + "-split")
-  }, toggleProps, props));
-});
-DropdownToggle_DropdownToggle.displayName = 'DropdownToggle';
-/* harmony default export */ var react_bootstrap_esm_DropdownToggle = (DropdownToggle_DropdownToggle);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
-var createWithBsPrefix = __webpack_require__(4680);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Dropdown.js
-
-
-var Dropdown_excluded = ["bsPrefix", "drop", "show", "className", "alignRight", "onSelect", "onToggle", "focusFirstItemOnShow", "as", "navbar"];
-
-
-
-
-
-
-
-
-
-
-
-var DropdownHeader = (0,createWithBsPrefix/* default */.Z)('dropdown-header', {
-  defaultProps: {
-    role: 'heading'
-  }
-});
-var DropdownDivider = (0,createWithBsPrefix/* default */.Z)('dropdown-divider', {
-  defaultProps: {
-    role: 'separator'
-  }
-});
-var DropdownItemText = (0,createWithBsPrefix/* default */.Z)('dropdown-item-text', {
-  Component: 'span'
-});
-var Dropdown_defaultProps = {
-  navbar: false
-};
-var Dropdown_Dropdown = /*#__PURE__*/react.forwardRef(function (pProps, ref) {
-  var _useUncontrolled = (0,esm/* useUncontrolled */.Ch)(pProps, {
-    show: 'onToggle'
-  }),
-      bsPrefix = _useUncontrolled.bsPrefix,
-      drop = _useUncontrolled.drop,
-      show = _useUncontrolled.show,
-      className = _useUncontrolled.className,
-      alignRight = _useUncontrolled.alignRight,
-      onSelect = _useUncontrolled.onSelect,
-      onToggle = _useUncontrolled.onToggle,
-      focusFirstItemOnShow = _useUncontrolled.focusFirstItemOnShow,
-      _useUncontrolled$as = _useUncontrolled.as,
-      Component = _useUncontrolled$as === void 0 ? 'div' : _useUncontrolled$as,
-      _4 = _useUncontrolled.navbar,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_useUncontrolled, Dropdown_excluded);
-
-  var onSelectCtx = (0,react.useContext)(SelectableContext/* default */.Z);
-  var prefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'dropdown');
-  var handleToggle = (0,useEventCallback/* default */.Z)(function (nextShow, event, source) {
-    if (source === void 0) {
-      source = event.type;
-    }
-
-    if (event.currentTarget === document && (source !== 'keydown' || event.key === 'Escape')) source = 'rootClose';
-
-    if (onToggle) {
-      onToggle(nextShow, event, {
-        source: source
+    if (value !== undefined) {
+      delete element.dataset[prop];
+      (0,css/* default */.Z)(element, {
+        [prop]: value
       });
     }
-  });
-  var handleSelect = (0,useEventCallback/* default */.Z)(function (key, event) {
-    if (onSelectCtx) onSelectCtx(key, event);
-    if (onSelect) onSelect(key, event);
-    handleToggle(false, event, 'select');
-  });
-  return /*#__PURE__*/react.createElement(SelectableContext/* default.Provider */.Z.Provider, {
-    value: handleSelect
-  }, /*#__PURE__*/react.createElement(esm_Dropdown, {
-    drop: drop,
-    show: show,
-    alignEnd: alignRight,
-    onToggle: handleToggle,
-    focusFirstItemOnShow: focusFirstItemOnShow,
-    itemSelector: "." + prefix + "-item:not(.disabled):not(:disabled)"
-  }, /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, show && 'show', (!drop || drop === 'down') && prefix, drop === 'up' && 'dropup', drop === 'right' && 'dropright', drop === 'left' && 'dropleft')
-  }))));
-});
-Dropdown_Dropdown.displayName = 'Dropdown';
-Dropdown_Dropdown.defaultProps = Dropdown_defaultProps;
-Dropdown_Dropdown.Divider = DropdownDivider;
-Dropdown_Dropdown.Header = DropdownHeader;
-Dropdown_Dropdown.Item = esm_DropdownItem;
-Dropdown_Dropdown.ItemText = DropdownItemText;
-Dropdown_Dropdown.Menu = react_bootstrap_esm_DropdownMenu;
-Dropdown_Dropdown.Toggle = react_bootstrap_esm_DropdownToggle;
-/* harmony default export */ var react_bootstrap_esm_Dropdown = (Dropdown_Dropdown);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavLink.js + 1 modules
-var NavLink = __webpack_require__(3982);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavDropdown.js
-
-
-var NavDropdown_excluded = ["id", "title", "children", "bsPrefix", "className", "rootCloseEvent", "menuRole", "disabled", "active", "renderMenuOnMount"];
-
-
-
-
-
-var NavDropdown = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var id = _ref.id,
-      title = _ref.title,
-      children = _ref.children,
-      bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      rootCloseEvent = _ref.rootCloseEvent,
-      menuRole = _ref.menuRole,
-      disabled = _ref.disabled,
-      active = _ref.active,
-      renderMenuOnMount = _ref.renderMenuOnMount,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, NavDropdown_excluded);
-
-  /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
-  var navItemPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(undefined, 'nav-item');
-  return /*#__PURE__*/react.createElement(react_bootstrap_esm_Dropdown, (0,esm_extends/* default */.Z)({
-    ref: ref
-  }, props, {
-    className: classnames_default()(className, navItemPrefix)
-  }), /*#__PURE__*/react.createElement(react_bootstrap_esm_Dropdown.Toggle, {
-    id: id,
-    eventKey: null,
-    active: active,
-    disabled: disabled,
-    childBsPrefix: bsPrefix,
-    as: NavLink/* default */.Z
-  }, title), /*#__PURE__*/react.createElement(react_bootstrap_esm_Dropdown.Menu, {
-    role: menuRole,
-    renderOnMount: renderMenuOnMount,
-    rootCloseEvent: rootCloseEvent
-  }, children));
-});
-NavDropdown.displayName = 'NavDropdown';
-NavDropdown.Item = react_bootstrap_esm_Dropdown.Item;
-NavDropdown.ItemText = react_bootstrap_esm_Dropdown.ItemText;
-NavDropdown.Divider = react_bootstrap_esm_Dropdown.Divider;
-NavDropdown.Header = react_bootstrap_esm_Dropdown.Header;
-/* harmony default export */ var esm_NavDropdown = (NavDropdown);
-
-/***/ }),
-
-/***/ 3982:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ esm_NavLink; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SafeAnchor.js
-var SafeAnchor = __webpack_require__(8358);
-// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js + 1 modules
-var useEventCallback = __webpack_require__(6895);
-// EXTERNAL MODULE: ./node_modules/warning/warning.js
-var warning = __webpack_require__(2473);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavContext.js
-var NavContext = __webpack_require__(590);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SelectableContext.js
-var SelectableContext = __webpack_require__(5017);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/AbstractNavItem.js
-
-
-var _excluded = ["active", "className", "eventKey", "onSelect", "onClick", "as"];
-
-
-
-
-
-
-var defaultProps = {
-  disabled: false
-};
-var AbstractNavItem = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var active = _ref.active,
-      className = _ref.className,
-      eventKey = _ref.eventKey,
-      onSelect = _ref.onSelect,
-      onClick = _ref.onClick,
-      Component = _ref.as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
-
-  var navKey = (0,SelectableContext/* makeEventKey */.h)(eventKey, props.href);
-  var parentOnSelect = (0,react.useContext)(SelectableContext/* default */.Z);
-  var navContext = (0,react.useContext)(NavContext/* default */.Z);
-  var isActive = active;
-
-  if (navContext) {
-    if (!props.role && navContext.role === 'tablist') props.role = 'tab';
-    var contextControllerId = navContext.getControllerId(navKey);
-    var contextControlledId = navContext.getControlledId(navKey);
-     false ? 0 : void 0;
-     false ? 0 : void 0;
-    props['data-rb-event-key'] = navKey;
-    props.id = contextControllerId || props.id;
-    props['aria-controls'] = contextControlledId || props['aria-controls'];
-    isActive = active == null && navKey != null ? navContext.activeKey === navKey : active;
   }
 
-  if (props.role === 'tab') {
-    if (props.disabled) {
-      props.tabIndex = -1;
-      props['aria-disabled'] = true;
+  setContainerStyle(containerState) {
+    super.setContainerStyle(containerState);
+    const container = this.getElement();
+    addClass(container, 'modal-open');
+    if (!containerState.scrollBarWidth) return;
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    (0,querySelectorAll/* default */.Z)(container, Selector.FIXED_CONTENT).forEach(el => this.adjustAndStore(paddingProp, el, containerState.scrollBarWidth));
+    (0,querySelectorAll/* default */.Z)(container, Selector.STICKY_CONTENT).forEach(el => this.adjustAndStore(marginProp, el, -containerState.scrollBarWidth));
+    (0,querySelectorAll/* default */.Z)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.adjustAndStore(marginProp, el, containerState.scrollBarWidth));
+  }
+
+  removeContainerStyle(containerState) {
+    super.removeContainerStyle(containerState);
+    const container = this.getElement();
+    removeClass(container, 'modal-open');
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    (0,querySelectorAll/* default */.Z)(container, Selector.FIXED_CONTENT).forEach(el => this.restore(paddingProp, el));
+    (0,querySelectorAll/* default */.Z)(container, Selector.STICKY_CONTENT).forEach(el => this.restore(marginProp, el));
+    (0,querySelectorAll/* default */.Z)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.restore(marginProp, el));
+  }
+
+}
+
+let sharedManager;
+function getSharedManager(options) {
+  if (!sharedManager) sharedManager = new BootstrapModalManager(options);
+  return sharedManager;
+}
+/* harmony default export */ var esm_BootstrapModalManager = (BootstrapModalManager);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Offcanvas.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Offcanvas_defaultProps = {
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  scroll: false,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  placement: 'start'
+};
+
+function DialogTransition(props) {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_OffcanvasToggling, { ...props
+  });
+}
+
+function BackdropTransition(props) {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Fade, { ...props
+  });
+}
+
+const Offcanvas = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  'aria-labelledby': ariaLabelledby,
+  placement,
+
+  /* BaseModal props */
+  show,
+  backdrop,
+  keyboard,
+  scroll,
+  onEscapeKeyDown,
+  onShow,
+  onHide,
+  container,
+  autoFocus,
+  enforceFocus,
+  restoreFocus,
+  restoreFocusOptions,
+  onEntered,
+  onExit,
+  onExiting,
+  onEnter,
+  onEntering,
+  onExited,
+  backdropClassName,
+  manager: propsManager,
+  ...props
+}, ref) => {
+  const modalManager = (0,react.useRef)();
+  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'offcanvas');
+  const {
+    onToggle
+  } = (0,react.useContext)(NavbarContext/* default */.Z) || {};
+  const handleHide = (0,useEventCallback/* default */.Z)(() => {
+    onToggle == null ? void 0 : onToggle();
+    onHide == null ? void 0 : onHide();
+  });
+  const modalContext = (0,react.useMemo)(() => ({
+    onHide: handleHide
+  }), [handleHide]);
+
+  function getModalManager() {
+    if (propsManager) return propsManager;
+
+    if (scroll) {
+      // Have to use a different modal manager since the shared
+      // one handles overflow.
+      if (!modalManager.current) modalManager.current = new esm_BootstrapModalManager({
+        handleContainerOverflow: false
+      });
+      return modalManager.current;
     }
 
-    props['aria-selected'] = isActive;
+    return getSharedManager();
   }
 
-  var handleOnclick = (0,useEventCallback/* default */.Z)(function (e) {
-    if (onClick) onClick(e);
-    if (navKey == null) return;
-    if (onSelect) onSelect(navKey, e);
-    if (parentOnSelect) parentOnSelect(navKey, e);
+  const handleEnter = (node, ...args) => {
+    if (node) node.style.visibility = 'visible';
+    onEnter == null ? void 0 : onEnter(node, ...args);
+  };
+
+  const handleExited = (node, ...args) => {
+    if (node) node.style.visibility = '';
+    onExited == null ? void 0 : onExited(...args);
+  };
+
+  const renderBackdrop = (0,react.useCallback)(backdropProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", { ...backdropProps,
+    className: classnames_default()(`${bsPrefix}-backdrop`, backdropClassName)
+  }), [backdropClassName, bsPrefix]);
+
+  const renderDialog = dialogProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    role: "dialog",
+    ...dialogProps,
+    ...props,
+    className: classnames_default()(className, bsPrefix, `${bsPrefix}-${placement}`),
+    "aria-labelledby": ariaLabelledby,
+    children: children
   });
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    onClick: handleOnclick,
-    className: classnames_default()(className, isActive && 'active')
-  }));
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_ModalContext.Provider, {
+    value: modalContext,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Modal, {
+      show: show,
+      ref: ref,
+      backdrop: backdrop,
+      container: container,
+      keyboard: keyboard,
+      autoFocus: autoFocus,
+      enforceFocus: enforceFocus && !scroll,
+      restoreFocus: restoreFocus,
+      restoreFocusOptions: restoreFocusOptions,
+      onEscapeKeyDown: onEscapeKeyDown,
+      onShow: onShow,
+      onHide: handleHide,
+      onEnter: handleEnter,
+      onEntering: onEntering,
+      onEntered: onEntered,
+      onExit: onExit,
+      onExiting: onExiting,
+      onExited: handleExited,
+      manager: getModalManager(),
+      transition: DialogTransition,
+      backdropTransition: BackdropTransition,
+      renderBackdrop: renderBackdrop,
+      renderDialog: renderDialog
+    })
+  });
 });
-AbstractNavItem.defaultProps = defaultProps;
-/* harmony default export */ var esm_AbstractNavItem = (AbstractNavItem);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
-var ThemeProvider = __webpack_require__(6792);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavLink.js
-
-
-var NavLink_excluded = ["bsPrefix", "disabled", "className", "href", "eventKey", "onSelect", "as"];
-
-
-
-
-
-var NavLink_defaultProps = {
-  disabled: false,
-  as: SafeAnchor/* default */.Z
-};
-var NavLink = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      disabled = _ref.disabled,
-      className = _ref.className,
-      href = _ref.href,
-      eventKey = _ref.eventKey,
-      onSelect = _ref.onSelect,
-      as = _ref.as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, NavLink_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'nav-link');
-  return /*#__PURE__*/react.createElement(esm_AbstractNavItem, (0,esm_extends/* default */.Z)({}, props, {
-    href: href,
-    ref: ref,
-    eventKey: eventKey,
-    as: as,
-    disabled: disabled,
-    onSelect: onSelect,
-    className: classnames_default()(className, bsPrefix, disabled && 'disabled')
-  }));
-});
-NavLink.displayName = 'NavLink';
-NavLink.defaultProps = NavLink_defaultProps;
-/* harmony default export */ var esm_NavLink = (NavLink);
+Offcanvas.displayName = 'Offcanvas';
+Offcanvas.defaultProps = Offcanvas_defaultProps;
+/* harmony default export */ var esm_Offcanvas = (Object.assign(Offcanvas, {
+  Body: OffcanvasBody,
+  Header: esm_OffcanvasHeader,
+  Title: OffcanvasTitle
+}));
 
 /***/ }),
 
-/***/ 3197:
+/***/ 4051:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ esm_Navbar; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
-// EXTERNAL MODULE: ./node_modules/uncontrollable/lib/esm/index.js + 3 modules
-var esm = __webpack_require__(8977);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js + 1 modules
-var createWithBsPrefix = __webpack_require__(4680);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
-var ThemeProvider = __webpack_require__(6792);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarBrand.js
-
-
-var _excluded = ["bsPrefix", "className", "as"];
-
-
-
-var NavbarBrand = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      as = _ref.as,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, _excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-brand');
-  var Component = as || (props.href ? 'a' : 'span');
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix)
-  }));
-});
-NavbarBrand.displayName = 'NavbarBrand';
-/* harmony default export */ var esm_NavbarBrand = (NavbarBrand);
-// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
-var ownerDocument = __webpack_require__(7216);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerWindow.js
-
-/**
- * Returns the owner window of a given element.
- * 
- * @param node the element
- */
-
-function ownerWindow(node) {
-  var doc = (0,ownerDocument/* default */.Z)(node);
-  return doc && doc.defaultView || window;
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/getComputedStyle.js
-
-/**
- * Returns one or all computed style properties of an element.
- * 
- * @param node the element
- * @param psuedoElement the style property
- */
-
-function getComputedStyle(node, psuedoElement) {
-  return ownerWindow(node).getComputedStyle(node, psuedoElement);
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenate.js
-var rUpper = /([A-Z])/g;
-function hyphenate(string) {
-  return string.replace(rUpper, '-$1').toLowerCase();
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenateStyle.js
-/**
- * Copyright 2013-2014, Facebook, Inc.
- * All rights reserved.
- * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
- */
-
-var msPattern = /^ms-/;
-function hyphenateStyleName(string) {
-  return hyphenate(string).replace(msPattern, '-ms-');
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/isTransform.js
-var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
-function isTransform(value) {
-  return !!(value && supportedTransforms.test(value));
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/css.js
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
 
 
 
 
-function style(node, property) {
-  var css = '';
-  var transforms = '';
+const Row = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const decoratedBsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'row');
+  const breakpoints = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapBreakpoints */ .pi)();
+  const sizePrefix = `${decoratedBsPrefix}-cols`;
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
+    delete props[brkPoint];
+    let cols;
 
-  if (typeof property === 'string') {
-    return node.style.getPropertyValue(hyphenateStyleName(property)) || getComputedStyle(node).getPropertyValue(hyphenateStyleName(property));
-  }
-
-  Object.keys(property).forEach(function (key) {
-    var value = property[key];
-
-    if (!value && value !== 0) {
-      node.style.removeProperty(hyphenateStyleName(key));
-    } else if (isTransform(key)) {
-      transforms += key + "(" + value + ") ";
+    if (propValue != null && typeof propValue === 'object') {
+      ({
+        cols
+      } = propValue);
     } else {
-      css += hyphenateStyleName(key) + ": " + value + ";";
+      cols = propValue;
     }
+
+    const infix = brkPoint !== 'xs' ? `-${brkPoint}` : '';
+    if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
   });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, decoratedBsPrefix, ...classes)
+  });
+});
+Row.displayName = 'Row';
+/* harmony default export */ __webpack_exports__["Z"] = (Row);
 
-  if (transforms) {
-    css += "transform: " + transforms + ";";
-  }
+/***/ }),
 
-  node.style.cssText += ";" + css;
+/***/ 6968:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
+
+
+
+
+const Spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  bsPrefix,
+  variant,
+  animation,
+  size,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  className,
+  ...props
+}, ref) => {
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'spinner');
+  const bsSpinnerPrefix = `${bsPrefix}-${animation}`;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, bsSpinnerPrefix, size && `${bsSpinnerPrefix}-${size}`, variant && `text-${variant}`)
+  });
+});
+Spinner.displayName = 'Spinner';
+/* harmony default export */ __webpack_exports__["Z"] = (Spinner);
+
+/***/ }),
+
+/***/ 6792:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SC": function() { return /* binding */ useIsRTL; },
+/* harmony export */   "pi": function() { return /* binding */ useBootstrapBreakpoints; },
+/* harmony export */   "vE": function() { return /* binding */ useBootstrapPrefix; }
+/* harmony export */ });
+/* unused harmony exports DEFAULT_BREAKPOINTS, createBootstrapComponent, ThemeConsumer */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5893);
+
+
+
+const DEFAULT_BREAKPOINTS = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
+const ThemeContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext({
+  prefixes: {},
+  breakpoints: DEFAULT_BREAKPOINTS
+});
+const {
+  Consumer,
+  Provider
+} = ThemeContext;
+
+function ThemeProvider({
+  prefixes = {},
+  breakpoints = DEFAULT_BREAKPOINTS,
+  dir,
+  children
+}) {
+  const contextValue = useMemo(() => ({
+    prefixes: { ...prefixes
+    },
+    breakpoints,
+    dir
+  }), [prefixes, breakpoints, dir]);
+  return /*#__PURE__*/_jsx(Provider, {
+    value: contextValue,
+    children: children
+  });
 }
 
-/* harmony default export */ var css = (style);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
-var inheritsLoose = __webpack_require__(1721);
+function useBootstrapPrefix(prefix, defaultPrefix) {
+  const {
+    prefixes
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ThemeContext);
+  return prefix || prefixes[defaultPrefix] || defaultPrefix;
+}
+function useBootstrapBreakpoints() {
+  const {
+    breakpoints
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ThemeContext);
+  return breakpoints;
+}
+function useIsRTL() {
+  const {
+    dir
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ThemeContext);
+  return dir === 'rtl';
+}
+
+function createBootstrapComponent(Component, opts) {
+  if (typeof opts === 'string') opts = {
+    prefix: opts
+  };
+  const isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
+
+  const {
+    prefix,
+    forwardRefAs = isClassy ? 'ref' : 'innerRef'
+  } = opts;
+  const Wrapped = /*#__PURE__*/React.forwardRef(({ ...props
+  }, ref) => {
+    props[forwardRefAs] = ref;
+    const bsPrefix = useBootstrapPrefix(props.bsPrefix, prefix);
+    return /*#__PURE__*/_jsx(Component, { ...props,
+      bsPrefix: bsPrefix
+    });
+  });
+  Wrapped.displayName = `Bootstrap(${Component.displayName || Component.name})`;
+  return Wrapped;
+}
+
+
+/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((/* unused pure expression or super */ null && (ThemeProvider)));
+
+/***/ }),
+
+/***/ 360:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ esm_TransitionWrapper; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/react-transition-group/esm/Transition.js + 2 modules
+var Transition = __webpack_require__(660);
+// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useMergedRefs.js
+var useMergedRefs = __webpack_require__(5654);
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__(3935);
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/config.js
-/* harmony default export */ var config = ({
-  disabled: false
-});
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/TransitionGroupContext.js
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/safeFindDOMNode.js
 
-/* harmony default export */ var TransitionGroupContext = (react.createContext(null));
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/Transition.js
-
-
-
-
-
-
-
-
-var UNMOUNTED = 'unmounted';
-var EXITED = 'exited';
-var ENTERING = 'entering';
-var ENTERED = 'entered';
-var EXITING = 'exiting';
-/**
- * The Transition component lets you describe a transition from one component
- * state to another _over time_ with a simple declarative API. Most commonly
- * it's used to animate the mounting and unmounting of a component, but can also
- * be used to describe in-place transition states as well.
- *
- * ---
- *
- * **Note**: `Transition` is a platform-agnostic base component. If you're using
- * transitions in CSS, you'll probably want to use
- * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
- * instead. It inherits all the features of `Transition`, but contains
- * additional features necessary to play nice with CSS transitions (hence the
- * name of the component).
- *
- * ---
- *
- * By default the `Transition` component does not alter the behavior of the
- * component it renders, it only tracks "enter" and "exit" states for the
- * components. It's up to you to give meaning and effect to those states. For
- * example we can add styles to a component when it enters or exits:
- *
- * ```jsx
- * import { Transition } from 'react-transition-group';
- *
- * const duration = 300;
- *
- * const defaultStyle = {
- *   transition: `opacity ${duration}ms ease-in-out`,
- *   opacity: 0,
- * }
- *
- * const transitionStyles = {
- *   entering: { opacity: 1 },
- *   entered:  { opacity: 1 },
- *   exiting:  { opacity: 0 },
- *   exited:  { opacity: 0 },
- * };
- *
- * const Fade = ({ in: inProp }) => (
- *   <Transition in={inProp} timeout={duration}>
- *     {state => (
- *       <div style={{
- *         ...defaultStyle,
- *         ...transitionStyles[state]
- *       }}>
- *         I'm a fade Transition!
- *       </div>
- *     )}
- *   </Transition>
- * );
- * ```
- *
- * There are 4 main states a Transition can be in:
- *  - `'entering'`
- *  - `'entered'`
- *  - `'exiting'`
- *  - `'exited'`
- *
- * Transition state is toggled via the `in` prop. When `true` the component
- * begins the "Enter" stage. During this stage, the component will shift from
- * its current transition state, to `'entering'` for the duration of the
- * transition and then to the `'entered'` stage once it's complete. Let's take
- * the following example (we'll use the
- * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
- *
- * ```jsx
- * function App() {
- *   const [inProp, setInProp] = useState(false);
- *   return (
- *     <div>
- *       <Transition in={inProp} timeout={500}>
- *         {state => (
- *           // ...
- *         )}
- *       </Transition>
- *       <button onClick={() => setInProp(true)}>
- *         Click to Enter
- *       </button>
- *     </div>
- *   );
- * }
- * ```
- *
- * When the button is clicked the component will shift to the `'entering'` state
- * and stay there for 500ms (the value of `timeout`) before it finally switches
- * to `'entered'`.
- *
- * When `in` is `false` the same thing happens except the state moves from
- * `'exiting'` to `'exited'`.
- */
-
-var Transition = /*#__PURE__*/function (_React$Component) {
-  (0,inheritsLoose/* default */.Z)(Transition, _React$Component);
-
-  function Transition(props, context) {
-    var _this;
-
-    _this = _React$Component.call(this, props, context) || this;
-    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
-
-    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
-    var initialStatus;
-    _this.appearStatus = null;
-
-    if (props.in) {
-      if (appear) {
-        initialStatus = EXITED;
-        _this.appearStatus = ENTERING;
-      } else {
-        initialStatus = ENTERED;
-      }
-    } else {
-      if (props.unmountOnExit || props.mountOnEnter) {
-        initialStatus = UNMOUNTED;
-      } else {
-        initialStatus = EXITED;
-      }
-    }
-
-    _this.state = {
-      status: initialStatus
-    };
-    _this.nextCallback = null;
-    return _this;
+function safeFindDOMNode(componentOrElement) {
+  if (componentOrElement && 'setState' in componentOrElement) {
+    return react_dom.findDOMNode(componentOrElement);
   }
 
-  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
-    var nextIn = _ref.in;
+  return componentOrElement != null ? componentOrElement : null;
+}
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/TransitionWrapper.js
 
-    if (nextIn && prevState.status === UNMOUNTED) {
-      return {
-        status: EXITED
-      };
-    }
 
-    return null;
-  } // getSnapshotBeforeUpdate(prevProps) {
-  //   let nextStatus = null
-  //   if (prevProps !== this.props) {
-  //     const { status } = this.state
-  //     if (this.props.in) {
-  //       if (status !== ENTERING && status !== ENTERED) {
-  //         nextStatus = ENTERING
-  //       }
-  //     } else {
-  //       if (status === ENTERING || status === ENTERED) {
-  //         nextStatus = EXITING
-  //       }
-  //     }
-  //   }
-  //   return { nextStatus }
-  // }
-  ;
 
-  var _proto = Transition.prototype;
 
-  _proto.componentDidMount = function componentDidMount() {
-    this.updateStatus(true, this.appearStatus);
+
+// Normalizes Transition callbacks when nodeRef is used.
+const TransitionWrapper = /*#__PURE__*/react.forwardRef(({
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  onExited,
+  addEndListener,
+  children,
+  childRef,
+  ...props
+}, ref) => {
+  const nodeRef = (0,react.useRef)(null);
+  const mergedRef = (0,useMergedRefs/* default */.Z)(nodeRef, childRef);
+
+  const attachRef = r => {
+    mergedRef(safeFindDOMNode(r));
   };
 
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
-    var nextStatus = null;
-
-    if (prevProps !== this.props) {
-      var status = this.state.status;
-
-      if (this.props.in) {
-        if (status !== ENTERING && status !== ENTERED) {
-          nextStatus = ENTERING;
-        }
-      } else {
-        if (status === ENTERING || status === ENTERED) {
-          nextStatus = EXITING;
-        }
-      }
-    }
-
-    this.updateStatus(false, nextStatus);
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this.cancelNextCallback();
-  };
-
-  _proto.getTimeouts = function getTimeouts() {
-    var timeout = this.props.timeout;
-    var exit, enter, appear;
-    exit = enter = appear = timeout;
-
-    if (timeout != null && typeof timeout !== 'number') {
-      exit = timeout.exit;
-      enter = timeout.enter; // TODO: remove fallback for next major
-
-      appear = timeout.appear !== undefined ? timeout.appear : enter;
-    }
-
-    return {
-      exit: exit,
-      enter: enter,
-      appear: appear
-    };
-  };
-
-  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
-    if (mounting === void 0) {
-      mounting = false;
-    }
-
-    if (nextStatus !== null) {
-      // nextStatus will always be ENTERING or EXITING.
-      this.cancelNextCallback();
-
-      if (nextStatus === ENTERING) {
-        this.performEnter(mounting);
-      } else {
-        this.performExit();
-      }
-    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
-      this.setState({
-        status: UNMOUNTED
-      });
+  const normalize = callback => param => {
+    if (callback && nodeRef.current) {
+      callback(nodeRef.current, param);
     }
   };
+  /* eslint-disable react-hooks/exhaustive-deps */
 
-  _proto.performEnter = function performEnter(mounting) {
-    var _this2 = this;
 
-    var enter = this.props.enter;
-    var appearing = this.context ? this.context.isMounting : mounting;
+  const handleEnter = (0,react.useCallback)(normalize(onEnter), [onEnter]);
+  const handleEntering = (0,react.useCallback)(normalize(onEntering), [onEntering]);
+  const handleEntered = (0,react.useCallback)(normalize(onEntered), [onEntered]);
+  const handleExit = (0,react.useCallback)(normalize(onExit), [onExit]);
+  const handleExiting = (0,react.useCallback)(normalize(onExiting), [onExiting]);
+  const handleExited = (0,react.useCallback)(normalize(onExited), [onExited]);
+  const handleAddEndListener = (0,react.useCallback)(normalize(addEndListener), [addEndListener]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom.findDOMNode(this), appearing],
-        maybeNode = _ref2[0],
-        maybeAppearing = _ref2[1];
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Transition/* default */.ZP, {
+    ref: ref,
+    ...props,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    nodeRef: nodeRef,
+    children: typeof children === 'function' ? (status, innerProps) => children(status, { ...innerProps,
+      ref: attachRef
+    }) : /*#__PURE__*/react.cloneElement(children, {
+      ref: attachRef
+    })
+  });
+});
+/* harmony default export */ var esm_TransitionWrapper = (TransitionWrapper);
 
-    var timeouts = this.getTimeouts();
-    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
-    // if we are mounting and running this it means appear _must_ be set
+/***/ }),
 
-    if (!mounting && !enter || config.disabled) {
-      this.safeSetState({
-        status: ENTERED
-      }, function () {
-        _this2.props.onEntered(maybeNode);
-      });
-      return;
-    }
+/***/ 4680:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-    this.props.onEnter(maybeNode, maybeAppearing);
-    this.safeSetState({
-      status: ENTERING
-    }, function () {
-      _this2.props.onEntering(maybeNode, maybeAppearing);
+"use strict";
 
-      _this2.onTransitionEnd(enterTimeout, function () {
-        _this2.safeSetState({
-          status: ENTERED
-        }, function () {
-          _this2.props.onEntered(maybeNode, maybeAppearing);
-        });
-      });
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ createWithBsPrefix; }
+});
+
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4184);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/camelize.js
+var rHyphen = /-(.)/g;
+function camelize(string) {
+  return string.replace(rHyphen, function (_, chr) {
+    return chr.toUpperCase();
+  });
+}
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
+var ThemeProvider = __webpack_require__(6792);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(5893);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js
+
+
+
+
+
+
+const pascalCase = str => str[0].toUpperCase() + camelize(str).slice(1);
+
+// TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
+function createWithBsPrefix(prefix, {
+  displayName = pascalCase(prefix),
+  Component,
+  defaultProps
+} = {}) {
+  const BsComponent = /*#__PURE__*/react.forwardRef(({
+    className,
+    bsPrefix,
+    as: Tag = Component || 'div',
+    ...props
+  }, ref) => {
+    const resolvedPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, prefix);
+    return /*#__PURE__*/(0,jsx_runtime.jsx)(Tag, {
+      ref: ref,
+      className: classnames_default()(className, resolvedPrefix),
+      ...props
     });
-  };
+  });
+  BsComponent.defaultProps = defaultProps;
+  BsComponent.displayName = displayName;
+  return BsComponent;
+}
 
-  _proto.performExit = function performExit() {
-    var _this3 = this;
+/***/ }),
 
-    var exit = this.props.exit;
-    var timeouts = this.getTimeouts();
-    var maybeNode = this.props.nodeRef ? undefined : react_dom.findDOMNode(this); // no exit animation skip right to EXITED
+/***/ 9602:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-    if (!exit || config.disabled) {
-      this.safeSetState({
-        status: EXITED
-      }, function () {
-        _this3.props.onExited(maybeNode);
-      });
-      return;
-    }
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4184);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5893);
 
-    this.props.onExit(maybeNode);
-    this.safeSetState({
-      status: EXITING
-    }, function () {
-      _this3.props.onExiting(maybeNode);
 
-      _this3.onTransitionEnd(timeouts.exit, function () {
-        _this3.safeSetState({
-          status: EXITED
-        }, function () {
-          _this3.props.onExited(maybeNode);
-        });
-      });
-    });
-  };
 
-  _proto.cancelNextCallback = function cancelNextCallback() {
-    if (this.nextCallback !== null) {
-      this.nextCallback.cancel();
-      this.nextCallback = null;
-    }
-  };
+/* harmony default export */ __webpack_exports__["Z"] = (className => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((p, ref) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", { ...p,
+  ref: ref,
+  className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(p.className, className)
+})));
 
-  _proto.safeSetState = function safeSetState(nextState, callback) {
-    // This shouldn't be necessary, but there are weird race conditions with
-    // setState callbacks and unmounting in testing, so always make sure that
-    // we can cancel any pending setState callbacks after we unmount.
-    callback = this.setNextCallback(callback);
-    this.setState(nextState, callback);
-  };
+/***/ }),
 
-  _proto.setNextCallback = function setNextCallback(callback) {
-    var _this4 = this;
+/***/ 492:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-    var active = true;
+"use strict";
 
-    this.nextCallback = function (event) {
-      if (active) {
-        active = false;
-        _this4.nextCallback = null;
-        callback(event);
-      }
-    };
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ transitionEndListener; }
+});
 
-    this.nextCallback.cancel = function () {
-      active = false;
-    };
-
-    return this.nextCallback;
-  };
-
-  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
-    this.setNextCallback(handler);
-    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this);
-    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
-
-    if (!node || doesNotHaveTimeoutOrListener) {
-      setTimeout(this.nextCallback, 0);
-      return;
-    }
-
-    if (this.props.addEndListener) {
-      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
-          maybeNode = _ref3[0],
-          maybeNextCallback = _ref3[1];
-
-      this.props.addEndListener(maybeNode, maybeNextCallback);
-    }
-
-    if (timeout != null) {
-      setTimeout(this.nextCallback, timeout);
-    }
-  };
-
-  _proto.render = function render() {
-    var status = this.state.status;
-
-    if (status === UNMOUNTED) {
-      return null;
-    }
-
-    var _this$props = this.props,
-        children = _this$props.children,
-        _in = _this$props.in,
-        _mountOnEnter = _this$props.mountOnEnter,
-        _unmountOnExit = _this$props.unmountOnExit,
-        _appear = _this$props.appear,
-        _enter = _this$props.enter,
-        _exit = _this$props.exit,
-        _timeout = _this$props.timeout,
-        _addEndListener = _this$props.addEndListener,
-        _onEnter = _this$props.onEnter,
-        _onEntering = _this$props.onEntering,
-        _onEntered = _this$props.onEntered,
-        _onExit = _this$props.onExit,
-        _onExiting = _this$props.onExiting,
-        _onExited = _this$props.onExited,
-        _nodeRef = _this$props.nodeRef,
-        childProps = (0,objectWithoutPropertiesLoose/* default */.Z)(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
-
-    return (
-      /*#__PURE__*/
-      // allows for nested Transitions
-      react.createElement(TransitionGroupContext.Provider, {
-        value: null
-      }, typeof children === 'function' ? children(status, childProps) : react.cloneElement(react.Children.only(children), childProps))
-    );
-  };
-
-  return Transition;
-}(react.Component);
-
-Transition.contextType = TransitionGroupContext;
-Transition.propTypes =  false ? 0 : {}; // Name the function so it is clearer in the documentation
-
-function noop() {}
-
-Transition.defaultProps = {
-  in: false,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false,
-  enter: true,
-  exit: true,
-  onEnter: noop,
-  onEntering: noop,
-  onEntered: noop,
-  onExit: noop,
-  onExiting: noop,
-  onExited: noop
-};
-Transition.UNMOUNTED = UNMOUNTED;
-Transition.EXITED = EXITED;
-Transition.ENTERING = ENTERING;
-Transition.ENTERED = ENTERED;
-Transition.EXITING = EXITING;
-/* harmony default export */ var esm_Transition = (Transition);
+// EXTERNAL MODULE: ./node_modules/dom-helpers/esm/css.js + 5 modules
+var css = __webpack_require__(3164);
 // EXTERNAL MODULE: ./node_modules/dom-helpers/esm/listen.js + 1 modules
 var listen = __webpack_require__(3299);
 ;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/triggerEvent.js
@@ -10456,7 +12458,7 @@ function triggerEvent(node, eventName, bubbles, cancelable) {
 
 
 function parseDuration(node) {
-  var str = css(node, 'transitionDuration') || '';
+  var str = (0,css/* default */.Z)(node, 'transitionDuration') || '';
   var mult = str.indexOf('ms') === -1 ? 1000 : 1;
   return parseFloat(str) * mult;
 }
@@ -10495,687 +12497,36 @@ function transitionEnd(element, handler, duration, padding) {
 
 
 function transitionEndListener_parseDuration(node, property) {
-  var str = css(node, property) || '';
-  var mult = str.indexOf('ms') === -1 ? 1000 : 1;
+  const str = (0,css/* default */.Z)(node, property) || '';
+  const mult = str.indexOf('ms') === -1 ? 1000 : 1;
   return parseFloat(str) * mult;
 }
 
 function transitionEndListener(element, handler) {
-  var duration = transitionEndListener_parseDuration(element, 'transitionDuration');
-  var delay = transitionEndListener_parseDuration(element, 'transitionDelay');
-  var remove = transitionEnd(element, function (e) {
+  const duration = transitionEndListener_parseDuration(element, 'transitionDuration');
+  const delay = transitionEndListener_parseDuration(element, 'transitionDelay');
+  const remove = transitionEnd(element, e => {
     if (e.target === element) {
       remove();
       handler(e);
     }
   }, duration + delay);
 }
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/createChainedFunction.js
-var createChainedFunction = __webpack_require__(6833);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js
+
+/***/ }),
+
+/***/ 4509:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ triggerBrowserReflow; }
+/* harmony export */ });
 // reading a dimension prop will cause the browser to recalculate,
 // which will let our animations work
 function triggerBrowserReflow(node) {
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   node.offsetHeight;
-}
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Collapse.js
-
-
-var Collapse_excluded = ["onEnter", "onEntering", "onEntered", "onExit", "onExiting", "className", "children", "dimension", "getDimensionValue"];
-
-var _collapseStyles;
-
-
-
-
-
-
-
-
-var MARGINS = {
-  height: ['marginTop', 'marginBottom'],
-  width: ['marginLeft', 'marginRight']
-};
-
-function getDefaultDimensionValue(dimension, elem) {
-  var offset = "offset" + dimension[0].toUpperCase() + dimension.slice(1);
-  var value = elem[offset];
-  var margins = MARGINS[dimension];
-  return value + // @ts-ignore
-  parseInt(css(elem, margins[0]), 10) + // @ts-ignore
-  parseInt(css(elem, margins[1]), 10);
-}
-
-var collapseStyles = (_collapseStyles = {}, _collapseStyles[EXITED] = 'collapse', _collapseStyles[EXITING] = 'collapsing', _collapseStyles[ENTERING] = 'collapsing', _collapseStyles[ENTERED] = 'collapse show', _collapseStyles);
-var defaultProps = {
-  in: false,
-  timeout: 300,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false,
-  getDimensionValue: getDefaultDimensionValue
-};
-var Collapse = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var onEnter = _ref.onEnter,
-      onEntering = _ref.onEntering,
-      onEntered = _ref.onEntered,
-      onExit = _ref.onExit,
-      onExiting = _ref.onExiting,
-      className = _ref.className,
-      children = _ref.children,
-      _ref$dimension = _ref.dimension,
-      dimension = _ref$dimension === void 0 ? 'height' : _ref$dimension,
-      _ref$getDimensionValu = _ref.getDimensionValue,
-      getDimensionValue = _ref$getDimensionValu === void 0 ? getDefaultDimensionValue : _ref$getDimensionValu,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, Collapse_excluded);
-
-  /* Compute dimension */
-  var computedDimension = typeof dimension === 'function' ? dimension() : dimension;
-  /* -- Expanding -- */
-
-  var handleEnter = (0,react.useMemo)(function () {
-    return (0,createChainedFunction/* default */.Z)(function (elem) {
-      elem.style[computedDimension] = '0';
-    }, onEnter);
-  }, [computedDimension, onEnter]);
-  var handleEntering = (0,react.useMemo)(function () {
-    return (0,createChainedFunction/* default */.Z)(function (elem) {
-      var scroll = "scroll" + computedDimension[0].toUpperCase() + computedDimension.slice(1);
-      elem.style[computedDimension] = elem[scroll] + "px";
-    }, onEntering);
-  }, [computedDimension, onEntering]);
-  var handleEntered = (0,react.useMemo)(function () {
-    return (0,createChainedFunction/* default */.Z)(function (elem) {
-      elem.style[computedDimension] = null;
-    }, onEntered);
-  }, [computedDimension, onEntered]);
-  /* -- Collapsing -- */
-
-  var handleExit = (0,react.useMemo)(function () {
-    return (0,createChainedFunction/* default */.Z)(function (elem) {
-      elem.style[computedDimension] = getDimensionValue(computedDimension, elem) + "px";
-      triggerBrowserReflow(elem);
-    }, onExit);
-  }, [onExit, getDimensionValue, computedDimension]);
-  var handleExiting = (0,react.useMemo)(function () {
-    return (0,createChainedFunction/* default */.Z)(function (elem) {
-      elem.style[computedDimension] = null;
-    }, onExiting);
-  }, [computedDimension, onExiting]);
-  return /*#__PURE__*/react.createElement(esm_Transition // @ts-ignore
-  , (0,esm_extends/* default */.Z)({
-    ref: ref,
-    addEndListener: transitionEndListener
-  }, props, {
-    "aria-expanded": props.role ? props.in : null,
-    onEnter: handleEnter,
-    onEntering: handleEntering,
-    onEntered: handleEntered,
-    onExit: handleExit,
-    onExiting: handleExiting
-  }), function (state, innerProps) {
-    return /*#__PURE__*/react.cloneElement(children, (0,esm_extends/* default */.Z)({}, innerProps, {
-      className: classnames_default()(className, children.props.className, collapseStyles[state], computedDimension === 'width' && 'width')
-    }));
-  });
-}); // @ts-ignore
-
-// @ts-ignore
-Collapse.defaultProps = defaultProps;
-/* harmony default export */ var esm_Collapse = (Collapse);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/NavbarContext.js
-var NavbarContext = __webpack_require__(4819);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarCollapse.js
-
-
-var NavbarCollapse_excluded = ["children", "bsPrefix"];
-
-
-
-
-var NavbarCollapse = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var children = _ref.children,
-      bsPrefix = _ref.bsPrefix,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, NavbarCollapse_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-collapse');
-  return /*#__PURE__*/react.createElement(NavbarContext/* default.Consumer */.Z.Consumer, null, function (context) {
-    return /*#__PURE__*/react.createElement(esm_Collapse, (0,esm_extends/* default */.Z)({
-      in: !!(context && context.expanded)
-    }, props), /*#__PURE__*/react.createElement("div", {
-      ref: ref,
-      className: bsPrefix
-    }, children));
-  });
-});
-NavbarCollapse.displayName = 'NavbarCollapse';
-/* harmony default export */ var esm_NavbarCollapse = (NavbarCollapse);
-// EXTERNAL MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js + 1 modules
-var useEventCallback = __webpack_require__(6895);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/NavbarToggle.js
-
-
-var NavbarToggle_excluded = ["bsPrefix", "className", "children", "label", "as", "onClick"];
-
-
-
-
-
-var NavbarToggle_defaultProps = {
-  label: 'Toggle navigation'
-};
-var NavbarToggle = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      children = _ref.children,
-      label = _ref.label,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'button' : _ref$as,
-      onClick = _ref.onClick,
-      props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, NavbarToggle_excluded);
-
-  bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, 'navbar-toggler');
-
-  var _ref2 = (0,react.useContext)(NavbarContext/* default */.Z) || {},
-      onToggle = _ref2.onToggle,
-      expanded = _ref2.expanded;
-
-  var handleClick = (0,useEventCallback/* default */.Z)(function (e) {
-    if (onClick) onClick(e);
-    if (onToggle) onToggle();
-  });
-
-  if (Component === 'button') {
-    props.type = 'button';
-  }
-
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({}, props, {
-    ref: ref,
-    onClick: handleClick,
-    "aria-label": label,
-    className: classnames_default()(className, bsPrefix, !expanded && 'collapsed')
-  }), children || /*#__PURE__*/react.createElement("span", {
-    className: bsPrefix + "-icon"
-  }));
-});
-NavbarToggle.displayName = 'NavbarToggle';
-NavbarToggle.defaultProps = NavbarToggle_defaultProps;
-/* harmony default export */ var esm_NavbarToggle = (NavbarToggle);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/SelectableContext.js
-var SelectableContext = __webpack_require__(5017);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Navbar.js
-
-
-var Navbar_excluded = ["bsPrefix", "expand", "variant", "bg", "fixed", "sticky", "className", "children", "as", "expanded", "onToggle", "onSelect", "collapseOnSelect"];
-
-
-
-
-
-
-
-
-
-
-var NavbarText = (0,createWithBsPrefix/* default */.Z)('navbar-text', {
-  Component: 'span'
-});
-var Navbar_defaultProps = {
-  expand: true,
-  variant: 'light',
-  collapseOnSelect: false
-};
-var Navbar = /*#__PURE__*/react.forwardRef(function (props, ref) {
-  var _useUncontrolled = (0,esm/* useUncontrolled */.Ch)(props, {
-    expanded: 'onToggle'
-  }),
-      initialBsPrefix = _useUncontrolled.bsPrefix,
-      expand = _useUncontrolled.expand,
-      variant = _useUncontrolled.variant,
-      bg = _useUncontrolled.bg,
-      fixed = _useUncontrolled.fixed,
-      sticky = _useUncontrolled.sticky,
-      className = _useUncontrolled.className,
-      children = _useUncontrolled.children,
-      _useUncontrolled$as = _useUncontrolled.as,
-      Component = _useUncontrolled$as === void 0 ? 'nav' : _useUncontrolled$as,
-      expanded = _useUncontrolled.expanded,
-      _onToggle = _useUncontrolled.onToggle,
-      onSelect = _useUncontrolled.onSelect,
-      collapseOnSelect = _useUncontrolled.collapseOnSelect,
-      controlledProps = (0,objectWithoutPropertiesLoose/* default */.Z)(_useUncontrolled, Navbar_excluded);
-
-  var bsPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(initialBsPrefix, 'navbar');
-  var handleCollapse = (0,react.useCallback)(function () {
-    if (onSelect) onSelect.apply(void 0, arguments);
-
-    if (collapseOnSelect && expanded) {
-      if (_onToggle) {
-        _onToggle(false);
-      }
-    }
-  }, [onSelect, collapseOnSelect, expanded, _onToggle]); // will result in some false positives but that seems better
-  // than false negatives. strict `undefined` check allows explicit
-  // "nulling" of the role if the user really doesn't want one
-
-  if (controlledProps.role === undefined && Component !== 'nav') {
-    controlledProps.role = 'navigation';
-  }
-
-  var expandClass = bsPrefix + "-expand";
-  if (typeof expand === 'string') expandClass = expandClass + "-" + expand;
-  var navbarContext = (0,react.useMemo)(function () {
-    return {
-      onToggle: function onToggle() {
-        return _onToggle && _onToggle(!expanded);
-      },
-      bsPrefix: bsPrefix,
-      expanded: !!expanded
-    };
-  }, [bsPrefix, expanded, _onToggle]);
-  return /*#__PURE__*/react.createElement(NavbarContext/* default.Provider */.Z.Provider, {
-    value: navbarContext
-  }, /*#__PURE__*/react.createElement(SelectableContext/* default.Provider */.Z.Provider, {
-    value: handleCollapse
-  }, /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({
-    ref: ref
-  }, controlledProps, {
-    className: classnames_default()(className, bsPrefix, expand && expandClass, variant && bsPrefix + "-" + variant, bg && "bg-" + bg, sticky && "sticky-" + sticky, fixed && "fixed-" + fixed)
-  }), children)));
-});
-Navbar.defaultProps = Navbar_defaultProps;
-Navbar.displayName = 'Navbar';
-Navbar.Brand = esm_NavbarBrand;
-Navbar.Toggle = esm_NavbarToggle;
-Navbar.Collapse = esm_NavbarCollapse;
-Navbar.Text = NavbarText;
-/* harmony default export */ var esm_Navbar = (Navbar);
-
-/***/ }),
-
-/***/ 4819:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
- // TODO: check
-
-var context = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-context.displayName = 'NavbarContext';
-/* harmony default export */ __webpack_exports__["Z"] = (context);
-
-/***/ }),
-
-/***/ 4051:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3366);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
-/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
-
-
-var _excluded = ["bsPrefix", "className", "noGutters", "as"];
-
-
-
-var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
-var defaultProps = {
-  noGutters: false
-};
-var Row = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      noGutters = _ref.noGutters,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_ref, _excluded);
-
-  var decoratedBsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'row');
-  var sizePrefix = decoratedBsPrefix + "-cols";
-  var classes = [];
-  DEVICE_SIZES.forEach(function (brkPoint) {
-    var propValue = props[brkPoint];
-    delete props[brkPoint];
-    var cols;
-
-    if (propValue != null && typeof propValue === 'object') {
-      cols = propValue.cols;
-    } else {
-      cols = propValue;
-    }
-
-    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
-    if (cols != null) classes.push("" + sizePrefix + infix + "-" + cols);
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)({
-    ref: ref
-  }, props, {
-    className: classnames__WEBPACK_IMPORTED_MODULE_0___default().apply(void 0, [className, decoratedBsPrefix, noGutters && 'no-gutters'].concat(classes))
-  }));
-});
-Row.displayName = 'Row';
-Row.defaultProps = defaultProps;
-/* harmony default export */ __webpack_exports__["Z"] = (Row);
-
-/***/ }),
-
-/***/ 8358:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3366);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
-/* harmony import */ var _createChainedFunction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6833);
-
-
-var _excluded = ["as", "disabled", "onKeyDown"];
-
-
-
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-/**
- * There are situations due to browser quirks or Bootstrap CSS where
- * an anchor tag is needed, when semantically a button tag is the
- * better choice. SafeAnchor ensures that when an anchor is used like a
- * button its accessible. It also emulates input `disabled` behavior for
- * links, which is usually desirable for Buttons, NavItems, DropdownItems, etc.
- */
-
-
-var SafeAnchor = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(function (_ref, ref) {
-  var _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'a' : _ref$as,
-      disabled = _ref.disabled,
-      onKeyDown = _ref.onKeyDown,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(_ref, _excluded);
-
-  var handleClick = function handleClick(event) {
-    var href = props.href,
-        onClick = props.onClick;
-
-    if (disabled || isTrivialHref(href)) {
-      event.preventDefault();
-    }
-
-    if (disabled) {
-      event.stopPropagation();
-      return;
-    }
-
-    if (onClick) {
-      onClick(event);
-    }
-  };
-
-  var handleKeyDown = function handleKeyDown(event) {
-    if (event.key === ' ') {
-      event.preventDefault();
-      handleClick(event);
-    }
-  };
-
-  if (isTrivialHref(props.href)) {
-    props.role = props.role || 'button'; // we want to make sure there is a href attribute on the node
-    // otherwise, the cursor incorrectly styled (except with role='button')
-
-    props.href = props.href || '#';
-  }
-
-  if (disabled) {
-    props.tabIndex = -1;
-    props['aria-disabled'] = true;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)({
-    ref: ref
-  }, props, {
-    onClick: handleClick,
-    onKeyDown: (0,_createChainedFunction__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z)(handleKeyDown, onKeyDown)
-  }));
-});
-SafeAnchor.displayName = 'SafeAnchor';
-/* harmony default export */ __webpack_exports__["Z"] = (SafeAnchor);
-
-/***/ }),
-
-/***/ 5017:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "h": function() { return /* binding */ makeEventKey; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
- // TODO (apparently this is a bare "onSelect"?)
-
-var SelectableContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
-var makeEventKey = function makeEventKey(eventKey, href) {
-  if (href === void 0) {
-    href = null;
-  }
-
-  if (eventKey != null) return String(eventKey);
-  return href || null;
-};
-/* harmony default export */ __webpack_exports__["Z"] = (SelectableContext);
-
-/***/ }),
-
-/***/ 6968:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7462);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3366);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4184);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
-/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6792);
-
-
-var _excluded = ["bsPrefix", "variant", "animation", "size", "children", "as", "className"];
-
-
-
-var Spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      variant = _ref.variant,
-      animation = _ref.animation,
-      size = _ref.size,
-      children = _ref.children,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      className = _ref.className,
-      props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_ref, _excluded);
-
-  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_3__/* .useBootstrapPrefix */ .vE)(bsPrefix, 'spinner');
-  var bsSpinnerPrefix = bsPrefix + "-" + animation;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)({
-    ref: ref
-  }, props, {
-    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, bsSpinnerPrefix, size && bsSpinnerPrefix + "-" + size, variant && "text-" + variant)
-  }), children);
-});
-Spinner.displayName = 'Spinner';
-/* harmony default export */ __webpack_exports__["Z"] = (Spinner);
-
-/***/ }),
-
-/***/ 6792:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "vE": function() { return /* binding */ useBootstrapPrefix; }
-/* harmony export */ });
-/* unused harmony exports createBootstrapComponent, ThemeConsumer */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
-
-
-var ThemeContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext({});
-var Consumer = ThemeContext.Consumer,
-    Provider = ThemeContext.Provider;
-
-function ThemeProvider(_ref) {
-  var prefixes = _ref.prefixes,
-      children = _ref.children;
-  var copiedPrefixes = useMemo(function () {
-    return _extends({}, prefixes);
-  }, [prefixes]);
-  return /*#__PURE__*/React.createElement(Provider, {
-    value: copiedPrefixes
-  }, children);
-}
-
-function useBootstrapPrefix(prefix, defaultPrefix) {
-  var prefixes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ThemeContext);
-  return prefix || prefixes[defaultPrefix] || defaultPrefix;
-}
-
-function createBootstrapComponent(Component, opts) {
-  if (typeof opts === 'string') opts = {
-    prefix: opts
-  };
-  var isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
-
-  var _opts = opts,
-      prefix = _opts.prefix,
-      _opts$forwardRefAs = _opts.forwardRefAs,
-      forwardRefAs = _opts$forwardRefAs === void 0 ? isClassy ? 'ref' : 'innerRef' : _opts$forwardRefAs;
-  var Wrapped = /*#__PURE__*/React.forwardRef(function (_ref2, ref) {
-    var props = _extends({}, _ref2);
-
-    props[forwardRefAs] = ref;
-    var bsPrefix = useBootstrapPrefix(props.bsPrefix, prefix);
-    return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
-      bsPrefix: bsPrefix
-    }));
-  });
-  Wrapped.displayName = "Bootstrap(" + (Component.displayName || Component.name) + ")";
-  return Wrapped;
-}
-
-
-/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((/* unused pure expression or super */ null && (ThemeProvider)));
-
-/***/ }),
-
-/***/ 6833:
-/***/ (function(__unused_webpack_module, __webpack_exports__) {
-
-"use strict";
-/**
- * Safe chained function
- *
- * Will only create a new function if needed,
- * otherwise will pass back existing functions or null.
- *
- * @param {function} functions to chain
- * @returns {function|null}
- */
-function createChainedFunction() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.filter(function (f) {
-    return f != null;
-  }).reduce(function (acc, f) {
-    if (typeof f !== 'function') {
-      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-    }
-
-    if (acc === null) return f;
-    return function chainedFunction() {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      // @ts-ignore
-      acc.apply(this, args); // @ts-ignore
-
-      f.apply(this, args);
-    };
-  }, null);
-}
-
-/* harmony default export */ __webpack_exports__["Z"] = (createChainedFunction);
-
-/***/ }),
-
-/***/ 4680:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ createWithBsPrefix; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7462);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__(3366);
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/camelize.js
-var rHyphen = /-(.)/g;
-function camelize(string) {
-  return string.replace(rHyphen, function (_, chr) {
-    return chr.toUpperCase();
-  });
-}
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
-var ThemeProvider = __webpack_require__(6792);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/createWithBsPrefix.js
-
-
-var _excluded = ["className", "bsPrefix", "as"];
-
-
-
-
-
-var pascalCase = function pascalCase(str) {
-  return str[0].toUpperCase() + camelize(str).slice(1);
-};
-
-// TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
-function createWithBsPrefix(prefix, _temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-      _ref$displayName = _ref.displayName,
-      displayName = _ref$displayName === void 0 ? pascalCase(prefix) : _ref$displayName,
-      Component = _ref.Component,
-      defaultProps = _ref.defaultProps;
-
-  var BsComponent = /*#__PURE__*/react.forwardRef(function (_ref2, ref) {
-    var className = _ref2.className,
-        bsPrefix = _ref2.bsPrefix,
-        _ref2$as = _ref2.as,
-        Tag = _ref2$as === void 0 ? Component || 'div' : _ref2$as,
-        props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref2, _excluded);
-
-    var resolvedPrefix = (0,ThemeProvider/* useBootstrapPrefix */.vE)(bsPrefix, prefix);
-    return /*#__PURE__*/react.createElement(Tag, (0,esm_extends/* default */.Z)({
-      ref: ref,
-      className: classnames_default()(className, resolvedPrefix)
-    }, props));
-  });
-  BsComponent.defaultProps = defaultProps;
-  BsComponent.displayName = displayName;
-  return BsComponent;
 }
 
 /***/ }),
@@ -22212,6 +23563,489 @@ eventManager.on(2
 
 /***/ }),
 
+/***/ 660:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "cn": function() { return /* binding */ ENTERED; },
+  "d0": function() { return /* binding */ ENTERING; },
+  "Wj": function() { return /* binding */ EXITED; },
+  "Ix": function() { return /* binding */ EXITING; },
+  "ZP": function() { return /* binding */ esm_Transition; }
+});
+
+// UNUSED EXPORTS: UNMOUNTED
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__(3366);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
+var inheritsLoose = __webpack_require__(1721);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(3935);
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/config.js
+/* harmony default export */ var config = ({
+  disabled: false
+});
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/TransitionGroupContext.js
+
+/* harmony default export */ var TransitionGroupContext = (react.createContext(null));
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/Transition.js
+
+
+
+
+
+
+
+
+var UNMOUNTED = 'unmounted';
+var EXITED = 'exited';
+var ENTERING = 'entering';
+var ENTERED = 'entered';
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+var Transition = /*#__PURE__*/function (_React$Component) {
+  (0,inheritsLoose/* default */.Z)(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  } // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+  ;
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      if (nextStatus === ENTERING) {
+        this.performEnter(mounting);
+      } else {
+        this.performExit();
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+
+    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom.findDOMNode(this), appearing],
+        maybeNode = _ref2[0],
+        maybeAppearing = _ref2[1];
+
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter || config.disabled) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onEnter(maybeNode, maybeAppearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(maybeNode, maybeAppearing);
+
+      _this2.onTransitionEnd(enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(maybeNode, maybeAppearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit() {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts();
+    var maybeNode = this.props.nodeRef ? undefined : react_dom.findDOMNode(this); // no exit animation skip right to EXITED
+
+    if (!exit || config.disabled) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onExit(maybeNode);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(maybeNode);
+
+      _this3.onTransitionEnd(timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(maybeNode);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
+    this.setNextCallback(handler);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
+          maybeNode = _ref3[0],
+          maybeNextCallback = _ref3[1];
+
+      this.props.addEndListener(maybeNode, maybeNextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        _in = _this$props.in,
+        _mountOnEnter = _this$props.mountOnEnter,
+        _unmountOnExit = _this$props.unmountOnExit,
+        _appear = _this$props.appear,
+        _enter = _this$props.enter,
+        _exit = _this$props.exit,
+        _timeout = _this$props.timeout,
+        _addEndListener = _this$props.addEndListener,
+        _onEnter = _this$props.onEnter,
+        _onEntering = _this$props.onEntering,
+        _onEntered = _this$props.onEntered,
+        _onExit = _this$props.onExit,
+        _onExiting = _this$props.onExiting,
+        _onExited = _this$props.onExited,
+        _nodeRef = _this$props.nodeRef,
+        childProps = (0,objectWithoutPropertiesLoose/* default */.Z)(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
+
+    return (
+      /*#__PURE__*/
+      // allows for nested Transitions
+      react.createElement(TransitionGroupContext.Provider, {
+        value: null
+      }, typeof children === 'function' ? children(status, childProps) : react.cloneElement(react.Children.only(children), childProps))
+    );
+  };
+
+  return Transition;
+}(react.Component);
+
+Transition.contextType = TransitionGroupContext;
+Transition.propTypes =  false ? 0 : {}; // Name the function so it is clearer in the documentation
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = UNMOUNTED;
+Transition.EXITED = EXITED;
+Transition.ENTERING = ENTERING;
+Transition.ENTERED = ENTERED;
+Transition.EXITING = EXITING;
+/* harmony default export */ var esm_Transition = (Transition);
+
+/***/ }),
+
+/***/ 5251:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v17.0.2
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+__webpack_require__(7418);var f=__webpack_require__(7294),g=60103;exports.Fragment=60107;if("function"===typeof Symbol&&Symbol.for){var h=Symbol.for;g=h("react.element");exports.Fragment=h("react.fragment")}var m=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,n=Object.prototype.hasOwnProperty,p={key:!0,ref:!0,__self:!0,__source:!0};
+function q(c,a,k){var b,d={},e=null,l=null;void 0!==k&&(e=""+k);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(l=a.ref);for(b in a)n.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:g,type:c,key:e,ref:l,props:d,_owner:m.current}}exports.jsx=q;exports.jsxs=q;
+
+
+/***/ }),
+
 /***/ 2408:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -22251,6 +24085,19 @@ exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.u
 
 if (true) {
   module.exports = __webpack_require__(2408);
+} else {}
+
+
+/***/ }),
+
+/***/ 5893:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+if (true) {
+  module.exports = __webpack_require__(5251);
 } else {}
 
 
@@ -25308,7 +27155,7 @@ function resolveAll(constructs, events, context) {
 
 /***/ }),
 
-/***/ 6025:
+/***/ 3691:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
