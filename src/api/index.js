@@ -90,6 +90,7 @@ class Api {
   };
 
   getPosts = async () => await this.client('posts/');
+  getPost = async (id) => await this.client(`posts/${id}`);
   sendPost = async (text) => await this.client.post('posts/', { text });
 }
 

@@ -6,6 +6,7 @@ import {
   NotFoundPage,
   GalleryPage,
   FiveGradePage,
+  PostPage,
   PostsPage,
   LessonsPage,
   EighteenSchoolPage,
@@ -36,7 +37,11 @@ const routes = [
   { path: ['/home', '/'], component: HomePage, exact: true },
 
   { path: ['/admin'], component: AdminPage, exact: true },
-  { path: '/posts', component: PostsPage, exact: true },
+  {
+    path: '/posts',
+    component: PostsPage,
+    routes: [{ path: '/posts/*', component: PostPage }],
+  },
   { path: '/lessons', component: LessonsPage, exact: true },
 
   { path: '/courses', component: CoursesPage, exact: true },

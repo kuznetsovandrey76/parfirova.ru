@@ -13,7 +13,7 @@ function Header() {
       collapseOnSelect
       expand={false}
       variant='light'
-      className='mb-3 header  text-right flex mx-5'
+      className='header mb-1 mx-3 text-right flex'
     >
       <Link to='/'>
         <Navbar.Brand>Parfirova.ru</Navbar.Brand>
@@ -69,6 +69,9 @@ function Header() {
                 );
               })}
             </NavDropdown>
+            <Link to='/posts'>
+              <Nav.Link>Записи</Nav.Link>
+            </Link>
             <Link to='/admin' className='mt-2'>
               <img src={LoginSvg} className='me-2 cursor-pointer d-block login-svg' />
             </Link>

@@ -3,8 +3,16 @@
   src: url(./fonts/exo-2-light.ttf) format('opentype');
 }
 
+html {
+  padding: 0;
+}
+
 body {
   font-family: 'Exo 2 light';
+}
+
+.root .container {
+  padding: 0;
 }
 
 a {

@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Md from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+import RouteWithSubRoutes from '../../routes/routes-with-sub-routes';
+
 import api from '../../api';
 
 import './posts.css';
 
-function PostsPage() {
+function PostsPage({ routes }) {
   const [text, setText] = useState('');
+
+  // todo: Refactor
+  const sampleLocation = useLocation();
+  const { pathname } = sampleLocation;
+  const RE = /\/posts\/?([0-9]+)(?:\/.*)?/i;
+  const $matchPathname = pathname.match(RE);
 
   const history = useHistory();
 
@@ -42,20 +50,10 @@ function PostsPage() {
     }
   };
 
-  return (
-    <Container fluid className='mt-2 mb-5'>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-
+  const postsBlock = $matchPathname ? (
+    routes.map((route) => <RouteWithSubRoutes {...route} key={route.path} />)
+  ) : (
+    <>
       <Row className='markdown-post mb-2'>
         <Col>
           <textarea
@@ -74,6 +72,23 @@ function PostsPage() {
       <Button variant='primary' onClick={handleSubmit}>
         Send Post
       </Button>
+    </>
+  );
+
+  return (
+    <Container fluid className='mt-2 mb-5'>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {postsBlock}
     </Container>
   );
 }

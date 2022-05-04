@@ -4,6 +4,7 @@ import CoursesPage from './courses';
 import NotFoundPage from './not-found';
 import GalleryPage from './gallery';
 import FiveGradePage from './5th-grade';
+import PostPage from './post';
 import PostsPage from './posts';
 import LessonsPage from './lessons';
 import EighteenSchoolPage from './18school';
@@ -16,6 +17,7 @@ export {
   NotFoundPage,
   GalleryPage,
   FiveGradePage,
+  PostPage,
   PostsPage,
   LessonsPage,
   EighteenSchoolPage,

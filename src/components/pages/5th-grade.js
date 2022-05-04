@@ -114,7 +114,7 @@ function FiveGradePage() {
         </ScrollMenu>
       </div>
       <div className='d-flex mb-3'>
-        <h1 className='d-inline-block me-4'>5 класс</h1>
+        <h1 className='d-inline-block me-3'>5 класс</h1>
         <Switch
           checked={checked}
           onChange={() => setChecked(!checked)}

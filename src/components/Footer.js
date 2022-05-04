@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import api from '../api';
 
 import './footer.css';
 
 function Footer() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(async () => {
+    try {
+      const { data } = await api.getPosts();
+      setPosts(data);
+    } catch (err) {
+      console.warn('Cannot get posts from server');
+    }
+  }, []);
+
   return (
     <Container fluid className='footer'>
       <Container className='mb-3 p-0'>
@@ -17,6 +29,13 @@ function Footer() {
           <Col md={6} lg={4}>
             <div className='footer-title'>
               <h5> Свежие посты </h5>
+              {posts.map((post) => {
+                return (
+                  <Link key={post.id} to={`/posts/${post.id}`}>
+                    {post.title}
+                  </Link>
+                );
+              })}
             </div>
           </Col>
           <Col md={6} lg={4}>
