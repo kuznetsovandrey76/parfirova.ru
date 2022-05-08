@@ -1,0 +1,19 @@
+name: gh-pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        run: actions/checkout@v1
+         
+      - name: Deploy to gh-pages
+        run: echo "Hello World"
+
+      - name: Check YARN version
+        run: yarn -v        
