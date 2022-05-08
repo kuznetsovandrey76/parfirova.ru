@@ -69,7 +69,7 @@ function PostsPage({ routes }) {
           </Md>
         </Col>
       </Row>
-      <Button variant='primary' onClick={handleSubmit}>
+      <Button variant='primary' onClick={handleSubmit} disabled>
         Send Post
       </Button>
     </>
