@@ -1019,7 +1019,7 @@ function GalleryPage() {
     nextSrc: images[(photoIndex + 1) % images.length].src,
     prevSrc: images[(photoIndex + images.length - 1) % images.length].src,
     imageTitle: images[photoIndex].caption,
-    imageCaption: 'Выслушав доклад министра обороны Сергея Шойгу об установлении контроля над городом, глава государства приказал отменить штурм промзоны завода «Азовсталь», где остаются подразделения боевиков.',
+    imageCaption: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435",
     onCloseRequest: function onCloseRequest() {
       return setIsOpen(false);
     },
@@ -3877,7 +3877,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "7a8bfb5ee3deb1752ee4"; }
+/******/ 		__webpack_require__.h = function() { return "e7bd170b7116444e403b"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
