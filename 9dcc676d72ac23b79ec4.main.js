@@ -1738,7 +1738,8 @@ function PostsPage(_ref) {
     remarkPlugins: [remark_gfm/* default */.Z]
   }, text))), /*#__PURE__*/react.createElement(Button/* default */.Z, {
     variant: "primary",
-    onClick: handleSubmit
+    onClick: handleSubmit,
+    disabled: true
   }, "Send Post"));
   return /*#__PURE__*/react.createElement(Container/* default */.Z, {
     fluid: true,
@@ -3877,7 +3878,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "e7bd170b7116444e403b"; }
+/******/ 		__webpack_require__.h = function() { return "9dcc676d72ac23b79ec4"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
