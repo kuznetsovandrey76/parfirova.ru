@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v1
+
+      - name: Add info about user to git
+        run: |
+          git config --global user.email "and.rey.q@yandex.ru"
+          git config --global user.name "Andrey Kuznetsov"
          
       - name: Installing dependencies
         run: yarn       
