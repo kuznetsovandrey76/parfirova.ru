@@ -12,8 +12,8 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v1
          
-      - name: Deploy to gh-pages
-        run: echo "Hello World"
+      - name: Installing dependencies
+        run: yarn       
 
-      - name: Check YARN version
-        run: yarn -v        
+      - name: Deploy to gh-pages
+        run: yarn deploy
