@@ -76,9 +76,7 @@ function GalleryPage() {
         nextSrc={images[(photoIndex + 1) % images.length].src}
         prevSrc={images[(photoIndex + images.length - 1) % images.length].src}
         imageTitle={images[photoIndex].caption}
-        imageCaption={
-          'Выслушав доклад министра обороны Сергея Шойгу об установлении контроля над городом, глава государства приказал отменить штурм промзоны завода «Азовсталь», где остаются подразделения боевиков.'
-        }
+        imageCaption='Описание'
         onCloseRequest={() => setIsOpen(false)}
         onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
         onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
