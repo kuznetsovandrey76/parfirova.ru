@@ -31,4 +31,11 @@
 .mySwiper {
   height: 120px;
   max-width: 800px;
+  margin-bottom: 1.5rem;
+}
+
+#myMap {
+  height: 300px;
+  max-width: 800px;
+  margin: 0 auto;
 }

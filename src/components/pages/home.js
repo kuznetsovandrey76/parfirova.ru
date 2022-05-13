@@ -3,6 +3,34 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Keyboard, Pagination, Navigation } from 'swiper';
+import ymaps from 'ymaps';
+
+ymaps
+  .load('https://api-maps.yandex.ru/2.1/?lang=ru_RU')
+  .then((maps) => {
+    // https://yandex.ru/dev/maps/jsapi/doc/2.1/quick-start/index.html?from=jsapi
+    const map = new maps.Map('myMap', {
+      center: [57.581003, 39.859192],
+      zoom: 14,
+      controls: ['geolocationControl', 'zoomControl'],
+    });
+
+    const myPlacemark = new maps.Placemark(
+      [57.581003, 39.859192],
+      {
+        iconCaption: 'Школа №18',
+        balloonContent: '<b>Школа №18</b></br>' + 'Добро пожаловать!',
+      },
+      {
+        preset: 'islands#redIcon',
+      }
+    );
+    map.geoObjects.add(myPlacemark);
+
+    return map;
+    console.log(111, maps);
+  })
+  .catch((error) => console.log('Failed to load Yandex Maps', error));
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -41,6 +69,8 @@ function HomePage() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <h3 className='mb-2'>Как до нас добраться?</h3>
+      <div id='myMap' />
       {/* <div
         onClick={async () => {
           await api.getUsers();

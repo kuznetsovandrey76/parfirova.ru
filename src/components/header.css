@@ -1,7 +1,15 @@
-.offcanvas-end {
-  width: 260px !important;
+.offcanvas-header {
+  padding-bottom: 0 !important;
 }
 
 .offcanvas-header .btn-close {
   margin-right: 0 !important;
+}
+
+.offcanvas-body {
+  padding-top: 0 !important;
+}
+
+.offcanvas-end {
+  width: 260px !important;
 }
