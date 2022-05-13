@@ -1,4 +1,4 @@
-(self["webpackChunkparfirova_ru"] = self["webpackChunkparfirova_ru"] || []).push([[736],{
+(self["webpackChunkparfirova_ru"] = self["webpackChunkparfirova_ru"] || []).push([[972],{
 
 /***/ 2092:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -26284,6 +26284,49 @@ if (__DEV__) {
 }
 
 module.exports = warning;
+
+
+/***/ }),
+
+/***/ 7669:
+/***/ (function(__unused_webpack_module, __webpack_exports__) {
+
+"use strict";
+var ymaps$1 = {
+  load: function load() {
+    var src = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '//api-maps.yandex.ru/2.1/?lang=en_RU';
+
+    var getNsParamValue = function getNsParamValue() {
+      var results = src.match(/[\\?&]ns=([^&#]*)/);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    if (!this.promise) {
+      this.promise = new Promise(function (resolve, reject) {
+        var scriptElement = document.createElement('script');
+        scriptElement.onload = resolve;
+        scriptElement.onerror = reject;
+        scriptElement.type = 'text/javascript';
+        scriptElement.src = src;
+        document.body.appendChild(scriptElement);
+      }).then(function () {
+        var ns = getNsParamValue();
+
+        if (ns && ns !== 'ymaps') {
+          (0, eval)("var ymaps = ".concat(ns, ";"));
+        }
+
+        return new Promise(function (resolve) {
+          return ymaps.ready(resolve);
+        });
+      });
+    }
+
+    return this.promise;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["Z"] = (ymaps$1);
 
 
 /***/ }),

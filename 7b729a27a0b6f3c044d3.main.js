@@ -669,6 +669,8 @@ function AdminPage() {
 var swiper_react = __webpack_require__(4017);
 // EXTERNAL MODULE: ./node_modules/swiper/swiper.esm.js + 90 modules
 var swiper_esm = __webpack_require__(9257);
+// EXTERNAL MODULE: ./node_modules/ymaps/dist/ymaps.esm.js
+var ymaps_esm = __webpack_require__(7669);
 // EXTERNAL MODULE: ./node_modules/swiper/swiper.min.css
 var swiper_min = __webpack_require__(6039);
 // EXTERNAL MODULE: ./node_modules/swiper/modules/pagination/pagination.min.css
@@ -683,6 +685,26 @@ var home = __webpack_require__(3245);
 
 
 
+
+ymaps_esm/* default.load */.Z.load('https://api-maps.yandex.ru/2.1/?lang=ru_RU').then(function (maps) {
+  // https://yandex.ru/dev/maps/jsapi/doc/2.1/quick-start/index.html?from=jsapi
+  var map = new maps.Map('myMap', {
+    center: [57.581003, 39.859192],
+    zoom: 14,
+    controls: ['geolocationControl', 'zoomControl']
+  });
+  var myPlacemark = new maps.Placemark([57.581003, 39.859192], {
+    iconCaption: 'Школа №18',
+    balloonContent: '<b>Школа №18</b></br>' + 'Добро пожаловать!'
+  }, {
+    preset: 'islands#redIcon'
+  });
+  map.geoObjects.add(myPlacemark);
+  return map;
+  console.log(111, maps);
+}).catch(function (error) {
+  return console.log('Failed to load Yandex Maps', error);
+});
 
 
 
@@ -718,7 +740,11 @@ function HomePage() {
     }, /*#__PURE__*/react.createElement(react_router_dom.Link, {
       to: "/".concat(num, "th-grade")
     }, num, " \u043A\u043B\u0430\u0441\u0441"));
-  })));
+  })), /*#__PURE__*/react.createElement("h3", {
+    className: "mb-2"
+  }, "\u041A\u0430\u043A \u0434\u043E \u043D\u0430\u0441 \u0434\u043E\u0431\u0440\u0430\u0442\u044C\u0441\u044F?"), /*#__PURE__*/react.createElement("div", {
+    id: "myMap"
+  }));
 }
 
 /* harmony default export */ var pages_home = (HomePage);
@@ -2615,7 +2641,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer {\n  background: #f6f6f6;\n  text-align: center;\n  margin: 0;\n  padding: 0.5rem 0;\n}\n\n.footer-title {\n  text-align: center;\n  width: 90%;\n  margin: 0 auto;\n  overflow: hidden;\n}\n\n.footer-title h5 {\n  position: relative;\n  text-transform: uppercase;\n}\n\n.footer-title h5:before,\n.footer-title h5:after {\n  content: \"\";\n  border-bottom: 1px solid lightgrey;\n  width: 50%;\n  position: absolute;\n  top: 50%;\n  height: 1px;\n}\n\n.footer-title h5:before {\n  margin-left: calc(-50% - 10px);\n}\n\n.footer-title h5:after {\n  margin-left: 10px;\n}\n\n.footer-second {\n  border-top: 1px solid lightgrey;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer {\n  background: #f6f6f6;\n  text-align: center;\n  margin: 0;\n  padding: 0.5rem 0;\n}\n\n.footer-title {\n  text-align: center;\n  width: 90%;\n  margin: 0 auto;\n  overflow: hidden;\n  margin-bottom: 1rem;\n}\n\n.footer-title h5 {\n  position: relative;\n  text-transform: uppercase;\n}\n\n.footer-title h5:before,\n.footer-title h5:after {\n  content: \"\";\n  border-bottom: 1px solid lightgrey;\n  width: 50%;\n  position: absolute;\n  top: 50%;\n  height: 1px;\n}\n\n.footer-title h5:before {\n  margin-left: calc(-50% - 10px);\n}\n\n.footer-title h5:after {\n  margin-left: 10px;\n}\n\n.footer-second {\n  border-top: 1px solid lightgrey;\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -2635,7 +2661,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".offcanvas-end {\n  width: 260px !important;\n}\n\n.offcanvas-header .btn-close {\n  margin-right: 0 !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".offcanvas-header {\n  padding-bottom: 0 !important;\n}\n\n.offcanvas-header .btn-close {\n  margin-right: 0 !important;\n}\n\n.offcanvas-body {\n  padding-top: 0 !important;\n}\n\n.offcanvas-end {\n  width: 260px !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -2675,7 +2701,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".swiper {\n  width: 100%;\n  height: 100%;\n}\n\n.swiper-slide {\n  text-align: center;\n  font-size: 18px;\n  background: #fff;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n}\n\n.swiper-slide img {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n\n.mySwiper {\n  height: 120px;\n  max-width: 800px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".swiper {\n  width: 100%;\n  height: 100%;\n}\n\n.swiper-slide {\n  text-align: center;\n  font-size: 18px;\n  background: #fff;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n}\n\n.swiper-slide img {\n  display: block;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n\n.mySwiper {\n  height: 120px;\n  max-width: 800px;\n  margin-bottom: 1.5rem;\n}\n\n#myMap {\n  height: 300px;\n  max-width: 800px;\n  margin: 0 auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -3878,7 +3904,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "9dcc676d72ac23b79ec4"; }
+/******/ 		__webpack_require__.h = function() { return "7b729a27a0b6f3c044d3"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -4973,7 +4999,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], function() { return __webpack_require__(3777); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [972], function() { return __webpack_require__(3777); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
