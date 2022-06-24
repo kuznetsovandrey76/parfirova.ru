@@ -12878,10 +12878,11 @@ if (true) {
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "ZP": function() { return /* binding */ dist_es; }
+  "ZP": function() { return /* binding */ dist_es; },
+  "uI": function() { return /* binding */ useDropzone; }
 });
 
-// UNUSED EXPORTS: ErrorCode, useDropzone
+// UNUSED EXPORTS: ErrorCode
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(7294);

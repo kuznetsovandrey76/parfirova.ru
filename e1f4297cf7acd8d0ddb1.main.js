@@ -315,60 +315,59 @@ var Api = /*#__PURE__*/_createClass(function Api() {
     };
   }());
 
-  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-    return regeneratorRuntime.wrap(function _callee11$(_context11) {
-      while (1) {
-        switch (_context11.prev = _context11.next) {
-          case 0:
-            _context11.next = 2;
-            return _this.client('posts/');
-
-          case 2:
-            return _context11.abrupt("return", _context11.sent);
-
-          case 3:
-          case "end":
-            return _context11.stop();
-        }
-      }
-    }, _callee11);
-  })));
-
-  _defineProperty(this, "getPost", /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(id) {
-      return regeneratorRuntime.wrap(function _callee12$(_context12) {
+  _defineProperty(this, "testGalleryMultiple", /*#__PURE__*/function () {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(files) {
+      return regeneratorRuntime.wrap(function _callee11$(_context11) {
         while (1) {
-          switch (_context12.prev = _context12.next) {
+          switch (_context11.prev = _context11.next) {
             case 0:
-              _context12.next = 2;
-              return _this.client("posts/".concat(id));
+              _context11.next = 2;
+              return _this.client.post('gallery/', files, {
+                headers: {
+                  'content-type': 'multipart/form-data'
+                }
+              });
 
             case 2:
-              return _context12.abrupt("return", _context12.sent);
-
-            case 3:
             case "end":
-              return _context12.stop();
+              return _context11.stop();
           }
         }
-      }, _callee12);
+      }, _callee11);
     }));
 
     return function (_x5) {
-      return _ref14.apply(this, arguments);
+      return _ref13.apply(this, arguments);
     };
   }());
 
-  _defineProperty(this, "sendPost", /*#__PURE__*/function () {
-    var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(text) {
+  _defineProperty(this, "getPosts", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+    return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            _context12.next = 2;
+            return _this.client('posts/');
+
+          case 2:
+            return _context12.abrupt("return", _context12.sent);
+
+          case 3:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  })));
+
+  _defineProperty(this, "getPost", /*#__PURE__*/function () {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(id) {
       return regeneratorRuntime.wrap(function _callee13$(_context13) {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
               _context13.next = 2;
-              return _this.client.post('posts/', {
-                text: text
-              });
+              return _this.client("posts/".concat(id));
 
             case 2:
               return _context13.abrupt("return", _context13.sent);
@@ -383,6 +382,33 @@ var Api = /*#__PURE__*/_createClass(function Api() {
 
     return function (_x6) {
       return _ref15.apply(this, arguments);
+    };
+  }());
+
+  _defineProperty(this, "sendPost", /*#__PURE__*/function () {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(text) {
+      return regeneratorRuntime.wrap(function _callee14$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              _context14.next = 2;
+              return _this.client.post('posts/', {
+                text: text
+              });
+
+            case 2:
+              return _context14.abrupt("return", _context14.sent);
+
+            case 3:
+            case "end":
+              return _context14.stop();
+          }
+        }
+      }, _callee14);
+    }));
+
+    return function (_x7) {
+      return _ref16.apply(this, arguments);
     };
   }());
 
@@ -917,6 +943,7 @@ function gallery_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function GalleryPage() {
   var _useState = (0,react.useState)(false),
       _useState2 = gallery_slicedToArray(_useState, 2),
@@ -942,6 +969,11 @@ function GalleryPage() {
       _useState10 = gallery_slicedToArray(_useState9, 2),
       img = _useState10[0],
       setImg = _useState10[1];
+
+  var _useState11 = (0,react.useState)(null),
+      _useState12 = gallery_slicedToArray(_useState11, 2),
+      imgs = _useState12[0],
+      setImgs = _useState12[1];
 
   (0,react.useEffect)( /*#__PURE__*/gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var response, _images, imagePromises, transformImages;
@@ -1007,27 +1039,32 @@ function GalleryPage() {
   })), []);
   var dropzoneRef = /*#__PURE__*/(0,react.createRef)();
 
-  var openDialog = function openDialog() {
-    // Note that the ref is set async,
+  var openDialog = function openDialog(files) {
+    console.log(222, files); // Note that the ref is set async,
     // so it might be null at some point
+
     if (dropzoneRef.current) {
       dropzoneRef.current.open();
     }
   };
 
-  var uploadFile = /*#__PURE__*/function () {
-    var _ref2 = gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+  var sendFiles = /*#__PURE__*/function () {
+    var _ref2 = gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(files, getInputProps) {
       var formData;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              console.log(123, files, getInputProps());
               formData = new FormData();
-              formData.append('file', img);
-              _context2.next = 4;
+              files.forEach(function (file) {
+                formData.append('file', file);
+              }); // formData.append('file', files);
+
+              _context2.next = 5;
               return src_api.testGallery(formData);
 
-            case 4:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -1035,10 +1072,101 @@ function GalleryPage() {
       }, _callee2);
     }));
 
-    return function uploadFile() {
+    return function sendFiles(_x, _x2) {
       return _ref2.apply(this, arguments);
     };
   }();
+
+  var test = function test(files, getInputProps) {
+    console.log(99999, files, getInputProps());
+  };
+
+  var uploadFile = /*#__PURE__*/function () {
+    var _ref3 = gallery_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      var formData;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              formData = new FormData();
+              formData.append('file', img);
+              _context3.next = 4;
+              return src_api.testGallery(formData);
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function uploadFile() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+  var focusedStyle = {
+    borderColor: '#2196f3'
+  };
+  var acceptStyle = {
+    borderColor: '#00e676'
+  };
+  var rejectStyle = {
+    borderColor: '#ff1744'
+  };
+
+  var _useDropzone = (0,es/* useDropzone */.uI)({
+    accept: {
+      'image/*': []
+    }
+  }),
+      getRootProps = _useDropzone.getRootProps,
+      getInputProps = _useDropzone.getInputProps,
+      isFocused = _useDropzone.isFocused,
+      isDragAccept = _useDropzone.isDragAccept,
+      isDragReject = _useDropzone.isDragReject;
+
+  var style = (0,react.useMemo)(function () {
+    return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, baseStyle), isFocused ? focusedStyle : {}), isDragAccept ? acceptStyle : {}), isDragReject ? rejectStyle : {});
+  }, [isFocused, isDragAccept, isDragReject]);
+
+  function StyledDropzone(props) {
+    var _useDropzone2 = (0,es/* useDropzone */.uI)({
+      accept: {
+        'image/*': []
+      }
+    }),
+        getRootProps = _useDropzone2.getRootProps,
+        getInputProps = _useDropzone2.getInputProps,
+        isFocused = _useDropzone2.isFocused,
+        isDragAccept = _useDropzone2.isDragAccept,
+        isDragReject = _useDropzone2.isDragReject;
+
+    var style = (0,react.useMemo)(function () {
+      return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, baseStyle), isFocused ? focusedStyle : {}), isDragAccept ? acceptStyle : {}), isDragReject ? rejectStyle : {});
+    }, [isFocused, isDragAccept, isDragReject]);
+    return /*#__PURE__*/react.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/react.createElement("div", getRootProps({
+      style: style
+    }), /*#__PURE__*/react.createElement("input", getInputProps()), /*#__PURE__*/react.createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
+  }
 
   var imagesBlock = isOpen && images.length ? /*#__PURE__*/react.createElement(index_es/* default */.Z, {
     mainSrc: images[photoIndex].src,
@@ -1061,40 +1189,28 @@ function GalleryPage() {
     className: "mt-2 mb-5 text-center"
   }, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement(es/* default */.ZP, {
     ref: dropzoneRef,
-    noClick: true,
     noKeyboard: true
-  }, function (_ref3) {
-    var getRootProps = _ref3.getRootProps,
-        getInputProps = _ref3.getInputProps,
-        acceptedFiles = _ref3.acceptedFiles;
+  }, function (_ref4) {
+    var getRootProps = _ref4.getRootProps,
+        getInputProps = _ref4.getInputProps,
+        acceptedFiles = _ref4.acceptedFiles;
     return /*#__PURE__*/react.createElement("div", {
       className: "container"
     }, /*#__PURE__*/react.createElement("div", getRootProps({
-      className: 'dropzone'
-    }), /*#__PURE__*/react.createElement("input", getInputProps()), /*#__PURE__*/react.createElement("p", null, "Drag 'n' drop some files here"), /*#__PURE__*/react.createElement("button", {
-      type: "button",
-      onClick: openDialog
-    }, "Open File Dialog")), /*#__PURE__*/react.createElement("aside", null, /*#__PURE__*/react.createElement("h4", null, "Files"), /*#__PURE__*/react.createElement("ul", null, acceptedFiles.map(function (file) {
+      style: style
+    }), /*#__PURE__*/react.createElement("input", getInputProps()), /*#__PURE__*/react.createElement("p", {
+      className: "mb-0"
+    }, "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0441\u044E\u0434\u0430 \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438")), /*#__PURE__*/react.createElement("aside", null, /*#__PURE__*/react.createElement("ul", null, acceptedFiles.map(function (file) {
       return /*#__PURE__*/react.createElement("li", {
         key: file.path
       }, file.path, " - ", file.size, " bytes");
-    }))));
-  }), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement("input", {
-    type: "file",
-    onChange: function onChange(e) {
-      console.log(e.target.files);
-      setImg(e.target.files[0]);
-    }
-  }), /*#__PURE__*/react.createElement("button", {
-    onClick: uploadFile
-  }, "Click"), /*#__PURE__*/react.createElement(react_photo_gallery_esm/* default */.Z, {
-    photos: images,
-    direction: 'row',
-    onClick: function onClick(e) {
-      setPhotoIndex(e.target.attributes.idx.value);
-      setIsOpen(true);
-    }
-  }), imagesBlock);
+    })), /*#__PURE__*/react.createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return sendFiles(acceptedFiles, getInputProps);
+      }
+    }, "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0444\u0430\u0439\u043B\u044B")));
+  }));
 }
 
 /* harmony default export */ var gallery = (GalleryPage);
@@ -3904,7 +4020,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "7b729a27a0b6f3c044d3"; }
+/******/ 		__webpack_require__.h = function() { return "e1f4297cf7acd8d0ddb1"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
