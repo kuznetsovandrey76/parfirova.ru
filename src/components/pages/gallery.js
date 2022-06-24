@@ -1,5 +1,6 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef, useMemo } from 'react';
 import Dropzone from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import api from '../../api';
@@ -13,6 +14,7 @@ function GalleryPage() {
   const [images, setImages] = useState([]);
   const [content, setContent] = useState(null);
   const [img, setImg] = useState(null);
+  const [imgs, setImgs] = useState(null);
 
   useEffect(async () => {
     try {
@@ -54,12 +56,29 @@ function GalleryPage() {
   }, []);
 
   const dropzoneRef = createRef();
-  const openDialog = () => {
+  const openDialog = (files) => {
+    console.log(222, files)
     // Note that the ref is set async,
     // so it might be null at some point
     if (dropzoneRef.current) {
       dropzoneRef.current.open();
     }
+  };
+
+  const sendFiles = async (files, getInputProps) => {
+    console.log(123, files, getInputProps())
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('file', file);
+    })
+
+    // formData.append('file', files);
+
+    await api.testGallery(formData);
+  };
+
+  const test = (files, getInputProps) => {
+    console.log(99999, files, getInputProps())
   };
 
   const uploadFile = async () => {
@@ -68,6 +87,84 @@ function GalleryPage() {
 
     await api.testGallery(formData);
   };
+
+
+  const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+
+  const focusedStyle = {
+    borderColor: '#2196f3'
+  };
+
+  const acceptStyle = {
+    borderColor: '#00e676'
+  };
+
+  const rejectStyle = {
+    borderColor: '#ff1744'
+  };
+
+  const {
+    getRootProps,
+    getInputProps,
+    isFocused,
+    isDragAccept,
+    isDragReject
+  } = useDropzone({accept: {'image/*': []}});
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isFocused ? focusedStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isFocused,
+    isDragAccept,
+    isDragReject
+  ]);
+
+  function StyledDropzone(props) {
+    const {
+      getRootProps,
+      getInputProps,
+      isFocused,
+      isDragAccept,
+      isDragReject
+    } = useDropzone({accept: {'image/*': []}});
+
+    const style = useMemo(() => ({
+      ...baseStyle,
+      ...(isFocused ? focusedStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {})
+    }), [
+      isFocused,
+      isDragAccept,
+      isDragReject
+    ]);
+
+    return (
+      <div className="container">
+        <div {...getRootProps({style})}>
+          <input {...getInputProps()} />
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        </div>
+      </div>
+    );
+  }
 
   const imagesBlock =
     isOpen && images.length ? (
@@ -86,19 +183,28 @@ function GalleryPage() {
   return (
     <Container fluid className='mt-2 mb-5 text-center'>
       <h2>Галерея:</h2>
-      <Dropzone ref={dropzoneRef} noClick noKeyboard>
+      { /* https://react-dropzone.js.org/#src */ }
+      {/*<StyledDropzone />*/}
+      <Dropzone ref={dropzoneRef} noKeyboard>
+      {/*<Dropzone ref={dropzoneRef} noClick noKeyboard>*/}
         {({ getRootProps, getInputProps, acceptedFiles }) => {
           return (
             <div className='container'>
-              <div {...getRootProps({ className: 'dropzone' })}>
+              <div { ...getRootProps({ style }) }>
+              {/*<div {...getRootProps({ className: 'dropzone' })}>*/}
+                {/*<input*/}
+                {/*  {...getInputProps()}*/}
+                {/*  onChange={() => test()}*/}
+                {/*/>*/}
+                {/*<p>Перетяните файлы сюда</p>*/}
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here</p>
-                <button type='button' onClick={openDialog}>
-                  Open File Dialog
-                </button>
+                <p className="mb-0">Перетащите сюда фотографии</p>
+                {/*<button type='button' onClick={() => openDialog(acceptedFiles)}>*/}
+                {/*   Выберите файлы*/}
+                {/*</button>*/}
               </div>
               <aside>
-                <h4>Files</h4>
+                {/*<h4>Добавленный файлы</h4>*/}
                 <ul>
                   {acceptedFiles.map((file) => (
                     <li key={file.path}>
@@ -106,6 +212,9 @@ function GalleryPage() {
                     </li>
                   ))}
                 </ul>
+                <button type='button' onClick={() => sendFiles(acceptedFiles, getInputProps)}>
+                  Отправить файлы
+                </button>
               </aside>
             </div>
           );
@@ -115,31 +224,31 @@ function GalleryPage() {
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
-            </div>
-          </section>
-        )}
-      </Dropzone> */}
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </div>
+            </section>
+          )}
+        </Dropzone> */}
 
-      <hr />
-      <input
-        type='file'
-        onChange={(e) => {
-          console.log(e.target.files);
-          setImg(e.target.files[0]);
-        }}
-      />
-      <button onClick={uploadFile}>Click</button>
-      <Gallery
-        photos={images}
-        direction={'row'}
-        onClick={(e) => {
-          setPhotoIndex(e.target.attributes.idx.value);
-          setIsOpen(true);
-        }}
-      />
-      {imagesBlock}
+      {/*<hr />*/}
+      {/*<input*/}
+      {/*  type='file'*/}
+      {/*  onChange={(e) => {*/}
+      {/*    console.log(11111, e.target.files);*/}
+      {/*    setImg(e.target.files[0]);*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*<button onClick={uploadFile}>Click</button>*/}
+      {/*<Gallery*/}
+      {/*  photos={images}*/}
+      {/*  direction={'row'}*/}
+      {/*  onClick={(e) => {*/}
+      {/*    setPhotoIndex(e.target.attributes.idx.value);*/}
+      {/*    setIsOpen(true);*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*{imagesBlock}*/}
     </Container>
   );
 }
