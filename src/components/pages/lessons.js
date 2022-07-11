@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ function lessonsPage() {
   const [description, setDescription] = useState('');
   const [crntGrade, setCrntGrade] = useState(5);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const titleHandler = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ function lessonsPage() {
         description,
         active: true,
       });
-      history.push('/');
+      navigate('/');
     } catch (err) {
       toast.warn(err.response && err.response.data, {
         position: 'top-right',

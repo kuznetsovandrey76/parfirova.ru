@@ -6,7 +6,7 @@ import { Autoplay, Keyboard, Pagination, Navigation } from 'swiper';
 import ymaps from 'ymaps';
 
 ymaps
-  .load('https://api-maps.yandex.ru/2.1/?lang=ru_RU')
+  .load()
   .then((maps) => {
     // https://yandex.ru/dev/maps/jsapi/doc/2.1/quick-start/index.html?from=jsapi
     const map = new maps.Map('myMap', {
@@ -28,7 +28,6 @@ ymaps
     map.geoObjects.add(myPlacemark);
 
     return map;
-    console.log(111, maps);
   })
   .catch((error) => console.log('Failed to load Yandex Maps', error));
 

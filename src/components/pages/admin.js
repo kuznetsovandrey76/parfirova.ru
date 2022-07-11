@@ -11,11 +11,14 @@ function AdminPage() {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(async () => {
-    setIsLoading(true);
-    const auth = await checkAuth();
-    setIsAuth(auth);
-    setIsLoading(false);
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const auth = await checkAuth();
+      setIsAuth(auth);
+      setIsLoading(false);
+    }
+    fetchData();
   }, []);
 
   const handleSubmit = async (event) => {

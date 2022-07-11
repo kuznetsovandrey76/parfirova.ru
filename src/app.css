@@ -1,3 +1,7 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'react-image-lightbox/style.css';
+@import 'react-toastify/dist/ReactToastify.css';
+
 @font-face {
   font-family: 'Exo 2 light';
   src: url(./fonts/exo-2-light.ttf) format('opentype');

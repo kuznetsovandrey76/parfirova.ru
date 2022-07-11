@@ -1,28 +1,19 @@
 import React from 'react';
 // We should use HashRouter for work with gh-pages
-import { HashRouter as Router, Switch } from 'react-router-dom';
-
-import routes from './routes';
-import RouteWithSubRoutes from './routes/routes-with-sub-routes';
-import Wrapper from './components/shared/wrapper';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-image-lightbox/style.css';
-import 'react-toastify/dist/ReactToastify.css';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { pages, shared as Wrapper } from './components';
 import './app.css';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Wrapper>
-        <Switch>
-          {routes.map((route) => (
-            <RouteWithSubRoutes {...route} key={route.path} />
+        <Routes>
+          {pages.map(({ path, element }) => (
+            <Route exact path={path} element={element} key={path} />
           ))}
-        </Switch>
+        </Routes>
       </Wrapper>
     </Router>
   );
 }
-
-export default App;

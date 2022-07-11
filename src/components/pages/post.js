@@ -20,15 +20,18 @@ function PostPage() {
 
   const [, id] = $matchPostId;
 
-  useEffect(async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await api.getPost(id);
-      setPost(data);
-      setIsLoading(false);
-    } catch (err) {
-      console.warn('Cannot get images from server');
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const { data } = await api.getPost(id);
+        setPost(data);
+        setIsLoading(false);
+      } catch (err) {
+        console.warn('Cannot get images from server');
+      }
     }
+    fetchData();
   }, [id]);
 
   const postBlock = post ? (

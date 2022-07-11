@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import api from '../api';
+import api from '../../api';
 
 import './footer.css';
 
 function Footer() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(async () => {
-    try {
-      const { data } = await api.getPosts();
-      setPosts(data);
-    } catch (err) {
-      console.warn('Cannot get posts from server');
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await api.getPosts();
+        setPosts(data);
+      } catch (err) {
+        console.warn('Cannot get posts from server');
+      }
     }
+    fetchData();
   }, []);
 
   return (

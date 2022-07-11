@@ -47,32 +47,38 @@ function FiveGradePage() {
     setSelected(selected !== itemId ? itemId : '');
   };
 
-  useEffect(async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await api.getLessons();
-      setLessons(data);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const { data } = await api.getLessons();
+        setLessons(data);
+        setCurrentLessons(
+          data.filter(
+            (lesson) =>
+              (lesson.subject === 'Русский язык' && !checked) ||
+              (lesson.subject === 'Литература' && checked)
+          )
+        );
+        setIsLoading(false);
+      } catch (err) {
+        console.warn('Cannot get images from server');
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
       setCurrentLessons(
-        data.filter(
+        lessons.filter(
           (lesson) =>
             (lesson.subject === 'Русский язык' && !checked) ||
             (lesson.subject === 'Литература' && checked)
         )
       );
-      setIsLoading(false);
-    } catch (err) {
-      console.warn('Cannot get images from server');
     }
-  }, []);
-
-  useEffect(async () => {
-    setCurrentLessons(
-      lessons.filter(
-        (lesson) =>
-          (lesson.subject === 'Русский язык' && !checked) ||
-          (lesson.subject === 'Литература' && checked)
-      )
-    );
+    fetchData();
   }, [checked]);
 
   const lessonsBlock = (

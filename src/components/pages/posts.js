@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Md from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
-import RouteWithSubRoutes from '../../routes/routes-with-sub-routes';
 
 import api from '../../api';
 
@@ -20,7 +18,7 @@ function PostsPage({ routes }) {
   const RE = /\/posts\/?([0-9]+)(?:\/.*)?/i;
   const $matchPathname = pathname.match(RE);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const textareaHandler = (e) => {
     e.preventDefault();
@@ -36,7 +34,7 @@ function PostsPage({ routes }) {
 
     try {
       await api.sendPost(text);
-      history.push('/admin');
+      navigate('/admin');
     } catch (err) {
       toast.warn(err.response.data, {
         position: 'top-right',
@@ -50,9 +48,7 @@ function PostsPage({ routes }) {
     }
   };
 
-  const postsBlock = $matchPathname ? (
-    routes.map((route) => <RouteWithSubRoutes {...route} key={route.path} />)
-  ) : (
+  const postsBlock = (
     <>
       <Row className='markdown-post mb-2'>
         <Col>
@@ -74,7 +70,6 @@ function PostsPage({ routes }) {
       </Button>
     </>
   );
-
   return (
     <Container fluid className='mt-2 mb-5'>
       <ToastContainer

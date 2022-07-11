@@ -10,42 +10,45 @@ function EighteenSchoolPage() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [images, setImages] = useState([]);
 
-  useEffect(async () => {
-    try {
-      const response = await api.getEighteenSchool();
-      const { data: images } = response;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await api.getEighteenSchool();
+        const { data: images } = response;
 
-      const imagePromises = images.map((image, idx) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = function () {
-            const nod = getNod(this.width, this.height);
-            resolve({
-              ...image,
-              src: image.location,
-              width: this.width / nod,
-              height: this.height / nod,
-              idx,
-            });
-          };
-          img.onerror = () => {
-            resolve({
-              src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
-              width: 3,
-              height: 2,
-              idx,
-            });
-          };
-          img.src = image.location;
+        const imagePromises = images.map((image, idx) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = function () {
+              const nod = getNod(this.width, this.height);
+              resolve({
+                ...image,
+                src: image.location,
+                width: this.width / nod,
+                height: this.height / nod,
+                idx,
+              });
+            };
+            img.onerror = () => {
+              resolve({
+                src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
+                width: 3,
+                height: 2,
+                idx,
+              });
+            };
+            img.src = image.location;
+          });
         });
-      });
 
-      const transformImages = await Promise.all(imagePromises);
+        const transformImages = await Promise.all(imagePromises);
 
-      setImages(transformImages);
-    } catch (err) {
-      console.warn('Cannot get images from server');
+        setImages(transformImages);
+      } catch (err) {
+        console.warn('Cannot get images from server');
+      }
     }
+    fetchData();
   }, []);
 
   const imagesBlock =

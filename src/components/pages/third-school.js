@@ -11,15 +11,18 @@ function ThirdSchoolPage() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(async () => {
-    try {
-      await getImages();
-    } catch (err) {
-      console.warn('Cannot get images from server');
-    } finally {
-      // todo: Add progress bar
-      setIsLoading(false);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        await getImages();
+      } catch (err) {
+        console.warn('Cannot get images from server');
+      } finally {
+        // todo: Add progress bar
+        setIsLoading(false);
+      }
     }
+    fetchData();
   }, []);
 
   async function getImages() {

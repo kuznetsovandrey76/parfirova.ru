@@ -14,43 +14,46 @@ function GalleryPage() {
   const [content, setContent] = useState(null);
   const [img, setImg] = useState(null);
 
-  useEffect(async () => {
-    try {
-      const response = await api.getGallery();
-      const { data: images } = response;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await api.getGallery();
+        const { data: images } = response;
 
-      const imagePromises = images.map((image, idx) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.onload = function () {
-            const nod = getNod(this.width, this.height);
-            resolve({
-              ...image,
-              width: this.width / nod,
-              height: this.height / nod,
-              // custom attr
-              idx,
-            });
-          };
-          img.onerror = () => {
-            // todo: Image not found
-            resolve({
-              src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
-              width: 3,
-              height: 2,
-              idx,
-            });
-          };
-          img.src = image.src;
+        const imagePromises = images.map((image, idx) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = function () {
+              const nod = getNod(this.width, this.height);
+              resolve({
+                ...image,
+                width: this.width / nod,
+                height: this.height / nod,
+                // custom attr
+                idx,
+              });
+            };
+            img.onerror = () => {
+              // todo: Image not found
+              resolve({
+                src: 'https://storage.yandexcloud.net/parfirova.ru/const/not-found.jpg',
+                width: 3,
+                height: 2,
+                idx,
+              });
+            };
+            img.src = image.src;
+          });
         });
-      });
 
-      const transformImages = await Promise.all(imagePromises);
+        const transformImages = await Promise.all(imagePromises);
 
-      setImages(transformImages);
-    } catch (err) {
-      console.warn('Cannot get images from server');
+        setImages(transformImages);
+      } catch (err) {
+        console.warn('Cannot get images from server');
+      }
     }
+    fetchData();
   }, []);
 
   const dropzoneRef = createRef();
