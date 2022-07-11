@@ -89,6 +89,15 @@ class Api {
     });
   };
 
+  testGalleryMultiple = async (files) => {
+    // console.log(file);
+    await this.client.post('gallery/', files, {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+  };
+
   getPosts = async () => await this.client('posts/');
   getPost = async (id) => await this.client(`posts/${id}`);
   sendPost = async (text) => await this.client.post('posts/', { text });
