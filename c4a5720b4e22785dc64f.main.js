@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 312:
+/***/ 2511:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -1995,28 +1995,28 @@ function lessonsPage() {
 }
 
 /* harmony default export */ var pages_lessons = (lessonsPage);
-;// CONCATENATED MODULE: ./src/components/pages/18school.js
-function _18school_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+;// CONCATENATED MODULE: ./src/components/pages/18-school.js
+function _18_school_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _18school_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? _18school_ownKeys(Object(source), !0).forEach(function (key) { _18school_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : _18school_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _18_school_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? _18_school_ownKeys(Object(source), !0).forEach(function (key) { _18_school_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : _18_school_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
-function _18school_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _18_school_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _18school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _18_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-function _18school_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { _18school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { _18school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _18_school_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { _18_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { _18_school_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _18school_slicedToArray(arr, i) { return _18school_arrayWithHoles(arr) || _18school_iterableToArrayLimit(arr, i) || _18school_unsupportedIterableToArray(arr, i) || _18school_nonIterableRest(); }
+function _18_school_slicedToArray(arr, i) { return _18_school_arrayWithHoles(arr) || _18_school_iterableToArrayLimit(arr, i) || _18_school_unsupportedIterableToArray(arr, i) || _18_school_nonIterableRest(); }
 
-function _18school_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _18_school_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _18school_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _18school_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _18school_arrayLikeToArray(o, minLen); }
+function _18_school_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _18_school_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _18_school_arrayLikeToArray(o, minLen); }
 
-function _18school_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _18_school_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _18school_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _18_school_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _18school_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _18_school_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -2027,17 +2027,17 @@ function _18school_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function EighteenSchoolPage() {
   var _useState = (0,react.useState)(false),
-      _useState2 = _18school_slicedToArray(_useState, 2),
+      _useState2 = _18_school_slicedToArray(_useState, 2),
       isOpen = _useState2[0],
       setIsOpen = _useState2[1];
 
   var _useState3 = (0,react.useState)(0),
-      _useState4 = _18school_slicedToArray(_useState3, 2),
+      _useState4 = _18_school_slicedToArray(_useState3, 2),
       photoIndex = _useState4[0],
       setPhotoIndex = _useState4[1];
 
   var _useState5 = (0,react.useState)([]),
-      _useState6 = _18school_slicedToArray(_useState5, 2),
+      _useState6 = _18_school_slicedToArray(_useState5, 2),
       images = _useState6[0],
       setImages = _useState6[1];
 
@@ -2047,7 +2047,7 @@ function EighteenSchoolPage() {
     }
 
     function _fetchData() {
-      _fetchData = _18school_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      _fetchData = _18_school_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         var response, _images, imagePromises, transformImages;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -2067,7 +2067,7 @@ function EighteenSchoolPage() {
 
                     img.onload = function () {
                       var nod = get_nod(this.width, this.height);
-                      resolve(_18school_objectSpread(_18school_objectSpread({}, image), {}, {
+                      resolve(_18_school_objectSpread(_18_school_objectSpread({}, image), {}, {
                         src: image.location,
                         width: this.width / nod,
                         height: this.height / nod,
@@ -2142,7 +2142,7 @@ function EighteenSchoolPage() {
   }), imagesBlock);
 }
 
-/* harmony default export */ var _18school = (EighteenSchoolPage);
+/* harmony default export */ var _18_school = (EighteenSchoolPage);
 ;// CONCATENATED MODULE: ./src/components/pages/third-school.js
 function third_school_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -2365,7 +2365,7 @@ var pages = [{
   element: /*#__PURE__*/react.createElement(pages_5th_grade, null)
 }, {
   path: '/eighteen-school',
-  element: /*#__PURE__*/react.createElement(_18school, null)
+  element: /*#__PURE__*/react.createElement(_18_school, null)
 }, {
   path: '/third-school',
   element: /*#__PURE__*/react.createElement(third_school, null)
@@ -3834,7 +3834,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "6ec4cea83f355e5fec79"; }
+/******/ 		__webpack_require__.h = function() { return "c4a5720b4e22785dc64f"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -4929,7 +4929,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [333], function() { return __webpack_require__(312); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [333], function() { return __webpack_require__(2511); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
