@@ -1,4 +1,4 @@
-import api from '../../api';
+import api from '@api';
 
 export default async function () {
   const refreshToken = localStorage.getItem('refreshToken');

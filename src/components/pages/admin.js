@@ -3,7 +3,7 @@ import { Container, Form, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { checkAuth } from '../helpers';
-import api from '../../api';
+import api from '@api';
 
 function AdminPage() {
   const [login, setLogin] = useState('');

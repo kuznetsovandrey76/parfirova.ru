@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import api from '../../api';
+import api from '@api';
 
 function CoursePage() {
   const [isOpen, setIsOpen] = useState(false);

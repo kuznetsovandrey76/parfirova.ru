@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
-import api from '../../api';
+import api from '@api';
 import './lessons.css';
 
 function lessonsPage() {

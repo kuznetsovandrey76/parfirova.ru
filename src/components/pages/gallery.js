@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import { useDropzone } from 'react-dropzone';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
-import api from '../../api';
+import api from '@api';
 import { getNod } from '../utils';
 import Gallery from 'react-photo-gallery';
 import axios from 'axios';

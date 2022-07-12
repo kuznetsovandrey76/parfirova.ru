@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { LinkContainer as Link } from 'react-router-bootstrap';
 import { checkAuth } from '../helpers';
-import { LoginSvg } from '../../assets/svg';
+import { LoginSvg } from '@assets/svg';
 
 import './header.css';
 

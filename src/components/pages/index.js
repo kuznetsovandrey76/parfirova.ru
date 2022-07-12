@@ -8,7 +8,7 @@ import GalleryPage from './gallery';
 import FiveGradePage from './5th-grade';
 import PostsPage from './posts';
 import LessonsPage from './lessons';
-import EighteenSchoolPage from './18school';
+import EighteenSchoolPage from './18-school';
 import ThirdSchoolPage from './third-school';
 
 const pages = [

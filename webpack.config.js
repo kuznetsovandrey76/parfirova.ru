@@ -3,23 +3,28 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, args) => {
   const { mode } = args;
-  const API_URL = mode === 'development' ? 'http://localhost:3000/' : 'https://parfirova.herokuapp.com/';
+  const API_URL =
+    mode === 'development' ? 'http://localhost:3000/' : 'https://parfirova.herokuapp.com/';
 
   return {
     entry: path.resolve(__dirname, './src/index.js'),
     output: {
-      filename: "[fullhash].[name].js",
+      filename: '[fullhash].[name].js',
       path: path.resolve(__dirname, 'build'),
       chunkFilename: '[id].[chunkhash].js',
-      publicPath: "/"
+      publicPath: '/',
     },
     resolve: {
-      extensions: ['.js', '.json', '.css']
+      extensions: ['.js', '.json', '.css'],
+      alias: {
+        '@api': path.join(__dirname, './src/api'),
+        '@assets': path.join(__dirname, './src/assets'),
+      },
     },
     module: {
       rules: [
@@ -45,9 +50,9 @@ module.exports = (env, args) => {
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
-          'API_URL': JSON.stringify(API_URL),
-        }
-      })
+          API_URL: JSON.stringify(API_URL),
+        },
+      }),
     ],
     devServer: {
       client: {
@@ -64,12 +69,14 @@ module.exports = (env, args) => {
     // this can be removed
     optimization: {
       minimize: true,
-      minimizer: [new UglifyJsPlugin({
-        include: /\.min\.js$/
-      })],
+      minimizer: [
+        new UglifyJsPlugin({
+          include: /\.min\.js$/,
+        }),
+      ],
       splitChunks: {
         chunks: 'all',
       },
     },
-  }
+  };
 };

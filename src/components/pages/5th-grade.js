@@ -8,7 +8,7 @@ import useDrag from '../shared/useDrag';
 
 import Switch from 'react-switch';
 
-import api from '../../api';
+import api from '@api';
 
 import './5th-grade.css';
 

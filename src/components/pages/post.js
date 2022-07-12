@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Md from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import api from '../../api';
+import api from '@api';
 
 import './post.css';
 
