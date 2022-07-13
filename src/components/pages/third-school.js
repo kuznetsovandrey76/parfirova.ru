@@ -73,8 +73,8 @@ function ThirdSchoolPage() {
     ) : null;
 
   return (
-    <Container fluid className='mt-2 mb-5 text-center'>
-      <h2>3 школа, Ростов Великий</h2>
+    <>
+      <h2>3 школа, Ростов</h2>
       {isLoading ? (
         <Spinner animation='border' variant='danger' />
       ) : (
@@ -90,7 +90,7 @@ function ThirdSchoolPage() {
           {imagesBlock}
         </>
       )}
-    </Container>
+    </>
   );
 }
 

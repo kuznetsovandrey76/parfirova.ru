@@ -27,7 +27,6 @@ function Header() {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title />
         </Offcanvas.Header>
-        {/* <Offcanvas.Header closeButton /> */}
         <Offcanvas.Body>
           <Nav className='me-auto'>
             <Link to='/'>

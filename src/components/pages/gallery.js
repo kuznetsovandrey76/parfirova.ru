@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createRef, useMemo } from 'react';
-import Dropzone from 'react-dropzone';
-import { useDropzone } from 'react-dropzone';
+import Dropzone, { useDropzone } from 'react-dropzone';
 import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import api from '@api';
@@ -60,7 +59,7 @@ function GalleryPage() {
 
   const dropzoneRef = createRef();
   const openDialog = (files) => {
-    console.log(222, files)
+    console.log(222, files);
     // Note that the ref is set async,
     // so it might be null at some point
     if (dropzoneRef.current) {
@@ -69,11 +68,11 @@ function GalleryPage() {
   };
 
   const sendFiles = async (files, getInputProps) => {
-    console.log(123, files, getInputProps())
+    console.log(123, files, files.length, getInputProps());
     const formData = new FormData();
     files.forEach((file) => {
       formData.append('file', file);
-    })
+    });
 
     // formData.append('file', files);
 
@@ -81,7 +80,7 @@ function GalleryPage() {
   };
 
   const test = (files, getInputProps) => {
-    console.log(99999, files, getInputProps())
+    console.log(99999, files, getInputProps());
   };
 
   const uploadFile = async () => {
@@ -90,7 +89,6 @@ function GalleryPage() {
 
     await api.testGallery(formData);
   };
-
 
   const baseStyle = {
     flex: 1,
@@ -105,63 +103,53 @@ function GalleryPage() {
     backgroundColor: '#fafafa',
     color: '#bdbdbd',
     outline: 'none',
-    transition: 'border .24s ease-in-out'
+    transition: 'border .24s ease-in-out',
   };
 
   const focusedStyle = {
-    borderColor: '#2196f3'
+    borderColor: '#2196f3',
   };
 
   const acceptStyle = {
-    borderColor: '#00e676'
+    borderColor: '#00e676',
   };
 
   const rejectStyle = {
-    borderColor: '#ff1744'
+    borderColor: '#ff1744',
   };
 
-  const {
-    getRootProps,
-    getInputProps,
-    isFocused,
-    isDragAccept,
-    isDragReject
-  } = useDropzone({accept: {'image/*': []}});
+  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
+    accept: { 'image/*': [] },
+  });
 
-  const style = useMemo(() => ({
-    ...baseStyle,
-    ...(isFocused ? focusedStyle : {}),
-    ...(isDragAccept ? acceptStyle : {}),
-    ...(isDragReject ? rejectStyle : {})
-  }), [
-    isFocused,
-    isDragAccept,
-    isDragReject
-  ]);
-
-  function StyledDropzone(props) {
-    const {
-      getRootProps,
-      getInputProps,
-      isFocused,
-      isDragAccept,
-      isDragReject
-    } = useDropzone({accept: {'image/*': []}});
-
-    const style = useMemo(() => ({
+  const style = useMemo(
+    () => ({
       ...baseStyle,
       ...(isFocused ? focusedStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {})
-    }), [
-      isFocused,
-      isDragAccept,
-      isDragReject
-    ]);
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isFocused, isDragAccept, isDragReject]
+  );
+
+  function StyledDropzone(props) {
+    const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
+      accept: { 'image/*': [] },
+    });
+
+    const style = useMemo(
+      () => ({
+        ...baseStyle,
+        ...(isFocused ? focusedStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {}),
+      }),
+      [isFocused, isDragAccept, isDragReject]
+    );
 
     return (
-      <div className="container">
-        <div {...getRootProps({style})}>
+      <div className='container'>
+        <div {...getRootProps({ style })}>
           <input {...getInputProps()} />
           <p>Drag 'n' drop some files here, or click to select files</p>
         </div>
@@ -186,22 +174,23 @@ function GalleryPage() {
   return (
     <Container fluid className='mt-2 mb-5 text-center'>
       <h2>Галерея:</h2>
-      { /* https://react-dropzone.js.org/#src */ }
+      {/* https://react-dropzone.js.org/#src */}
       {/*<StyledDropzone />*/}
       <Dropzone ref={dropzoneRef} noKeyboard>
-      {/*<Dropzone ref={dropzoneRef} noClick noKeyboard>*/}
+        {/*<Dropzone ref={dropzoneRef} noClick noKeyboard>*/}
         {({ getRootProps, getInputProps, acceptedFiles }) => {
+          console.log({ acceptedFiles });
           return (
             <div className='container'>
-              <div { ...getRootProps({ style }) }>
-              {/*<div {...getRootProps({ className: 'dropzone' })}>*/}
+              <div {...getRootProps({ style })}>
+                {/*<div {...getRootProps({ className: 'dropzone' })}>*/}
                 {/*<input*/}
                 {/*  {...getInputProps()}*/}
                 {/*  onChange={() => test()}*/}
                 {/*/>*/}
                 {/*<p>Перетяните файлы сюда</p>*/}
                 <input {...getInputProps()} />
-                <p className="mb-0">Перетащите сюда фотографии</p>
+                <p className='mb-0'>Перетащите сюда фотографии</p>
                 {/*<button type='button' onClick={() => openDialog(acceptedFiles)}>*/}
                 {/*   Выберите файлы*/}
                 {/*</button>*/}
@@ -215,7 +204,11 @@ function GalleryPage() {
                     </li>
                   ))}
                 </ul>
-                <button type='button' onClick={() => sendFiles(acceptedFiles, getInputProps)}>
+                <button
+                  type='button'
+                  disabled={!acceptedFiles.length}
+                  onClick={() => sendFiles(acceptedFiles, getInputProps)}
+                >
                   Отправить файлы
                 </button>
               </aside>

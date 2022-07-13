@@ -66,8 +66,8 @@ function EighteenSchoolPage() {
     ) : null;
 
   return (
-    <Container fluid className='mt-2 mb-5 text-center'>
-      <h2>18 школа</h2>
+    <>
+      <h2>18 школа, Ярославль</h2>
       <Gallery
         photos={images}
         direction={'row'}
@@ -77,7 +77,7 @@ function EighteenSchoolPage() {
         }}
       />
       {imagesBlock}
-    </Container>
+    </>
   );
 }
 
