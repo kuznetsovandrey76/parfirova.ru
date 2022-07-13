@@ -939,9 +939,9 @@ function Services() {
   };
 
   (0,react.useEffect)(function () {
-    var listener = function listener(e) {
-      setIsOpen(!!e.path[1].getAttribute('data-items'));
-    };
+    function listener(e) {
+      setIsOpen(!!e.target.getAttribute('data-items'));
+    }
 
     document.body.addEventListener('click', listener);
     document.body.addEventListener('touchstart', listener);
@@ -965,9 +965,11 @@ function Services() {
         return clickHandler(items);
       }
     }, /*#__PURE__*/react.createElement("img", {
+      "data-items": items ? 'true' : '',
       src: logo,
       className: "services-item__image"
     }), /*#__PURE__*/react.createElement("p", {
+      "data-items": items ? 'true' : '',
       className: "services-item__text"
     }, title));
   };
@@ -4081,7 +4083,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "b9f0c49708b81e82ae79"; }
+/******/ 		__webpack_require__.h = function() { return "10f161069e1090f8c4ea"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
