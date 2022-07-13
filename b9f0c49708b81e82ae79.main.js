@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 1965:
+/***/ 6803:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 
@@ -20,8 +20,6 @@ var react_router = __webpack_require__(6974);
 var Button = __webpack_require__(1945);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Form.js + 15 modules
 var Form = __webpack_require__(7833);
-// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Container.js
-var Container = __webpack_require__(682);
 // EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Spinner.js
 var Spinner = __webpack_require__(6968);
 // EXTERNAL MODULE: ./node_modules/react-toastify/dist/react-toastify.esm.js + 1 modules
@@ -682,10 +680,7 @@ function AdminPage() {
     variant: "primary",
     type: "submit"
   }, "Submit"));
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5"
-  }, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, ' ', /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -708,6 +703,8 @@ var swiper_react = __webpack_require__(4017);
 var swiper_esm = __webpack_require__(9257);
 // EXTERNAL MODULE: ./node_modules/ymaps/dist/ymaps.esm.js
 var ymaps_esm = __webpack_require__(7669);
+// EXTERNAL MODULE: ./node_modules/react-bootstrap/esm/Container.js
+var Container = __webpack_require__(682);
 ;// CONCATENATED MODULE: ./src/components/shared/wrapper.js
 
 
@@ -742,7 +739,10 @@ var react_router_bootstrap = __webpack_require__(1917);
 /* harmony default export */ var home = (__webpack_require__.p + "60a8b78f660534fc07374b19d887f097.svg");
 ;// CONCATENATED MODULE: ./src/assets/svg/pupil.svg
 /* harmony default export */ var pupil = (__webpack_require__.p + "0a003b26f76fb100c9f27f2ee603ab59.svg");
+;// CONCATENATED MODULE: ./src/assets/svg/teacher.svg
+/* harmony default export */ var teacher = (__webpack_require__.p + "51b85bf8b29e6d2678f7d9e9adb949b9.svg");
 ;// CONCATENATED MODULE: ./src/assets/svg/index.js
+
 
 
 
@@ -869,15 +869,15 @@ var urls = [{
   }]
 }, {
   to: '/5th-grade',
-  logo: pupil,
+  logo: teacher,
   title: 'Ученикам',
   items: [{
     to: '/5th-grade',
-    logo: pupil,
+    logo: teacher,
     title: '5 класс'
   }, {
     to: '/5th-grade',
-    logo: pupil,
+    logo: teacher,
     title: '6 класс'
   }]
 }, {
@@ -899,7 +899,7 @@ var urls = [{
   }]
 }, {
   to: '/about',
-  logo: home,
+  logo: pupil,
   title: 'Обо мне'
 }];
 /* harmony default export */ var nav_urls = (urls);
@@ -1113,7 +1113,6 @@ var pages_home = __webpack_require__(3245);
 
 
 
-
  // ymaps
 //   .load()
 //   .then((maps) => {
@@ -1144,10 +1143,7 @@ var pages_home = __webpack_require__(3245);
 
 
 function HomePage() {
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement(swiper_react/* Swiper */.tq, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(swiper_react/* Swiper */.tq, {
     slidesPerView: 1,
     spaceBetween: 30,
     keyboard: {
@@ -1193,7 +1189,6 @@ function courses_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 function courses_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function courses_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1256,10 +1251,7 @@ function CoursePage() {
 
     fetchData();
   }, []);
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("p", null, "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043D\u044B\u0435 \u043A\u0443\u0440\u0441\u044B:"), /*#__PURE__*/react.createElement("button", {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("p", null, "\u041F\u0440\u043E\u0439\u0434\u0435\u043D\u043D\u044B\u0435 \u043A\u0443\u0440\u0441\u044B:"), /*#__PURE__*/react.createElement("button", {
     type: "button",
     onClick: function onClick() {
       return setIsOpen(true);
@@ -1345,7 +1337,6 @@ function gallery_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 function gallery_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function gallery_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1606,10 +1597,7 @@ function GalleryPage() {
       return setPhotoIndex((photoIndex + 1) % images.length);
     }
   }) : null;
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5 text-center"
-  }, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement(es/* default */.ZP, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h2", null, "\u0413\u0430\u043B\u0435\u0440\u0435\u044F:"), /*#__PURE__*/react.createElement(es/* default */.ZP, {
     ref: dropzoneRef,
     noKeyboard: true
   }, function (_ref3) {
@@ -2007,10 +1995,7 @@ function FiveGradePage() {
       key: id
     }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, "\u0422\u0435\u043C\u0430: ", lesson.title), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, null, lesson.subject), /*#__PURE__*/react.createElement(Card/* default.Text */.Z.Text, null, lesson.description))));
   }));
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5"
-  }, /*#__PURE__*/react.createElement("div", {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     onMouseLeave: dragStop,
     className: "mb-3"
   }, /*#__PURE__*/react.createElement(index_umd.ScrollMenu // LeftArrow={LeftArrow}
@@ -2217,10 +2202,7 @@ function PostsPage(_ref) {
     onClick: handleSubmit,
     disabled: true
   }, "Send Post"));
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5"
-  }, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -2337,10 +2319,7 @@ function lessonsPage() {
     };
   }();
 
-  return /*#__PURE__*/react.createElement(Container/* default */.Z, {
-    fluid: true,
-    className: "mt-2 mb-5"
-  }, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(react_toastify_esm/* ToastContainer */.Ix, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -2407,7 +2386,6 @@ function _18_school_arrayLikeToArray(arr, len) { if (len == null || len > arr.le
 function _18_school_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _18_school_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -4103,7 +4081,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "942e097db33ca1964bc7"; }
+/******/ 		__webpack_require__.h = function() { return "b9f0c49708b81e82ae79"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -5198,7 +5176,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [460], function() { return __webpack_require__(1965); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [460], function() { return __webpack_require__(6803); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
