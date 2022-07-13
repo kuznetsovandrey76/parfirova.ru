@@ -1,4 +1,4 @@
-import { PupilSvg, AchievementSvg, HomeSvg, GallerySvg } from '@assets/svg';
+import { PupilSvg, AchievementSvg, HomeSvg, GallerySvg, TeacherSvg } from '@assets/svg';
 
 const urls = [
   {
@@ -30,17 +30,17 @@ const urls = [
   },
   {
     to: '/5th-grade',
-    logo: PupilSvg,
+    logo: TeacherSvg,
     title: 'Ученикам',
     items: [
       {
         to: '/5th-grade',
-        logo: PupilSvg,
+        logo: TeacherSvg,
         title: '5 класс',
       },
       {
         to: '/5th-grade',
-        logo: PupilSvg,
+        logo: TeacherSvg,
         title: '6 класс',
       },
     ],
@@ -57,7 +57,7 @@ const urls = [
   },
   {
     to: '/about',
-    logo: HomeSvg,
+    logo: PupilSvg,
     title: 'Обо мне',
   },
 ];

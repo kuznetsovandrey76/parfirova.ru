@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import api from '@api';
 
@@ -24,7 +23,7 @@ function CoursePage() {
   }, []);
 
   return (
-    <Container fluid className='mt-2 mb-5 text-center'>
+    <>
       <p>Пройденные курсы:</p>
       <button type='button' onClick={() => setIsOpen(true)}>
         Показать изображения
@@ -41,7 +40,7 @@ function CoursePage() {
           onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
         />
       )}
-    </Container>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createRef } from 'react';
-import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import api from '@api';
 import { getNod } from '../utils';

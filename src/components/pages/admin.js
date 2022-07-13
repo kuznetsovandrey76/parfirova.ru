@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Spinner } from 'react-bootstrap';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { checkAuth } from '../helpers';
@@ -89,7 +89,8 @@ function AdminPage() {
   );
 
   return (
-    <Container fluid className='mt-2 mb-5'>
+    <>
+      {' '}
       <ToastContainer
         position='top-right'
         autoClose={5000}
@@ -102,7 +103,7 @@ function AdminPage() {
         pauseOnHover
       />
       {isLoading ? <Spinner animation='border' variant='danger' /> : authBlock}
-    </Container>
+    </>
   );
 }
 

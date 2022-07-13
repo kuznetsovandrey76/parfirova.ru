@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createRef, useMemo } from 'react';
 import Dropzone, { useDropzone } from 'react-dropzone';
-import { Container } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import api from '@api';
 import { getNod } from '../utils';
@@ -172,7 +171,7 @@ function GalleryPage() {
     ) : null;
 
   return (
-    <Container fluid className='mt-2 mb-5 text-center'>
+    <>
       <h2>Галерея:</h2>
       {/* https://react-dropzone.js.org/#src */}
       {/*<StyledDropzone />*/}
@@ -245,7 +244,7 @@ function GalleryPage() {
       {/*  }}*/}
       {/*/>*/}
       {/*{imagesBlock}*/}
-    </Container>
+    </>
   );
 }
 

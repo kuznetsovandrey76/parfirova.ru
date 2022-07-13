@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
 import api from '@api';
@@ -54,7 +54,7 @@ function lessonsPage() {
   };
 
   return (
-    <Container fluid className='mt-2 mb-5'>
+    <>
       <ToastContainer
         position='top-right'
         autoClose={5000}
@@ -109,7 +109,7 @@ function lessonsPage() {
       <Button className='my-3' variant='primary' onClick={handleSubmit}>
         Отправить
       </Button>
-    </Container>
+    </>
   );
 }
 

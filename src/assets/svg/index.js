@@ -6,5 +6,16 @@ import AchievementSvg from './achievement.svg';
 import GallerySvg from './gallery.svg';
 import HomeSvg from './home.svg';
 import PupilSvg from './pupil.svg';
+import TeacherSvg from './teacher.svg';
 
-export { ExcelSvg, LoginSvg, PpointSvg, WordSvg, AchievementSvg, GallerySvg, HomeSvg, PupilSvg };
+export {
+  ExcelSvg,
+  LoginSvg,
+  PpointSvg,
+  WordSvg,
+  AchievementSvg,
+  GallerySvg,
+  HomeSvg,
+  PupilSvg,
+  TeacherSvg,
+};

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Md from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -71,7 +71,7 @@ function PostsPage({ routes }) {
     </>
   );
   return (
-    <Container fluid className='mt-2 mb-5'>
+    <>
       <ToastContainer
         position='top-right'
         autoClose={5000}
@@ -84,7 +84,7 @@ function PostsPage({ routes }) {
         pauseOnHover
       />
       {postsBlock}
-    </Container>
+    </>
   );
 }
 
