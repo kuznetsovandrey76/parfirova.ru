@@ -18,11 +18,7 @@ export default function Services() {
       setIsOpen(!!e.target.getAttribute('data-items'));
     }
     document.body.addEventListener('click', listener);
-    document.body.addEventListener('touchstart', listener);
-    return () => {
-      document.body.removeEventListener('click', listener);
-      document.body.removeEventListener('touchstart', listener);
-    };
+    return () => document.body.removeEventListener('click', listener);
   }, []);
 
   const LinkBlock = ({ logo, title, to, items }) => {
@@ -45,7 +41,7 @@ export default function Services() {
   return (
     <>
       <div className='services-list'>{urls.map((url) => LinkBlock(url))}</div>
-      <div className={`${isOpen ? 'open' : 'hide'} services-list-popup`}>
+      <div data-items className={`${isOpen ? 'open' : 'hide'} services-list-popup`}>
         {popupUrls && popupUrls.map((item) => LinkBlock(item))}
       </div>
     </>
