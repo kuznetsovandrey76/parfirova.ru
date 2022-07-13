@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import urls from './nav-urls';
+import HelpSvg from '../../assets/svg/help.svg';
 
 import './nav.css';
 
@@ -14,24 +15,37 @@ export default function Services() {
   };
 
   useEffect(() => {
-    function listener(e) {
-      setIsOpen(!!e.target.getAttribute('data-items'));
+    function listener(event) {
+      let target = event.target;
+      while (target.tagName !== 'A' && target.tagName !== 'BODY') {
+        if (Boolean(target.getAttribute('data-nav-items'))) return setIsOpen(true);
+        target = target.parentNode;
+      }
+      return setIsOpen(false);
     }
     document.body.addEventListener('click', listener);
     return () => document.body.removeEventListener('click', listener);
   }, []);
 
-  const LinkBlock = ({ logo, title, to, items }) => {
+  const LinkBlock = ({ logo: svgFile, title, to, items }) => {
+    if (!items) {
+      return (
+        <Link to={to} key={title} className='services-item'>
+          {svgFile}
+          <p className='services-item__text'>{title}</p>
+        </Link>
+      );
+    }
     return (
       <Link
-        to={!items && to}
+        to={false}
         key={title}
-        data-items={items ? 'true' : ''}
+        data-nav-items
         className='services-item'
         onClick={() => clickHandler(items)}
       >
-        <img data-items={items ? 'true' : ''} src={logo} className='services-item__image' />
-        <p data-items={items ? 'true' : ''} className='services-item__text'>
+        {svgFile}
+        <p data-nav-items className='services-item__text'>
           {title}
         </p>
       </Link>
@@ -40,8 +54,11 @@ export default function Services() {
 
   return (
     <>
+      <div className='help-icon'>
+        <HelpSvg />
+      </div>
       <div className='services-list'>{urls.map((url) => LinkBlock(url))}</div>
-      <div data-items className={`${isOpen ? 'open' : 'hide'} services-list-popup`}>
+      <div data-nav-items className={`${isOpen ? 'open' : 'hide'} services-list-popup`}>
         {popupUrls && popupUrls.map((item) => LinkBlock(item))}
       </div>
     </>

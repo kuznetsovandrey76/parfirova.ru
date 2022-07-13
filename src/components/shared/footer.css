@@ -3,6 +3,7 @@
   text-align: center;
   margin: 0;
   padding: 0.5rem 0;
+  border-top: 1px solid lightgrey;
 }
 
 .footer-title {
@@ -20,7 +21,7 @@
 
 .footer-title h5:before,
 .footer-title h5:after {
-  content: "";
+  content: '';
   border-bottom: 1px solid lightgrey;
   width: 50%;
   position: absolute;

@@ -5,7 +5,7 @@ import api from '@api';
 
 import './footer.css';
 
-function Footer() {
+export default function Footer() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -45,6 +45,8 @@ function Footer() {
             <div className='footer-title'>
               <h5> Информация </h5>
               <a href='https://vk.com/parfirova.irina'>Вконтакте</a>
+              <br />
+              <Link to='/admin'>Личный кабинет</Link>
             </div>
           </Col>
         </Row>
@@ -55,5 +57,3 @@ function Footer() {
     </Container>
   );
 }
-
-export default Footer;

@@ -1,0 +1,11 @@
+.about-page {
+  text-align: left;
+}
+
+.about-page-quote {
+  text-align: right;
+}
+
+.about-page p {
+  text-indent: 1.5rem;
+}

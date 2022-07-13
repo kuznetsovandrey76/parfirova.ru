@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Spinner } from 'react-bootstrap';
+import { Card, Row, Col, Spinner, Container } from 'react-bootstrap';
 
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { LeftArrow, RightArrow } from '../shared/arrows';
@@ -98,7 +98,7 @@ function FiveGradePage() {
   );
 
   return (
-    <>
+    <Container>
       <div onMouseLeave={dragStop} className='mb-3'>
         <ScrollMenu
           // LeftArrow={LeftArrow}
@@ -173,7 +173,7 @@ function FiveGradePage() {
       </div>
       <hr />
       {isLoading ? <Spinner animation='border' variant='danger' /> : lessonsBlock}
-    </>
+    </Container>
   );
 }
 

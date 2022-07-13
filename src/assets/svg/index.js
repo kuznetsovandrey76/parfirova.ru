@@ -7,6 +7,7 @@ import GallerySvg from './gallery.svg';
 import HomeSvg from './home.svg';
 import PupilSvg from './pupil.svg';
 import TeacherSvg from './teacher.svg';
+import HelpSvg from './help.svg';
 
 export {
   ExcelSvg,
@@ -18,4 +19,5 @@ export {
   HomeSvg,
   PupilSvg,
   TeacherSvg,
+  HelpSvg,
 };

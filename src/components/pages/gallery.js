@@ -97,12 +97,14 @@ function GalleryPage() {
     padding: '20px',
     borderWidth: 2,
     borderRadius: 2,
-    borderColor: '#eeeeee',
+    borderColor: 'lightgrey',
     borderStyle: 'dashed',
     backgroundColor: '#fafafa',
-    color: '#bdbdbd',
+    color: 'grey',
     outline: 'none',
     transition: 'border .24s ease-in-out',
+    maxWidth: '600px',
+    margin: '0 auto',
   };
 
   const focusedStyle = {
@@ -136,16 +138,6 @@ function GalleryPage() {
       accept: { 'image/*': [] },
     });
 
-    const style = useMemo(
-      () => ({
-        ...baseStyle,
-        ...(isFocused ? focusedStyle : {}),
-        ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {}),
-      }),
-      [isFocused, isDragAccept, isDragReject]
-    );
-
     return (
       <div className='container'>
         <div {...getRootProps({ style })}>
@@ -175,7 +167,7 @@ function GalleryPage() {
       <h2>Галерея:</h2>
       {/* https://react-dropzone.js.org/#src */}
       {/*<StyledDropzone />*/}
-      <Dropzone ref={dropzoneRef} noKeyboard>
+      <Dropzone className='gallery-page-dropzone' ref={dropzoneRef} noKeyboard>
         {/*<Dropzone ref={dropzoneRef} noClick noKeyboard>*/}
         {({ getRootProps, getInputProps, acceptedFiles }) => {
           console.log({ acceptedFiles });

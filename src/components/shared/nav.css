@@ -56,3 +56,16 @@
 .hide {
   display: none;
 }
+
+.help-icon {
+  width: 30px;
+  z-index: 5;
+  right: 0;
+  position: absolute;
+  margin: 0 10px 0 auto;
+  cursor: pointer;
+}
+
+.help-icon:hover {
+  fill: tomato;
+}

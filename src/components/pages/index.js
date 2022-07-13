@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AboutPage from './about';
 import AdminPage from './admin';
 import HomePage from './home';
 import CoursesPage from './courses';
@@ -13,6 +14,7 @@ import ThirdSchoolPage from './third-school';
 
 const pages = [
   { path: '/', element: <HomePage /> },
+  { path: '/about', element: <AboutPage /> },
   { path: '/admin', element: <AdminPage /> },
   { path: '/posts', element: <PostsPage /> },
   { path: '/lessons', element: <LessonsPage /> },
