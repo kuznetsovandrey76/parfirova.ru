@@ -14,9 +14,9 @@ export default function Services() {
   };
 
   useEffect(() => {
-    const listener = (e) => {
-      setIsOpen(!!e.path[1].getAttribute('data-items'));
-    };
+    function listener(e) {
+      setIsOpen(!!e.target.getAttribute('data-items'));
+    }
     document.body.addEventListener('click', listener);
     document.body.addEventListener('touchstart', listener);
     return () => {
@@ -34,8 +34,10 @@ export default function Services() {
         className='services-item'
         onClick={() => clickHandler(items)}
       >
-        <img src={logo} className='services-item__image' />
-        <p className='services-item__text'>{title}</p>
+        <img data-items={items ? 'true' : ''} src={logo} className='services-item__image' />
+        <p data-items={items ? 'true' : ''} className='services-item__text'>
+          {title}
+        </p>
       </Link>
     );
   };
