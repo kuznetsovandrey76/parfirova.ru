@@ -944,10 +944,8 @@ function Services() {
     }
 
     document.body.addEventListener('click', listener);
-    document.body.addEventListener('touchstart', listener);
     return function () {
-      document.body.removeEventListener('click', listener);
-      document.body.removeEventListener('touchstart', listener);
+      return document.body.removeEventListener('click', listener);
     };
   }, []);
 
@@ -979,6 +977,7 @@ function Services() {
   }, nav_urls.map(function (url) {
     return LinkBlock(url);
   })), /*#__PURE__*/react.createElement("div", {
+    "data-items": true,
     className: "".concat(isOpen ? 'open' : 'hide', " services-list-popup")
   }, popupUrls && popupUrls.map(function (item) {
     return LinkBlock(item);
@@ -4083,7 +4082,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "10f161069e1090f8c4ea"; }
+/******/ 		__webpack_require__.h = function() { return "3a40d3b7c3b2aa5a3131"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
