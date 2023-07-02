@@ -63,7 +63,7 @@ module.exports = (env, args) => {
       },
       historyApiFallback: true,
       compress: true,
-      port: 8081,
+      port: 5050,
       hot: true,
     },
     // this can be removed
