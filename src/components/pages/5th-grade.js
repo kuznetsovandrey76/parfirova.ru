@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col, Container } from 'react-bootstrap';
-
 import './5th-grade.css';
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 // todo: Refactor :)
 const currentLessons = [{
@@ -10,6 +10,10 @@ const currentLessons = [{
   description: 'https://disk.yandex.ru/i/4APLe20d2_fAgQ',
   date: '18.03.2022'
 }]
+
+const docs = [
+  { uri: "https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/src/assets/pdf/file1.pdf" }, // Remote file
+];
 
 function FiveGradePage() {
 
@@ -39,6 +43,11 @@ function FiveGradePage() {
       </div>
       <hr />
       {lessonsBlock}
+      <DocViewer
+        documents={docs}
+        initialActiveDocument={docs[1]}
+        pluginRenderers={DocViewerRenderers}
+      />
     </Container>
   );
 }
