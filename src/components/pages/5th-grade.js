@@ -12,7 +12,7 @@ const currentLessons = [{
 }]
 
 const docs = [
-  { uri: "https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/src/assets/pdf/file1.pdf" }, // Remote file
+  { uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/lesson-1.pdf"}
 ];
 
 function FiveGradePage() {

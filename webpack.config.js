@@ -41,10 +41,6 @@ module.exports = (env, args) => {
           test: /\.svg$/,
           use: ['@svgr/webpack'],
         },
-        {
-          test: /\.pdf$/,
-          use: ['file-loader'],
-        },
       ],
     },
     plugins: [
@@ -69,6 +65,9 @@ module.exports = (env, args) => {
       compress: true,
       port: 5050,
       hot: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     },
     // this can be removed
     optimization: {
