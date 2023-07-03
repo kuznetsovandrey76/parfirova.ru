@@ -2361,9 +2361,8 @@ var currentLessons = [{
   date: '18.03.2022'
 }];
 var docs = [{
-  uri: "https://raw.githubusercontent.com/kuznetsovandrey76/parfirova.ru/master/src/assets/pdf/file1.pdf"
-} // Remote file
-];
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/lesson-1.pdf"
+}];
 
 function FiveGradePage() {
   var lessonsBlock = /*#__PURE__*/react.createElement(Row/* default */.Z, null, currentLessons.map(function (lesson, id) {
@@ -4595,7 +4594,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "0b03d57443b68352f109"; }
+/******/ 		__webpack_require__.h = function() { return "f2cc0ff0396733758c79"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
