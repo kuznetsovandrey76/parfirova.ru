@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4028:
+/***/ 1277:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1565,7 +1565,7 @@ var urls = [{
     title: 'Ученики'
   }]
 }, {
-  to: '/5th-grade',
+  to: '/grades',
   logo: wrap(teacher, true),
   title: 'Ученикам',
   items: [{
@@ -1573,9 +1573,13 @@ var urls = [{
     logo: wrap(teacher),
     title: '5 класс'
   }, {
-    to: '/5th-grade',
+    to: '/6th-grade',
     logo: wrap(teacher),
     title: '6 класс'
+  }, {
+    to: '/7th-grade',
+    logo: wrap(teacher),
+    title: '7 класс'
   }]
 }, {
   to: '/gallery',
@@ -2352,16 +2356,15 @@ var esm = __webpack_require__(9637);
 
 
 
- // todo: Refactor :)
 
 var currentLessons = [{
-  title: 'Урок по рассказу Александра Цыпкина "Томатный сок или повесть о женщине из другого времени"',
+  title: 'Урок. Виды глаголов',
   subject: 'Русский язык',
-  description: 'https://disk.yandex.ru/i/4APLe20d2_fAgQ',
+  description: 'https://disk.yandex.ru/i/YmBoSkzgoZqeCA',
   date: '18.03.2022'
 }];
 var docs = [{
-  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/lesson-1.pdf"
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%92%D0%B8%D0%B4%D1%8B%20%D0%B3%D0%BB%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2.pdf"
 }];
 
 function FiveGradePage() {
@@ -2389,6 +2392,107 @@ function FiveGradePage() {
 }
 
 /* harmony default export */ var pages_5th_grade = (FiveGradePage);
+;// CONCATENATED MODULE: ./src/components/pages/6th-grade.js
+
+
+
+
+var _6th_grade_currentLessons = [{
+  title: 'Урок. Окончание и основа слова',
+  subject: 'Русский язык',
+  description: 'https://disk.yandex.ru/i/iIXJ_FuUImntrw',
+  date: '07.02.2022'
+}, {
+  title: 'Урок «ШИРОКАЯ МАСЛЕНИЦА»',
+  subject: 'Литература',
+  description: 'https://disk.yandex.ru/i/RE2fHGjx4A7LVg',
+  date: '15.03.2022'
+}];
+var _6th_grade_docs = [{
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%9E%D0%BA%D0%BE%D0%BD%D1%87%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%20%D1%81%D0%BB%D0%BE%D0%B2%D0%B0.pdf"
+}, {
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%A8%D0%98%D0%A0%D0%9E%D0%9A%D0%90%D0%AF%20%D0%9C%D0%90%D0%A1%D0%9B%D0%95%D0%9D%D0%98%D0%A6%D0%90.pdf"
+}];
+
+function _6th_grade_FiveGradePage() {
+  var lessonsBlock = /*#__PURE__*/react.createElement(Row/* default */.Z, null, _6th_grade_currentLessons.map(function (lesson, id) {
+    return /*#__PURE__*/react.createElement(Col/* default */.Z, {
+      md: 6,
+      lg: 4,
+      className: "mb-3",
+      key: id
+    }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, lesson.subject), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, null, lesson.title), /*#__PURE__*/react.createElement("a", {
+      href: lesson.description,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u0441 Yandex Disk")), /*#__PURE__*/react.createElement(Card/* default.Footer */.Z.Footer, null, lesson.date)));
+  }));
+  return /*#__PURE__*/react.createElement(Container/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+    className: "d-flex mb-3"
+  }, /*#__PURE__*/react.createElement("h1", {
+    className: "d-inline-block me-3"
+  }, "6 \u043A\u043B\u0430\u0441\u0441")), /*#__PURE__*/react.createElement("hr", null), lessonsBlock, /*#__PURE__*/react.createElement(esm/* default */.ZP, {
+    documents: _6th_grade_docs,
+    initialActiveDocument: _6th_grade_docs[1],
+    pluginRenderers: esm/* DocViewerRenderers */.lX
+  }));
+}
+
+/* harmony default export */ var _6th_grade = (_6th_grade_FiveGradePage);
+;// CONCATENATED MODULE: ./src/components/pages/7th-grade.js
+
+
+
+
+var _7th_grade_currentLessons = [{
+  title: 'Урок по рассказу Александра Цыпкина "Томатный сок или повесть о женщине из другого времени"',
+  subject: 'Литература',
+  description: 'https://disk.yandex.ru/i/4APLe20d2_fAgQ',
+  date: '21.12.2022'
+}, {
+  title: 'Урок-размышление по рассказу Федора Александровича Абрамова "О чем плачут лошади"',
+  subject: 'Литература',
+  description: 'https://disk.yandex.ru/i/opl3RZ6M4OdWFg',
+  date: '14.05.2022'
+}, {
+  title: 'Урок. Слитное написание союзов ТОЖЕ, ТАКЖЕ, ЧТОБЫ, ЗАТО',
+  subject: 'Русский язык',
+  description: 'https://disk.yandex.ru/i/n8zMmX8vaVTrUQ',
+  date: '14.04.2022'
+}];
+var _7th_grade_docs = [{
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%A2%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%81%D0%BE%D0%BA%20%D0%B8%D0%BB%D0%B8%20%D0%BF%D0%BE%D0%B2%D0%B5%D1%81%D1%82%D1%8C%20%D0%BE%20%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B5%20%D0%B8%D0%B7%20%D0%B4%D1%80%D1%83%D0%B3%D0%BE%D0%B3%D0%BE%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8.pdf"
+}, {
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%A3%D1%80%D0%BE%D0%BA%20%D0%BE%20%D1%87%D0%B5%D0%BC%20%D0%BF%D0%BB%D0%B0%D1%87%D1%83%D1%82%20%D0%BB%D0%BE%D1%88%D0%B0%D0%B4%D0%B8.pdf"
+}, {
+  uri: "https://storage.yandexcloud.net/parfirova.ru/pdf/%D0%A1%D0%BB%D0%B8%D1%82%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%BE%D1%8E%D0%B7%D0%BE%D0%B2.pdf"
+}];
+
+function _7th_grade_FiveGradePage() {
+  var lessonsBlock = /*#__PURE__*/react.createElement(Row/* default */.Z, null, _7th_grade_currentLessons.map(function (lesson, id) {
+    return /*#__PURE__*/react.createElement(Col/* default */.Z, {
+      md: 6,
+      lg: 4,
+      className: "mb-3",
+      key: id
+    }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(Card/* default.Body */.Z.Body, null, /*#__PURE__*/react.createElement(Card/* default.Title */.Z.Title, null, lesson.subject), /*#__PURE__*/react.createElement(Card/* default.Subtitle */.Z.Subtitle, null, lesson.title), /*#__PURE__*/react.createElement("a", {
+      href: lesson.description,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u0441 Yandex Disk")), /*#__PURE__*/react.createElement(Card/* default.Footer */.Z.Footer, null, lesson.date)));
+  }));
+  return /*#__PURE__*/react.createElement(Container/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+    className: "d-flex mb-3"
+  }, /*#__PURE__*/react.createElement("h1", {
+    className: "d-inline-block me-3"
+  }, "7 \u043A\u043B\u0430\u0441\u0441")), /*#__PURE__*/react.createElement("hr", null), lessonsBlock, /*#__PURE__*/react.createElement(esm/* default */.ZP, {
+    documents: _7th_grade_docs,
+    initialActiveDocument: _7th_grade_docs[1],
+    pluginRenderers: esm/* DocViewerRenderers */.lX
+  }));
+}
+
+/* harmony default export */ var _7th_grade = (_7th_grade_FiveGradePage);
 // EXTERNAL MODULE: ./node_modules/react-markdown/lib/react-markdown.js + 114 modules
 var react_markdown = __webpack_require__(6025);
 // EXTERNAL MODULE: ./node_modules/remark-gfm/index.js + 28 modules
@@ -3005,6 +3109,8 @@ function ThirdSchoolPage() {
 
 
 
+
+
 var pages = [{
   path: '/',
   element: /*#__PURE__*/react.createElement(components_pages_home, null)
@@ -3029,6 +3135,12 @@ var pages = [{
 }, {
   path: '/5th-grade',
   element: /*#__PURE__*/react.createElement(pages_5th_grade, null)
+}, {
+  path: '/6th-grade',
+  element: /*#__PURE__*/react.createElement(_6th_grade, null)
+}, {
+  path: '/7th-grade',
+  element: /*#__PURE__*/react.createElement(_7th_grade, null)
 }, {
   path: '/eighteen-school',
   element: /*#__PURE__*/react.createElement(_18_school, null)
@@ -4594,7 +4706,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "8b3c213897c3b56b5a63"; }
+/******/ 		__webpack_require__.h = function() { return "fe2b84971ec3a6c6b311"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -5689,7 +5801,7 @@ module.exports = __webpack_require__.p + "71dc75de50cf2f7fc2ce.ttf";
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [118], function() { return __webpack_require__(4028); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [118], function() { return __webpack_require__(1277); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
