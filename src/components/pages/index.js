@@ -7,6 +7,8 @@ import CoursesPage from './courses';
 import NotFoundPage from './not-found';
 import GalleryPage from './gallery';
 import FiveGradePage from './5th-grade';
+import SixGradePage from './6th-grade';
+import SevenGradePage from './7th-grade';
 import PostsPage from './posts';
 import LessonsPage from './lessons';
 import EighteenSchoolPage from './18-school';
@@ -21,6 +23,8 @@ const pages = [
   { path: '/courses', element: <CoursesPage /> },
   { path: '/gallery', element: <GalleryPage /> },
   { path: '/5th-grade', element: <FiveGradePage /> },
+  { path: '/6th-grade', element: <SixGradePage /> },
+  { path: '/7th-grade', element: <SevenGradePage /> },
   { path: '/eighteen-school', element: <EighteenSchoolPage /> },
   { path: '/third-school', element: <ThirdSchoolPage /> },
   { path: '*', element: <NotFoundPage /> },

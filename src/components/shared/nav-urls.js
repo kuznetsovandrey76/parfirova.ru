@@ -40,7 +40,7 @@ const urls = [
     ],
   },
   {
-    to: '/5th-grade',
+    to: '/grades',
     logo: wrap(TeacherSvg, true),
     title: 'Ученикам',
     items: [
@@ -50,9 +50,14 @@ const urls = [
         title: '5 класс',
       },
       {
-        to: '/5th-grade',
+        to: '/6th-grade',
         logo: wrap(TeacherSvg),
         title: '6 класс',
+      },
+      {
+        to: '/7th-grade',
+        logo: wrap(TeacherSvg),
+        title: '7 класс',
       },
     ],
   },
